@@ -10,13 +10,13 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:theiatutorialextension.helloWorld"
+		"onCommand:theiatutorialextension.cloneRepo"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "theiatutorialextension.helloWorld",
+				"command": "theiatutorialextension.cloneRepo",
 				"title": "Hello World"
 			}
 		],
@@ -42,7 +42,7 @@
 		"viewsWelcome": [
 			{
 				"view": "theiaTutorial",
-				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.helloWorld)"
+				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo)"
 			}
 		]
 	},
