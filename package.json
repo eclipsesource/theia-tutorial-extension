@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:theiatutorialextension.cloneRepo"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
