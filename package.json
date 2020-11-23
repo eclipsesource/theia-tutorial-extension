@@ -19,6 +19,31 @@
 				"command": "theiatutorialextension.helloWorld",
 				"title": "Hello World"
 			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "theiaTutorial",
+					"title": "theiaTutorial",
+					"icon": "src/media/theiaLogo.svg"
+				}
+			]
+		},
+		"views": {
+			"theiaTutorial": [
+				{
+					"id": "theiaTutorial",
+					"name": "theiaTutorial",
+					"icon": "src/media/theiaLogo.svg",
+					"contextualTitle": "theiaTutorial"
+				}
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "theiaTutorial",
+				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.helloWorld)"
+			}
 		]
 	},
 	"scripts": {
