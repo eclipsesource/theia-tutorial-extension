@@ -1,9 +1,13 @@
 import * as vscode from 'vscode';
 import CLONEREPOCOMMAND from './Commands/CloneRepoCommand';
+import getDisplayContentCommand from './Commands/DisplayContentCommand';
 
 function initCommands (context: vscode.ExtensionContext) {
+	const DISPLAYCONTENTCOMMAND = getDisplayContentCommand(context)
+
 	const commands = [
-		CLONEREPOCOMMAND
+		CLONEREPOCOMMAND,
+		DISPLAYCONTENTCOMMAND
 	];
 
 	context.subscriptions.push(...commands);

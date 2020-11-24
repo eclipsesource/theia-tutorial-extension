@@ -17,7 +17,11 @@
 		"commands": [
 			{
 				"command": "theiatutorialextension.cloneRepo",
-				"title": "Hello World"
+				"title": "Clone Repo"
+			},
+			{
+				"command": "theiatutorialextension.displayContent",
+				"title": "Display Content"
 			}
 		],
 		"viewsContainers": {
