@@ -46,7 +46,7 @@
 		"viewsWelcome": [
 			{
 				"view": "theiaTutorial",
-				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo)"
+				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)"
 			}
 		]
 	},

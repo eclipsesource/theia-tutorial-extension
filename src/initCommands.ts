@@ -1,9 +1,11 @@
 import * as vscode from 'vscode';
 import CLONEREPOCOMMAND from './Commands/CloneRepoCommand';
+import EXECUTETESTSCOMMAND from './Commands/ExecuteTests';
 
-function initCommands (context: vscode.ExtensionContext) {
+function initCommands(context: vscode.ExtensionContext) {
 	const commands = [
-		CLONEREPOCOMMAND
+		CLONEREPOCOMMAND,
+		EXECUTETESTSCOMMAND
 	];
 
 	context.subscriptions.push(...commands);
