@@ -10,19 +10,43 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:theiatutorialextension.helloWorld",
-		"onCommand:theiatutorialextension.executeTests"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "theiatutorialextension.helloWorld",
+				"command": "theiatutorialextension.cloneRepo",
 				"title": "Hello World"
 			},
 			{
 				"command": "theiatutorialextension.executeTests",
 				"title": "Execute Tests"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "theiaTutorial",
+					"title": "theiaTutorial",
+					"icon": "src/media/theiaLogo.svg"
+				}
+			]
+		},
+		"views": {
+			"theiaTutorial": [
+				{
+					"id": "theiaTutorial",
+					"name": "theiaTutorial",
+					"icon": "src/media/theiaLogo.svg",
+					"contextualTitle": "theiaTutorial"
+				}
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "theiaTutorial",
+				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo)"
 			}
 		]
 	},
