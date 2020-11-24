@@ -2,6 +2,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import cloneRepo from './cloneRepo';
+var cmd = require('node-cmd');
+
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -14,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('theiatutorialextension.helloWorld', () => {
+	let disposable1 = vscode.commands.registerCommand('theiatutorialextension.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
 
 		const workspaceFolder: string = vscode.workspace.rootPath || '~';
@@ -27,8 +29,23 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('Cloning!');
 	});
 
-	context.subscriptions.push(disposable);
+	let disposable2 = vscode.commands.registerCommand('theiatutorialextension.executeTests', () => {
+		// The code you place here will be executed every time your command is executed
+
+		cmd.run(
+			`cd .\.tutorialRepo\tutorial1\
+	npm test`,
+			//@ts-ignore
+			function (err, data, stderr) {
+				let data2 = data;
+				console.log('test Result : ', data)
+			}
+		);
+	});
+
+	context.subscriptions.push(disposable1);
+	context.subscriptions.push(disposable2);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
