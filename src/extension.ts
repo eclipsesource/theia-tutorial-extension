@@ -3,9 +3,8 @@
 import * as vscode from 'vscode';
 import initCommands from './initCommands';
 
-const
-	io = require("socket.io"),
-	server = io.listen(3000);
+const server = require('http').createServer();
+const io = require('socket.io')(server);
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -18,18 +17,18 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 	//@ts-ignore
-	server.on("connection", (socket) => {
+	io.on("connection", (socket) => {
 		vscode.window.showInformationMessage("Client connected");
 		socket.on("join", () => {
 			vscode.window.showInformationMessage('client joined');
 		})
 	});
-
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 
 	initCommands(context);
+	server.listen(8000);
 }
 
 // this method is called when your extension is deactivated
