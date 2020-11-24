@@ -5,6 +5,11 @@ const getDisplayContentCommand = (context: vscode.ExtensionContext): vscode.Disp
   const DISPLAYCONTENTCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.displayContent', () => {
 
 
+    vscode.commands.executeCommand('vscode.setEditorLayout', {
+      orientation: 0,
+      groups: [{ size: 0.6 }, { size: 0.4 }],
+      })
+
     const panel = vscode.window.createWebviewPanel(
         'react', // Identifies the type of the webview. Used internally
         'Theia Tutorial', // Title of the panel displayed to the user
@@ -15,28 +20,41 @@ const getDisplayContentCommand = (context: vscode.ExtensionContext): vscode.Disp
         } // Webview options. More on these later.
       );
       let nextStep = false;
-
-      const checkCurrentState = () => {
-        vscode.window.showInformationMessage('Current State Checked')
-      }
+      let isStateChecked = false;
 
           // And set its HTML content
-          panel.webview.html = getWebviewContent(nextStep, checkCurrentState);
+          panel.webview.html = getWebviewContent(nextStep, isStateChecked);
 
       // Handle messages from the webview
       panel.webview.onDidReceiveMessage(
         message => {
           switch (message.command) {
             case 'nextStep':
-              vscode.window.showErrorMessage(message.value);
+              vscode.window.showInformationMessage('Next Step')
 
-              panel.webview.html = getWebviewContent(message.value, checkCurrentState);
+              nextStep = message.value;
+              panel.webview.html = getWebviewContent(nextStep, isStateChecked);
+              return;
+
+            case 'checkState':
+
+              if(message.value){
+                isStateChecked = message.value;
+                checkCurrentState();
+                panel.webview.html = getWebviewContent(nextStep, isStateChecked);
+              }
               return;
           }
         },
         undefined,
         context.subscriptions
       );
+
+
+      const checkCurrentState = () => {
+        vscode.window.showInformationMessage('Current State is checked')
+      }
+
 });
 
 return DISPLAYCONTENTCOMMAND;
@@ -44,7 +62,7 @@ return DISPLAYCONTENTCOMMAND;
 
 
 
-function getWebviewContent(nextStep: Boolean, checkCurrentState?: any) {
+function getWebviewContent(nextStep: Boolean, isStateChecked: Boolean) {
 
 
   return !nextStep ? 
@@ -59,13 +77,13 @@ function getWebviewContent(nextStep: Boolean, checkCurrentState?: any) {
 	<div style="display: flex; flex-direction: column">
 		<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width="300" />
     <button style="margin: 20px; width: fit-content" onclick="checkState()">Check the current state</button> 
-    <button style="margin: 20px; width: fit-content" onclick="goToNextStep()">Next Step</button> 
+    <button id="stateButton" style="margin: 20px; width: fit-content" onclick="goToNextStep()" disabled>Next Step</button> 
   </div>
   
   <script>
+  const vscode = acquireVsCodeApi();
 
   function goToNextStep(){
-      const vscode = acquireVsCodeApi();
 
       vscode.postMessage({
         command: 'nextStep',
@@ -75,12 +93,17 @@ function getWebviewContent(nextStep: Boolean, checkCurrentState?: any) {
 
 
   function checkState(){
-    const vscode = acquireVsCodeApi();
-    ${checkCurrentState()}
+
+    vscode.postMessage({
+      command: 'checkState',
+      value: true
+  })
+
+  document.getElementById("stateButton").disabled = false; 
+
 }
 
-</script>
-
+  </script>
   </body>
   </html>`
 
@@ -98,11 +121,6 @@ function getWebviewContent(nextStep: Boolean, checkCurrentState?: any) {
 		<img src="https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif" width="300" />
     <p style="margin: 20px; width: fit-content">Second Step !!!</p> 
   </div>
-  
-  <script>
-
-</script>
-
   </body>
   </html>`;
   }
