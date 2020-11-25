@@ -2,8 +2,6 @@ import * as vscode from 'vscode';
 const fs = require('fs');
 const path = require('path');
 
-const getDisplayContentCommand = (context: vscode.ExtensionContext): vscode.Disposable => {
-
   const DISPLAYCONTENTCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.displayContent', () => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
@@ -49,7 +47,7 @@ const getDisplayContentCommand = (context: vscode.ExtensionContext): vscode.Disp
         }
       },
       undefined,
-      context.subscriptions
+      // context.subscriptions
     );
 
 
@@ -60,8 +58,6 @@ const getDisplayContentCommand = (context: vscode.ExtensionContext): vscode.Disp
 
   });
 
-  return DISPLAYCONTENTCOMMAND;
-}
 
 
 
@@ -127,4 +123,4 @@ function getWebviewContent(nextStep: Boolean, isStateChecked: Boolean) {
 }
 
 
-export default getDisplayContentCommand;
+export default DISPLAYCONTENTCOMMAND;
