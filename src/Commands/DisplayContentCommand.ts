@@ -70,11 +70,13 @@ function getWebviewContent(nextStep: Boolean, isStateChecked: Boolean) {
   <head>
 	  <meta charset="UTF-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <title>Cat Coding</title>
+	  <title>Tutorial</title>
   </head>
   <body>
-	<div style="display: flex; flex-direction: column">
-		<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width="300" />
+  <div style="display: flex; flex-direction: column">
+    <h1>Welcome to the Theia Tutorial</h1>
+    <h4>Please do the following steps</h4>
+		<img src="https://cdn.discordapp.com/attachments/776068333124452376/781103263486967818/this.gif" width="100%" />
     <button style="margin: 20px; width: fit-content" onclick="checkState()">Check the current state</button> 
     <button id="stateButton" style="margin: 20px; width: fit-content" onclick="goToNextStep()" ` + (isStateChecked ? `` : `disabled`) + `>Next Step</button> 
   </div>
@@ -111,12 +113,12 @@ function getWebviewContent(nextStep: Boolean, isStateChecked: Boolean) {
   <head>
 	  <meta charset="UTF-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <title>Cat Coding</title>
+	  <title>Tutorial Success</title>
   </head>
   <body>
-	<div style="display: flex; flex-direction: column">
+  <div style="display: flex; flex-direction: column">
+    <h1>You successfully completed the first tutorial</h1>
 		<img src="https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif" width="300" />
-    <p style="margin: 20px; width: fit-content">Second Step !!!</p> 
   </div>
   </body>
   </html>`;
