@@ -10,7 +10,6 @@ function initCommands (context: vscode.ExtensionContext) {
 
 	const commands = [
 		CLONEREPOCOMMAND,
-		DISPLAYCONTENTCOMMAND,
 		EXECUTETESTSCOMMAND
 	];
 
