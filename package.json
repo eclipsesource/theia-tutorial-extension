@@ -26,6 +26,10 @@
 			{
 				"command": "theiatutorialextension.executeTests",
 				"title": "Execute Tests"
+			},
+			{
+				"command": "theiatutorialextension.addImports",
+				"title": "Add Imports"
 			}
 		],
 		"viewsContainers": {
@@ -50,7 +54,7 @@
 		"viewsWelcome": [
 			{
 				"view": "theiaTutorial",
-				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)\n[Display Content](command:theiatutorialextension.displayContent)"
+				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)\n[Display Content](command:theiatutorialextension.displayContent)\n[Add Imports](command:theiatutorialextension.addImports)"
 			}
 		]
 	},
