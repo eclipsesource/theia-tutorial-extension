@@ -13,7 +13,8 @@ function initCommands (context: vscode.ExtensionContext) {
 		CLONEREPOCOMMAND,
 		DISPLAYCONTENTCOMMAND,
 		EXECUTETESTSCOMMAND,
-		INITEXERCISEZEROCOMMAND
+		INITEXERCISEZEROCOMMAND,
+		EXECUTETESTSCOMMAND
 	];
 
 	context.subscriptions.push(...commands);

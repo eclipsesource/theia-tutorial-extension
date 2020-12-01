@@ -1,0 +1,39 @@
+{
+  "name": "vscode-webview-react",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.23.0"
+  },
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "terser": "3.16.0",
+    "vscode": "^1.1.17"
+  },
+  "resolutions": {
+    "terser": "3.14.1"
+  },
+  "scripts": {
+    "vscode:prepublish": "./scripts/build-non-split.js",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "start": "react-scripts start",
+    "build": "./scripts/build-non-split.js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.13",
+    "@types/node": "^10.1.2",
+    "@types/react": "^16.3.14",
+    "@types/react-dom": "^16.0.5",
+    "react-scripts": "^2.1.3",
+    "rewire": "^4.0.1",
+    "typescript": "^3.3.1"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
