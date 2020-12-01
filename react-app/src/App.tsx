@@ -1,33 +1,16 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { VSCodeAPI } from './VSCodeAPI';
 
-interface IProps {
-}
+export default function App() {
 
-interface IState {
-  info?: string;
-}
+  const [info, setInfo] = useState('Nothing happening.');
 
-declare var acquireVsCodeApi: any;
-const vscode = acquireVsCodeApi();
+  useEffect(() => {
+    return VSCodeAPI.onMessage((message) => setInfo(message.text));
+  });
 
-class App extends React.Component<IProps, IState> {
-
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      info: 'Nothing happened'
-    };
-  }
-
-  private postMessage(text: string, command: string){
-    vscode.postMessage({
-      command: command,
-      text: text
-    });
-  }
-
-  public render() {
     
     return (
       <div className="App">
@@ -37,11 +20,10 @@ class App extends React.Component<IProps, IState> {
         <p className="App-intro">
           In this tutorial we are going to implement a Theia extension.
         </p>
-        <p>{this.state.info}</p>
-        <button onClick={()=> this.postMessage('Hello from React to Extension','showInformationMessage')}>Test</button>
+        <p>{info}</p>
+        <button onClick={() => VSCodeAPI.postMessage({command: 'showInformationMessage', text: 'Hello'})}>Test</button>
       </div>
     );
-  }
+  
 }
 
-export default App;
