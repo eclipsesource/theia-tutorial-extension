@@ -8,7 +8,9 @@ export default function App() {
   const [info, setInfo] = useState('Nothing happening.');
 
   useEffect(() => {
-    return VSCodeAPI.onMessage((message) => setInfo(message.text));
+    return VSCodeAPI.onMessage((message) => {
+      setInfo(message.data.text);
+    });
   });
 
     
@@ -26,4 +28,3 @@ export default function App() {
     );
   
 }
-
