@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 import CLONEREPOCOMMAND from './Commands/CloneRepoCommand';
 import EXECUTETESTSCOMMAND from './Commands/ExecuteTests';
 import INITEXERCISEZEROCOMMAND from './Commands/InitExerciseZero';
+import CHECKFILESCOMMAND from './Commands/CheckFilesCommand';
+
 
 function initCommands (context: vscode.ExtensionContext) {
 
@@ -9,7 +11,7 @@ function initCommands (context: vscode.ExtensionContext) {
 		CLONEREPOCOMMAND,
 		EXECUTETESTSCOMMAND,
 		INITEXERCISEZEROCOMMAND,
-		EXECUTETESTSCOMMAND
+		CHECKFILESCOMMAND
 	];
 
 	context.subscriptions.push(...commands);
