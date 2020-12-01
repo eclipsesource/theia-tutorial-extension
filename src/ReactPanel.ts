@@ -55,8 +55,9 @@ class ReactPanel {
 					vscode.window.showInformationMessage(message.text);
 					return;
       }
-      this.sendToView('info', 'Hello back to React');
-		}, null, this._disposables);
+    }, null, this._disposables);
+    
+    setTimeout(() => this._panel.webview.postMessage({text: 'Hello from Ext'}),5000);
 	}
 
 	public sendToView(command: string, text?: string) {
