@@ -5,26 +5,28 @@ const path = require('path');
 const ADDIMPORTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.addImports', () => {
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
-    const outputChannel = vscode.window.createOutputChannel('addImports');
-    outputChannel.show();
-    outputChannel.append("test");
 
     let requiredImports: {imports: string[], path: string[]} = {
-        imports: [`import { injectable, inject } from "inversify"`,
+        imports: [`import { inject } from "inversify"`,
             `import { CommandContribution, CommandRegistry, MessageService } from "@theia/core/lib/common";`],
-        path: ["experimentFolder", "src"]
+        path: ["experimentFolder", "src", "browser", "experimentFolder-contribution.ts"]
     };
 
-    let filepath = path.parse(workspaceFolder);
+    let filepath = path.join(workspaceFolder);
 
     requiredImports.path.forEach((element) => {
-        filepath = path.join(filepath.toString(), element);
+        filepath = path.join(filepath, element);
     });
-    outputChannel.append(filepath.toString());
 
-    fs.readFile(filepath, (content: any) => {
-        outputChannel.append(content);
+    let content = fs.readFileSync(filepath);
+
+    requiredImports.imports.forEach(element => {
+        if (!content.includes(element)) {
+            content = element + "\n" + content
+        }
     });
+
+    fs.writeFileSync(filepath, content);
 
     // Display a message box to the user
     vscode.window.showInformationMessage('Adding Imports!');
