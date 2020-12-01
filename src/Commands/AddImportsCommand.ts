@@ -9,7 +9,7 @@ const ADDIMPORTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('th
     let requiredImports: {imports: string[], path: string[]} = {
         imports: [`import { inject } from "inversify"`,
             `import { CommandContribution, CommandRegistry, MessageService } from "@theia/core/lib/common";`],
-        path: ["experimentFolder", "src", "browser", "experimentFolder-contribution.ts"]
+        path: ["HelloWorld", "src", "browser", "HelloWorld-contribution.ts"]
     };
 
     let filepath = path.join(workspaceFolder);
