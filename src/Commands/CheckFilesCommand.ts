@@ -1,28 +1,27 @@
+import { exerciseFileName, extensionFileName } from './../utils/constant';
 import * as vscode from 'vscode';
 const fs = require('fs');
 const path = require('path');
 
-  const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkFiles', () => {
+  const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', () => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
     const outputChannel = vscode.window.createOutputChannel('checking files');
     outputChannel.show();
 
-    const exerciseFileName = '/Exercise0';
-
-    const files = getAllFiles(workspaceFolder+exerciseFileName, outputChannel);
+    const files = getAllFiles(workspaceFolder+'/'+exerciseFileName, outputChannel);
     outputChannel.appendLine(`all files`);
     outputChannel.appendLine(`${files}`);
 
-    const correctFiles = getCorrectFilePaths(workspaceFolder+exerciseFileName);
+    const correctFiles = getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
 
     const isFileListCorrect = compareFileLists(correctFiles, files);
 
     if(isFileListCorrect) {
-      vscode.window.showInformationMessage(`all files are checked and folder structure is correct ${isFileListCorrect}`);
+      vscode.window.showInformationMessage(`all files are checked and folder structure is correct`);
     }
     else {
-      vscode.window.showInformationMessage(`There is a problem in your folder structure of Exercise 0  ${isFileListCorrect}`);
+      vscode.window.showInformationMessage(`There is a problem in your folder structure of Exercise 0`);
     }
   });
 
@@ -51,12 +50,12 @@ const path = require('path');
     const fileNames = [
       '/.gitignore',
       '/.vscode/launch.json',
-      '/HelloWorld/lib',
-      '/HelloWorld/node_modules',
-      '/HelloWorld/package.json',
-      '/HelloWorld/src/browser/HelloWorld-contribution.ts',
-      '/HelloWorld/src/browser/HelloWorld-frontend-module.ts',
-      '/HelloWorld/tsconfig.json',
+      `/${extensionFileName}/lib`,
+      `/${extensionFileName}/node_modules`,
+      `/${extensionFileName}/package.json`,
+      `/${extensionFileName}/src/browser/HelloWorld-contribution.ts`,
+      `/${extensionFileName}/src/browser/HelloWorld-frontend-module.ts`,
+      `/${extensionFileName}/tsconfig.json`,
       '/README.md',
       '/browser-app/gen-webpack.config.js',
       '/browser-app/lib',

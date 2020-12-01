@@ -30,6 +30,10 @@
 			{
 				"command": "theiatutorialextension.initExerciseZero",
 				"title": "Init Exercise Zero"
+			},
+			{
+				"command": "theiatutorialextension.checkExerciseFiles",
+				"title": "Check Exercise 0 Files"
 			}
 		],
 		"viewsContainers": {
@@ -54,7 +58,7 @@
 		"viewsWelcome": [
 			{
 				"view": "theiaTutorial",
-				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)\n[Display Content](command:theiatutorialextension.displayContent)\n[Init Exercise 0](command:theiatutorialextension.initExerciseZero)"
+				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)\n[Display Content](command:theiatutorialextension.displayContent)\n[Init Exercise 0](command:theiatutorialextension.initExerciseZero)\n[Check Exercise 0 Files](command:theiatutorialextension.checkExerciseFiles)"
 			}
 		]
 	},
