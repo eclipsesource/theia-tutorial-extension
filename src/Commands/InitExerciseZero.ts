@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
 import * as vscode from 'vscode';
 import { exerciseFileName, extensionFileName } from './../utils/constant';
+import ReactPanel from '../ReactPanel';
 
 const INITEXERCISEZEROCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.initExerciseZero', async () => {
     const outputChannel = vscode.window.createOutputChannel('Initiating Exercise 0');
@@ -9,7 +10,10 @@ const INITEXERCISEZEROCOMMAND: vscode.Disposable = vscode.commands.registerComma
 
     // TODO: Check and Install dependencies
     // TODO: Show progress bar Maybe?
-
+    
+    ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:'We are solving Exercise 0 for you'});
+    
+    
     // Create Directory for Exercise 0
     await execShellCommand(`cd ` + workspaceFolder + ` && mkdir ${exerciseFileName}`).then( async () => {
         let yoTerminal = vscode.window.createTerminal("Generate theia-extension");
@@ -28,7 +32,10 @@ const INITEXERCISEZEROCOMMAND: vscode.Disposable = vscode.commands.registerComma
 
                             // Goto browser app,then execute yarn start
                             execShellCommand(`cd ` + workspaceFolder + `/${exerciseFileName}/browser-app && yarn start`);
+
                             vscode.window.showInformationMessage('Installation Complete!!');
+                            ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:'Installation Complete'});
+
                             vscode.window.showInformationMessage('You may now navigate to http://localhost:3000');
                             
                         });

@@ -21,7 +21,7 @@ class ReactPanel {
 		if (ReactPanel.currentPanel) {
 			ReactPanel.currentPanel._panel.reveal(column);
 		} else {
-			ReactPanel.currentPanel = new ReactPanel(extensionPath, column || vscode.ViewColumn.One);
+			ReactPanel.currentPanel = new ReactPanel(extensionPath, column || vscode.ViewColumn.Two);
 		}
 	}
 
@@ -33,7 +33,6 @@ class ReactPanel {
 			// Enable javascript in the webview
 			enableScripts: true,
 
-			// And restric the webview to only loading content from our extension's `media` directory.
     });
     
     vscode.commands.executeCommand('vscode.setEditorLayout', {
@@ -53,20 +52,21 @@ class ReactPanel {
 			switch (message.command) {
 				case 'showInformationMessage':
 					vscode.window.showInformationMessage(message.text);
-					return;
+					break;
+				case 'initExerciseZero':
+					vscode.commands.executeCommand('theiatutorialextension.initExerciseZero');
+					break;
+				case 'checkExerciseFiles':
+					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles');
+					break;
       }
     }, null, this._disposables);
     
-    setTimeout(() => this._panel.webview.postMessage({text: 'Hello from Ext'}),5000);
+    //setTimeout(() => this._panel.webview.postMessage({text: 'Hello from Ext'}),5000);
 	}
 
-	public sendToView(command: string, text?: string) {
-		// Send a message to the webview webview.
-    // You can send any JSON serializable data.
-    
-    let msg = (text) ? {command : command, text: text} : {command : command};
-
-		this._panel.webview.postMessage(msg);
+	public sendToView(data: any) {
+		this._panel.webview.postMessage(data);
 	}
 
 	public dispose() {

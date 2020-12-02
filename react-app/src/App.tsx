@@ -1,3 +1,5 @@
+import { Button } from '@material-ui/core';
+import { spacing } from '@material-ui/system';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import './App.css';
@@ -5,11 +7,16 @@ import { VSCodeAPI } from './VSCodeAPI';
 
 export default function App() {
 
-  const [info, setInfo] = useState('Nothing happening.');
+  const [info, setInfo] = useState('You can get ready now. Prepare the workspace by yourself or let us do the work for you.');
 
   useEffect(() => {
     return VSCodeAPI.onMessage((message) => {
-      setInfo(message.data.text);
+      console.log(message);
+      switch (message.data.command){
+        case 'setInfo':
+          setInfo(message.data.text);
+          break;
+      }
     });
   });
 
@@ -23,7 +30,16 @@ export default function App() {
           In this tutorial we are going to implement a Theia extension.
         </p>
         <p>{info}</p>
-        <button onClick={() => VSCodeAPI.postMessage({command: 'showInformationMessage', text: 'Hello'})}>Test</button>
+        <div className="Box-margin">
+          <Button onClick={() => VSCodeAPI.postMessage({command: 'checkExerciseFiles'})} variant="contained" color="primary">
+            Check workspace
+          </Button>
+          </div>
+        <div className="Box-margin">
+          <Button onClick={() => VSCodeAPI.postMessage({command: 'initExerciseZero'})} variant="contained" color="primary">
+            Solve Exercise 0
+          </Button>
+        </div>
       </div>
     );
   

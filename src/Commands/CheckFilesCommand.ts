@@ -1,5 +1,6 @@
 import { exerciseFileName, extensionFileName } from './../utils/constant';
 import * as vscode from 'vscode';
+import ReactPanel from '../ReactPanel';
 const fs = require('fs');
 const path = require('path');
 
@@ -19,9 +20,11 @@ const path = require('path');
 
     if(isFileListCorrect) {
       vscode.window.showInformationMessage(`all files are checked and folder structure is correct`);
+      ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:'You are good to go! All files are in their correct place.'});
     }
     else {
       vscode.window.showInformationMessage(`There is a problem in your folder structure of Exercise 0`);
+      ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:"Oooops... your workspace doesn't reflect the desired start state."});
     }
   });
 

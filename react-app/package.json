@@ -5,6 +5,7 @@
     "vscode": "^1.23.0"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "terser": "3.16.0",
