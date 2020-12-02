@@ -9,29 +9,39 @@ const path = require('path');
 
     const outputChannel = vscode.window.createOutputChannel('checking files');
     outputChannel.show();
-
-    const files = getAllFiles(workspaceFolder+'/'+exerciseFileName, outputChannel);
-    outputChannel.appendLine(`all files`);
-    outputChannel.appendLine(`${files}`);
-
-    const correctFiles = getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
-
-    const isFileListCorrect = compareFileLists(correctFiles, files);
-
-    if(isFileListCorrect) {
-      vscode.window.showInformationMessage(`all files are checked and folder structure is correct`);
-      ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:'You are good to go! All files are in their correct place.'});
+    
+    if(checkExerciseFile(workspaceFolder)){
+      const files = getAllFiles(workspaceFolder+'/'+exerciseFileName, outputChannel);
+      outputChannel.appendLine(`all files`);
+      outputChannel.appendLine(`${files}`);
+  
+      const correctFiles = getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
+  
+      const isFileListCorrect = compareFileLists(correctFiles, files);
+  
+      if(isFileListCorrect) {
+        vscode.window.showInformationMessage(`all files are checked and folder structure is correct`);
+        ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:'You are good to go! All files are in their correct place.'});
+      }
+      else {
+        vscode.window.showInformationMessage(`There is a problem in your folder structure of Exercise 0`);
+        ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:"Oooops... your workspace doesn't reflect the desired start state."});
+      }
     }
     else {
-      vscode.window.showInformationMessage(`There is a problem in your folder structure of Exercise 0`);
-      ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:"Oooops... your workspace doesn't reflect the desired start state."});
+      vscode.window.showInformationMessage(`You don't have Exercise 0 folder. You should execute Init Exercise 0.`);
     }
+
+
   });
 
   const compareFileLists = (correctFileList: string[], fileList: string[]) => (
     JSON.stringify(correctFileList) === JSON.stringify(fileList)
   );
 
+    const checkExerciseFile = (workspaceFolder: string) => {
+      return fs.existsSync(path.join(workspaceFolder, exerciseFileName));
+    };
 
   const getAllFiles = (dir: string, outputChannel:any) => (
   fs.readdirSync(dir).reduce((files: any, file: any) => {
