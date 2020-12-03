@@ -17,7 +17,27 @@
 		"commands": [
 			{
 				"command": "theiatutorialextension.cloneRepo",
-				"title": "Hello World"
+				"title": "Clone Repo"
+			},
+			{
+				"command": "theiatutorialextension.displayContent",
+				"title": "Display Content"
+			},
+			{
+				"command": "theiatutorialextension.executeTests",
+				"title": "Execute Tests"
+			},
+			{
+				"command": "theiatutorialextension.addImports",
+				"title": "Add Imports"
+			},
+			{
+				"command": "theiatutorialextension.initExerciseZero",
+				"title": "Init Exercise Zero"
+			},
+			{
+				"command": "theiatutorialextension.checkExerciseFiles",
+				"title": "Check Exercise 0 Files"
 			}
 		],
 		"viewsContainers": {
@@ -42,13 +62,13 @@
 		"viewsWelcome": [
 			{
 				"view": "theiaTutorial",
-				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo)"
+				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)\n[Display Content](command:theiatutorialextension.displayContent)\n[Init Exercise 0](command:theiatutorialextension.initExerciseZero)\n[Check Exercise 0 Files](command:theiatutorialextension.checkExerciseFiles)\n[Add Imports](command:theiatutorialextension.addImports)"
 			}
 		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
+		"compile": "tsc -p ./ && cp -R react-app/build/. out",
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
@@ -66,5 +86,8 @@
 		"mocha": "^8.1.3",
 		"typescript": "^4.0.2",
 		"vscode-test": "^1.4.0"
+	},
+	"dependencies": {
+		"node-cmd": "^4.0.0"
 	}
 }

@@ -2,20 +2,25 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import initCommands from './initCommands';
+import ReactPanel from './ReactPanel';
+
+const fs = require('fs');
+const path = require('path');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "theiatutorialextension" is now active!');
+	context.subscriptions.push(vscode.commands.registerCommand('theiatutorialextension.displayContent', () => {
+		ReactPanel.createOrShow(context.extensionPath);
+	}));
+	
+	//ReactPanel.currentPanel?.sendToView('info', 'Hello from Extension to React');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
+	vscode.commands.executeCommand('theiatutorialextension.displayContent');
 	initCommands(context);
+	
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
