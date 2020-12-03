@@ -60,7 +60,7 @@ async function execShellCommand(cmd: string) {
 function createTerminal(yoTerminal: vscode.Terminal) {
     return new Promise((resolve, reject) => {
         yoTerminal.show(true);
-        yoTerminal.sendText(`cd ${exerciseFileName} && yo theia-extension --extensionName ${extensionFileName} && exit`, true);
+        yoTerminal.sendText(`cd ${exerciseFileName} && yo theia-extension -y empty --extensionName ${extensionFileName} && exit`, true);
         yoTerminal.sendText('', true);
 
         let asdf = setInterval(function() {
