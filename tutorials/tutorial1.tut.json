@@ -1,0 +1,54 @@
+{
+    "title": "Tutorial1",
+    "tutorial": [
+        {
+            "title": "Exercice1",
+            "checkIfRequiredStateisMet": [
+                {
+                    "checkIfFileExists": []
+                }
+            ],
+            "bringToRequiredStat": [
+                {
+                    "command": "yo make..."
+                },
+                {
+                    "command": " cd ..."
+                }
+            ],
+            "exercise": [
+                {
+                    "text": "Hello, this is exercise 1, blease execute the following steps:"
+                },
+                {
+                    "image": {}
+                },
+                {
+                    "text": "now open the file xyz or press the following button:"
+                },
+                {
+                    "command": {}
+                }
+            ]
+        },
+        {
+            "Title": "Exercice2",
+            "checkIfRequiredStateismet": {},
+            "bringToRequiredStat": {},
+            "exercise": [
+                {
+                    "text": "Hello, this is exercise 2, blease execute the following steps:"
+                },
+                {
+                    "image": {}
+                },
+                {
+                    "text": "now open the file xyz or press the following button:"
+                },
+                {
+                    "command": {}
+                }
+            ]
+        }
+    ]
+}

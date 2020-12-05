@@ -18,7 +18,7 @@
     "vscode:prepublish": "./scripts/build-non-split.js",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "start": "react-scripts start",
-    "build": "./scripts/build-non-split.js",
+    "build": "node ./scripts/build-non-split.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
