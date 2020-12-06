@@ -3,7 +3,60 @@ import { spacing } from '@material-ui/system';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import './App.css';
+import StepperComponent from './components/StepperComponent';
 import { VSCodeAPI } from './VSCodeAPI';
+
+const mockTutorialData = [
+    {
+        title: "Exercice1",
+        checkIfRequiredStateisMet: [
+            {
+                "checkIfFileExists": []
+            }
+        ],
+        bringToRequiredStat: [
+            {
+                command: "yo make..."
+            },
+            {
+                command: " cd ..."
+            }
+        ],
+        exercise: [
+            {
+                text: "Hello, this is exercise 1, blease execute the following steps:"
+            },
+            {
+                image: {}
+            },
+            {
+                text: "now open the file xyz or press the following button:"
+            },
+            {
+                command: {}
+            }
+        ]
+    },
+    {
+        title: "Exercice2",
+        checkIfRequiredStateisMet: {},
+        bringToRequiredStat: {},
+        exercise: [
+            {
+                text: "Hello, this is exercise 2, blease execute the following steps:"
+            },
+            {
+                image: {}
+            },
+            {
+                text: "now open the file xyz or press the following button:"
+            },
+            {
+                command: {}
+            }
+        ]
+    }
+];
 
 export default function App() {
 
@@ -23,7 +76,7 @@ export default function App() {
     
     return (
       <div className="App">
-        <header className="App-header">
+        {/* <header className="App-header">
           <h1 className="App-title">Welcome to the Theia Tutorial</h1>
         </header>
         <p className="App-intro">
@@ -39,6 +92,9 @@ export default function App() {
           <Button onClick={() => VSCodeAPI.postMessage({command: 'initExerciseZero'})} variant="contained" color="primary">
             Solve Exercise 0
           </Button>
+        </div> */}
+        <div>
+          <StepperComponent tutorialExercises={mockTutorialData} checkFiles={() => VSCodeAPI.postMessage({command: 'checkExerciseFiles'})} />
         </div>
       </div>
     );

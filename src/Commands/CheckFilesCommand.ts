@@ -22,14 +22,17 @@ const path = require('path');
       if(isFileListCorrect) {
         vscode.window.showInformationMessage(`all files are checked and folder structure is correct`);
         ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:'You are good to go! All files are in their correct place.'});
+        ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: true});
       }
       else {
         vscode.window.showInformationMessage(`There is a problem in your folder structure of Exercise 0`);
         ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:"Oooops... your workspace doesn't reflect the desired start state."});
+        ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
       }
     }
     else {
       vscode.window.showInformationMessage(`You don't have Exercise 0 folder. You should execute Init Exercise 0.`);
+      ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
     }
 
 
