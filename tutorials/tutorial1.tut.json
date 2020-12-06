@@ -2,7 +2,7 @@
     "title": "Tutorial1",
     "tutorial": [
         {
-            "title": "Exercice1",
+            "title": "Exercise1",
             "checkIfRequiredStateisMet": [
                 {
                     "checkIfFileExists": []
@@ -16,18 +16,34 @@
                     "command": " cd ..."
                 }
             ],
-            "exercise": [
+            "content": [
                 {
-                    "text": "Hello, this is exercise 1, blease execute the following steps:"
+                    "type": "text",
+                    "data": "Hello, this is exercise 1, please execute the following steps:"
                 },
                 {
-                    "image": {}
+                    "type": "image",
+                    "data": {
+                        "src": "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",
+                        "description": "Crazy Cat"
+                    }
                 },
                 {
-                    "text": "now open the file xyz or press the following button:"
-                },
-                {
-                    "command": {}
+                    "type": "hint",
+                    "data": [
+                        {
+                            "type": "text",
+                            "data": "Hello I'm a Hint"
+                        },
+                        {
+                            "type": "image",
+                            "data": {
+                                "src": "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+                                "description": "Crazy Cat"
+                            }
+                        }
+                        
+                    ]
                 }
             ]
         },
@@ -35,18 +51,23 @@
             "Title": "Exercice2",
             "checkIfRequiredStateismet": {},
             "bringToRequiredStat": {},
-            "exercise": [
+            "content": [
                 {
-                    "text": "Hello, this is exercise 2, blease execute the following steps:"
+                    "type": "text",
+                    "data": "Hello, this is exercise 2, please execute the following steps:"
                 },
                 {
-                    "image": {}
+                    "type": "image",
+                    "data": {
+                        "src": "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",
+                        "description": "Crazy Cat"
+                    }
                 },
                 {
-                    "text": "now open the file xyz or press the following button:"
-                },
-                {
-                    "command": {}
+                    "type": "hint",
+                    "data": [
+                        {"type": "text","data": "Hello I'm a Hint"}
+                    ]
                 }
             ]
         }
