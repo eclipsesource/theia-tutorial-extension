@@ -5,7 +5,8 @@
             "title": "Exercice1",
             "checkIfRequiredStateisMet": [
                 {
-                    "checkIfFilesExist": [
+                    "type": "checkIfFilesExist",
+                    "data": [
                         "/.gitignore",
                         "/.vscode/launch.json",
                         "/Exercise0/lib",
@@ -43,7 +44,8 @@
             ],
             "bringToRequiredStat": [
                 {
-                    "commands": [
+                    "type": "commands",
+                    "data": [
                         "cd ./Exercise0 && yo theia-extension -y empty --extensionName Exercise0 && exit",
                         "cd ./Exercise0/ && yarn install",
                         "cd ./Exercise0/browser-app && yarn start"
