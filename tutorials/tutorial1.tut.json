@@ -78,8 +78,24 @@
                                 "description": "Crazy Cat"
                             }
                         }
-                        
                     ]
+                },
+                {
+                    "type": "automaticImport",
+                    "data": {
+                        "text": "by clicking here you can add all the required import statements you need",
+                        "imports": [
+                            "import { inject} from \"inversify\";",
+                            "import { CommandContribution, CommandRegistry, MessageService} from \"@theia/core/lib/common\";"
+                        ],
+                        "path": [
+                            "Exercise0",
+                            "HelloWorld",
+                            "src",
+                            "browser",
+                            "HelloWorld-contribution.ts"
+                        ]
+                    }
                 }
             ]
         },
@@ -102,7 +118,10 @@
                 {
                     "type": "hint",
                     "data": [
-                        {"type": "text","data": "Hello I'm a Hint"}
+                        {
+                            "type": "text",
+                            "data": "Hello I'm a Hint"
+                        }
                     ]
                 }
             ]

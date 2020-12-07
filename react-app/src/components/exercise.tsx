@@ -1,51 +1,54 @@
 import React from 'react';
 import {Button} from '@material-ui/core';
-import { VSCodeAPI } from '../VSCodeAPI';
-import { spawn } from 'child_process';
+import {VSCodeAPI} from '../VSCodeAPI';
+import {AutomaticImport} from './tutorialComponents/content/automaticImport';
+import {spawn} from 'child_process';
 
 
 interface ExerciseProps {
-    exercise: any
+  exercise: any
 }
 
 interface ExerciseState {
-    info: string
+  info: string
 };
 
 
 export class Exercise extends React.Component<ExerciseProps, ExerciseState> {
 
-    constructor(props: ExerciseProps) {
-        super(props);
-    }
-    render() {
-        return (
-            <div className="exercise">  
-              <h1 className="App-title">{this.props.exercise.title}</h1>
-               
-                {this.props.exercise.content.map((section: { type: string; data: any; }) => {
-                    switch(section.type){
-                      case "text":
-                        return <p>{section.data}</p>;
-                      case "image":
-                        return <img src={section.data.src}/>;
-                      case "hint":
-                        return <Hint data={section.data}></Hint>;
-                    }
-                })}
-                <div className="Box-margin">
-                    <Button onClick={() => VSCodeAPI.postMessage({command: 'checkExerciseFiles'})} variant="contained" color="primary">
-                        Check workspace
+  constructor(props: ExerciseProps) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="exercise">
+        <h1 className="App-title">{this.props.exercise.title}</h1>
+
+        {this.props.exercise.content.map((section: {type: string; data: any;}) => {
+          switch (section.type) {
+            case "text":
+              return <p>{section.data}</p>;
+            case "image":
+              return <img src={section.data.src} />;
+            case "automaticImport":
+              return <AutomaticImport data={section.data}></AutomaticImport>;
+            case "hint":
+              return <Hint data={section.data}></Hint>;
+          }
+        })}
+        <div className="Box-margin">
+          <Button onClick={() => VSCodeAPI.postMessage({command: 'checkExerciseFiles'})} variant="contained" color="primary">
+            Check workspace
                     </Button>
-                </div>
-                <div className="Box-margin">
-                    <Button onClick={() => VSCodeAPI.postMessage({command: 'initExerciseZero'})} variant="contained" color="primary">
-                        Solve Exercise 0
+        </div>
+        <div className="Box-margin">
+          <Button onClick={() => VSCodeAPI.postMessage({command: 'initExerciseZero'})} variant="contained" color="primary">
+            Solve Exercise 0
                     </Button>
-                </div>
-            </div>
-        );
-    }
+        </div>
+      </div>
+    );
+  }
 }
 
 function Hint(props: any) {
@@ -56,12 +59,12 @@ function Hint(props: any) {
       <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>Click me to show Hint</a>
       {showHint &&
 
-        props.data.map((section: { type: string; data: any; }) => {
-          switch(section.type){
+        props.data.map((section: {type: string; data: any;}) => {
+          switch (section.type) {
             case "text":
               return <p>{section.data}</p>;
             case "image":
-              return <img src={section.data.src}/>;
+              return <img src={section.data.src} />;
             case "hint":
               return <Hint data={section.data}></Hint>;
           }
