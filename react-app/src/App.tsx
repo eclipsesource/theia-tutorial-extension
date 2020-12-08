@@ -1,19 +1,19 @@
 import {Button} from '@material-ui/core';
-import {spacing} from '@material-ui/system';
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import './App.css';
-import {Tutorial} from './components/tutorial';
+import StepperComponent from './components/StepperComponent';
 import {VSCodeAPI} from './VSCodeAPI';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export default function App() {
 
-  const [tutorials, setTutorials] = useState([]);
+  const [tutorials, setTutorials] = useState<Array<any>>([]);
   const [selectedTutorial, selectTutorial] = useState(-1);
 
   useEffect(() => {
     return VSCodeAPI.onMessage((message) => {
-      console.log(message);
+      
       switch (message.data.command) {
         case 'setTutorials':
           setTutorials(message.data.tutorials);
@@ -30,7 +30,7 @@ export default function App() {
             //@ts-ignore
             tutorial.title}
         </Button>
-      </div>
+      </div>;
     });
   }
 
@@ -42,13 +42,14 @@ export default function App() {
         </header>
           <p className="App-intro">
             current Tutorials in the workspace:
-          {createTutorialList()
-            }
+          {createTutorialList()}
           </p></p>
         :
-        <Tutorial tutorial={tutorials[selectedTutorial]} />
+        <StepperComponent tutorialExercises={tutorials[selectedTutorial].tutorial}/>
       }
     </div>
-  );
 
+        
+      
+  );
 }
