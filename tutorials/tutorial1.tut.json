@@ -45,7 +45,11 @@
             "bringToRequiredStat": [
                 {
                     "type": "commands",
-                    "data": [
+                    "name": "initExerciseZero",
+                    "taskDependenciesCommand": [
+                    ],
+                    "tasks": [
+                        "mkdir ./Exercise0",
                         "cd ./Exercise0 && yo theia-extension -y empty --extensionName Exercise0 && exit",
                         "cd ./Exercise0/ && yarn install",
                         "cd ./Exercise0/browser-app && yarn start"
@@ -86,7 +90,7 @@
         {
             "Title": "Exercice2",
             "checkIfRequiredStateismet": {},
-            "bringToRequiredStat": {},
+            "bringToRequiredStat": [],
             "content": [
                 {
                     "type": "text",

@@ -34,7 +34,7 @@
         {
             "Title": "Exercice2",
             "checkIfRequiredStateismet": {},
-            "bringToRequiredStat": {},
+            "bringToRequiredStat": [],
             "exercise": [
                 {
                     "text": "Hello, this is exercise 2, blease execute the following steps:"
