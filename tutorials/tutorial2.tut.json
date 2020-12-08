@@ -3,7 +3,7 @@
     "tutorial": [
         {
             "title": "Exercice1",
-            "checkIfRequiredStateisMet": [
+            "checkIfRequiredStateIsMet": [
                 {
                     "checkIfFileExists": []
                 }
@@ -32,9 +32,9 @@
             ]
         },
         {
-            "Title": "Exercice2",
-            "checkIfRequiredStateismet": {},
-            "bringToRequiredStat": {},
+            "title": "Exercice2",
+            "checkIfRequiredStateIsMet": [],
+            "bringToRequiredStat": [],
             "exercise": [
                 {
                     "text": "Hello, this is exercise 2, blease execute the following steps:"
