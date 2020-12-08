@@ -57,7 +57,7 @@ class ReactPanel {
 					vscode.commands.executeCommand('theiatutorialextension.initExerciseZero');
 					break;
 				case 'checkExerciseFiles':
-					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles');
+					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', message.fileList);
 					break;
       }
     }, null, this._disposables);

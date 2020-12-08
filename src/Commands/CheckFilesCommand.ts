@@ -4,7 +4,7 @@ import ReactPanel from '../ReactPanel';
 const fs = require('fs');
 const path = require('path');
 
-  const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', () => {
+  const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', (fileList?: string[]) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
     const outputChannel = vscode.window.createOutputChannel('checking files');
@@ -14,10 +14,14 @@ const path = require('path');
       const files = getAllFiles(workspaceFolder+'/'+exerciseFileName, outputChannel);
       outputChannel.appendLine(`all files`);
       outputChannel.appendLine(`${files}`);
+
+      outputChannel.appendLine(`fileList from config`);
+      outputChannel.appendLine(`${fileList}`);
   
-      const correctFiles = getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
+      // const correctFiles = getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
+      const correctFilesFromConfig = fileList ? getCorrectFilePathsFromConfig(workspaceFolder+'/'+exerciseFileName, fileList) : getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
   
-      const isFileListCorrect = compareFileLists(correctFiles, files);
+      const isFileListCorrect = compareFileLists(correctFilesFromConfig, files);
   
       if(isFileListCorrect) {
         vscode.window.showInformationMessage(`all files are checked and folder structure is correct`);
@@ -61,6 +65,10 @@ const path = require('path');
        [...files, ...getAllFiles(name, outputChannel)] : [...files, name];
   }, [])
   );
+
+  const getCorrectFilePathsFromConfig = (exerciseFilePath: string, fileList: string[]) => {
+    return fileList.map((name) => (exerciseFilePath + name));
+  };
 
   const getCorrectFilePaths = (extensionFolder: string) => {
     const fileNames = [

@@ -3,7 +3,7 @@
     "tutorial": [
         {
             "title": "Exercise1",
-            "checkIfRequiredStateisMet": [
+            "checkIfRequiredStateIsMet": [
                 {
                     "type": "checkIfFilesExist",
                     "data": [
@@ -88,8 +88,8 @@
             ]
         },
         {
-            "Title": "Exercice2",
-            "checkIfRequiredStateismet": {},
+            "title": "Exercice2",
+            "checkIfRequiredStateIsMet": [],
             "bringToRequiredStat": [],
             "content": [
                 {

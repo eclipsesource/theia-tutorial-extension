@@ -33,7 +33,7 @@ function getSteps(tutorialExercises: any) {
 }
 
 interface StepperComponentProps {
-  tutorialExercises: Array<Object>;
+  tutorialExercises: Array<any>;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -43,9 +43,25 @@ const StepperComponent = (props: StepperComponentProps) => {
   const steps = getSteps(props.tutorialExercises);
   const [isFileListCorrect, setFilesCheck] = useState(false);
 
+  const getFileList = () => {
+    let fileList = [];
+    console.log('props.tutorialExercises[activeStep].checkIfRequiredStateIsMet: ', props.tutorialExercises[activeStep].checkIfRequiredStateIsMet);
+    if(props.tutorialExercises[activeStep].checkIfRequiredStateIsMet){
+  
+      fileList = props.tutorialExercises[activeStep].checkIfRequiredStateIsMet.find((requirements: any) => {
+        console.log('requirements: ', requirements);
+        return requirements.type === 'checkIfFilesExist';
+      } );
+    }
+
+    console.log('fileList: ', fileList);
+    return fileList ? fileList.data : fileList;
+  };
+
   const handleNext = () => {
     if(activeStep === 0){
-      VSCodeAPI.postMessage({command: 'checkExerciseFiles'});
+      console.log('file list', getFileList());
+      VSCodeAPI.postMessage({command: 'checkExerciseFiles', fileList: getFileList()});
 
       VSCodeAPI.onMessage((message) => {
         switch (message.data.command){
