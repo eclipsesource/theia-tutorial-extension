@@ -5,6 +5,7 @@ import './App.css';
 import StepperComponent from './components/StepperComponent';
 import {VSCodeAPI} from './VSCodeAPI';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export default function App() {
 
   const [tutorials, setTutorials] = useState<Array<any>>([]);

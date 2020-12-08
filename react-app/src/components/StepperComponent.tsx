@@ -6,7 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { VSCodeAPI } from '../VSCodeAPI';
-import { Exercise } from './exercise';
+import { Exercise } from './Exercise';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,6 +36,7 @@ interface StepperComponentProps {
   tutorialExercises: Array<Object>;
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const StepperComponent = (props: StepperComponentProps) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
