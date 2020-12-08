@@ -34,11 +34,6 @@ export class Exercise extends React.Component<ExerciseProps, ExerciseState> {
                     }
                 })}
                 <div className="Box-margin">
-                    <Button onClick={() => VSCodeAPI.postMessage({command: 'checkExerciseFiles'})} variant="contained" color="primary">
-                        Check workspace
-                    </Button>
-                </div>
-                <div className="Box-margin">
                     <Button onClick={() => VSCodeAPI.postMessage({command: 'initExerciseZero'})} variant="contained" color="primary">
                         Solve Exercise 0
                     </Button>
@@ -50,7 +45,7 @@ export class Exercise extends React.Component<ExerciseProps, ExerciseState> {
 
 function Hint(props: any) {
   const [showHint, setShowHint] = React.useState(false);
-  console.log(props);
+  
   return (
     <div>
       <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>Click me to show Hint</a>
