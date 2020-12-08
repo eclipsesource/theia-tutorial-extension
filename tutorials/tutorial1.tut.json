@@ -46,8 +46,7 @@
                 {
                     "type": "commands",
                     "name": "initExerciseZero",
-                    "taskDependenciesCommand": [
-                    ],
+                    "taskDependenciesCommand": [],
                     "tasks": [
                         "mkdir ./Exercise0",
                         "cd ./Exercise0 && yo theia-extension -y empty --extensionName Exercise0 && exit",
@@ -82,8 +81,24 @@
                                 "description": "Crazy Cat"
                             }
                         }
-                        
                     ]
+                },
+                {
+                    "type": "automaticImport",
+                    "data": {
+                        "text": "by clicking here you can add all the required import statements you need",
+                        "imports": [
+                            "import { inject} from \"inversify\";",
+                            "import { CommandContribution, CommandRegistry, MessageService} from \"@theia/core/lib/common\";"
+                        ],
+                        "path": [
+                            "Exercise0",
+                            "Exercise0",
+                            "src",
+                            "browser",
+                            "Exercise0-contribution.ts"
+                        ]
+                    }
                 }
             ]
         },
@@ -106,7 +121,10 @@
                 {
                     "type": "hint",
                     "data": [
-                        {"type": "text","data": "Hello I'm a Hint"}
+                        {
+                            "type": "text",
+                            "data": "Hello I'm a Hint"
+                        }
                     ]
                 }
             ]
