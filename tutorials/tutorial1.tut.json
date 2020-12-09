@@ -57,8 +57,8 @@
             ],
             "content": [
                 {
-                    "type": "text",
-                    "data": "Hello, this is exercise 1, please execute the following steps:"
+                    "type": "html",
+                    "data": "Hello, <br/>In order to start you should set up the workspace by executing the following steps: <br/>Create a directory 'Exercise 0'<br/><code>$yo theia-extension -y empty --extensionName Exercise0</code><br/>You can also decide to let us do the job."
                 },
                 {
                     "type": "image",
@@ -84,6 +84,50 @@
                     ]
                 },
                 {
+                    "type": "command",
+                    "data": {
+                        "command": "initExerciseZero",
+                        "text": "Execute exercise 0"
+                    }
+
+                }
+            ]
+        },
+        {
+            "title": "Exercice2",
+            "checkIfRequiredStateIsMet": [],
+            "bringToRequiredStat": [],
+            "content": [
+                {
+                    "type": "text",
+                    "data": "Hello, this is exercise 2, you have to add imports to some files. Start with the file 'Exercise0-frontend-module.ts'"
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "automaticImport",
+                        "text": "Add Imports",
+                        "data": {
+                            "autoImportData": [
+                                {
+                                    "imports": [
+                                        "import { inject} from \"inversify\";",
+                                        "import { CommandContribution, CommandRegistry, MessageService} from \"@theia/core/lib/common\";"
+                                    ], 
+                                    "path": [
+                                        "Exercise0",
+                                        "Exercise0",
+                                        "src",
+                                        "browser",
+                                        "Exercise0-contribution.ts"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+
+                },
+                {
                     "type": "automaticImport",
                     "data": {
                         "text": "by clicking here you can add all the required import statements you need",
@@ -99,17 +143,6 @@
                             "Exercise0-contribution.ts"
                         ]
                     }
-                }
-            ]
-        },
-        {
-            "title": "Exercice2",
-            "checkIfRequiredStateIsMet": [],
-            "bringToRequiredStat": [],
-            "content": [
-                {
-                    "type": "text",
-                    "data": "Hello, this is exercise 2, please execute the following steps:"
                 },
                 {
                     "type": "image",
