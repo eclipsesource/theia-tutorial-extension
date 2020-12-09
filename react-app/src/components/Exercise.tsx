@@ -21,7 +21,7 @@ export const Exercise = (props: ExerciseProps) => {
           case "html":
             return <div>{ ReactHtmlParser (section.data) }</div>;
           case "image":
-            return <img src={section.data.src} />;
+            return <img src={section.data.src} width={section.data.width} />;
           case "hint":
             return <Hint data={section.data}></Hint>;
           case "automaticImport":
