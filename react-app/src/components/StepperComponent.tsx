@@ -76,8 +76,8 @@ const StepperComponent = (props: StepperComponentProps) => {
       });
     }else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      window.scrollTo(0, 0);
     }
-    window.scrollTo(0, 0);
   };
 
   const handleBack = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button} from '@material-ui/core';
-import {VSCodeAPI} from '../VSCodeAPI';
+import ReactHtmlParser from 'react-html-parser'; 
 import {AutomaticImport} from './tutorialComponents/content/automaticImport';
+import { Command } from './Command';
 
 interface ExerciseProps {
   exercise: any
@@ -18,19 +18,18 @@ export const Exercise = (props: ExerciseProps) => {
         switch (section.type) {
           case "text":
             return <p>{section.data}</p>;
+          case "html":
+            return <div>{ ReactHtmlParser (section.data) }</div>;
           case "image":
             return <img src={section.data.src} />;
           case "hint":
             return <Hint data={section.data}></Hint>;
           case "automaticImport":
             return <AutomaticImport data={section.data}></AutomaticImport>;
+          case "command":
+            return <Command command={section.data.command} text={section.data.text} data={section.data.data}></Command>;
         }
       })}
-      <div className="Box-margin">
-        <Button onClick={() => VSCodeAPI.postMessage({command: 'initExerciseZero'})} variant="contained" color="primary">
-          Solve Exercise 0
-              </Button>
-      </div>
     </div>
   );
 };
