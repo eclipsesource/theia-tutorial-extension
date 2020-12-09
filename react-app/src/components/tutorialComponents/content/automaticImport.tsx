@@ -23,7 +23,10 @@ export class AutomaticImport extends React.Component<any, autoImportState> {
   render() {
     return (
       <div className="Box-margin">
-        <Button onClick={() => VSCodeAPI.postMessage({command: 'addImports', autoImportData: [{imports: this.props.data.imports, path: this.props.data.path}]})} variant="contained" color="primary">
+        <Button onClick={() => {
+          VSCodeAPI.postMessage({command: 'addImports', autoImportData: [{imports: this.props.data.imports, path: this.props.data.path}]});
+          console.log({command: 'addImports', autoImportData: [{imports: this.props.data.imports, path: this.props.data.path}]});
+          }} variant="contained" color="primary">
           {this.props.data.text}
         </Button>
       </div>
