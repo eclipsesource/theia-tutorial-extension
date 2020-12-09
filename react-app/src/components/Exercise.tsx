@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from '@material-ui/core';
 import {VSCodeAPI} from '../VSCodeAPI';
-import {AutomaticImport} from './tutorialComponents/content/automaticImport'
+import {AutomaticImport} from './tutorialComponents/content/automaticImport';
 
 interface ExerciseProps {
   exercise: any
@@ -14,7 +14,7 @@ export const Exercise = (props: ExerciseProps) => {
     <div className="exercise">
       <h1 className="App-title">{props.exercise.title}</h1>
 
-      {props.exercise.content.map((section: {type: string; data: any;}) => {
+      {props.exercise.content && props.exercise.content.map((section: {type: string; data: any;}) => {
         switch (section.type) {
           case "text":
             return <p>{section.data}</p>;
@@ -33,7 +33,7 @@ export const Exercise = (props: ExerciseProps) => {
       </div>
     </div>
   );
-}
+};
 
 const Hint = (props: any) => {
   const [showHint, setShowHint] = React.useState(false);
@@ -42,7 +42,7 @@ const Hint = (props: any) => {
     <div>
       <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>Click me to show Hint</a>
       {showHint &&
-
+        props.data &&
         props.data.map((section: {type: string; data: any;}) => {
           switch (section.type) {
             case "text":
@@ -56,4 +56,4 @@ const Hint = (props: any) => {
       }
     </div>
   );
-}
+};
