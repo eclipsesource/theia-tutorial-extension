@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function getSteps(tutorialExercises: any) {
-  return tutorialExercises.map((tutorial: any) => tutorial.title);
+  return tutorialExercises && tutorialExercises.map((tutorial: any) => tutorial.title);
 }
 
 interface StepperComponentProps {
@@ -59,9 +59,10 @@ const StepperComponent = (props: StepperComponentProps) => {
   };
 
   const handleNext = () => {
-    if(activeStep === 0){
-      console.log('file list', getFileList());
-      VSCodeAPI.postMessage({command: 'checkExerciseFiles', fileList: getFileList()});
+    const fileList = getFileList();
+
+    if(activeStep === 0 && fileList){
+      VSCodeAPI.postMessage({command: 'checkExerciseFiles', fileList});
 
       VSCodeAPI.onMessage((message) => {
         switch (message.data.command){
@@ -92,7 +93,7 @@ const StepperComponent = (props: StepperComponentProps) => {
   return (
     <div className={classes.root}>
       <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label: any) => (
+        {steps && steps.map((label: any) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
           </Step>
