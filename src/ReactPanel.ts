@@ -33,13 +33,13 @@ class ReactPanel {
 			// Enable javascript in the webview
 			enableScripts: true,
 
-    });
-    
-    vscode.commands.executeCommand('vscode.setEditorLayout', {
-      orientation: 0,
-      groups: [{ size: 0.5 }, { size: 0.5 }],
-    });
-		
+		});
+
+		vscode.commands.executeCommand('vscode.setEditorLayout', {
+			orientation: 0,
+			groups: [{size: 0.5}, {size: 0.5}],
+		});
+
 		// Set the webview's initial html content 
 		this._panel.webview.html = this._getHtmlForWebview();
 
@@ -57,12 +57,15 @@ class ReactPanel {
 					vscode.commands.executeCommand('theiatutorialextension.initExerciseZero');
 					break;
 				case 'checkExerciseFiles':
-					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles');
+					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', message.fileList);
 					break;
-      }
-    }, null, this._disposables);
-    
-    //setTimeout(() => this._panel.webview.postMessage({text: 'Hello from Ext'}),5000);
+				case 'addImports':
+					vscode.commands.executeCommand('theiatutorialextension.addImports', message.autoImportData);
+					break;
+			}
+		}, null, this._disposables);
+
+		//setTimeout(() => this._panel.webview.postMessage({text: 'Hello from Ext'}),5000);
 	}
 
 	public sendToView(data: any) {
@@ -89,9 +92,9 @@ class ReactPanel {
 		const mainStyle = manifest['main.css'];
 
 		const scriptPathOnDisk = vscode.Uri.file(path.join(this._extensionPath, 'out', mainScript));
-		const scriptUri = scriptPathOnDisk.with({ scheme: 'vscode-resource' });
+		const scriptUri = scriptPathOnDisk.with({scheme: 'vscode-resource'});
 		const stylePathOnDisk = vscode.Uri.file(path.join(this._extensionPath, 'out', mainStyle));
-		const styleUri = stylePathOnDisk.with({ scheme: 'vscode-resource' });
+		const styleUri = stylePathOnDisk.with({scheme: 'vscode-resource'});
 
 		// Use a nonce to whitelist which scripts can be run
 		const nonce = getNonce();
@@ -105,7 +108,7 @@ class ReactPanel {
 				<title>React App</title>
 				<link rel="stylesheet" type="text/css" href="${styleUri}">
 				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: https:; script-src 'nonce-${nonce}';style-src vscode-resource: 'unsafe-inline' http: https: data:;">
-				<base href="${vscode.Uri.file(path.join(this._extensionPath, 'out')).with({ scheme: 'vscode-resource' })}/">
+				<base href="${vscode.Uri.file(path.join(this._extensionPath, 'out')).with({scheme: 'vscode-resource'})}/">
 			</head>
 
 			<body>

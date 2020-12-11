@@ -4,7 +4,7 @@ import ReactPanel from '../ReactPanel';
 const fs = require('fs');
 const path = require('path');
 
-  const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', () => {
+  const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', (fileList?: string[]) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
     const outputChannel = vscode.window.createOutputChannel('checking files');
@@ -14,22 +14,29 @@ const path = require('path');
       const files = getAllFiles(workspaceFolder+'/'+exerciseFileName, outputChannel);
       outputChannel.appendLine(`all files`);
       outputChannel.appendLine(`${files}`);
+
+      outputChannel.appendLine(`fileList from config`);
+      outputChannel.appendLine(`${fileList}`);
   
-      const correctFiles = getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
+      // const correctFiles = getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
+      const correctFilesFromConfig = fileList ? getCorrectFilePathsFromConfig(workspaceFolder+'/'+exerciseFileName, fileList) : getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
   
-      const isFileListCorrect = compareFileLists(correctFiles, files);
+      const isFileListCorrect = compareFileLists(correctFilesFromConfig, files);
   
       if(isFileListCorrect) {
         vscode.window.showInformationMessage(`all files are checked and folder structure is correct`);
         ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:'You are good to go! All files are in their correct place.'});
+        ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: true});
       }
       else {
         vscode.window.showInformationMessage(`There is a problem in your folder structure of Exercise 0`);
         ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:"Oooops... your workspace doesn't reflect the desired start state."});
+        ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
       }
     }
     else {
       vscode.window.showInformationMessage(`You don't have Exercise 0 folder. You should execute Init Exercise 0.`);
+      ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
     }
 
 
@@ -58,6 +65,10 @@ const path = require('path');
        [...files, ...getAllFiles(name, outputChannel)] : [...files, name];
   }, [])
   );
+
+  const getCorrectFilePathsFromConfig = (exerciseFilePath: string, fileList: string[]) => {
+    return fileList.map((name) => (exerciseFilePath + name));
+  };
 
   const getCorrectFilePaths = (extensionFolder: string) => {
     const fileNames = [

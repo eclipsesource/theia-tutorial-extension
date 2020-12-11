@@ -1,0 +1,140 @@
+{
+    "title": "Tutorial1",
+    "tutorial": [
+        {
+            "title": "Exercise1",
+            "checkIfRequiredStateIsMet": [
+                {
+                    "type": "checkIfFilesExist",
+                    "data": [
+                        "/.gitignore",
+                        "/.vscode/launch.json",
+                        "/Exercise0/lib",
+                        "/Exercise0/node_modules",
+                        "/Exercise0/package.json",
+                        "/Exercise0/src/browser/Exercise0-contribution.ts",
+                        "/Exercise0/src/browser/Exercise0-frontend-module.ts",
+                        "/Exercise0/tsconfig.json",
+                        "/README.md",
+                        "/browser-app/gen-webpack.config.js",
+                        "/browser-app/lib",
+                        "/browser-app/node_modules",
+                        "/browser-app/package.json",
+                        "/browser-app/src-gen/backend/main.js",
+                        "/browser-app/src-gen/backend/server.js",
+                        "/browser-app/src-gen/frontend/index.html",
+                        "/browser-app/src-gen/frontend/index.js",
+                        "/browser-app/webpack.config.js",
+                        "/electron-app/gen-webpack.config.js",
+                        "/electron-app/lib",
+                        "/electron-app/node_modules",
+                        "/electron-app/package.json",
+                        "/electron-app/src-gen/backend/main.js",
+                        "/electron-app/src-gen/backend/server.js",
+                        "/electron-app/src-gen/frontend/electron-main.js",
+                        "/electron-app/src-gen/frontend/index.html",
+                        "/electron-app/src-gen/frontend/index.js",
+                        "/electron-app/webpack.config.js",
+                        "/lerna.json",
+                        "/node_modules",
+                        "/package.json",
+                        "/yarn.lock"
+                    ]
+                }
+            ],
+            "bringToRequiredStat": [
+                {
+                    "type": "commands",
+                    "name": "initExerciseZero",
+                    "taskDependenciesCommand": [],
+                    "tasks": [
+                        "mkdir ./Exercise0",
+                        "cd ./Exercise0 && yo theia-extension -y empty --extensionName Exercise0 && exit",
+                        "cd ./Exercise0/ && yarn install",
+                        "cd ./Exercise0/browser-app && yarn start"
+                    ]
+                }
+            ],
+            "content": [
+                {
+                    "type": "html",
+                    "data": "<h>Welcome to the theia tutorial</h><br/><p>Theia is: <ul><li>A platform for building web-based tools and IDEs</li><li>A basic workbench frame</li><li>A modular extension mechanism</li><li>Common tool features to be reused</li></ul></p>"
+                },
+                {
+                    "type": "image",
+                    "data": {
+                        "src": "https://cdn.discordapp.com/attachments/776068333124452376/786186066536693770/unknown.png",
+                        "description": "Theia",
+                        "width": "50%"
+                    }
+                },
+                {
+                    "type": "html",
+                    "data": "In order to start you should set up the workspace by executing the following steps: <br/>Create a directory 'Exercise 0'<br/>Frome the directory execute:<br/><code>$yo theia-extension -y empty --extensionName Exercise0</code><br/>You can also decide to let us do the job."
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "initExerciseZero",
+                        "text": "Execute exercise 0"
+                    }
+
+                },
+                {
+                    "type": "hint",
+                    "data": [
+                        {
+                            "type": "text",
+                            "data": "Hello I'm a Hint"
+                        },
+                        {
+                            "type": "image",
+                            "data": {
+                                "src": "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+                                "description": "Crazy Cat"
+                            }
+                        }
+                    ]
+                }
+
+            ]
+        },
+        {
+            "title": "Exercise 2",
+            "checkIfRequiredStateIsMet": [],
+            "bringToRequiredStat": [],
+            "content": [
+                {
+                    "type": "text",
+                    "data": "Hello, this is exercise 2, you have to add imports to some files. Start with the file 'Exercise0-frontend-module.ts'"
+                },
+                {
+                    "type": "automaticImport",
+                    "data": {
+                        "text": "by clicking here you can add all the required import statements you need",
+                        "imports": [
+                            "import { inject} from \"inversify\";",
+                            "import { CommandContribution, CommandRegistry, MessageService} from \"@theia/core/lib/common\";"
+                        ],
+                        "path": [
+                            "Exercise0",
+                            "Exercise0",
+                            "src",
+                            "browser",
+                            "Exercise0-contribution.ts"
+                        ]
+                    }
+                },
+                {
+                    "type": "hint",
+                    "data": [
+                        {
+                            "type": "text",
+                            "data": "Hello I'm a Hint"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
