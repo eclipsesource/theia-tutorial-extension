@@ -32,6 +32,7 @@ class ReactPanel {
 		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "Theia Tutorial", column, {
 			// Enable javascript in the webview
 			enableScripts: true,
+			retainContextWhenHidden: true
 
 		});
 
