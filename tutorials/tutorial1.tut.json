@@ -45,6 +45,7 @@
             "bringToRequiredStat": [
                 {
                     "type": "commands",
+                    "subtype": "init",
                     "name": "initExerciseZero",
                     "taskDependenciesCommand": [],
                     "tasks": [
@@ -53,6 +54,13 @@
                         "cd ./Exercise0/ && yarn install",
                         "cd ./Exercise0/browser-app && yarn start"
                     ]
+                },
+                {
+                    "type": "commands",
+                    "subtype": "reset",
+                    "rootDir": "Exercise0",
+                    "executeNext": "initExerciseZero",
+                    "name": "resetExerciseZero"
                 }
             ],
             "content": [
@@ -79,6 +87,13 @@
                         "text": "Execute exercise 0"
                     }
 
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "resetExerciseZero",
+                        "text": "Reset exercise 0"
+                    }
                 },
                 {
                     "type": "hint",

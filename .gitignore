@@ -30,3 +30,6 @@ yarn-error.log*
 yarn.lock
 
 react-app/package-lock.json
+
+tutorials/.tmp
+tutorials/Exercise*
