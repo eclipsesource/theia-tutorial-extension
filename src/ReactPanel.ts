@@ -32,6 +32,7 @@ class ReactPanel {
 		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "Theia Tutorial", column, {
 			// Enable javascript in the webview
 			enableScripts: true,
+			retainContextWhenHidden: true
 
 		});
 
@@ -67,6 +68,9 @@ class ReactPanel {
 					break;
 				case 'fileDiff':
 					vscode.commands.executeCommand('theiatutorialextension.fileDiff', message.filename, message.solution);
+				case 'resetExerciseZero':
+					vscode.window.showInformationMessage("Resetting Exercise 0. Please wait....");
+					vscode.commands.executeCommand('theiatutorialextension.resetExerciseZero');
 					break;
 			}
 		}, null, this._disposables);

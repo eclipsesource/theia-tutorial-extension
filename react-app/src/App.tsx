@@ -2,7 +2,7 @@ import {Button} from '@material-ui/core';
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import './App.css';
-import StepperComponent from './components/StepperComponent';
+import TutorialOverview from './components/TutorialOverview';
 import {VSCodeAPI} from './VSCodeAPI';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -13,7 +13,7 @@ export default function App() {
 
   useEffect(() => {
     return VSCodeAPI.onMessage((message) => {
-      
+
       switch (message.data.command) {
         case 'setTutorials':
           setTutorials(message.data.tutorials);
@@ -45,11 +45,11 @@ export default function App() {
           {createTutorialList()}
           </p></p>
         :
-        <StepperComponent tutorialExercises={tutorials[selectedTutorial].tutorial}/>
+        <TutorialOverview tutorialExercises={tutorials[selectedTutorial].tutorial} />
       }
     </div>
 
-        
-      
+
+
   );
 }

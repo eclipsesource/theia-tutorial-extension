@@ -24,7 +24,29 @@ function initCommands(context: vscode.ExtensionContext, config: any) {
 	for(let array of config) {
 		for(let tutorial of array.tutorial) {
 			for(let bringToRequiredStat of tutorial.bringToRequiredStat) {
-				if (bringToRequiredStat.name) {
+				if (bringToRequiredStat.name && bringToRequiredStat.subtype === "init") {
+					commands.push(registerCommand(bringToRequiredStat.name, bringToRequiredStat.tasks));
+				}
+				else if (bringToRequiredStat.name && bringToRequiredStat.subtype === "reset") {
+					// Initiate Reset Protocol.
+					bringToRequiredStat.tasks = [];
+					bringToRequiredStat.tasks.push({
+						name: "exec_reset_protocol",
+						rootDir: bringToRequiredStat.rootDir
+					});
+
+					// append the appropriate init command to taskLists.
+					for(let array of config) {
+						for(let tutorial of array.tutorial) {
+							for(let filterBringToRequiredStat of tutorial.bringToRequiredStat) {
+								if(filterBringToRequiredStat.name === bringToRequiredStat.executeNext) {
+									for (let initTask of filterBringToRequiredStat.tasks) {
+										bringToRequiredStat.tasks.push(initTask);
+									}
+								}
+							}
+						}
+					}
 					commands.push(registerCommand(bringToRequiredStat.name, bringToRequiredStat.tasks));
 				}
 			}
@@ -36,14 +58,27 @@ function initCommands(context: vscode.ExtensionContext, config: any) {
 export default initCommands;
 
 
-function registerCommand (commandName: string, tasks: []): vscode.Disposable {
+function registerCommand (commandName: string, tasks:any = []): vscode.Disposable {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
 	const REGISTERNEWCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.'+commandName, () => {
 		registerCommand();
 		async function registerCommand() {
-			for(let task of tasks) {
-				await execShellCommand(task);
+			let today = new Date();
+			let currentTimeStamp = today.getFullYear()+'_'+(today.getMonth()+1)+'_'+today.getDate()+'_'+today.getHours() + "_" + today.getMinutes() + "_" + today.getSeconds();;
+			let tempTasks = Object.assign([], tasks);
+
+			for(let task of tempTasks) {
+				if(typeof task === 'object' && task !== null) {
+					tempTasks.shift();
+					tempTasks.unshift('mv '+ task.rootDir +' .tmp/' +currentTimeStamp);
+					tempTasks.unshift("mkdir -p .tmp/"+ currentTimeStamp);
+				}
+			}
+
+			for(let execTask of tempTasks) {
+				console.log(execTask);
+				await execShellCommand(execTask);
 			}
 		}
 	});

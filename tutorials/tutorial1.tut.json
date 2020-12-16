@@ -2,8 +2,8 @@
     "title": "Tutorial1",
     "tutorial": [
         {
-            "title": "Exercise1",
-            "description": "",
+            "title": "Exercise 0",
+            "description": "In Exercise 0 you will set up the workspace and create an empty extension. If you have done this allready, you can skip this exercise",
             "checkIfRequiredStateIsMet": [
                 {
                     "type": "checkIfFilesExist",
@@ -47,6 +47,7 @@
             "bringToRequiredStat": [
                 {
                     "type": "commands",
+                    "subtype": "init",
                     "name": "initExerciseZero",
                     "taskDependenciesCommand": [],
                     "tasks": [
@@ -55,6 +56,13 @@
                         "cd ./Exercise0/ && yarn install",
                         "cd ./Exercise0/browser-app && yarn start"
                     ]
+                },
+                {
+                    "type": "commands",
+                    "subtype": "reset",
+                    "rootDir": "Exercise0",
+                    "executeNext": "initExerciseZero",
+                    "name": "resetExerciseZero"
                 }
             ],
             "content": [
@@ -102,6 +110,13 @@
                         }
                     }
                 },
+              {
+                  "type": "command",
+                  "data": {
+                        "command": "resetExerciseZero",
+                        "text": "Reset exercise 0"
+                    }
+                },
                 {
                     "type": "hint",
                     "data": [
@@ -118,11 +133,11 @@
                         }
                     ]
                 }
-
             ]
         },
         {
-            "title": "Exercise 2",
+            "title": "Exercise 1",
+            "description": "Build and register your first command, that will say hello to the world",
             "checkIfRequiredStateIsMet": [],
             "bringToRequiredStat": [],
             "content": [
