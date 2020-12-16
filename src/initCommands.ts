@@ -4,8 +4,9 @@ import EXECUTETESTSCOMMAND from './Commands/ExecuteTests';
 // import INITEXERCISEZEROCOMMAND from './Commands/InitExerciseZero';
 import CHECKFILESCOMMAND from './Commands/CheckFilesCommand';
 import ADDIMPORTSCOMMAND from './Commands/AddImportsCommand';
+import OPENFILECOMMAND from './Commands/OpenFileCommand';
+import FILEDIFFERENCECOMMAND from './Commands/FileDifferenceCommand';
 import { exec } from 'child_process';
-
 
 
 function initCommands(context: vscode.ExtensionContext, config: any) {
@@ -15,7 +16,9 @@ function initCommands(context: vscode.ExtensionContext, config: any) {
 		EXECUTETESTSCOMMAND,
 		// INITEXERCISEZEROCOMMAND,
 		CHECKFILESCOMMAND,
-		ADDIMPORTSCOMMAND
+		ADDIMPORTSCOMMAND,
+		OPENFILECOMMAND,
+		FILEDIFFERENCECOMMAND
 	];
 
 	for(let array of config) {

@@ -13,8 +13,7 @@ export const Command = (props: CommandProps) => {
   return (
     <div className="Box-margin">
       <Button onClick={() => {
-        VSCodeAPI.postMessage({command: props.command, ...props.data});
-        console.log({command: props.command, ...props.data});
+          VSCodeAPI.postMessage({command: props.command, ...props.data});
         }} variant="contained" color="primary">
         {props.text}
       </Button>

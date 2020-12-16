@@ -36,6 +36,14 @@
 				"title": "Init Exercise Zero"
 			},
 			{
+				"command": "theiatutorialextension.openFile",
+				"title": "Open File"
+			},
+			{
+				"command": "theiatutorialextension.fileDiff",
+				"title": "Compare difference with solution"
+			},
+			{
 				"command": "theiatutorialextension.checkExerciseFiles",
 				"title": "Check Exercise 0 Files"
 			}

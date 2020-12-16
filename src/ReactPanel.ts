@@ -62,6 +62,12 @@ class ReactPanel {
 				case 'addImports':
 					vscode.commands.executeCommand('theiatutorialextension.addImports', message.autoImportData);
 					break;
+				case 'openFile':
+					vscode.commands.executeCommand('theiatutorialextension.openFile', message.filename);
+					break;
+				case 'fileDiff':
+					vscode.commands.executeCommand('theiatutorialextension.fileDiff', message.filename, message.solution);
+					break;
 			}
 		}, null, this._disposables);
 
