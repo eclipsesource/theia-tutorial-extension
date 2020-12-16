@@ -43,6 +43,7 @@
                     ]
                 }
             ],
+            
             "bringToRequiredStat": [
                 {
                     "type": "commands",
@@ -67,7 +68,7 @@
             "content": [
                 {
                     "type": "html",
-                    "data": "<h>Welcome to the theia tutorial</h><br/><p>Theia is: <ul><li>A platform for building web-based tools and IDEs</li><li>A basic workbench frame</li><li>A modular extension mechanism</li><li>Common tool features to be reused</li></ul></p>"
+                    "data": "<h2>Welcome to the theia tutorial</h2><br/><p>Theia is: <ul><li>A platform for building web-based tools and IDEs</li><li>A basic workbench frame</li><li>A modular extension mechanism</li><li>Common tool features to be reused</li></ul></p>"
                 },
                 {
                     "type": "image",
@@ -91,6 +92,27 @@
                 {
                     "type": "command",
                     "data": {
+                        "command": "openFile",
+                        "text": "Open File",
+                        "data": {
+                            "filename":"Exercise0/Exercise0/src/browser/Exercise0-contribution.ts"
+                        }
+                    }
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "fileDiff",
+                        "text": "Compare with solution",
+                        "data": {
+                            "filename":"Exercise0/Exercise0/src/browser/Exercise0-contribution.ts",
+                            "solution": ".solution/Exercise0-contribution.ts"
+                        }
+                    }
+                },
+              {
+                  "type": "command",
+                  "data": {
                         "command": "resetExerciseZero",
                         "text": "Reset exercise 0"
                     }
