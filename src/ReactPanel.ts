@@ -63,6 +63,10 @@ class ReactPanel {
 				case 'addImports':
 					vscode.commands.executeCommand('theiatutorialextension.addImports', message.autoImportData);
 					break;
+				case 'resetExerciseZero':
+					vscode.window.showInformationMessage("Resetting Exercise 0. Please wait....");
+					vscode.commands.executeCommand('theiatutorialextension.resetExerciseZero');
+					break;
 			}
 		}, null, this._disposables);
 
