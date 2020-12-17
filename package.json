@@ -46,6 +46,10 @@
 			{
 				"command": "theiatutorialextension.checkExerciseFiles",
 				"title": "Check Exercise 0 Files"
+			},
+			{
+				"command": "theiatutorialextension.checkProcess",
+				"title": "Check Process"
 			}
 		],
 		"viewsContainers": {

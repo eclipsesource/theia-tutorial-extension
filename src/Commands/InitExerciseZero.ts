@@ -1,7 +1,7 @@
-import { exec } from 'child_process';
 import * as vscode from 'vscode';
 import { exerciseFileName, extensionFileName } from './../utils/constant';
 import ReactPanel from '../ReactPanel';
+import { execShellCommand } from './../utils/commandUtil';
 
 const INITEXERCISEZEROCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.initExerciseZero', async () => {
     const outputChannel = vscode.window.createOutputChannel('Initiating Exercise 0');
@@ -45,17 +45,6 @@ const INITEXERCISEZEROCOMMAND: vscode.Disposable = vscode.commands.registerComma
         });
     });
 });
-
-async function execShellCommand(cmd: string) {
-    return new Promise((resolve, reject) => {
-        exec(cmd, (error, stdout, stderr) => {
-            if (error) {
-                console.error(error);
-            }
-            resolve(stdout? stdout : stderr);
-        });
-    });
-}
 
 function createTerminal(yoTerminal: vscode.Terminal) {
     return new Promise((resolve, reject) => {

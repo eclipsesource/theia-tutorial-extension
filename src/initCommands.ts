@@ -6,7 +6,10 @@ import CHECKFILESCOMMAND from './Commands/CheckFilesCommand';
 import ADDIMPORTSCOMMAND from './Commands/AddImportsCommand';
 import OPENFILECOMMAND from './Commands/OpenFileCommand';
 import FILEDIFFERENCECOMMAND from './Commands/FileDifferenceCommand';
+import CHECKPROCESSCOMMAND from './Commands/CheckProcessCommand';
 import { exec } from 'child_process';
+
+
 
 
 function initCommands(context: vscode.ExtensionContext, config: any) {
@@ -18,7 +21,8 @@ function initCommands(context: vscode.ExtensionContext, config: any) {
 		CHECKFILESCOMMAND,
 		ADDIMPORTSCOMMAND,
 		OPENFILECOMMAND,
-		FILEDIFFERENCECOMMAND
+		FILEDIFFERENCECOMMAND,
+		CHECKPROCESSCOMMAND
 	];
 
 	for(let array of config) {
@@ -83,17 +87,20 @@ function registerCommand (commandName: string, tasks:any = []): vscode.Disposabl
 		}
 	});
 
-	function execShellCommand(cmd: string) {
-		return new Promise((resolve, reject) => {
-			process.chdir(workspaceFolder);
-			exec(cmd, (error, stdout, stderr) => {
-				if (error) {
-					console.error(error);
-				}
-				resolve(stdout? stdout : stderr);
-			});
-		});
-	}
+
+
+async function execShellCommand(cmd: string) {
+    return new Promise((resolve, reject) => {
+		process.chdir(workspaceFolder);
+		exec(cmd, (error, stdout, stderr) => {
+            if (error) {
+                console.error(error);
+            }
+            resolve(stdout? stdout : stderr);
+        });
+    });
+}
+
 
 	return REGISTERNEWCOMMAND;
 }
