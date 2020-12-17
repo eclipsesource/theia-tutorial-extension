@@ -7,7 +7,8 @@ import ADDIMPORTSCOMMAND from './Commands/AddImportsCommand';
 import OPENFILECOMMAND from './Commands/OpenFileCommand';
 import FILEDIFFERENCECOMMAND from './Commands/FileDifferenceCommand';
 import CHECKPROCESSCOMMAND from './Commands/CheckProcessCommand';
-import { execShellCommand } from  './utils/commandUtil';
+import { exec } from 'child_process';
+
 
 
 
@@ -85,6 +86,21 @@ function registerCommand (commandName: string, tasks:any = []): vscode.Disposabl
 			}
 		}
 	});
+
+
+
+async function execShellCommand(cmd: string) {
+    return new Promise((resolve, reject) => {
+		process.chdir(workspaceFolder);
+		exec(cmd, (error, stdout, stderr) => {
+            if (error) {
+                console.error(error);
+            }
+            resolve(stdout? stdout : stderr);
+        });
+    });
+}
+
 
 	return REGISTERNEWCOMMAND;
 }
