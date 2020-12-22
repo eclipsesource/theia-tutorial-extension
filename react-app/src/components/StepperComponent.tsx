@@ -12,11 +12,16 @@ import {Exercise} from './Exercise';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '100%',
-    },
+      width: '100%'
+      },
     backButton: {
-      marginRight: theme.spacing(1),
-      color: 'white'
+      marginRight: 20,
+      color: 'white',
+      backgroundColor: 'gray',
+    },
+    nextButton: {
+      backgroundColor: 'white',
+      color: 'blue'
     },
     resetButton: {
       color: 'white'
@@ -25,6 +30,10 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
     },
+    stepper:{
+      height: 40, 
+      padding: '10px 0 20px'
+    }
   }),
 );
 
@@ -93,14 +102,14 @@ const StepperComponent = (props: StepperComponentProps) => {
 
   return (
     <div className={classes.root}>
-      <Stepper activeStep={activeStep} alternativeLabel>
+      <Stepper activeStep={activeStep} alternativeLabel className={classes.stepper}>
         {steps && steps.map((label: any) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
-      <div>
+      <div style={{marginBottom: 20}}>
         {activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>All steps completed</Typography>
@@ -120,7 +129,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                 >
                   Back
               </Button>
-                <Button variant="contained" color="primary" onClick={handleNext}>
+                <Button variant="contained" className={classes.nextButton} onClick={handleNext}>
                   {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                 </Button>
               </div>
