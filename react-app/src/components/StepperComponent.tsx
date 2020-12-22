@@ -31,9 +31,15 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(1),
     },
     stepper:{
-      height: 40, 
-      padding: '10px 0 20px'
-    }
+      height: 35, 
+      padding: '5px 0 20px'
+    },
+    labelContainer: {
+      "& $alternativeLabel": {
+        marginTop: 5
+      }
+    },
+    alternativeLabel: {},
   }),
 );
 
@@ -105,7 +111,14 @@ const StepperComponent = (props: StepperComponentProps) => {
       <Stepper activeStep={activeStep} alternativeLabel className={classes.stepper}>
         {steps && steps.map((label: any) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel       
+              classes={{
+              alternativeLabel: classes.alternativeLabel,
+              labelContainer: classes.labelContainer
+              }}
+            >
+            {label}
+            </StepLabel>
           </Step>
         ))}
       </Stepper>
