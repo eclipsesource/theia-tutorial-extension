@@ -125,7 +125,7 @@ const StepperComponent = (props: StepperComponentProps) => {
       <div style={{marginBottom: 20}}>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>All steps completed</Typography>
+            <Typography className={classes.instructions}>Congratulations! You finished the tutorial.</Typography>
             <Button className={classes.resetButton} onClick={handleReset}>Reset</Button>
           </div>
         ) : (

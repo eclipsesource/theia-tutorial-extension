@@ -12,9 +12,8 @@ export const Exercise = (props: ExerciseProps) => {
 
   return (
     <div className="exercise">
-      <h1 className="App-title">{props.exercise.title}</h1>
-
-      {props.exercise.content && props.exercise.content.map((section: {type: string; data: any;}) => {
+      <h2 className="App-title">{props.exercise.title}</h2>
+      {props.exercise.content && props.exercise.content.map((section: {type: string; data: any; text?:string}) => {
         switch (section.type) {
           case "text":
             return <p>{section.data}</p>;
@@ -23,7 +22,7 @@ export const Exercise = (props: ExerciseProps) => {
           case "image":
             return <img src={section.data.src} width={section.data.width} />;
           case "hint":
-            return <Hint data={section.data}></Hint>;
+            return <Hint data={section.data} text={section.text}></Hint>;
           case "automaticImport":
             return <AutomaticImport data={section.data}></AutomaticImport>;
           case "command":
@@ -36,20 +35,26 @@ export const Exercise = (props: ExerciseProps) => {
 
 const Hint = (props: any) => {
   const [showHint, setShowHint] = React.useState(false);
-
+  console.log(props);
   return (
     <div>
-      <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>Click me to show Hint</a>
+      <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>{props.text}</a>
       {showHint &&
         props.data &&
         props.data.map((section: {type: string; data: any;}) => {
           switch (section.type) {
             case "text":
               return <p>{section.data}</p>;
+            case "html":
+              return <div>{ ReactHtmlParser (section.data) }</div>;
             case "image":
-              return <img src={section.data.src} />;
+              return <img src={section.data.src} width={section.data.width} />;
             case "hint":
               return <Hint data={section.data}></Hint>;
+            case "automaticImport":
+              return <AutomaticImport data={section.data}></AutomaticImport>;
+            case "command":
+              return <Command command={section.data.command} text={section.data.text} data={section.data.data}></Command>;
           }
         })
       }

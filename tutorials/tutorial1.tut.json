@@ -3,19 +3,19 @@
     "tutorial": [
         {
             "title": "Exercise 0",
-            "description": "In Exercise 0 you will set up the workspace and create an empty extension. If you have done this allready, you can skip this exercise",
+            "description": "In Exercise 0 you will set up the workspace and create an empty extension. If you have done this already, you can skip this exercise",
             "checkIfRequiredStateIsMet": [
                 {
                     "type": "checkIfFilesExist",
                     "data": [
                         "/.gitignore",
                         "/.vscode/launch.json",
-                        "/Exercise0/lib",
-                        "/Exercise0/node_modules",
-                        "/Exercise0/package.json",
-                        "/Exercise0/src/browser/Exercise0-contribution.ts",
-                        "/Exercise0/src/browser/Exercise0-frontend-module.ts",
-                        "/Exercise0/tsconfig.json",
+                        "/tutorial/lib",
+                        "/tutorial/node_modules",
+                        "/tutorial/package.json",
+                        "/tutorial/src/browser/tutorial-contribution.ts",
+                        "/tutorial/src/browser/tutorial-frontend-module.ts",
+                        "/tutorial/tsconfig.json",
                         "/README.md",
                         "/browser-app/gen-webpack.config.js",
                         "/browser-app/lib",
@@ -51,16 +51,15 @@
                     "name": "initExerciseZero",
                     "taskDependenciesCommand": [],
                     "tasks": [
-                        "mkdir ./Exercise0",
-                        "cd ./Exercise0 && yo theia-extension -y empty --extensionName Exercise0 && exit",
-                        "cd ./Exercise0/ && yarn install",
-                        "cd ./Exercise0/browser-app && yarn start"
+                        "mkdir ./theia-extension",
+                        "cd ./theia-extension && yo theia-extension -y empty --extensionName tutorial && exit",
+                        "cd ./tutorial/ && yarn install"
                     ]
                 },
                 {
                     "type": "commands",
                     "subtype": "reset",
-                    "rootDir": "Exercise0",
+                    "rootDir": "theia-extension",
                     "executeNext": "initExerciseZero",
                     "name": "resetExerciseZero"
                 }
@@ -80,55 +79,28 @@
                 },
                 {
                     "type": "html",
-                    "data": "In order to start you should set up the workspace by executing the following steps: <br/>Create a directory 'Exercise 0'<br/>Frome the directory execute:<br/><code>$yo theia-extension -y empty --extensionName Exercise0</code><br/>You can also decide to let us do the job."
-                },
-                {
-                    "type": "command",
-                    "data": {
-                        "command": "initExerciseZero",
-                        "text": "Execute exercise 0"
-                    }
-                },
-                {
-                    "type": "command",
-                    "data": {
-                        "command": "openFile",
-                        "text": "Open File",
-                        "data": {
-                            "filename":"Exercise0/Exercise0/src/browser/Exercise0-contribution.ts"
-                        }
-                    }
-                },
-                {
-                    "type": "command",
-                    "data": {
-                        "command": "fileDiff",
-                        "text": "Compare with solution",
-                        "data": {
-                            "filename":"Exercise0/Exercise0/src/browser/Exercise0-contribution.ts",
-                            "solution": ".solution/Exercise0-contribution.ts"
-                        }
-                    }
-                },
-              {
-                  "type": "command",
-                  "data": {
-                        "command": "resetExerciseZero",
-                        "text": "Reset exercise 0"
-                    }
+                    "data": "<p>In order to get started, you should set up the workspace by generating an empty scaffold of a theia extension with yeoman: <br/>First create a directory 'theia-extension'<br/>In the terminal from inside the directory execute:</p><br/><code>$yo theia-extension -y empty --extensionName tutorial</code><br/><p>After this you are ready to go.</p><br/><br/>"
                 },
                 {
                     "type": "hint",
+                    "text": "Having difficulities?",
                     "data": [
                         {
-                            "type": "text",
-                            "data": "Hello I'm a Hint"
+                            "type": "html",
+                            "data": "<p>If you want, you can let us do the job, by clicking the buttons below.<br/>Click Reset Exercise 0 first, if you want to save your current workspace to the '.tmp' directory.</p>"
                         },
                         {
-                            "type": "image",
+                            "type": "command",
                             "data": {
-                                "src": "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
-                                "description": "Crazy Cat"
+                                    "command": "resetExerciseZero",
+                                    "text": "Reset exercise 0"
+                                }
+                        },
+                        {
+                            "type": "command",
+                            "data": {
+                                "command": "initExerciseZero",
+                                "text": "Set Up workspace"
                             }
                         }
                     ]
@@ -142,34 +114,162 @@
             "bringToRequiredStat": [],
             "content": [
                 {
-                    "type": "text",
-                    "data": "Hello, this is exercise 2, you have to add imports to some files. Start with the file 'Exercise0-frontend-module.ts'"
+                    "type": "html",
+                    "data": "<h3>Let's get started</h3><p>In order to get started you have to understand one crucial part of the structure of theia.<br/>Theia has a modular architecture and strongly relies on dependency injection</p>"
+                },
+                {
+                    "type": "image",
+                    "data": {
+                        "src": "https://cdn.discordapp.com/attachments/776069960371273769/790979723315642398/unknown.png",
+                        "description": "Modular architecture",
+                        "width": "80%"
+                    }
+                },
+                {
+                    "type": "html",
+                    "data": "<h4>Commands</h4><p>In theia you have the possibility to create commands.<br/>We will create a 'hello-world' command. Any command implements a specific action to be triggered (f.e. say 'Hello World')</p><p>Theia defines so called “contributions” to be implemented by extensions.<br/>A contribution is an interface to be implemented.<br/></p>"
+                },
+                {
+                    "type": "image",
+                    "data": {
+                        "src": "https://cdn.discordapp.com/attachments/776069960371273769/790991565023084554/unknown.png",
+                        "description": "Theia core modules",
+                        "width": "80%"
+                    }
+                },
+                {
+                    "type": "html",
+                    "data": "<p>Now let's get started with the actual programming. Please open the file:<br/><i>'theia-extension/tutorial/src/browser/tutorial-contribution.ts'</i></p>"
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "openFile",
+                        "text": "Open File",
+                        "data": {
+                            "filename":"theia-extension/tutorial/src/browser/tutorial-contribution.ts"
+                        }
+                    }
+                },
+                {
+                    "type": "html",
+                    "data": "<p>We are going to use the Services <i>'CommandContribution, CommandRegistry, MessageService'</i> from the theia-core module and <i>'injectable, inject'</i> from 'inversify' in our extension.<br/>In order to use these modules you need to import them to this file.</p>"
                 },
                 {
                     "type": "automaticImport",
                     "data": {
-                        "text": "by clicking here you can add all the required import statements you need",
+                        "text": "Import modules",
                         "imports": [
                             "import { inject} from \"inversify\";",
-                            "import { CommandContribution, CommandRegistry, MessageService} from \"@theia/core/lib/common\";"
+                            "import { CommandContribution, CommandRegistry, MessageService} from \"@theia/core/lib/common\";",
+                            "import { CommonMenus } from \"@theia/core/lib/browser\";"
                         ],
                         "path": [
-                            "Exercise0",
-                            "Exercise0",
+                            "theia-extension",
+                            "tutorial",
                             "src",
                             "browser",
-                            "Exercise0-contribution.ts"
+                            "tutorial-contribution.ts"
                         ]
                     }
                 },
                 {
+                    "type": "html",
+                    "data": "<p>A command consists of: </p><ul><li>Command Definition:</li><ul><li>ID: an ID to reference the command, e.g. from a menu item</li><li>Label: User visible label, used to trigger the command in the command palette</li></ul><li>CommandHandler: A function implementing the behavior</li><li>Command registration: Commands are registered at the CommandRegistry</li></ul><p>The CommandContribution: Defines a function “registerCommands” which gets the registry as a parameter. This allows you to inject required parameters (i.e. services)</p>"
+                },
+                {
                     "type": "hint",
+                    "text": "Show the full implementation of these parts",
                     "data": [
                         {
-                            "type": "text",
-                            "data": "Hello I'm a Hint"
+                            "type": "html",
+                            "data": "<p>Command Definition</p>"
+                        },
+                        {
+                            "type": "image",
+                            "data": {
+                                "src": "https://cdn.discordapp.com/attachments/776069960371273769/790994161008377887/unknown.png",
+                                "description": "Command implementation modules",
+                                "width": "60%"
+                            }
+                        },
+                        {
+                            "type": "html",
+                            "data": "<p>Command Handler</p>"
+                        },
+                        {
+                            "type": "image",
+                            "data": {
+                                "src": "https://cdn.discordapp.com/attachments/776069960371273769/790994641398923274/unknown.png",
+                                "description": "Command implementation modules",
+                                "width": "80%"
+                            }
                         }
                     ]
+                },
+                {
+                    "type": "html",
+                    "data": "<p>To make the command accessible by the UI, we need to implement a MenuContribution, adding an item to the Search/Replace section of the edit menu in the menu bar.</p>"
+                },
+                {
+                    "type": "image",
+                    "data": {
+                        "src": "https://cdn.discordapp.com/attachments/776069960371273769/791239064023859210/unknown.png",
+                        "description": "Command implementation modules",
+                        "width": "80%"
+                    }
+                },
+                {
+                    "type": "html",
+                    "data": "<p>As a last step you need to open the file tutorial-frontend-module.ts</p>"
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "openFile",
+                        "text": "Open File",
+                        "data": {
+                            "filename":"theia-extension/tutorial/src/browser/tutorial-frontend-module.ts"
+                        }
+                    }
+                },
+                {
+                    "type": "html",
+                    "data": "<p>Here you can register the CommandContribution and MenuContribution, so that Theia can pick it up (and call it)</p>"
+                },
+                {
+                    "type": "image",
+                    "data": {
+                        "src": "https://cdn.discordapp.com/attachments/776069960371273769/791242722039431228/unknown.png",
+                        "description": "Command implementation modules",
+                        "width": "80%"
+                    }
+                },
+                {
+                    "type": "html",
+                    "data": "<h5>You are good to go.</h5><p>You can go to the terminal and build the extension with yarn theia build. Then cd to the browser-app or electron-app and start the theia-ide with your extension included.<br/>For this type <code>yarn start</code> inside the directory</p><p>If you are not sure if you have done every step correctly you can compare it with our sample solution.</p>"
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "fileDiff",
+                        "text": "Compare Contribution File",
+                        "data": {
+                            "filename":"theia-extension/tutorial/src/browser/tutorial-contribution.ts",
+                            "solution": ".solution/tutorial-contribution.ts"
+                        }
+                    }
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "fileDiff",
+                        "text": "Compare Frontend Module File",
+                        "data": {
+                            "filename":"theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
+                            "solution": ".solution/tutorial-frontend-module.ts"
+                        }
+                    }
                 }
             ]
         }

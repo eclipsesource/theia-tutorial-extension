@@ -41,7 +41,7 @@ export default function App() {
           <h1 className="App-title">Overview</h1>
         </header>
           <p className="App-intro">
-            current Tutorials in the workspace:
+            Current Tutorials in the workspace:
           {createTutorialList()}
           </p></p>
         :
