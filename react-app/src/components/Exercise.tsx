@@ -13,7 +13,6 @@ export const Exercise = (props: ExerciseProps) => {
   return (
     <div className="exercise">
       <h2 className="App-title">{props.exercise.title}</h2>
-
       {props.exercise.content && props.exercise.content.map((section: {type: string; data: any; text?:string}) => {
         switch (section.type) {
           case "text":
