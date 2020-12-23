@@ -17,10 +17,11 @@ const path = require('path');
 
       outputChannel.appendLine(`fileList from config`);
       outputChannel.appendLine(`${fileList}`);
+     
   
       // const correctFiles = getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
       const correctFilesFromConfig = fileList ? getCorrectFilePathsFromConfig(workspaceFolder+'/'+exerciseFileName, fileList) : getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
-  
+      outputChannel.appendLine(`${correctFilesFromConfig}`);
       const isFileListCorrect = compareFileLists(correctFilesFromConfig, files);
   
       if(isFileListCorrect) {
@@ -29,26 +30,31 @@ const path = require('path');
         ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: true});
       }
       else {
-        vscode.window.showInformationMessage(`There is a problem in your folder structure of Exercise 0`);
+        vscode.window.showInformationMessage(`There is a problem in your folder structure of the tutorial`);
         ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:"Oooops... your workspace doesn't reflect the desired start state."});
         ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
       }
     }
     else {
-      vscode.window.showInformationMessage(`You don't have Exercise 0 folder. You should execute Init Exercise 0.`);
+      vscode.window.showInformationMessage(`You don't have theia-extension folder. You should execute Init Exercise 0.`);
       ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
     }
 
 
   });
 
-  const compareFileLists = (correctFileList: string[], fileList: string[]) => (
-    JSON.stringify(correctFileList) === JSON.stringify(fileList)
-  );
+  const compareFileLists = (correctFileList: string[], fileList: string[]) => {
+    for(var i=0; i < correctFileList.length; i++){
+      if(!fileList.includes(correctFileList[i])){
+        return false;
+      }
+    }
+    return true;
+  };
 
-    const checkExerciseFile = (workspaceFolder: string) => {
-      return fs.existsSync(path.join(workspaceFolder, exerciseFileName));
-    };
+  const checkExerciseFile = (workspaceFolder: string) => {
+    return fs.existsSync(path.join(workspaceFolder, exerciseFileName));
+  };
 
   const getAllFiles = (dir: string, outputChannel:any) => (
   fs.readdirSync(dir).reduce((files: any, file: any) => {
@@ -77,8 +83,8 @@ const path = require('path');
       `/${extensionFileName}/lib`,
       `/${extensionFileName}/node_modules`,
       `/${extensionFileName}/package.json`,
-      `/${extensionFileName}/src/browser/HelloWorld-contribution.ts`,
-      `/${extensionFileName}/src/browser/HelloWorld-frontend-module.ts`,
+      `/${extensionFileName}/src/browser/${extensionFileName}-contribution.ts`,
+      `/${extensionFileName}/src/browser/${extensionFileName}-frontend-module.ts`,
       `/${extensionFileName}/tsconfig.json`,
       '/README.md',
       '/browser-app/gen-webpack.config.js',

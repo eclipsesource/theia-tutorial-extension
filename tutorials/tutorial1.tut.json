@@ -80,55 +80,28 @@
                 },
                 {
                     "type": "html",
-                    "data": "In order to start you should set up the workspace by executing the following steps: <br/>Create a directory 'Exercise 0'<br/>Frome the directory execute:<br/><code>$yo theia-extension -y empty --extensionName Exercise0</code><br/>You can also decide to let us do the job."
-                },
-                {
-                    "type": "command",
-                    "data": {
-                        "command": "initExerciseZero",
-                        "text": "Execute exercise 0"
-                    }
-                },
-                {
-                    "type": "command",
-                    "data": {
-                        "command": "openFile",
-                        "text": "Open File",
-                        "data": {
-                            "filename":"Exercise0/Exercise0/src/browser/Exercise0-contribution.ts"
-                        }
-                    }
-                },
-                {
-                    "type": "command",
-                    "data": {
-                        "command": "fileDiff",
-                        "text": "Compare with solution",
-                        "data": {
-                            "filename":"Exercise0/Exercise0/src/browser/Exercise0-contribution.ts",
-                            "solution": ".solution/Exercise0-contribution.ts"
-                        }
-                    }
-                },
-              {
-                  "type": "command",
-                  "data": {
-                        "command": "resetExerciseZero",
-                        "text": "Reset exercise 0"
-                    }
+                    "data": "In order to get started, you should set up the workspace by generating an empty scaffold of a theia extension with yeoman: <br/>First create a directory 'theia-extension'<br/>In the terminal from inside the directory execute:<br/><code>$yo theia-extension -y empty --extensionName tutorial</code><br/>After this you are ready to go. <br/>"
                 },
                 {
                     "type": "hint",
+                    "text": "Having difficulities?",
                     "data": [
                         {
-                            "type": "text",
-                            "data": "Hello I'm a Hint"
+                            "type": "html",
+                            "data": "<p><br/>If you want you can let us do the job, by clicking the button below</p>"
                         },
                         {
-                            "type": "image",
+                            "type": "command",
                             "data": {
-                                "src": "https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
-                                "description": "Crazy Cat"
+                                    "command": "resetExerciseZero",
+                                    "text": "Reset exercise 0"
+                                }
+                        },
+                        {
+                            "type": "command",
+                            "data": {
+                                "command": "initExerciseZero",
+                                "text": "Set Up workspace"
                             }
                         }
                     ]
@@ -143,7 +116,21 @@
             "content": [
                 {
                     "type": "text",
-                    "data": "Hello, this is exercise 2, you have to add imports to some files. Start with the file 'Exercise0-frontend-module.ts'"
+                    "data": "Hello, this is exercise 2, you have to add imports to some files. Start with opening the file 'Exercise0-frontend-module.ts'"
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "openFile",
+                        "text": "Open File",
+                        "data": {
+                            "filename":"Exercise0/Exercise0/src/browser/Exercise0-contribution.ts"
+                        }
+                    }
+                },
+                {
+                    "type": "text",
+                    "data": "Now add the imports to the file."
                 },
                 {
                     "type": "automaticImport",
@@ -160,6 +147,21 @@
                             "browser",
                             "Exercise0-contribution.ts"
                         ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "data": "Compare your results"
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "fileDiff",
+                        "text": "Compare with solution",
+                        "data": {
+                            "filename":"Exercise0/Exercise0/src/browser/Exercise0-contribution.ts",
+                            "solution": ".solution/Exercise0-contribution.ts"
+                        }
                     }
                 },
                 {

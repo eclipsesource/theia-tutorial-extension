@@ -8,18 +8,22 @@
   color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
 .Box-margin {
   margin: 20px;
 }
 
 .exercise {
-  padding: 10px;
+  padding: 30px;
+  font-size: 0.9em;
+}
+
+.exercise p, .exercise ul {
+  text-align: left;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.exercise code {padding:0}
+
+.exercise a {
+  cursor: pointer;
 }

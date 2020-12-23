@@ -68,6 +68,7 @@ class ReactPanel {
 					break;
 				case 'fileDiff':
 					vscode.commands.executeCommand('theiatutorialextension.fileDiff', message.filename, message.solution);
+					break;
 				case 'resetExerciseZero':
 					vscode.window.showInformationMessage("Resetting Exercise 0. Please wait....");
 					vscode.commands.executeCommand('theiatutorialextension.checkProcess');
