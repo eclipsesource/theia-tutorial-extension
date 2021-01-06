@@ -17,9 +17,10 @@ export function activate(context: vscode.ExtensionContext) {
 			ReactPanel.createOrShow(context.extensionPath);
 		}));
 
-		vscode.commands.executeCommand('theiatutorialextension.displayContent');
+		vscode.commands.executeCommand('theiatutorialextension.displayContent').then(() => {
+			ReactPanel.currentPanel?.sendToView({command: 'setTutorials', tutorials: config});
+		});
 		initCommands(context, config);
-		ReactPanel.currentPanel?.sendToView({command: 'setTutorials', tutorials: config});
 	});
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from '@material-ui/core';
 import {VSCodeAPI} from '../VSCodeAPI';
-import {CommandButton} from '../tutorial';
+import {CommandButton} from '../../../schema/tutorial';
 
 export const Command = (props: CommandButton) => {
 

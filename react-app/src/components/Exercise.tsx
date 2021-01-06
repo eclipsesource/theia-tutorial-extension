@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import {Command} from './Command';
-import {Exercise, Instruction, Html, Image, Hint, CommandButton} from '../tutorial';
+import {Exercise, Instruction, Html, Image, Hint, CommandButton} from '../../../schema/tutorial';
 
 interface ExerciseProps {
   exercise: Exercise
 }
-
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ExercisePage = (props: ExerciseProps) => {
 
   return (
@@ -42,7 +42,7 @@ const HintComponent = (props: Hint) => {
   console.log(props);
   return (
     <div>
-      <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>{props.hint?.text}</a>
+      <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>{props.hint.text}</a>
       {showHint &&
         props.hint && props.hint.content && createContent(props.hint.content)
       }

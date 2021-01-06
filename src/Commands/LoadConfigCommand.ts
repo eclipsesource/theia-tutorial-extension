@@ -11,21 +11,23 @@ export function loadConfig(): Thenable<Array<Tutorial>> {
         })
         return Promise.all(tutorialContentPromises).then(function (tutorialContent) {
             let tutorials: Array<Tutorial> = tutorialContent.map(text => JSON.parse(text.toString()));
-            tutorials = processTutorials(tutorials);
+            processTutorials(tutorials);
             return tutorials;
         })
     })
 }
-function processTutorials(tutorials: Array<Tutorial>): Array<Tutorial> {
+function processTutorials(tutorials: Array<Tutorial>): void {
     tutorials.forEach((tutorial) => {
         if (tutorial.exercises && tutorial.exercises.length > 1) {
             for (let i = 1; i < tutorial.exercises.length; i++) {
+                if (tutorial.exercises[i].buildExercise == null) {
+                    tutorial.exercises[i].buildExercise = tutorial.exercises[i - 1].solve;
+                }
                 if (tutorial.exercises[i].checkStartState == null) {
-                    tutorial.exercises[i].checkStartState = tutorial.exercises[i - 1].solve;
+                    tutorial.exercises[i].checkStartState = tutorial.exercises[i - 1].test;
                 }
             }
         }
     });
-    return tutorials;
 }
 

@@ -7,7 +7,7 @@ import StepperComponent from './StepperComponent';
 import {Grid, IconButton, StepContent} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import {Tutorial} from '../tutorial';
+import {Tutorial} from '../../../schema/tutorial';
 
 
 
@@ -36,6 +36,7 @@ const TutorialOverview = (props: TutorialOverviewProps) => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(-1);
 
+    console.log(props.tutorial);
     return (
         activeStep < 0 ?
             <div className={classes.root}>

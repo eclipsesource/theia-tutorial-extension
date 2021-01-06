@@ -6,7 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {ExercisePage} from './Exercise';
-import {Tutorial} from '../tutorial';
+import {Tutorial} from '../../../schema/tutorial';
 
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -11,12 +11,12 @@ export default function App() {
 
   const [tutorials, setTutorials] = useState<Array<Tutorial>>([]);
   const [selectedTutorial, selectTutorial] = useState(-1);
-
   useEffect(() => {
     return VSCodeAPI.onMessage((message) => {
 
       switch (message.data.command) {
         case 'setTutorials':
+          console.log(message.data.tutorials);
           setTutorials(message.data.tutorials);
           break;
       }
@@ -24,7 +24,9 @@ export default function App() {
   });
 
   function createTutorialList() {
+    console.log(tutorials);
     return tutorials.map(tutorial => {
+      console.log(tutorial)
       return <div className="Box-margin">
         <Button onClick={() => selectTutorial(tutorials.indexOf(tutorial))} variant="contained" color="primary">
           {
