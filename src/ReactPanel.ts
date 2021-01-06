@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import {Command} from '../schema/tutorial';
+import {Command, CheckIfFilesExist, AutomaticImport, OpenFile, FileDiff} from '../schema/tutorial';
 const path = require('path');
 
 class ReactPanel {
@@ -50,35 +50,35 @@ class ReactPanel {
 		this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
 		// Handle messages from the webview
-		this._panel.webview.onDidReceiveMessage((message) => {
-			switch (message.command) {
-				case 'showInformationMessage':
-					vscode.window.showInformationMessage(message.text);
-					break;
-				case 'initExerciseZero':
-					vscode.commands.executeCommand('theiatutorialextension.initExerciseZero');
-					break;
-				case 'checkExerciseFiles':
-					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', message.fileList);
-					break;
-				case 'addImports':
-					vscode.commands.executeCommand('theiatutorialextension.addImports', message.autoImportData);
-					break;
-				case 'openFile':
-					vscode.commands.executeCommand('theiatutorialextension.openFile', message.filename);
-					break;
-				case 'fileDiff':
-					vscode.commands.executeCommand('theiatutorialextension.fileDiff', message.filename, message.solution);
-					break;
-				case 'resetExerciseZero':
-					vscode.window.showInformationMessage("Resetting Exercise 0. Please wait....");
-					vscode.commands.executeCommand('theiatutorialextension.checkProcess');
-					vscode.commands.executeCommand('theiatutorialextension.resetExerciseZero');
-					break;
-			}
+		this._panel.webview.onDidReceiveMessage((message: Array<Command>) => {
+			this.processCommands(message);
 		}, null, this._disposables);
 
 		//setTimeout(() => this._panel.webview.postMessage({text: 'Hello from Ext'}),5000);
+	}
+
+
+	private async processCommands(commands: Array<Command>) {
+		commands.forEach((command) => {
+			switch (Object.keys(command)[0]) {
+				case 'checkExerciseFiles':
+					let checkFilesCommand = command as CheckIfFilesExist;
+					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', checkFilesCommand);
+					break;
+				case 'addImports':
+					let automaticImport = command as AutomaticImport;
+					vscode.commands.executeCommand('theiatutorialextension.addImports', automaticImport);
+					break;
+				case 'openFile':
+					let openFile = command as OpenFile;
+					vscode.commands.executeCommand('theiatutorialextension.openFile', openFile);
+					break;
+				case 'fileDiff':
+					let fileDiff = command as FileDiff;
+					vscode.commands.executeCommand('theiatutorialextension.fileDiff', fileDiff);
+					break;
+			}
+		})
 	}
 
 	public sendToView(data: any) {
