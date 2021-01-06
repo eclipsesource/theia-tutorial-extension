@@ -31,5 +31,6 @@ yarn.lock
 
 react-app/package-lock.json
 
-tutorials/.tmp
-tutorials/Exercise*
+tutorial/*
+!tutorial/.tutorial
+tutorial/.tutorial/.tmp
