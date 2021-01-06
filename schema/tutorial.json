@@ -1,0 +1,229 @@
+{
+    "definitions": {
+        "exercise": {
+            "$id": "#exercise",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "title",
+                "description"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "checkStartState": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "buildExercise": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "cleanState": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "test": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "solve": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "content": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/instruction"
+                    }
+                }
+            }
+        },
+        "instruction": {
+            "$id": "#instruction",
+            "type": "object",
+            "oneOf": [
+                {
+                    "properties": {
+                        "html": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                {
+                    "properties": {
+                        "image": {
+                            "type": "object",
+                            "properties": {
+                                "src": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "width": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                {
+                    "properties": {
+                        "hint": {
+                            "type": "object",
+                            "properties": {
+                                "text": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/instruction"
+                                    }
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                {
+                    "properties": {
+                        "button": {
+                            "type": "object",
+                            "properties": {
+                                "text": {
+                                    "type": "string"
+                                },
+                                "commands": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/command"
+                                    }
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "command": {
+            "$id": "#command",
+            "type": "object",
+            "oneOf": [
+                {
+                    "properties": {
+                        "checkIfFilesExist": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                {
+                    "properties": {
+                        "terminalCommands": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                {
+                    "properties": {
+                        "openFile": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                {
+                    "properties": {
+                        "automaticImport": {
+                            "type": "object",
+                            "properties": {
+                                "imports": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "path": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                {
+                    "properties": {
+                        "fileDiff": {
+                            "type": "object",
+                            "properties": {
+                                "filename": {
+                                    "type": "string"
+                                },
+                                "solution": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            ]
+        }
+    },
+    "type": "object",
+    "required": [
+        "title",
+        "description",
+        "tutorialFolder"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "tutorialFolder": {
+            "type": "string"
+        },
+        "exercises": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/exercise"
+            }
+        }
+    }
+}

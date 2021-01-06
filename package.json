@@ -101,6 +101,7 @@
 		"vscode-test": "^1.4.0"
 	},
 	"dependencies": {
+		"ajv": "^7.0.3",
 		"node-cmd": "^4.0.0"
 	}
 }
