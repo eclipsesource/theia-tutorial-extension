@@ -1,21 +1,16 @@
 import React from 'react';
 import {Button} from '@material-ui/core';
 import {VSCodeAPI} from '../VSCodeAPI';
+import {CommandButton} from '../tutorial';
 
-interface CommandProps {
-  command: string,
-  text: string,
-  data?: any
-}
-
-export const Command = (props: CommandProps) => {
+export const Command = (props: CommandButton) => {
 
   return (
     <div className="Box-margin">
       <Button onClick={() => {
-          VSCodeAPI.postMessage({command: props.command, ...props.data});
-        }} variant="contained" color="primary">
-        {props.text}
+        VSCodeAPI.postMessage({command: props.button.commands});
+      }} variant="contained" color="primary">
+        {props.button.text}
       </Button>
     </div>
   );

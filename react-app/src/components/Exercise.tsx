@@ -1,62 +1,50 @@
 import React from 'react';
-import ReactHtmlParser from 'react-html-parser'; 
-import {AutomaticImport} from './tutorialComponents/content/automaticImport';
-import { Command } from './Command';
+import ReactHtmlParser from 'react-html-parser';
+import {Command} from './Command';
+import {Exercise, Instruction, Html, Image, Hint, CommandButton} from '../tutorial';
 
 interface ExerciseProps {
-  exercise: any
+  exercise: Exercise
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const Exercise = (props: ExerciseProps) => {
+export const ExercisePage = (props: ExerciseProps) => {
 
   return (
     <div className="exercise">
       <h2 className="App-title">{props.exercise.title}</h2>
-      {props.exercise.content && props.exercise.content.map((section: {type: string; data: any; text?:string}) => {
-        switch (section.type) {
-          case "text":
-            return <p>{section.data}</p>;
-          case "html":
-            return <div>{ ReactHtmlParser (section.data) }</div>;
-          case "image":
-            return <img src={section.data.src} width={section.data.width} />;
-          case "hint":
-            return <Hint data={section.data} text={section.text}></Hint>;
-          case "automaticImport":
-            return <AutomaticImport data={section.data}></AutomaticImport>;
-          case "command":
-            return <Command command={section.data.command} text={section.data.text} data={section.data.data}></Command>;
-        }
-      })}
+      {props.exercise.content && createContent(props.exercise.content)}
     </div>
   );
 };
 
-const Hint = (props: any) => {
+function createContent(content: Array<Instruction>) {
+  return content.map((instruction: Instruction) => {
+    switch (Object.keys(instruction)[0]) {
+      case "html":
+        var html = instruction as Html;
+        return <div>{ReactHtmlParser(html.html)}</div>;
+      case "image":
+        var img = instruction as Image;
+        return <img src={img.image.src} width={img.image.width} />;
+      case "hint":
+        var hint = instruction as Hint;
+        return <HintComponent hint={hint.hint}></HintComponent>;
+      case "button":
+        var button = instruction as CommandButton;
+        return <Command button={button.button}></Command>;
+    }
+  });
+}
+
+
+const HintComponent = (props: Hint) => {
   const [showHint, setShowHint] = React.useState(false);
   console.log(props);
   return (
     <div>
-      <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>{props.text}</a>
+      <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>{props.hint?.text}</a>
       {showHint &&
-        props.data &&
-        props.data.map((section: {type: string; data: any;}) => {
-          switch (section.type) {
-            case "text":
-              return <p>{section.data}</p>;
-            case "html":
-              return <div>{ ReactHtmlParser (section.data) }</div>;
-            case "image":
-              return <img src={section.data.src} width={section.data.width} />;
-            case "hint":
-              return <Hint data={section.data}></Hint>;
-            case "automaticImport":
-              return <AutomaticImport data={section.data}></AutomaticImport>;
-            case "command":
-              return <Command command={section.data.command} text={section.data.text} data={section.data.data}></Command>;
-          }
-        })
+        props.hint && props.hint.content && createContent(props.hint.content)
       }
     </div>
   );

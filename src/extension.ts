@@ -17,8 +17,6 @@ export function activate(context: vscode.ExtensionContext) {
 			ReactPanel.createOrShow(context.extensionPath);
 		}));
 
-		//ReactPanel.currentPanel?.sendToView('info', 'Hello from Extension to React');
-
 		vscode.commands.executeCommand('theiatutorialextension.displayContent');
 		initCommands(context, config);
 		ReactPanel.currentPanel?.sendToView({command: 'setTutorials', tutorials: config});

@@ -5,15 +5,15 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {VSCodeAPI} from '../VSCodeAPI';
-import {Exercise} from './Exercise';
+import {ExercisePage} from './Exercise';
+import {Tutorial} from '../tutorial';
 
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%'
-      },
+    },
     backButton: {
       marginRight: 20,
       color: 'white',
@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
     },
-    stepper:{
-      height: 35, 
+    stepper: {
+      height: 35,
       padding: '5px 0 20px'
     },
     labelContainer: {
@@ -48,52 +48,18 @@ function getSteps(tutorialExercises: any) {
 }
 
 interface StepperComponentProps {
-  tutorialExercises: Array<any>;
+  tutorial: Tutorial;
   startStep: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const StepperComponent = (props: StepperComponentProps) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(props.startStep);
-  const steps = getSteps(props.tutorialExercises);
-  const [isFileListCorrect, setFilesCheck] = useState(false);
-
-  const getFileList = () => {
-    let fileList = [];
-    console.log('props.tutorialExercises[activeStep].checkIfRequiredStateIsMet: ', props.tutorialExercises[activeStep].checkIfRequiredStateIsMet);
-    if (props.tutorialExercises[activeStep].checkIfRequiredStateIsMet) {
-
-      fileList = props.tutorialExercises[activeStep].checkIfRequiredStateIsMet.find((requirements: any) => {
-        console.log('requirements: ', requirements);
-        return requirements.type === 'checkIfFilesExist';
-      });
-    }
-
-    console.log('fileList: ', fileList);
-    return fileList ? fileList.data : fileList;
-  };
+  const steps = getSteps(props.tutorial.exercises);
 
   const handleNext = () => {
-    const fileList = getFileList();
-
-    if (activeStep === 0 && fileList) {
-      VSCodeAPI.postMessage({command: 'checkExerciseFiles', fileList});
-
-      VSCodeAPI.onMessage((message) => {
-        switch (message.data.command) {
-          case 'checkFilesResult':
-            if (message.data.result && !isFileListCorrect) {
-              setActiveStep((prevActiveStep) => prevActiveStep + 1);
-              setFilesCheck(true);
-            }
-            break;
-        }
-      });
-    } else {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      window.scrollTo(0, 0);
-    }
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    window.scrollTo(0, 0);
   };
 
   const handleBack = () => {
@@ -111,13 +77,13 @@ const StepperComponent = (props: StepperComponentProps) => {
       <Stepper activeStep={activeStep} alternativeLabel className={classes.stepper}>
         {steps && steps.map((label: any) => (
           <Step key={label}>
-            <StepLabel       
+            <StepLabel
               classes={{
-              alternativeLabel: classes.alternativeLabel,
-              labelContainer: classes.labelContainer
+                alternativeLabel: classes.alternativeLabel,
+                labelContainer: classes.labelContainer
               }}
             >
-            {label}
+              {label}
             </StepLabel>
           </Step>
         ))}
@@ -131,7 +97,9 @@ const StepperComponent = (props: StepperComponentProps) => {
         ) : (
             <div>
               <Typography className={classes.instructions}>
-                <Exercise exercise={props.tutorialExercises[activeStep]}></Exercise>
+                <ExercisePage exercise={
+                  //@ts-ignore
+                  props.tutorial.exercises[activeStep]}></ExercisePage>
               </Typography>
               <div>
                 <Button

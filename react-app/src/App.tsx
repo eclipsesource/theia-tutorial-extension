@@ -4,11 +4,12 @@ import {useEffect, useState} from 'react';
 import './App.css';
 import TutorialOverview from './components/TutorialOverview';
 import {VSCodeAPI} from './VSCodeAPI';
+import {Tutorial} from '../../schema/tutorial';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export default function App() {
 
-  const [tutorials, setTutorials] = useState<Array<any>>([]);
+  const [tutorials, setTutorials] = useState<Array<Tutorial>>([]);
   const [selectedTutorial, selectTutorial] = useState(-1);
 
   useEffect(() => {
@@ -27,7 +28,6 @@ export default function App() {
       return <div className="Box-margin">
         <Button onClick={() => selectTutorial(tutorials.indexOf(tutorial))} variant="contained" color="primary">
           {
-            //@ts-ignore
             tutorial.title}
         </Button>
       </div>;
@@ -45,7 +45,7 @@ export default function App() {
           {createTutorialList()}
           </p></p>
         :
-        <TutorialOverview tutorialExercises={tutorials[selectedTutorial].tutorial} />
+        <TutorialOverview tutorial={tutorials[selectedTutorial]} />
       }
     </div>
 

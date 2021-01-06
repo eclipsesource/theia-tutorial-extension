@@ -58,74 +58,109 @@
             "type": "object",
             "oneOf": [
                 {
+                    "$ref": "#/definitions/html"
+                },
+                {
+                    "$ref": "#/definitions/image"
+                },
+                {
+                    "$ref": "#/definitions/hint"
+                },
+                {
+                    "$ref": "#/definitions/commandButton"
+                }
+            ]
+        },
+        "html": {
+            "$id": "#html",
+            "type": "object",
+            "properties": {
+                "html": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "html"
+            ]
+        },
+        "image": {
+            "$id": "#image",
+            "type": "object",
+            "properties": {
+                "image": {
+                    "type": "object",
                     "properties": {
-                        "html": {
+                        "src": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "width": {
                             "type": "string"
                         }
                     },
-                    "additionalProperties": false
-                },
-                {
+                    "additionalProperties": false,
+                    "required": [
+                        "src"
+                    ]
+                }
+            },
+            "required": [
+                "image"
+            ],
+            "additionalProperties": false
+        },
+        "hint": {
+            "$id": "#hint",
+            "type": "object",
+            "properties": {
+                "hint": {
+                    "type": "object",
                     "properties": {
-                        "image": {
-                            "type": "object",
-                            "properties": {
-                                "src": {
-                                    "type": "string"
-                                },
-                                "description": {
-                                    "type": "string"
-                                },
-                                "width": {
-                                    "type": "string"
-                                }
-                            },
-                            "additionalProperties": false
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                {
-                    "properties": {
-                        "hint": {
-                            "type": "object",
-                            "properties": {
-                                "text": {
-                                    "type": "string"
-                                },
-                                "content": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/instruction"
-                                    }
-                                }
-                            },
-                            "additionalProperties": false
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                {
-                    "properties": {
-                        "button": {
-                            "type": "object",
-                            "properties": {
-                                "text": {
-                                    "type": "string"
-                                },
-                                "commands": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/command"
-                                    }
-                                }
-                            },
-                            "additionalProperties": false
+                        "text": {
+                            "type": "string"
+                        },
+                        "content": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/instruction"
+                            }
                         }
                     },
                     "additionalProperties": false
                 }
-            ]
+            },
+            "required": [
+                "hint"
+            ],
+            "additionalProperties": false
+        },
+        "commandButton": {
+            "$id": "#commandButton",
+            "type": "object",
+            "properties": {
+                "button": {
+                    "type": "object",
+                    "properties": {
+                        "text": {
+                            "type": "string"
+                        },
+                        "commands": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/command"
+                            }
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "button"
+            ],
+            "additionalProperties": false
         },
         "command": {
             "$id": "#command",
