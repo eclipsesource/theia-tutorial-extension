@@ -5,30 +5,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Command =
-  | {
-      checkIfFilesExist?: string[];
-    }
-  | {
-      terminalCommands?: string[];
-    }
-  | {
-      openFile?: string;
-    }
-  | {
-      automaticImport?: {
-        imports?: string[];
-        path?: string[];
-        [k: string]: unknown;
-      };
-    }
-  | {
-      fileDiff?: {
-        filename?: string;
-        solution?: string;
-        [k: string]: unknown;
-      };
-    };
+export type Command = CheckIfFilesExist | TerminalCommands | OpenFile | AutomaticImport | FileDiff;
 export type Instruction = Html | Image | Hint | CommandButton;
 
 export interface Tutorial {
@@ -46,6 +23,32 @@ export interface Exercise {
   test?: Command[];
   solve?: Command[];
   content?: Instruction[];
+}
+export interface CheckIfFilesExist {
+  checkIfFilesExist: string[];
+}
+export interface TerminalCommands {
+  terminalCommands: string[];
+}
+export interface OpenFile {
+  openFile: string;
+  [k: string]: unknown;
+}
+export interface AutomaticImport {
+  automaticImport: {
+    imports?: string[];
+    path?: string[];
+    [k: string]: unknown;
+  };
+  [k: string]: unknown;
+}
+export interface FileDiff {
+  fileDiff: {
+    filename?: string;
+    solution?: string;
+    [k: string]: unknown;
+  };
+  [k: string]: unknown;
 }
 export interface Html {
   html: string;

@@ -167,73 +167,110 @@
             "type": "object",
             "oneOf": [
                 {
-                    "properties": {
-                        "checkIfFilesExist": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "additionalProperties": false
+                    "$ref": "#/definitions/checkIfFilesExist"
                 },
                 {
-                    "properties": {
-                        "terminalCommands": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "additionalProperties": false
+                    "$ref": "#/definitions/terminalCommands"
                 },
                 {
+                    "$ref": "#/definitions/openFile"
+                },
+                {
+                    "$ref": "#/definitions/automaticImport"
+                },
+                {
+                    "$ref": "#/definitions/fileDiff"
+                }
+            ]
+        },
+        "fileDiff": {
+            "$id": "#fileDiff",
+            "type": "object",
+            "properties": {
+                "fileDiff": {
+                    "type": "object",
                     "properties": {
-                        "openFile": {
+                        "filename": {
+                            "type": "string"
+                        },
+                        "solution": {
                             "type": "string"
                         }
-                    },
-                    "additionalProperties": false
-                },
-                {
-                    "properties": {
-                        "automaticImport": {
-                            "type": "object",
-                            "properties": {
-                                "imports": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "path": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                {
-                    "properties": {
-                        "fileDiff": {
-                            "type": "object",
-                            "properties": {
-                                "filename": {
-                                    "type": "string"
-                                },
-                                "solution": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    },
-                    "additionalProperties": false
+                    }
                 }
+            },
+            "required": [
+                "fileDiff"
+            ]
+        },
+        "automaticImport": {
+            "$id": "#automaticImport",
+            "type": "object",
+            "properties": {
+                "automaticImport": {
+                    "type": "object",
+                    "properties": {
+                        "imports": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "path": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "required": [
+                "automaticImport"
+            ]
+        },
+        "openFile": {
+            "$id": "#openFile",
+            "type": "object",
+            "properties": {
+                "openFile": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "openFile"
+            ]
+        },
+        "checkIfFilesExist": {
+            "$id": "#checkIfFilesExist",
+            "type": "object",
+            "properties": {
+                "checkIfFilesExist": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "checkIfFilesExist"
+            ]
+        },
+        "terminalCommands": {
+            "$id": "#terminalCommands",
+            "type": "object",
+            "properties": {
+                "terminalCommands": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "terminalCommands"
             ]
         }
     },

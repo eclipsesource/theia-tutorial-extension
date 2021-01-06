@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import {Command} from '../schema/tutorial';
 const path = require('path');
 
 class ReactPanel {
@@ -49,7 +50,7 @@ class ReactPanel {
 		this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
 		// Handle messages from the webview
-		this._panel.webview.onDidReceiveMessage(message => {
+		this._panel.webview.onDidReceiveMessage((message) => {
 			switch (message.command) {
 				case 'showInformationMessage':
 					vscode.window.showInformationMessage(message.text);
