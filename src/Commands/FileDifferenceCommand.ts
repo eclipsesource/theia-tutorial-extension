@@ -1,14 +1,15 @@
 import * as vscode from 'vscode';
+import {FileDiff} from '../../schema/tutorial';
 const fs = require('fs');
 const path = require('path');
 
-const FILEDIFFERENCECOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.fileDiff', async (filename: string, solution: string) => {
+const FILEDIFFERENCECOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.fileDiff', async (command: FileDiff) => {
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
-    
-    const filepath = path.join(workspaceFolder,filename);
-    const solpath = path.join(workspaceFolder,solution);
-    
+
+    const filepath = path.join(workspaceFolder, command.fileDiff.filename);
+    const solpath = path.join(workspaceFolder, command.fileDiff.solution);
+
 
     try {
         const fileUri = vscode.Uri.file(filepath);

@@ -36,8 +36,8 @@ export interface OpenFile {
 }
 export interface AutomaticImport {
   automaticImport: {
-    imports?: string[];
-    path?: string[];
+    imports: string[];
+    path: string;
     [k: string]: unknown;
   };
   [k: string]: unknown;

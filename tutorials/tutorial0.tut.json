@@ -130,13 +130,7 @@
                                         "import { CommandContribution, CommandRegistry, MessageService} from \"@theia/core/lib/common\";",
                                         "import { CommonMenus } from \"@theia/core/lib/browser\";"
                                     ],
-                                    "path": [
-                                        "theia-extension",
-                                        "tutorial",
-                                        "src",
-                                        "browser",
-                                        "tutorial-contribution.ts"
-                                    ]
+                                    "path": "/theia-extension/tutorial/src/browser/tutorial-contribution.ts"
                                 }
                             }
                         ]

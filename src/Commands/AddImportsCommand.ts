@@ -1,37 +1,27 @@
 import * as vscode from 'vscode';
+import {AutomaticImport} from '../../schema/tutorial';
 const fs = require('fs');
 const path = require('path');
 
-interface autoImportData {
-    imports: [string],
-    path: [string]
-}
-
-const ADDIMPORTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.addImports', (autoImportData: Array<any>) => {
+const ADDIMPORTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.addImports', (autoImportData: AutomaticImport) => {
     vscode.window.showInformationMessage('Adding Imports!');
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
-    for (let requiredImports of autoImportData) {
+    let filepath = path.join(workspaceFolder, autoImportData.automaticImport.path);
 
-        let filepath = path.join(workspaceFolder);
+    let content = fs.readFileSync(filepath);
 
-        requiredImports.path.forEach((element: any) => {
-            filepath = path.join(filepath, element);
-        });
+    autoImportData.automaticImport.imports.forEach((element: any) => {
+        if (!content.includes(element)) {
+            content = element + "\n" + content
+        }
+    });
 
-        let content = fs.readFileSync(filepath);
-
-        requiredImports.imports.forEach((element: any) => {
-            if (!content.includes(element)) {
-                content = element + "\n" + content
-            }
-        });
-
-        fs.writeFileSync(filepath, content);
-    }
+    fs.writeFileSync(filepath, content);
     // Display a message box to the user
     vscode.window.showInformationMessage('Added Imports!');
+
 });
 
 
