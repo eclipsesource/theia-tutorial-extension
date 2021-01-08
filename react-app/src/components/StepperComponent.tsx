@@ -7,9 +7,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {ExercisePage} from './Exercise';
 import {Tutorial} from '../../../schema/tutorial';
-import {Grid} from '@material-ui/core';
+import {ClickAwayListener, Container, Grid, Grow, IconButton, MenuItem, MenuList, Paper, Popper} from '@material-ui/core';
 import {VSCodeAPI} from '../VSCodeAPI';
-
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,15 +17,27 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%'
     },
     backButton: {
-      marginRight: 20,
+      margin: "20px 0px 20px 0",
       color: 'white',
       backgroundColor: 'gray',
     },
     nextButton: {
+      margin: "20px 20px 20px 20px",
+      backgroundColor: 'white',
+      color: 'blue'
+    },
+    testButton: {
+      margin: "20px 20px 20px 20px",
+      backgroundColor: 'white',
+      color: 'blue'
+    },
+    solveButton: {
+      margin: "20px 0px 20px 0",
       backgroundColor: 'white',
       color: 'blue'
     },
     resetButton: {
+      margin: "20px 20px 20px 20px",
       color: 'white'
     },
     instructions: {
@@ -33,13 +45,25 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(1),
     },
     stepper: {
+      width: "calc(100% - 200px)",
       height: 35,
-      padding: '5px 0 20px'
+      padding: '5px 0 20px',
+      backgroundColor: "transparent",
     },
     labelContainer: {
       "& $alternativeLabel": {
         marginTop: 5
       }
+    },
+    text: {
+      color: 'white',
+      textAlign: "center",
+      marginTop: "5",
+      fontSize: "x-small"
+    },
+    button: {
+      fontSize: "small",
+      padding: "10px 10px 10px 10px"
     },
     alternativeLabel: {},
   }),
@@ -59,6 +83,9 @@ const StepperComponent = (props: StepperComponentProps) => {
   const [activeStep, setActiveStep] = useState(props.startStep);
   const steps = getSteps(props.tutorial.exercises);
 
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef<HTMLButtonElement>(null);
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     window.scrollTo(0, 0);
@@ -73,6 +100,11 @@ const StepperComponent = (props: StepperComponentProps) => {
     VSCodeAPI.postMessage(props.tutorial.exercises[activeStep].solve);
   };
 
+  const handleResetExercise = () => {
+    //@ts-ignore
+    VSCodeAPI.postMessage(props.tutorial.exercises[activeStep].buildExercise);
+  };
+
   const handleTest = () => {
   };
 
@@ -80,24 +112,92 @@ const StepperComponent = (props: StepperComponentProps) => {
     setActiveStep(0);
   };
 
-  console.log('activeStep: ', activeStep);
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event: React.MouseEvent<EventTarget>) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function handleListKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current!.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
+
 
   return (
     <div className={classes.root}>
-      <Stepper activeStep={activeStep} alternativeLabel className={classes.stepper}>
-        {steps && steps.map((label: any) => (
-          <Step key={label}>
-            <StepLabel
-              classes={{
-                alternativeLabel: classes.alternativeLabel,
-                labelContainer: classes.labelContainer
-              }}
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="flex-start"
+      ><div style={{width: 40}}></div>
+        <Stepper activeStep={activeStep} alternativeLabel className={classes.stepper}>
+          {steps && steps.map((label: any) => (
+            <Step key={label}>
+              <StepLabel
+                classes={{
+                  alternativeLabel: classes.alternativeLabel,
+                  labelContainer: classes.labelContainer,
+                }}
+              >
+                <Typography className={classes.text}>{label}</Typography>
+              </StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <IconButton
+          ref={anchorRef}
+          aria-controls={open ? 'menu-list-grow' : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle} >
+          <SettingsIcon style={{color: "white"}} />
+        </IconButton>
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+          {({TransitionProps, placement}) => (
+            <Grow
+              {...TransitionProps}
+              style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'}}
             >
-              {label}
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+              <Paper>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                    <MenuItem onClick={(event: React.MouseEvent<EventTarget>) => {
+                      handleClose(event);
+                      handleResetExercise();
+                    }}>Build Exercise</MenuItem>
+                    <MenuItem onClick={(event: React.MouseEvent<EventTarget>) => {
+                      handleClose(event);
+                      handleResetExercise();
+                    }}>Reset Exercise</MenuItem>
+                    <MenuItem onClick={(event: React.MouseEvent<EventTarget>) => {
+                      handleClose(event);
+                    }}>Test Start State</MenuItem>
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </Grid>
       <div style={{marginBottom: 20}}>
         {activeStep === steps.length ? (
           <div>
@@ -125,7 +225,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                         //@ts-ignore
                         props.tutorial.exercises[activeStep].test == null}
                       onClick={handleTest}
-                      className={classes.backButton}
+                      className={classes.testButton}
                     >Test</Button>
                     <Button
                       variant="contained"
@@ -133,7 +233,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                         //@ts-ignore
                         props.tutorial.exercises[activeStep].solve == null}
                       onClick={handlesolve}
-                      className={classes.backButton}
+                      className={classes.solveButton}
                     >Solve</Button>
                   </div>
                   <div>
