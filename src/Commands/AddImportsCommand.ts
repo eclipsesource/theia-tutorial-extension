@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 
 const ADDIMPORTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.addImports', (autoImportData: AutomaticImport) => {
-    vscode.window.showInformationMessage('Adding Imports!');
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
@@ -20,7 +19,6 @@ const ADDIMPORTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('th
 
     fs.writeFileSync(filepath, content);
     // Display a message box to the user
-    vscode.window.showInformationMessage('Added Imports!');
 
 });
 

@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {ExercisePage} from './Exercise';
 import {Tutorial} from '../../../schema/tutorial';
+import {Grid} from '@material-ui/core';
+import {VSCodeAPI} from '../VSCodeAPI';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -66,6 +68,14 @@ const StepperComponent = (props: StepperComponentProps) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const handlesolve = () => {
+    //@ts-ignore
+    VSCodeAPI.postMessage(props.tutorial.exercises[activeStep].solve);
+  };
+
+  const handleTest = () => {
+  };
+
   const handleReset = () => {
     setActiveStep(0);
   };
@@ -102,22 +112,49 @@ const StepperComponent = (props: StepperComponentProps) => {
                   props.tutorial.exercises[activeStep]}></ExercisePage>
               </Typography>
               <div>
-                <Button
-                  variant="contained"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  className={classes.backButton}
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
                 >
-                  Back
+                  <div>
+                    <Button
+                      variant="contained"
+                      disabled={
+                        //@ts-ignore
+                        props.tutorial.exercises[activeStep].test == null}
+                      onClick={handleTest}
+                      className={classes.backButton}
+                    >Test</Button>
+                    <Button
+                      variant="contained"
+                      disabled={
+                        //@ts-ignore
+                        props.tutorial.exercises[activeStep].solve == null}
+                      onClick={handlesolve}
+                      className={classes.backButton}
+                    >Solve</Button>
+                  </div>
+                  <div>
+                    <Button
+                      variant="contained"
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      className={classes.backButton}
+                    >
+                      Back
               </Button>
-                <Button variant="contained" className={classes.nextButton} onClick={handleNext}>
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                </Button>
+                    <Button variant="contained" className={classes.nextButton} onClick={handleNext}>
+                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    </Button>
+                  </div>
+                </Grid>
               </div>
             </div>
           )}
       </div>
-    </div>
+    </div >
   );
 };
 

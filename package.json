@@ -32,8 +32,8 @@
 				"title": "Add Imports"
 			},
 			{
-				"command": "theiatutorialextension.initExerciseZero",
-				"title": "Init Exercise Zero"
+				"command": "theiatutorialextension.executeTerminalCommands",
+				"title": "Execute Terminal Commands"
 			},
 			{
 				"command": "theiatutorialextension.openFile",
@@ -74,7 +74,7 @@
 		"viewsWelcome": [
 			{
 				"view": "theiaTutorial",
-				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)\n[Display Content](command:theiatutorialextension.displayContent)\n[Init Exercise 0](command:theiatutorialextension.initExerciseZero)\n[Check Exercise 0 Files](command:theiatutorialextension.checkExerciseFiles)\n[Add Imports](command:theiatutorialextension.addImports)"
+				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)\n[Display Content](command:theiatutorialextension.displayContent)\n[Check Exercise 0 Files](command:theiatutorialextension.checkExerciseFiles)\n[Add Imports](command:theiatutorialextension.addImports)"
 			}
 		]
 	},

@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import {Command, CheckIfFilesExist, AutomaticImport, OpenFile, FileDiff} from '../schema/tutorial';
+import {Command, CheckIfFilesExist, AutomaticImport, OpenFile, FileDiff, TerminalCommands} from '../schema/tutorial';
 const path = require('path');
 
 class ReactPanel {
@@ -60,23 +60,27 @@ class ReactPanel {
 
 	private async processCommands(commands: Array<Command>) {
 
-		commands.forEach((command) => {
+		commands.forEach(async (command) => {
 			switch (Object.keys(command)[0]) {
 				case 'checkExerciseFiles':
 					let checkFilesCommand = command as CheckIfFilesExist;
-					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', checkFilesCommand);
+					await vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', checkFilesCommand);
 					break;
 				case 'automaticImport':
 					let automaticImport = command as AutomaticImport;
-					vscode.commands.executeCommand('theiatutorialextension.addImports', automaticImport);
+					await vscode.commands.executeCommand('theiatutorialextension.addImports', automaticImport);
 					break;
 				case 'openFile':
 					let openFile = command as OpenFile;
-					vscode.commands.executeCommand('theiatutorialextension.openFile', openFile);
+					await vscode.commands.executeCommand('theiatutorialextension.openFile', openFile);
 					break;
 				case 'fileDiff':
 					let fileDiff = command as FileDiff;
-					vscode.commands.executeCommand('theiatutorialextension.fileDiff', fileDiff);
+					await vscode.commands.executeCommand('theiatutorialextension.fileDiff', fileDiff);
+					break;
+				case 'terminalCommands':
+					let terminalCommands = command as TerminalCommands;
+					await vscode.commands.executeCommand('theiatutorialextension.executeTerminalCommands', terminalCommands);
 					break;
 			}
 		})

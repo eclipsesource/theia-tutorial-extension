@@ -12,15 +12,17 @@ const path = require('path');
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
+	initCommands(context);
+
 	loadConfig().then(config => {
 		context.subscriptions.push(vscode.commands.registerCommand('theiatutorialextension.displayContent', () => {
 			ReactPanel.createOrShow(context.extensionPath);
 		}));
 
+
 		vscode.commands.executeCommand('theiatutorialextension.displayContent').then(() => {
 			ReactPanel.currentPanel?.sendToView({command: 'setTutorials', tutorials: config});
 		});
-		initCommands(context, config);
 	});
 }
 
