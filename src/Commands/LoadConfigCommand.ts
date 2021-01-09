@@ -28,11 +28,6 @@ function processTutorials(tutorials: Array<Tutorial>): void {
                 if (tutorial.exercises[i].checkStartState == null && i != 0) {
                     tutorial.exercises[i].checkStartState = tutorial.exercises[i - 1].test;
                 }
-                if (tutorial.exercises[i].cleanState == null) {
-                    tutorial.exercises[i].cleanState = [{cleanExerciseFolder: {}}];
-                } else {
-                    tutorial.exercises[i].cleanState?.splice(0, 0, {cleanExerciseFolder: {}})
-                }
                 if (tutorial.exercises[i].buildExercise != null) {
                     tutorial.exercises[i].buildExercise = tutorial.exercises[i].cleanState?.concat(tutorial.exercises[i].buildExercise!);
                 }
