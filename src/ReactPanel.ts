@@ -74,6 +74,10 @@ class ReactPanel {
 					vscode.commands.executeCommand('theiatutorialextension.checkProcess');
 					vscode.commands.executeCommand('theiatutorialextension.resetExerciseZero');
 					break;
+				case 'buildAndStartExerciseZero':
+					vscode.window.showInformationMessage("Building and Starting Exercise 0. Please wait....");
+					vscode.commands.executeCommand('theiatutorialextension.buildAndStartExerciseZero');
+					break;
 			}
 		}, null, this._disposables);
 

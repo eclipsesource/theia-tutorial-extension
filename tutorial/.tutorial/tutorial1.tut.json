@@ -52,8 +52,7 @@
                     "taskDependenciesCommand": [],
                     "tasks": [
                         "mkdir ./theia-extension",
-                        "cd ./theia-extension && yo theia-extension -y empty --extensionName tutorial && exit",
-                        "cd ./tutorial/ && yarn install"
+                        "cd ./theia-extension && yo theia-extension -y empty --extensionName tutorial && exit"
                     ]
                 },
                 {
@@ -62,6 +61,16 @@
                     "rootDir": "theia-extension",
                     "executeNext": "initExerciseZero",
                     "name": "resetExerciseZero"
+                },
+                {
+                    "type": "commands",
+                    "subtype": "init",
+                    "name": "buildAndStartExerciseZero",
+                    "taskDependenciesCommand": [],
+                    "tasks": [
+                        "cd ./theia-extension/ && yarn install",
+                        "cd ./theia-extension/browser-app && yarn start"
+                    ]
                 }
             ],
             "content": [
@@ -269,6 +278,17 @@
                             "filename":"theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
                             "solution": ".tutorial/.solution/tutorial-frontend-module.ts"
                         }
+                    }
+                },
+                {
+                    "type": "html",
+                    "data": "<p>Now we have all pieces together to build and run the application. To run the browser app, enter:</p><code>cd browser-app </code> <br/><code> yarn start <path to workspace> </code><p>Or, Just click the Build and Start Button below, and we ll do it for you.</p>"
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "buildAndStartExerciseZero",
+                        "text": "Build and Start"
                     }
                 }
             ]
