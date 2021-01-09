@@ -290,6 +290,10 @@
                         "command": "buildAndStartExerciseZero",
                         "text": "Build and Start"
                     }
+                },
+                {
+                    "type": "html",
+                    "data": "<p>Once you are done, you may now point your browser to http://localhost:3000</p>"
                 }
             ]
         }
