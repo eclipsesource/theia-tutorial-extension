@@ -96,7 +96,7 @@
                     "data": [
                         {
                             "type": "html",
-                            "data": "<p>If you want, you can let us do the job, by clicking the buttons below.<br/>Click Reset Exercise 0 first, if you want to save your current workspace to the '.tmp' directory.</p>"
+                            "data": "<p>If you want, you can let us do the job, by clicking the buttons below.<br/>Click Reset Exercise 0 first, if you want to save your current workspace to the 'tmp' directory.</p>"
                         },
                         {
                             "type": "command",
@@ -272,7 +272,7 @@
                         "text": "Compare Contribution File",
                         "data": {
                             "filename":"theia-extension/tutorial/src/browser/tutorial-contribution.ts",
-                            "solution": ".tutorial/.solution/tutorial-contribution.ts"
+                            "solution": ".tutorial/solution/tutorial-contribution.ts"
                         }
                     }
                 },
@@ -283,7 +283,7 @@
                         "text": "Compare Frontend Module File",
                         "data": {
                             "filename":"theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
-                            "solution": ".tutorial/.solution/tutorial-frontend-module.ts"
+                            "solution": ".tutorial/solution/tutorial-frontend-module.ts"
                         }
                     }
                 },

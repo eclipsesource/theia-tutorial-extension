@@ -33,4 +33,4 @@ react-app/package-lock.json
 
 tutorial/*
 !tutorial/.tutorial
-tutorial/.tutorial/.tmp
+tutorial/.tutorial/tmp
