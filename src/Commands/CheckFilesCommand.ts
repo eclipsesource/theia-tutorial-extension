@@ -4,7 +4,7 @@ import ReactPanel from '../ReactPanel';
 const fs = require('fs');
 const path = require('path');
 
-  const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', (fileList?: string[]) => {
+  const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', (fileList?: string[], openModal?: boolean) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
     const outputChannel = vscode.window.createOutputChannel('checking files');
@@ -27,17 +27,23 @@ const path = require('path');
       if(isFileListCorrect) {
         vscode.window.showInformationMessage(`all files are checked and folder structure is correct`);
         ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:'You are good to go! All files are in their correct place.'});
-        ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: true});
+        if(openModal){
+          ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: true});
+        }
       }
       else {
         vscode.window.showInformationMessage(`There is a problem in your folder structure of the tutorial`);
         ReactPanel.currentPanel?.sendToView({command: 'setInfo', text:"Oooops... your workspace doesn't reflect the desired start state."});
+        if(openModal){
         ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
+        }
       }
     }
     else {
       vscode.window.showInformationMessage(`You don't have theia-extension folder. You should execute Init Exercise 0.`);
-      ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
+      if(openModal){
+        ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
+      }
     }
 
 
