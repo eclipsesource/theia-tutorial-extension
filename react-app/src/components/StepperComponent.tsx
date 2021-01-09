@@ -97,12 +97,12 @@ const StepperComponent = (props: StepperComponentProps) => {
 
   const handlesolve = () => {
     //@ts-ignore
-    VSCodeAPI.postMessage(props.tutorial.exercises[activeStep].solve);
+    VSCodeAPI.postMessage({commands: props.tutorial.exercises[activeStep].solve, ids: [], exerciseFolder: props.tutorial.tutorialFolder});
   };
 
   const handleResetExercise = () => {
     //@ts-ignore
-    VSCodeAPI.postMessage(props.tutorial.exercises[activeStep].buildExercise);
+    VSCodeAPI.postMessage({commands: props.tutorial.exercises[activeStep].buildExercise, ids: [], exerciseFolder: props.tutorial.tutorialFolder});
   };
 
   const handleTest = () => {
@@ -209,7 +209,7 @@ const StepperComponent = (props: StepperComponentProps) => {
               <Typography className={classes.instructions}>
                 <ExercisePage exercise={
                   //@ts-ignore
-                  props.tutorial.exercises[activeStep]}></ExercisePage>
+                  props.tutorial.exercises[activeStep]} exerciseFolder={props.tutorial.tutorialFolder}></ExercisePage>
               </Typography>
               <div>
                 <Grid

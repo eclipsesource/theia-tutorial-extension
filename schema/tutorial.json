@@ -180,6 +180,9 @@
                 },
                 {
                     "$ref": "#/definitions/fileDiff"
+                },
+                {
+                    "$ref": "#/definitions/cleanExerciseFolder"
                 }
             ]
         },
@@ -273,6 +276,11 @@
             "required": [
                 "terminalCommands"
             ]
+        },
+        "cleanExerciseFolder": {
+            "$id": "#cleanExerciseFolder",
+            "type": "object",
+            "additionalProperties": false
         }
     },
     "type": "object",

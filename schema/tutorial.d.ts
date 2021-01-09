@@ -5,7 +5,13 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Command = CheckIfFilesExist | TerminalCommands | OpenFile | AutomaticImport | FileDiff;
+export type Command =
+  | CheckIfFilesExist
+  | TerminalCommands
+  | OpenFile
+  | AutomaticImport
+  | FileDiff
+  | CleanExerciseFolder;
 export type Instruction = Html | Image | Hint | CommandButton;
 
 export interface Tutorial {
@@ -50,6 +56,7 @@ export interface FileDiff {
   };
   [k: string]: unknown;
 }
+export interface CleanExerciseFolder {}
 export interface Html {
   html: string;
 }

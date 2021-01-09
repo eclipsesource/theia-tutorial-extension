@@ -1,7 +1,7 @@
 {
-    "title": "Tutorial0",
+    "title": "Tutorial 0",
     "description": "test description",
-    "tutorialFolder": "Ex0",
+    "tutorialFolder": "theia-extension",
     "exercises": [
         {
             "title": "Exercise 0",

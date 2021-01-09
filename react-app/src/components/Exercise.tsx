@@ -5,6 +5,7 @@ import {Exercise, Instruction, Html, Image, Hint, CommandButton} from '../../../
 
 interface ExerciseProps {
   exercise: Exercise
+  exerciseFolder: String
 }
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const ExercisePage = (props: ExerciseProps) => {
@@ -12,12 +13,12 @@ export const ExercisePage = (props: ExerciseProps) => {
   return (
     <div className="exercise">
       <h2 className="App-title">{props.exercise.title}</h2>
-      {props.exercise.content && createContent(props.exercise.content)}
+      {props.exercise.content && createContent(props.exercise.content, props.exerciseFolder)}
     </div>
   );
 };
 
-function createContent(content: Array<Instruction>) {
+function createContent(content: Array<Instruction>, exerciseFolder: String) {
   return content.map((instruction: Instruction) => {
     switch (Object.keys(instruction)[0]) {
       case "html":
@@ -28,23 +29,28 @@ function createContent(content: Array<Instruction>) {
         return <img src={img.image.src} width={img.image.width} />;
       case "hint":
         var hint = instruction as Hint;
-        return <HintComponent hint={hint.hint}></HintComponent>;
+        return <HintComponent hint={hint} exerciseFolder={exerciseFolder}></HintComponent>;
       case "button":
         var button = instruction as CommandButton;
-        return <Command button={button.button}></Command>;
+        return <Command button={button} exerciseFolder={exerciseFolder}></ Command>;
     }
   });
 }
 
 
-const HintComponent = (props: Hint) => {
+interface HintProps {
+  hint: Hint
+  exerciseFolder: String
+}
+
+const HintComponent = (props: HintProps) => {
   const [showHint, setShowHint] = React.useState(false);
   console.log(props);
   return (
     <div>
-      <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>{props.hint.text}</a>
+      <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>{props.hint.hint.text}</a>
       {showHint &&
-        props.hint && props.hint.content && createContent(props.hint.content)
+        props.hint && props.hint.hint.content && createContent(props.hint.hint.content, props.exerciseFolder)
       }
     </div>
   );

@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import {Command, CheckIfFilesExist, AutomaticImport, OpenFile, FileDiff, TerminalCommands} from '../schema/tutorial';
+import {cleanExcerciseFolder} from "./Functions/cleanExcerciseFolder";
 const path = require('path');
 
 class ReactPanel {
@@ -50,15 +51,15 @@ class ReactPanel {
 		this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
 		// Handle messages from the webview
-		this._panel.webview.onDidReceiveMessage((message: Array<Command>) => {
-			this.processCommands(message);
+		this._panel.webview.onDidReceiveMessage((message: {commands: Array<Command>, ids: Array<number>, exerciseFolder: String}) => {
+			this.processCommands(message.commands, message.ids, message.exerciseFolder);
 		}, null, this._disposables);
 
 		//setTimeout(() => this._panel.webview.postMessage({text: 'Hello from Ext'}),5000);
 	}
 
 
-	private async processCommands(commands: Array<Command>) {
+	private async processCommands(commands: Array<Command>, ids: Array<number>, exerciseFolder: String) {
 
 		commands.forEach(async (command) => {
 			switch (Object.keys(command)[0]) {
@@ -81,6 +82,9 @@ class ReactPanel {
 				case 'terminalCommands':
 					let terminalCommands = command as TerminalCommands;
 					await vscode.commands.executeCommand('theiatutorialextension.executeTerminalCommands', terminalCommands);
+					break;
+				case 'cleanExerciseFolder':
+					cleanExcerciseFolder(exerciseFolder);
 					break;
 			}
 		})
