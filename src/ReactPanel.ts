@@ -63,9 +63,9 @@ class ReactPanel {
 
 		commands.forEach(async (command) => {
 			switch (Object.keys(command)[0]) {
-				case 'checkExerciseFiles':
+				case 'checkIfFilesExist':
 					let checkFilesCommand = command as CheckIfFilesExist;
-					await vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', checkFilesCommand);
+					await vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', checkFilesCommand, ids[commands.indexOf(command)]);
 					break;
 				case 'automaticImport':
 					let automaticImport = command as AutomaticImport;

@@ -23,10 +23,16 @@ export interface Tutorial {
 export interface Exercise {
   title: string;
   description: string;
-  checkStartState?: Command[];
+  checkStartState?: {
+    testName: string;
+    command: Command;
+  }[];
   buildExercise?: Command[];
   cleanState?: Command[];
-  test?: Command[];
+  test?: {
+    testName: string;
+    command: Command;
+  }[];
   solve?: Command[];
   content?: Instruction[];
 }
@@ -56,7 +62,11 @@ export interface FileDiff {
   };
   [k: string]: unknown;
 }
-export interface CleanExerciseFolder {}
+export interface CleanExerciseFolder {
+  cleanExerciseFolder: {
+    [k: string]: unknown;
+  };
+}
 export interface Html {
   html: string;
 }

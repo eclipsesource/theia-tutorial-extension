@@ -25,9 +25,13 @@
                             },
                             "command": {
                                 "$ref": "#/definitions/command"
-                            },
-                            "additionalProperties": false
-                        }
+                            }
+                        },
+                        "required": [
+                            "testName",
+                            "command"
+                        ],
+                        "additionalProperties": false
                     }
                 },
                 "buildExercise": {
@@ -52,9 +56,13 @@
                             },
                             "command": {
                                 "$ref": "#/definitions/command"
-                            },
-                            "additionalProperties": false
-                        }
+                            }
+                        },
+                        "required": [
+                            "testName",
+                            "command"
+                        ],
+                        "additionalProperties": false
                     }
                 },
                 "solve": {

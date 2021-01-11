@@ -1,10 +1,12 @@
 import {exerciseFileName, extensionFileName} from './../utils/constant';
 import * as vscode from 'vscode';
 import ReactPanel from '../ReactPanel';
+import {CheckIfFilesExist} from '../../schema/tutorial';
+
 const fs = require('fs');
 const path = require('path');
 
-const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', (fileList?: string[]) => {
+const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', (checkIfFilesExist: CheckIfFilesExist, id: string) => {
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
   const outputChannel = vscode.window.createOutputChannel('checking files');
@@ -16,23 +18,23 @@ const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('th
     outputChannel.appendLine(`${files}`);
 
     outputChannel.appendLine(`fileList from config`);
-    outputChannel.appendLine(`${fileList}`);
+    outputChannel.appendLine(`${checkIfFilesExist.checkIfFilesExist}`);
 
 
     // const correctFiles = getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
-    const correctFilesFromConfig = fileList ? getCorrectFilePathsFromConfig(workspaceFolder + '/' + exerciseFileName, fileList) : getCorrectFilePaths(workspaceFolder + '/' + exerciseFileName);
+    const correctFilesFromConfig = getCorrectFilePathsFromConfig(workspaceFolder + '/' + exerciseFileName, checkIfFilesExist.checkIfFilesExist!);
     outputChannel.appendLine(`${correctFilesFromConfig}`);
     const isFileListCorrect = compareFileLists(correctFilesFromConfig, files);
 
     if (isFileListCorrect) {
       vscode.window.showInformationMessage(`all files are checked and folder structure is correct`);
       ReactPanel.currentPanel?.sendToView({command: 'setInfo', text: 'You are good to go! All files are in their correct place.'});
-      ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: true});
+      ReactPanel.currentPanel?.sendToView({id: id, result: true});
     }
     else {
       vscode.window.showInformationMessage(`There is a problem in your folder structure of the tutorial`);
-      ReactPanel.currentPanel?.sendToView({command: 'setInfo', text: "Oooops... your workspace doesn't reflect the desired start state."});
-      ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
+      ReactPanel.currentPanel?.sendToView({command: 'setInfo', text: "Oooops... your workspace doesn't reflect the desired state."});
+      ReactPanel.currentPanel?.sendToView({id: id, result: false});
     }
   }
   else {
@@ -74,45 +76,6 @@ const getAllFiles = (dir: string, outputChannel: any) => (
 
 const getCorrectFilePathsFromConfig = (exerciseFilePath: string, fileList: string[]) => {
   return fileList.map((name) => (exerciseFilePath + name));
-};
-
-const getCorrectFilePaths = (extensionFolder: string) => {
-  const fileNames = [
-    '/.gitignore',
-    '/.vscode/launch.json',
-    `/${extensionFileName}/lib`,
-    `/${extensionFileName}/node_modules`,
-    `/${extensionFileName}/package.json`,
-    `/${extensionFileName}/src/browser/${extensionFileName}-contribution.ts`,
-    `/${extensionFileName}/src/browser/${extensionFileName}-frontend-module.ts`,
-    `/${extensionFileName}/tsconfig.json`,
-    '/README.md',
-    '/browser-app/gen-webpack.config.js',
-    '/browser-app/lib',
-    '/browser-app/node_modules',
-    '/browser-app/package.json',
-    '/browser-app/src-gen/backend/main.js',
-    '/browser-app/src-gen/backend/server.js',
-    '/browser-app/src-gen/frontend/index.html',
-    '/browser-app/src-gen/frontend/index.js',
-    '/browser-app/webpack.config.js',
-    '/electron-app/gen-webpack.config.js',
-    '/electron-app/lib',
-    '/electron-app/node_modules',
-    '/electron-app/package.json',
-    '/electron-app/src-gen/backend/main.js',
-    '/electron-app/src-gen/backend/server.js',
-    '/electron-app/src-gen/frontend/electron-main.js',
-    '/electron-app/src-gen/frontend/index.html',
-    '/electron-app/src-gen/frontend/index.js',
-    '/electron-app/webpack.config.js',
-    '/lerna.json',
-    '/node_modules',
-    '/package.json',
-    '/yarn.lock'
-  ];
-
-  return fileNames.map((name) => (extensionFolder + name));
 };
 
 export default CHECKFILESCOMMAND;

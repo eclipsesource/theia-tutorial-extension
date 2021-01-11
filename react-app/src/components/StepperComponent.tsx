@@ -7,9 +7,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {ExercisePage} from './Exercise';
 import {Tutorial} from '../../../schema/tutorial';
-import {ClickAwayListener, Container, Grid, Grow, IconButton, MenuItem, MenuList, Paper, Popper} from '@material-ui/core';
+import {ClickAwayListener, Grid, Grow, IconButton, MenuItem, MenuList, Paper, Popper} from '@material-ui/core';
 import {VSCodeAPI} from '../VSCodeAPI';
 import SettingsIcon from '@material-ui/icons/Settings';
+import {TestFeedbackDialog} from './TestFeedbackDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,7 +85,7 @@ const StepperComponent = (props: StepperComponentProps) => {
   const steps = getSteps(props.tutorial.exercises);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
-  const [isTestModalOpen, setTestModalOpen] = React.useState(false);
+  const [isTestModalOpen, setTestModal] = React.useState(false);
 
   const handleOpenModal = () => {
     setOpen(true);
@@ -151,7 +152,9 @@ const StepperComponent = (props: StepperComponentProps) => {
     prevOpen.current = open;
   }, [open]);
 
-
+  function createTestfeedback() {
+    return <TestFeedbackDialog tests={props!.tutorial!.exercises![activeStep]!.test!} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => {setTestModal(false)}} />
+  }
   return (
     <div className={classes.root}>
       <Grid
@@ -234,7 +237,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                       disabled={
                         //@ts-ignore
                         props.tutorial.exercises[activeStep].test == null}
-                      onClick={handleTest}
+                      onClick={() => {setTestModal(true)}}
                       className={classes.testButton}
                     >Test</Button>
                     <Button
@@ -264,6 +267,7 @@ const StepperComponent = (props: StepperComponentProps) => {
             </div>
           )}
       </div>
+      <div>{isTestModalOpen && createTestfeedback()}</div>
     </div >
   );
 };
