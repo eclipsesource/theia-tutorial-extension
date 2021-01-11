@@ -58,7 +58,11 @@ class ReactPanel {
 					vscode.commands.executeCommand('theiatutorialextension.initExerciseZero');
 					break;
 				case 'checkExerciseFiles':
-					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', message.fileList);
+					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', message.fileList, message.openModal);
+					break;
+				case 'checkState':
+					vscode.commands.executeCommand('theiatutorialextension.checkProcess');
+					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', message.fileList, message.openModal);
 					break;
 				case 'addImports':
 					vscode.commands.executeCommand('theiatutorialextension.addImports', message.autoImportData);
@@ -71,7 +75,7 @@ class ReactPanel {
 					break;
 				case 'resetExerciseZero':
 					vscode.window.showInformationMessage("Resetting Exercise 0. Please wait....");
-					vscode.commands.executeCommand('theiatutorialextension.checkProcess');
+					vscode.commands.executeCommand('theiatutorialextension.checkProcess', true);
 					vscode.commands.executeCommand('theiatutorialextension.resetExerciseZero');
 					break;
 				case 'executeTests':

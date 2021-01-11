@@ -102,6 +102,13 @@
                                 "command": "initExerciseZero",
                                 "text": "Set Up workspace"
                             }
+                        },
+                        {
+                            "type": "command",
+                            "data": {
+                                "command": "checkState",
+                                "text": "Check Current State"
+                            }
                         }
                     ]
                 }
