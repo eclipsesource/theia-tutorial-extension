@@ -268,42 +268,17 @@
                 {
                     "type": "command",
                     "data": {
-                        "command": "fileDiff",
-                        "text": "Compare Contribution File",
-                        "data": {
-                            "filename":"theia-extension/tutorial/src/browser/tutorial-contribution.ts",
-                            "solution": ".tutorial/solution/tutorial-contribution.ts"
-                        }
-                    }
-                },
-                {
-                    "type": "command",
-                    "data": {
-                        "command": "fileDiff",
-                        "text": "Compare Frontend Module File",
-                        "data": {
-                            "filename":"theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
-                            "solution": ".tutorial/solution/tutorial-frontend-module.ts"
-                        }
-                    }
-                },
-                {
-                    "type": "command",
-                    "data": {
                         "command": "executeTests",
                         "text": "Execute Tests",
                         "data": {
                             "tests": [
                                 {
-                                    "text": "Test 1",
-                                    "tasks": [
-                                        "ls -l"
-                                    ]
-                                },
-                                {
-                                    "text": "Test 2",
-                                    "tasks": [
-                                        "ls"
+                                    "text": "Check content of file tutorial-frontend-module.ts",
+                                    "type": "contentCheck",
+                                    "filename": "theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
+                                    "contains": [
+                                        "bind(CommandContribution).to(TutorialCommandContribution)",
+                                        "bind(MenuContribution).to(TutorialMenuContribution)"
                                     ]
                                 }
                             ]
@@ -311,8 +286,25 @@
                     }
                 },
                 {
+                    "type": "hint",
+                    "text": "Having issues?",
+                    "data": [
+                        {
+                            "type": "command",
+                            "data": {
+                                "command": "fileDiff",
+                                "text": "Compare to solution",
+                                "data": {
+                                    "filename": "theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
+                                    "solution": ".tutorial/solution/tutorial-frontend-module.ts"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
                     "type": "html",
-                    "data": "<p>Now we have all pieces together to build and run the application. To run the browser app, enter:</p><code>cd browser-app </code> <br/><code> yarn start <path to workspace> </code><p>Or, Just click the Build and Start Button below, and we ll do it for you.</p>"
+                    "data": "<p>Now we have all pieces together to build and run the application. To run the browser app, enter:</p><code>cd browser-app </code> <br/><code> yarn start <path to workspace> </code><p>Or, Just click the Build and Start Button below, and we'll do it for you.</p>"
                 },
                 {
                     "type": "command",

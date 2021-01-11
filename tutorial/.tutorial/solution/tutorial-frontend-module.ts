@@ -1,12 +1,9 @@
-/**
- * Generated using theia-extension-generator
- */
-import { ContainerModule } from 'inversify';
-import { TutorialContribution } from './tutorial-contribution';
-
+import { TutorialCommandContribution, TutorialMenuContribution } from './tutorial-contribution';
+import { CommandContribution, MenuContribution} from "@theia/core/lib/common";
+import { ContainerModule } from "inversify";
 
 export default new ContainerModule(bind => {
-
-    // Replace this line with the desired binding, e.g. "bind(CommandContribution).to(TutorialContribution)
-    bind(TutorialContribution).toSelf();
+    bind(CommandContribution).to(TutorialCommandContribution);
+    bind(MenuContribution).to(TutorialMenuContribution);
 });
+
