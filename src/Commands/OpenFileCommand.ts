@@ -4,12 +4,9 @@ const path = require('path');
 
 const OPENFILECOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.openFile', async (filename: string) => {
 
-    
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
     
     const filepath = path.join(workspaceFolder,filename);
-
-    
 
     try {
         const uri = vscode.Uri.file(filepath);
@@ -20,9 +17,6 @@ const OPENFILECOMMAND: vscode.Disposable = vscode.commands.registerCommand('thei
     }
 
 });
-
-
-
 
 export default OPENFILECOMMAND;
 
