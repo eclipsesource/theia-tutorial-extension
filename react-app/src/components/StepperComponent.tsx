@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: "small",
       padding: "10px 10px 10px 10px"
     },
-    alternativeLabel: {},
+    alternativeLabel: {}
   }),
 );
 
@@ -82,9 +82,19 @@ const StepperComponent = (props: StepperComponentProps) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(props.startStep);
   const steps = getSteps(props.tutorial.exercises);
-
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
+  const [isTestModalOpen, setTestModalOpen] = React.useState(false);
+
+  const handleOpenModal = () => {
+    setOpen(true);
+  };
+
+  const handleCloseModal = (isNext: boolean) => {
+    setOpen(false);
+    if (isNext) {
+    }
+  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

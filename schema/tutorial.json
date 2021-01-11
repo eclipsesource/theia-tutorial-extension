@@ -18,7 +18,16 @@
                 "checkStartState": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/command"
+                        "type": "object",
+                        "properties": {
+                            "testName": {
+                                "type": "string"
+                            },
+                            "command": {
+                                "$ref": "#/definitions/command"
+                            },
+                            "additionalProperties": false
+                        }
                     }
                 },
                 "buildExercise": {
@@ -36,7 +45,16 @@
                 "test": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/command"
+                        "type": "object",
+                        "properties": {
+                            "testName": {
+                                "type": "string"
+                            },
+                            "command": {
+                                "$ref": "#/definitions/command"
+                            },
+                            "additionalProperties": false
+                        }
                     }
                 },
                 "solve": {
@@ -280,7 +298,15 @@
         "cleanExerciseFolder": {
             "$id": "#cleanExerciseFolder",
             "type": "object",
-            "additionalProperties": false
+            "properties": {
+                "cleanExerciseFolder": {
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "cleanExerciseFolder"
+            ]
         }
     },
     "type": "object",
