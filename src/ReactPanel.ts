@@ -74,6 +74,9 @@ class ReactPanel {
 					vscode.commands.executeCommand('theiatutorialextension.checkProcess');
 					vscode.commands.executeCommand('theiatutorialextension.resetExerciseZero');
 					break;
+				case 'executeTests':
+					vscode.commands.executeCommand('theiatutorialextension.executeTests', message.tests);
+					break;
 			}
 		}, null, this._disposables);
 

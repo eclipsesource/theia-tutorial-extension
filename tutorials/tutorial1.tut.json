@@ -270,6 +270,29 @@
                             "solution": ".solution/tutorial-frontend-module.ts"
                         }
                     }
+                },
+                {
+                    "type": "command",
+                    "data": {
+                        "command": "executeTests",
+                        "text": "Execute Tests",
+                        "data": {
+                            "tests": [
+                                {
+                                    "text": "Test 1",
+                                    "tasks": [
+                                        "ls -l"
+                                    ]
+                                },
+                                {
+                                    "text": "Test 2",
+                                    "tasks": [
+                                        "ls"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
                 }
             ]
         }

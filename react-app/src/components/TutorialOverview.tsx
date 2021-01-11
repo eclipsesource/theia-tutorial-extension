@@ -8,8 +8,6 @@ import {Grid, IconButton, StepContent} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {VSCodeAPI} from '../VSCodeAPI';
 import {Exercise} from './Exercise';
-
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,6 +59,18 @@ const StepperComponent = (props: StepperComponentProps) => {
   const steps = getSteps(props.tutorialExercises);
   const [isFileListCorrect, setFilesCheck] = useState(false);
 
+  const { enqueueSnackbar } = useSnackbar();
+    
+    useEffect( () => {
+        VSCodeAPI.onMessage((message) => {
+        switch (message.data.command) {
+          case 'testResult':
+            enqueueSnackbar(message.data.result.text, {variant: message.data.result.variant});
+            break;
+        }
+      });
+    }, []);
+
   const getFileList = () => {
     let fileList = [];
     console.log('props.tutorialExercises[activeStep].checkIfRequiredStateIsMet: ', props.tutorialExercises[activeStep].checkIfRequiredStateIsMet);
@@ -90,6 +102,7 @@ const StepperComponent = (props: StepperComponentProps) => {
             break;
         }
       });
+
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       window.scrollTo(0, 0);
@@ -103,8 +116,6 @@ const StepperComponent = (props: StepperComponentProps) => {
   const handleReset = () => {
     setActiveStep(0);
   };
-
-  console.log('activeStep: ', activeStep);
 
   return (
     <div className={classes.root}>
