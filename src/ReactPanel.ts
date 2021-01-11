@@ -81,6 +81,10 @@ class ReactPanel {
 				case 'executeTests':
 					vscode.commands.executeCommand('theiatutorialextension.executeTests', message.tests);
 					break;
+				case 'buildAndStartExerciseZero':
+					vscode.window.showInformationMessage("Building and Starting Exercise 0. Please wait....");
+					vscode.commands.executeCommand('theiatutorialextension.buildAndStartExerciseZero');
+					break;
 			}
 		}, null, this._disposables);
 

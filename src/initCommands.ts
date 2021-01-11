@@ -75,8 +75,8 @@ function registerCommand (commandName: string, tasks:any = []): vscode.Disposabl
 			for(let task of tempTasks) {
 				if(typeof task === 'object' && task !== null) {
 					tempTasks.shift();
-					tempTasks.unshift('mv '+ task.rootDir +' .tmp/' +currentTimeStamp);
-					tempTasks.unshift("mkdir -p .tmp/"+ currentTimeStamp);
+					tempTasks.unshift('mv '+ task.rootDir +' .tutorial/tmp/' +currentTimeStamp);
+					tempTasks.unshift("mkdir -p .tutorial/tmp/"+ currentTimeStamp);
 				}
 			}
 
