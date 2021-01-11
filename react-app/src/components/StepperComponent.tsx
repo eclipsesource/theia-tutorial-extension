@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import {VSCodeAPI} from '../VSCodeAPI';
-import {Exercise} from './Exercise';
-import { useSnackbar } from 'notistack';
+import React, { useEffect, useState } from "react";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import { VSCodeAPI } from "../VSCodeAPI";
+import { Exercise } from "./Exercise";
+import { useSnackbar } from "notistack";
 import Modal from "@material-ui/core/Modal";
 
 function rand() {
@@ -98,21 +98,23 @@ const StepperComponent = (props: StepperComponentProps) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(props.startStep);
   const steps = getSteps(props.tutorialExercises);
-  const [isFileListCorrect, setFilesCheck] = useState(false);
+  const [isFileListChecked, setFilesCheck] = useState(false);
   const [isModalOpen, setOpen] = React.useState(false);
   const [modalStyle] = React.useState(getModalStyle);
 
   const { enqueueSnackbar } = useSnackbar();
-    
-    useEffect( () => {
-        VSCodeAPI.onMessage((message) => {
-        switch (message.data.command) {
-          case 'testResult':
-            enqueueSnackbar(message.data.result.text, {variant: message.data.result.variant});
-            break;
-        }
-      });
-    }, []);
+
+  useEffect(() => {
+    VSCodeAPI.onMessage((message) => {
+      switch (message.data.command) {
+        case "testResult":
+          enqueueSnackbar(message.data.result.text, {
+            variant: message.data.result.variant,
+          });
+          break;
+      }
+    });
+  }, []);
 
   const handleOpenModal = () => {
     setOpen(true);
@@ -127,20 +129,14 @@ const StepperComponent = (props: StepperComponentProps) => {
 
   const getFileList = () => {
     let fileList = [];
-    console.log(
-      "props.tutorialExercises[activeStep].checkIfRequiredStateIsMet: ",
-      props.tutorialExercises[activeStep].checkIfRequiredStateIsMet
-    );
     if (props.tutorialExercises[activeStep].checkIfRequiredStateIsMet) {
       fileList = props.tutorialExercises[
         activeStep
       ].checkIfRequiredStateIsMet.find((requirements: any) => {
-        console.log("requirements: ", requirements);
         return requirements.type === "checkIfFilesExist";
       });
     }
 
-    console.log("fileList: ", fileList);
     return fileList ? fileList.data : fileList;
   };
 
@@ -154,32 +150,41 @@ const StepperComponent = (props: StepperComponentProps) => {
         fileList,
         openModal,
       });
-    }
 
-    VSCodeAPI.onMessage((message) => {
-      switch (message.data.command) {
-        case "checkFilesResult":
-          if (!message.data.result) {
-            handleOpenModal();
-          } else {
-            goToNextStep();
-          }
-          break;
-      }
-    });
+      VSCodeAPI.onMessage((message) => {
+        switch (message.data.command) {
+          case "checkFilesResult":
+            if (!isFileListChecked) {
+              if (!message.data.result) {
+                handleOpenModal();
+              } else {
+                goToNextStep();
+              }
+              setFilesCheck(true);
+            }
+            break;
+        }
+      });
+    } else {
+      goToNextStep();
+    }
   };
 
   const goToNextStep = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    window.scrollTo(0, 0);
+    if (steps.length >= activeStep) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      window.scrollTo(0, 0);
+    }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setFilesCheck(false);
   };
 
   const handleReset = () => {
     setActiveStep(0);
+    setFilesCheck(false);
   };
 
   const modalBody = (
