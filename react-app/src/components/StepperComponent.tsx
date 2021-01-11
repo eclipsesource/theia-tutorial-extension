@@ -151,40 +151,42 @@ const StepperComponent = (props: StepperComponentProps) => {
         openModal,
       });
 
-      VSCodeAPI.onMessage((message) => {
-        switch (message.data.command) {
-          case "checkFilesResult":
-            if (!isFileListChecked) {
+      if (!isFileListChecked) {
+        VSCodeAPI.onMessage((message) => {
+          switch (message.data.command) {
+            case "checkFilesResult":
               if (!message.data.result) {
                 handleOpenModal();
               } else {
                 goToNextStep();
               }
               setFilesCheck(true);
-            }
-            break;
-        }
-      });
+              break;
+          }
+        });
+      }
     } else {
       goToNextStep();
     }
   };
 
   const goToNextStep = () => {
-    if (steps.length >= activeStep) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      window.scrollTo(0, 0);
-    }
+    setActiveStep((prevActiveStep) => {
+      if (prevActiveStep + 1 > steps.length) {
+        return prevActiveStep;
+      } else {
+        return prevActiveStep + 1;
+      }
+    });
+    window.scrollTo(0, 0);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    setFilesCheck(false);
   };
 
   const handleReset = () => {
     setActiveStep(0);
-    setFilesCheck(false);
   };
 
   const modalBody = (
@@ -219,6 +221,7 @@ const StepperComponent = (props: StepperComponentProps) => {
   );
 
   console.log("activeStep: ", activeStep);
+  console.log("isFileListChecked: ", isFileListChecked);
 
   return (
     <div className={classes.root}>
