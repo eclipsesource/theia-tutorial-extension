@@ -75,6 +75,14 @@
                             "/yarn.lock"
                         ]
                     }
+                },
+                {
+                    "testName": "Unit Tests",
+                    "command": {
+                        "terminalCommands": [
+                            "node --version"
+                        ]
+                    }
                 }
             ],
             "solve": [

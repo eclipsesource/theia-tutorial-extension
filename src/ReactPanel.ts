@@ -81,7 +81,7 @@ class ReactPanel {
 					break;
 				case 'terminalCommands':
 					let terminalCommands = command as TerminalCommands;
-					await vscode.commands.executeCommand('theiatutorialextension.executeTerminalCommands', terminalCommands);
+					await vscode.commands.executeCommand('theiatutorialextension.executeTerminalCommands', terminalCommands, ids[commands.indexOf(command)]);
 					break;
 				case 'cleanExerciseFolder':
 					cleanExcerciseFolder(exerciseFolder);
