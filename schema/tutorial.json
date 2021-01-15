@@ -56,6 +56,12 @@
                             },
                             "command": {
                                 "$ref": "#/definitions/command"
+                            },
+                            "filename": {
+                                "type": "string"
+                            },
+                            "solution": {
+                                "type": "string"
                             }
                         },
                         "required": [
