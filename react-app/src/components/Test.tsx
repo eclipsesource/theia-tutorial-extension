@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Grid} from '@material-ui/core';
+import {Button, Grid, TextField} from '@material-ui/core';
 import {VSCodeAPI} from '../VSCodeAPI';
 import {Command, CommandButton} from '../../../schema/tutorial';
 import {v4 as uuidv4} from 'uuid';
@@ -17,7 +17,6 @@ interface TestProbs {
 export const Test = (props: TestProbs) => {
     const [testResult, setTestResult] = useState("pending");
 
-
     useEffect(() => {
         const uuid = uuidv4();
         VSCodeAPI.postMessage({commands: [props.test.command], ids: [uuid], exerciseFolder: props.exerciseFolder});
@@ -26,7 +25,7 @@ export const Test = (props: TestProbs) => {
                 setTestResult(message.data.result.toString());
             }
         });
-    });
+    }, []);
 
     function createTest() {
         console.log(testResult);
@@ -42,9 +41,14 @@ export const Test = (props: TestProbs) => {
             </Grid>
         } else {
             return <div>
-                <div>{props.test.testName + ": "}</div>
-                <div>{testResult}</div>
-            </div>
+                <div style={{width: "40%"}}>{props.test.testName + ": "}</div>
+                <div style={{width: "100%"}}>
+                    <TextField disabled
+                        multiline
+                        id="outlined-multiline-static"
+                        defaultValue={testResult} variant="outlined" />
+                </div>
+            </div >
         }
     }
 

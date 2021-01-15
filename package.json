@@ -2,6 +2,7 @@
 	"name": "theiatutorialextension",
 	"displayName": "TheiaTutorialExtension",
 	"description": "",
+	"publisher": "theiaextension",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.51.0"
@@ -105,6 +106,7 @@
 		"ajv": "^7.0.3",
 		"json-schema-to-typescript": "^10.1.1",
 		"node-cmd": "^4.0.0",
-		"ts-node": "^9.1.1"
+		"ts-node": "^9.1.1",
+		"vsce": "^1.83.0"
 	}
 }
