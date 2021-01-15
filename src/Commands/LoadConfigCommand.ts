@@ -5,8 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 export function loadConfig(): Thenable<Array<Tutorial>> {
-    return vscode.workspace.findFiles("*.tut.json").then(tutorialsURI => {
-
+    return vscode.workspace.findFiles("**/*.tut.json").then(tutorialsURI => {
         var tutorialContentPromises = tutorialsURI.map(function (uri) {
             return vscode.workspace.fs.readFile(uri).then(res => {return res})
         })

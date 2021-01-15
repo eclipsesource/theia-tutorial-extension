@@ -7,18 +7,13 @@ const fs = require('fs');
 const path = require('path');
 
 export function activate(context: vscode.ExtensionContext) {
+	ReactPanel.createOrShow(context.extensionPath);
 
 	initCommands(context);
 
 	loadConfig().then(config => {
-		context.subscriptions.push(vscode.commands.registerCommand('theiatutorialextension.displayContent', () => {
-			ReactPanel.createOrShow(context.extensionPath);
-		}));
 
-
-		vscode.commands.executeCommand('theiatutorialextension.displayContent').then(() => {
-			ReactPanel.currentPanel?.sendToView({command: 'setTutorials', tutorials: config});
-		});
+		ReactPanel.currentPanel?.sendToView({command: 'setTutorials', tutorials: config});
 	});
 }
 
