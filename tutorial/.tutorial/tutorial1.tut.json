@@ -52,8 +52,7 @@
                     "taskDependenciesCommand": [],
                     "tasks": [
                         "mkdir ./theia-extension",
-                        "cd ./theia-extension && yo theia-extension -y empty --extensionName tutorial && exit",
-                        "cd ./tutorial/ && yarn install"
+                        "cd ./theia-extension && yo theia-extension -y empty --extensionName tutorial && exit"
                     ]
                 },
                 {
@@ -62,6 +61,16 @@
                     "rootDir": "theia-extension",
                     "executeNext": "initExerciseZero",
                     "name": "resetExerciseZero"
+                },
+                {
+                    "type": "commands",
+                    "subtype": "init",
+                    "name": "buildAndStartExerciseZero",
+                    "taskDependenciesCommand": [],
+                    "tasks": [
+                        "cd ./theia-extension/ && yarn install",
+                        "cd ./theia-extension/browser-app && yarn start"
+                    ]
                 }
             ],
             "content": [
@@ -87,7 +96,7 @@
                     "data": [
                         {
                             "type": "html",
-                            "data": "<p>If you want, you can let us do the job, by clicking the buttons below.<br/>Click Reset Exercise 0 first, if you want to save your current workspace to the '.tmp' directory.</p>"
+                            "data": "<p>If you want, you can let us do the job, by clicking the buttons below.<br/>Click Reset Exercise 0 first, if you want to save your current workspace to the 'tmp' directory.</p>"
                         },
                         {
                             "type": "command",
@@ -101,6 +110,13 @@
                             "data": {
                                 "command": "initExerciseZero",
                                 "text": "Set Up workspace"
+                            }
+                        },
+                        {
+                            "type": "command",
+                            "data": {
+                                "command": "checkState",
+                                "text": "Check Current State"
                             }
                         }
                     ]
@@ -252,24 +268,54 @@
                 {
                     "type": "command",
                     "data": {
-                        "command": "fileDiff",
-                        "text": "Compare Contribution File",
+                        "command": "executeTests",
+                        "text": "Execute Tests",
                         "data": {
-                            "filename":"theia-extension/tutorial/src/browser/tutorial-contribution.ts",
-                            "solution": ".solution/tutorial-contribution.ts"
+                            "tests": [
+                                {
+                                    "text": "Check content of file tutorial-frontend-module.ts",
+                                    "type": "contentCheck",
+                                    "filename": "theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
+                                    "contains": [
+                                        "bind(CommandContribution).to(TutorialCommandContribution)",
+                                        "bind(MenuContribution).to(TutorialMenuContribution)"
+                                    ]
+                                }
+                            ]
                         }
                     }
                 },
                 {
+                    "type": "hint",
+                    "text": "Having issues?",
+                    "data": [
+                        {
+                            "type": "command",
+                            "data": {
+                                "command": "fileDiff",
+                                "text": "Compare to solution",
+                                "data": {
+                                    "filename": "theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
+                                    "solution": ".tutorial/solution/tutorial-frontend-module.ts"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "html",
+                    "data": "<p>Now we have all pieces together to build and run the application. To run the browser app, enter:</p><code>cd browser-app </code> <br/><code> yarn start <path to workspace> </code><p>Or, Just click the Build and Start Button below, and we'll do it for you.</p>"
+                },
+                {
                     "type": "command",
                     "data": {
-                        "command": "fileDiff",
-                        "text": "Compare Frontend Module File",
-                        "data": {
-                            "filename":"theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
-                            "solution": ".solution/tutorial-frontend-module.ts"
-                        }
+                        "command": "buildAndStartExerciseZero",
+                        "text": "Build and Start"
                     }
+                },
+                {
+                    "type": "html",
+                    "data": "<p>Once you are done, you may now point your browser to http://localhost:3000</p>"
                 }
             ]
         }

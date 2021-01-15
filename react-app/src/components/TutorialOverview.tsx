@@ -10,8 +10,6 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import {Tutorial} from '../../../schema/tutorial';
 
 
-
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {

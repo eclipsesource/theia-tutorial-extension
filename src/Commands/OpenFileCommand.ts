@@ -22,8 +22,5 @@ const OPENFILECOMMAND: vscode.Disposable = vscode.commands.registerCommand('thei
 
 });
 
-
-
-
 export default OPENFILECOMMAND;
 

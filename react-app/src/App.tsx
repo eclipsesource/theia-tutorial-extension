@@ -1,4 +1,5 @@
 import {Button} from '@material-ui/core';
+import {SnackbarProvider} from 'notistack';
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import './App.css';
@@ -47,7 +48,9 @@ export default function App() {
           {createTutorialList()}
           </p></p>
         :
-        <TutorialOverview tutorial={tutorials[selectedTutorial]} />
+        <SnackbarProvider maxSnack={3}>
+          <TutorialOverview tutorial={tutorials[selectedTutorial]} />
+        </SnackbarProvider>
       }
     </div>
 
