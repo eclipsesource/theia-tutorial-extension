@@ -3,6 +3,7 @@ import {Button, Grid, TextField} from '@material-ui/core';
 import {VSCodeAPI} from '../VSCodeAPI';
 import {Command, CommandButton} from '../../../schema/tutorial';
 import {v4 as uuidv4} from 'uuid';
+import {vsTheme} from '../VsTheme';
 
 interface Test {
     testName: string,
@@ -27,6 +28,7 @@ export const Test = (props: TestProbs) => {
         });
     }, []);
 
+
     function createTest() {
         console.log(testResult);
         if (testResult == "pending" || testResult == "true" || testResult == "false") {
@@ -36,18 +38,17 @@ export const Test = (props: TestProbs) => {
                 justify="flex-start"
                 alignItems="flex-start"
             >
-                <div style={{width: "40%"}}>{props.test.testName + ": "}</div>
+                <div style={{width: "40%", color: vsTheme.text.color}}>{props.test.testName + ": "}</div>
                 {testResult == "true" ? "Passed" : testResult == "false" ? "Failed" : "Pending"}
             </Grid>
         } else {
             return <div>
-                <div style={{width: "40%"}}>{props.test.testName + ": "}</div>
-                <div style={{width: "100%"}}>
-                    <TextField disabled
-                        multiline
-                        id="outlined-multiline-static"
-                        defaultValue={testResult} variant="outlined" />
-                </div>
+                <div style={{width: "40%", color: vsTheme.text.color}}>{props.test.testName + ": "}</div>
+                <p style={{width: "100%", overflow: "auto", color: vsTheme.text.color}}>
+                    <pre>
+                        {testResult}
+                    </pre>
+                </p>
             </div >
         }
     }
