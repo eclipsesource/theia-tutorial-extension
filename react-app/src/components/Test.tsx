@@ -30,19 +30,24 @@ export const Test = (props: TestProbs) => {
 
 
     function createTest() {
-        console.log(testResult);
         if (testResult == "pending" || testResult == "true" || testResult == "false") {
-            return <Grid
-                container
-                direction="row"
-                justify="flex-start"
-                alignItems="flex-start"
-            >
-                <div style={{width: "40%", color: vsTheme.text.color}}>{props.test.testName + ": "}</div>
-                {testResult == "true" ? "Passed" : testResult == "false" ? "Failed" : "Pending"}
-            </Grid>
+            return <div style={{margin: "20px 20px 20px 20px"}}>
+                <Grid
+                    container
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                >
+                    <div style={{width: "40%", color: vsTheme.text.color}}>{props.test.testName + ": "}</div>
+                    {testResult == "true" ?
+                        <div style={{color: "green"}}>Passed</div>
+                        : testResult == "false" ?
+                            <div style={{color: "red"}}>Failed</div> :
+                            <div style={{color: vsTheme.text.color}}>Pending</div>}
+                </Grid >
+            </div>
         } else {
-            return <div>
+            return <div style={{margin: "20px 20px  20px 20px"}}>
                 <div style={{width: "40%", color: vsTheme.text.color}}>{props.test.testName + ": "}</div>
                 <p style={{width: "100%", overflow: "auto", color: vsTheme.text.color}}>
                     <pre>

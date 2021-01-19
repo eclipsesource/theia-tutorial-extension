@@ -24,14 +24,24 @@ export interface Exercise {
   title: string;
   description: string;
   checkStartState?: {
-    testName: string;
-    command: Command;
+    filename?: string;
+    solution?: string;
+    tests: {
+      testName: string;
+      command: Command;
+      [k: string]: unknown;
+    }[];
   }[];
   buildExercise?: Command[];
   cleanState?: Command[];
   test?: {
-    testName: string;
-    command: Command;
+    filename?: string;
+    solution?: string;
+    tests: {
+      testName: string;
+      command: Command;
+      [k: string]: unknown;
+    }[];
   }[];
   solve?: Command[];
   content?: Instruction[];

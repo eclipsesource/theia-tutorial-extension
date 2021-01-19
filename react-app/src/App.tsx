@@ -17,7 +17,6 @@ export default function App() {
 
       switch (message.data.command) {
         case 'setTutorials':
-          console.log(message.data.tutorials);
           setTutorials(message.data.tutorials);
           break;
       }

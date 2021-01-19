@@ -1,6 +1,6 @@
 export const vsTheme = {
     text: {
-        color: 'var(--vscode-textPreformat-foreground)'
+        color: 'var(--vscode-editor-foreground)'
     },
     Button: {
         color: 'var(--vscode-button-foreground)',
@@ -14,5 +14,9 @@ export const vsTheme = {
     },
     icons: {
         color: 'var(--vscode-icon-foreground)'
+    },
+    dropDown: {
+        background: 'var(--vscode-dropdown-background)',
+        border: 'var(--vscode-dropdown-border)'
     }
 };

@@ -20,18 +20,35 @@
                     "items": {
                         "type": "object",
                         "properties": {
-                            "testName": {
+                            "filename": {
                                 "type": "string"
                             },
-                            "command": {
-                                "$ref": "#/definitions/command"
+                            "solution": {
+                                "type": "string"
+                            },
+                            "tests": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "testName": {
+                                            "type": "string"
+                                        },
+                                        "command": {
+                                            "$ref": "#/definitions/command"
+                                        }
+                                    },
+                                    "required": [
+                                        "testName",
+                                        "command"
+                                    ]
+                                }
                             }
                         },
+                        "additionalProperties": false,
                         "required": [
-                            "testName",
-                            "command"
-                        ],
-                        "additionalProperties": false
+                            "tests"
+                        ]
                     }
                 },
                 "buildExercise": {
@@ -51,24 +68,35 @@
                     "items": {
                         "type": "object",
                         "properties": {
-                            "testName": {
-                                "type": "string"
-                            },
-                            "command": {
-                                "$ref": "#/definitions/command"
-                            },
                             "filename": {
                                 "type": "string"
                             },
                             "solution": {
                                 "type": "string"
+                            },
+                            "tests": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "testName": {
+                                            "type": "string"
+                                        },
+                                        "command": {
+                                            "$ref": "#/definitions/command"
+                                        }
+                                    },
+                                    "required": [
+                                        "testName",
+                                        "command"
+                                    ]
+                                }
                             }
                         },
+                        "additionalProperties": false,
                         "required": [
-                            "testName",
-                            "command"
-                        ],
-                        "additionalProperties": false
+                            "tests"
+                        ]
                     }
                 },
                 "solve": {

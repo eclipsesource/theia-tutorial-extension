@@ -8,6 +8,7 @@ import {Grid, IconButton, StepContent} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import {Tutorial} from '../../../schema/tutorial';
+import {vsTheme} from '../VsTheme';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -16,13 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
         },
         text: {
-            color: 'white',
+            color: vsTheme.text.color,
             textAlign: "left",
         },
-        textheader: {
-            color: 'white',
-            textAlign: "left",
-        }
     }),
 );
 
@@ -42,7 +39,7 @@ const TutorialOverview = (props: TutorialOverviewProps) => {
                 <Stepper orientation="vertical" style={{backgroundColor: "transparent"}}>
                     {props.tutorial.exercises && props.tutorial.exercises.map((ex: any) => (
                         <Step key={ex.title} active={true}>
-                            <StepLabel><Typography className={classes.textheader}>{ex.title}</Typography></StepLabel>
+                            <StepLabel><Typography className={classes.text}>{ex.title}</Typography></StepLabel>
                             <StepContent>
                                 <p className={classes.text}>{ex.description}</p>
                                 <Grid
@@ -56,7 +53,7 @@ const TutorialOverview = (props: TutorialOverviewProps) => {
                                             setActiveStep(props.tutorial.exercises.indexOf(ex));
                                         }
                                     }}>
-                                        <ArrowForwardIosIcon fontSize="small" style={{fill: "white", backgroundColor: "#6666ff"}} />
+                                        <ArrowForwardIosIcon fontSize="small" style={{fill: vsTheme.Button.color, backgroundColor: vsTheme.Button.backgroundColor}} />
                                     </IconButton>
                                 </Grid>
                             </StepContent>

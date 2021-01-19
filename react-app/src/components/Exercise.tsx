@@ -7,7 +7,6 @@ interface ExerciseProps {
   exercise: Exercise
   exerciseFolder: String
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ExercisePage = (props: ExerciseProps) => {
 
   return (
@@ -45,7 +44,6 @@ interface HintProps {
 
 const HintComponent = (props: HintProps) => {
   const [showHint, setShowHint] = React.useState(false);
-  console.log(props);
   return (
     <div>
       <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>{props.hint.hint.text}</a>
