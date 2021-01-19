@@ -17,7 +17,7 @@ export const ExercisePage = (props: ExerciseProps) => {
   );
 };
 
-function createContent(content: Array<Instruction>, exerciseFolder: String) {
+const createContent = (content: Array<Instruction>, exerciseFolder: String) => {
   return content.map((instruction: Instruction) => {
     switch (Object.keys(instruction)[0]) {
       case "html":

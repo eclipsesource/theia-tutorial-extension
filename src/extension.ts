@@ -6,7 +6,7 @@ import {loadConfig} from './Commands/LoadConfigCommand';
 const fs = require('fs');
 const path = require('path');
 
-export function activate(context: vscode.ExtensionContext) {
+export const activate = (context: vscode.ExtensionContext) => {
 	ReactPanel.createOrShow(context.extensionPath);
 
 	initCommands(context);
@@ -17,4 +17,4 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 }
 
-export function deactivate() { }
+export const deactivate = () => { }

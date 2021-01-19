@@ -1,4 +1,4 @@
-import {createStyles, makeStyles, IconButton, Theme, Typography, WithStyles, withStyles, Grid} from '@material-ui/core';
+import {createStyles, makeStyles, IconButton, Theme, Typography, Grid} from '@material-ui/core';
 import React from 'react';
 import {Command} from '../../../schema/tutorial';
 import {Test} from './Test';
@@ -43,7 +43,6 @@ interface TestFeedbackDialog {
 
 export const TestFeedbackDialog = (props: TestFeedbackDialog) => {
     const classes = styles();
-    console.log(props)
 
     return <div><Dialog PaperProps={{
         style: {backgroundColor: vsTheme.Background.backgroundColor},
@@ -61,7 +60,7 @@ export const TestFeedbackDialog = (props: TestFeedbackDialog) => {
     </Dialog></div >;
 };
 
-function createTestParagraph(tests: Array<TestParagraph>, exerciseFolder: String) {
+const createTestParagraph = (tests: Array<TestParagraph>, exerciseFolder: String) => {
     return tests.map((testParagraph) => {
         return <div><Grid
             container
@@ -84,7 +83,7 @@ function createTestParagraph(tests: Array<TestParagraph>, exerciseFolder: String
     });
 }
 
-function createTests(tests: Array<Test>, exerciseFolder: String) {
+const createTests = (tests: Array<Test>, exerciseFolder: String) => {
     return tests.map((test) => {
         return <Test test={test} exerciseFolder={exerciseFolder} />
     });

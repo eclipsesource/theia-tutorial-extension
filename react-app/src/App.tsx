@@ -7,7 +7,6 @@ import TutorialOverview from './components/TutorialOverview';
 import {VSCodeAPI} from './VSCodeAPI';
 import {Tutorial} from '../../schema/tutorial';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export default function App() {
 
   const [tutorials, setTutorials] = useState<Array<Tutorial>>([]);
@@ -23,10 +22,8 @@ export default function App() {
     });
   });
 
-  function createTutorialList() {
-    console.log(tutorials);
+  const createTutorialList = () => {
     return tutorials.map(tutorial => {
-      console.log(tutorial)
       return <div className="Box-margin">
         <Button onClick={() => selectTutorial(tutorials.indexOf(tutorial))} variant="contained" color="primary">
           {

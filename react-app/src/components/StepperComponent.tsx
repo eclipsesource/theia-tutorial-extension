@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function getSteps(tutorialExercises: any) {
+const getSteps = (tutorialExercises: any) => {
   return tutorialExercises && tutorialExercises.map((tutorial: any) => tutorial.title);
 }
 
@@ -114,7 +114,7 @@ const StepperComponent = (props: StepperComponentProps) => {
     setDropdown(false);
   };
 
-  function handleListKeyDown(event: React.KeyboardEvent) {
+  const handleListKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Tab') {
       event.preventDefault();
       setDropdown(false);
@@ -131,15 +131,15 @@ const StepperComponent = (props: StepperComponentProps) => {
     prevOpen.current = isDropdownActive;
   }, [isDropdownActive]);
 
-  function createTestfeedback() {
+  const createTestfeedback = () => {
     return <TestFeedbackDialog test={props.tutorial.exercises![activeStep].test!} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => {setTestModal(false)}} />
   }
 
-  function createCheckStarStatefeedback() {
+  const createCheckStarStatefeedback = () => {
     return <TestFeedbackDialog test={props.tutorial.exercises![activeStep].checkStartState!} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => {setCheckModal(false)}} />
   }
 
-  function createBuildWarning() {
+  const createBuildWarning = () => {
     return <div><Dialog PaperProps={{
       style: {
         backgroundColor: vsTheme.Background.backgroundColor, borderWidth: "1",

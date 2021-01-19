@@ -29,7 +29,7 @@ export const Test = (props: TestProbs) => {
     }, []);
 
 
-    function createTest() {
+    const createTest = () => {
         if (testResult == "pending" || testResult == "true" || testResult == "false") {
             return <div style={{margin: "20px 20px 20px 20px"}}>
                 <Grid

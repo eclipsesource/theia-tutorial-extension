@@ -27,12 +27,10 @@ interface TutorialOverviewProps {
     tutorial: Tutorial;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const TutorialOverview = (props: TutorialOverviewProps) => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(-1);
 
-    console.log(props.tutorial);
     return (
         activeStep < 0 ?
             <div className={classes.root}>

@@ -11,7 +11,7 @@ import EXECUTETERMINALCOMMANDS from './Commands/ExecuteTerminalCommands';
 
 
 
-function initCommands(context: vscode.ExtensionContext) {
+const initCommands = (context: vscode.ExtensionContext) => {
 
 	const commands = [
 		CLONEREPOCOMMAND,
