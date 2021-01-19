@@ -57,7 +57,7 @@ var common_2 = require("@theia/filesystem/lib/common");
 var inversify_1 = require("inversify");
 var browser_1 = require("@theia/core/lib/browser");
 exports.NewTreeExampleFileCommand = {
-    id: 'tree-editor-extension-tree.newExampleFile',
+    id: 'my-extension-tree.newExampleFile',
     label: 'New Tree Example File'
 };
 var NewTreeExampleFileCommandHandler = /** @class */ (function () {
@@ -124,47 +124,9 @@ var NewTreeExampleFileCommandHandler = /** @class */ (function () {
 }());
 exports.NewTreeExampleFileCommandHandler = NewTreeExampleFileCommandHandler;
 var defaultData = {
-    "typeId": "Machine",
-    "name": "Super Coffee 4000",
-    "children": [
-        {
-            "typeId": "ControlUnit",
-            "processor": {
-                "socketconnectorType": "A1T",
-                "manufactoringProcess": "18nm",
-                "thermalDesignPower": 10,
-                "numberOfCores": 2,
-                "clockSpeed": 800,
-                "vendor": "CMD",
-                "advancedConfiguration": true
-            },
-            "display": {
-                "width": 70,
-                "height": 40
-            },
-            "dimension": {
-                "width": 100,
-                "height": 80,
-                "length": 50
-            },
-            "userDescription": "Small processing unit for user input"
-        },
-        {
-            "typeId": "MultiComponent",
-            "width": 100,
-            "height": 100,
-            "length": 60,
-            "children": [
-                {
-                    "typeId": "WaterTank",
-                    "capacity": 400
-                },
-                {
-                    "typeId": "DripTray",
-                    "material": "aluminium"
-                }
-            ]
-        }
-    ]
+    "typeId": "#tutorial",
+    "title": "Tutorial 0",
+    "description": "test description",
+    "tutorialFolder": "theia-extension",
 };
 //# sourceMappingURL=example-file-command.js.map

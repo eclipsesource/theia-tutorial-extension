@@ -1,464 +1,629 @@
 /* See https://jsonforms.io for more information on how to configure data and ui schemas. */
 
-export const controlUnitView = {
-  'type': 'VerticalLayout',
-  'elements': [
-    {
-      'type': 'Group',
-      'label': 'Processor',
-      'elements': [
-        {
-          'type': 'VerticalLayout',
-          'elements': [
-            {
-              'type': 'HorizontalLayout',
-              'elements': [
-                {
-                  'type': 'VerticalLayout',
-                  'elements': [
-                    {
-                      'type': 'Control',
-                      'label': 'Vendor',
-                      'scope': '#/properties/processor/properties/vendor'
-                    },
-                    {
-                      'type': 'Control',
-                      'label': 'Clock Speed',
-                      'scope': '#/properties/processor/properties/clockSpeed'
-                    }
-                  ]
-                },
-                {
-                  'type': 'VerticalLayout',
-                  'elements': [
-                    {
-                      'type': 'Control',
-                      'label': 'Number Of Cores',
-                      'scope': '#/properties/processor/properties/numberOfCores'
-                    },
-                    {
-                      'type': 'Control',
-                      'label': 'Enable Advanced Configuration',
-                      'scope': '#/properties/processor/properties/advancedConfiguration'
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              'type': 'Group',
-              'label': 'Advanced Configuration',
-              'elements': [
-                {
-                  'type': 'HorizontalLayout',
-                  'elements': [
-                    {
-                      'type': 'Control',
-                      'label': 'Socketconnector Type',
-                      'scope': '#/properties/processor/properties/socketconnectorType',
-                      'rule': {
-                        'effect': 'DISABLE',
-                        'condition': {
-                          'scope': '#/properties/processor/properties/advancedConfiguration',
-                          'schema': {
-                            'const': false
-                          }
-                        }
-                      }
-                    },
-                    {
-                      'type': 'Control',
-                      'label': 'Manufacturing Process',
-                      'scope': '#/properties/processor/properties/manufactoringProcess',
-                      'rule': {
-                        'effect': 'DISABLE',
-                        'condition': {
-                          'scope': '#/properties/processor/properties/advancedConfiguration',
-                          'schema': {
-                            'const': false
-                          }
-                        }
-                      }
-                    },
-                    {
-                      'type': 'Control',
-                      'label': 'Thermal Design Power',
-                      'scope': '#/properties/processor/properties/thermalDesignPower',
-                      'rule': {
-                        'effect': 'DISABLE',
-                        'condition': {
-                          'scope': '#/properties/processor/properties/advancedConfiguration',
-                          'schema': {
-                            'const': false
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ],
-            }
-          ]
-        }
-      ]
-    },
-    {
-      'type': 'Group',
-      'label': 'Display',
-      'elements': [
-        {
-          'type': 'HorizontalLayout',
-          'elements': [
-            {
-              'type': 'Control',
-              'label': 'Width',
-              'scope': '#/properties/display/properties/width'
-            },
-            {
-              'type': 'Control',
-              'label': 'Height',
-              'scope': '#/properties/display/properties/height'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      'type': 'Group',
-      'label': 'Dimension',
-      'elements': [
-        {
-          'type': 'HorizontalLayout',
-          'elements': [
-            {
-              'type': 'Control',
-              'label': 'Width',
-              'scope': '#/properties/dimension/properties/width'
-            },
-            {
-              'type': 'Control',
-              'label': 'Height',
-              'scope': '#/properties/dimension/properties/height'
-            },
-            {
-              'type': 'Control',
-              'label': 'Length',
-              'scope': '#/properties/dimension/properties/length'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      'type': 'Group',
-      'label': 'Additional Information',
-      'elements': [
-        {
-          'type': 'Control',
-          'label': 'User Description',
-          'scope': '#/properties/userDescription',
-          "options": {
-            "multi": true
-          }
-        }
-      ]
-    }
-  ]
-};
-
-export const machineView = {
+export const tutorialView = {
   'type': 'VerticalLayout',
   'elements': [
     {
       'type': 'Control',
-      'label': 'Name',
-      'scope': '#/properties/name'
-    }
+      'label': 'Title',
+      'scope': '#/properties/title'
+    },
+    {
+      'type': 'Control',
+      'label': 'Description',
+      'scope': '#/properties/description'
+    },
+    {
+      'type': 'Control',
+      'label': 'Tutorial Folder',
+      'scope': '#/properties/tutorialFolder'
+    },
   ]
-};
+ };
 
-export const brewingView = {
+ export const commandView = {
   'type': 'VerticalLayout',
   'elements': [
     {
       'type': 'Control',
-      'label': 'Temperature (°C)',
-      'scope': '#/properties/temperature'
+      'label': 'Command Type',
+      'scope': '#/oneOf'
     }
   ]
-};
-export const dripTrayView = {
+ };
+
+ export const fileDiffView = {
   'type': 'VerticalLayout',
   'elements': [
     {
       'type': 'Control',
-      'label': 'Material',
-      'scope': '#/properties/material'
-    }
+      'label': 'File Name',
+      'scope': '#/properties/fileDiff/properties/filename'
+    },
+    {
+      'type': 'Control',
+      'label': 'Solution',
+      'scope': '#/properties/fileDiff/properties/solution'
+    },
   ]
-};
+ };
 
-export const waterTankView = {
+ export const automaticImportView = {
   'type': 'VerticalLayout',
   'elements': [
     {
       'type': 'Control',
-      'label': 'Capacity (ml)',
-      'scope': '#/properties/capacity'
+      'label': 'Imports',
+      'scope': '#/properties/automaticImport/properties/imports'
+    },
+    {
+      'type': 'Control',
+      'label': 'Path',
+      'scope': '#/properties/automaticImport/properties/path'
     }
   ]
-};
+ };
 
-export const multiComponentView = {
-  'type': 'HorizontalLayout',
+ export const openFileView = {
+  'type': 'VerticalLayout',
   'elements': [
     {
       'type': 'Control',
-      'label': 'Width (mm)',
-      'scope': '#/properties/width'
+      'label': 'Open File',
+      'scope': '#/properties/openFile'
+    }
+  ]
+ };
+ 
+ export const checkIfFilesExistView = {
+  'type': 'VerticalLayout',
+  'elements': [
+    {
+      'type': 'Control',
+      'label': 'Check if file exist',
+      'scope': '#/properties/checkIfFilesExist'
+    }
+  ]
+ };
+
+ export const terminalCommandsView = {
+  'type': 'VerticalLayout',
+  'elements': [
+    {
+      'type': 'Control',
+      'label': 'Terminal Command',
+      'scope': '#/properties/terminalCommands'
+    }
+  ]
+ };
+
+ export const cleanExerciseFolderView = {
+  'type': 'VerticalLayout',
+  'elements': [
+    {
+      'type': 'Control',
+      'label': 'Clean Exercise Folder',
+      'scope': '#/properties/cleanExerciseFolder'
+    }
+  ]
+ };
+
+ export const htmlView = {
+  'type': 'VerticalLayout',
+  'elements': [
+    {
+      'type': 'Control',
+      'label': 'Html',
+      'scope': '#/properties/html'
+    }
+  ]
+ };
+
+ export const imageView = {
+  'type': 'VerticalLayout',
+  'elements': [
+    {
+      'type': 'Control',
+      'label': 'Src',
+      'scope': '#/properties/image/properties/src'
     },
     {
       'type': 'Control',
-      'label': 'Height (mm)',
-      'scope': '#/properties/height'
+      'label': 'Description',
+      'scope': '#/properties/image/properties/description'
     },
     {
       'type': 'Control',
-      'label': 'Length (mm)',
-      'scope': '#/properties/length'
+      'label': 'Width',
+      'scope': '#/properties/image/properties/width'
+    }
+  ]
+ };
+
+ export const hintView = {
+  'type': 'VerticalLayout',
+  'elements': [
+    {
+      'type': 'Control',
+      'label': 'Text',
+      'scope': '#/properties/hint/properties/text'
+    },
+    {
+      'type': 'Control',
+      'label': 'Content',
+      'scope': '#/properties/hint/properties/content'
+    }
+  ]
+ };
+
+ export const commandButtonView = {
+  'type': 'VerticalLayout',
+  'elements': [
+    {
+      'type': 'Control',
+      'label': 'Text',
+      'scope': '#/properties/button/properties/text'
+    },
+    {
+      'type': 'Control',
+      'label': 'Commands',
+      'scope': '#/properties/button/properties/commands'
+    }
+  ]
+ };
+
+ export const instructionView = {
+  'type': 'VerticalLayout',
+  'elements': [
+    {
+      'type': 'Control',
+      'label': 'Instruction',
+      'scope': '#/oneOf'
+    }
+  ]
+ };
+
+ export const exerciseView = {
+  'type': 'VerticalLayout',
+  'elements': [
+    {
+      'type': 'Control',
+      'label': 'Title',
+      'scope': '#/properties/title'
+    },
+    {
+      'type': 'Control',
+      'label': 'Description',
+      'scope': '#/properties/description'
+    },
+    {
+      'type': 'Control',
+      'label': 'Build Exercise',
+      'scope': '#/properties/buildExercise'
+    },
+    {
+      'type': 'Control',
+      'label': 'Clean State',
+      'scope': '#/properties/cleanState'
+    },
+    {
+      'type': 'Control',
+      'label': 'Solve',
+      'scope': '#/properties/solve'
+    },
+    {
+      'type': 'Control',
+      'label': 'checkStartState',
+      'scope': '#/properties/checkStartState'
+    },
+    {
+      'type': 'Control',
+      'label': 'Test',
+      'scope': '#/properties/test'
+    },
+    {
+      'type': 'Control',
+      'label': 'Content',
+      'scope': '#/properties/content'
     },
   ]
-};
+ };
 
-export const coffeeSchema = {
+export const tutorialSchema = {
   'definitions': {
-    'machine': {
-      'title': 'Machine',
-      'properties': {
-        'typeId': {
-          'const': 'Machine'
-        },
-        'name': {
-          'type': 'string',
-          'minLength': 3,
-          'maxLength': 20
-        }
-      },
-      'required': [ 'name' ],
-      'additionalProperties': false
-    },
-    'multicomponent': {
-      'title': 'Multi Component',
-      'properties': {
-        'typeId': {
-          'const': 'MultiComponent'
-        },
-        'width': {
-          'type': 'number'
-        },
-        'length': {
-          'type': 'number'
-        },
-        'height': {
-          'type': 'number'
-        }
-      },
-      'required': [
-        'width',
-        'length',
-        'height'
+    'tutorial': {
+      "type": "object",
+      "required": [
+          "title",
+          "description",
+          "tutorialFolder"
       ],
-      'additionalProperties': false
-    },
-    'controlunit': {
-      'title': 'Control Unit',
-      'type': 'object',
-      'properties': {
+      "additionalProperties": false,
+      "properties": {
         'typeId': {
-          'const': 'ControlUnit'
+          'const': '#tutorial'
         },
-        'processor': {
-          '$ref': '#/definitions/processor'
-        },
-        'dimension': {
-          '$ref': '#/definitions/dimension'
-        },
-        'display': {
-          '$ref': '#/definitions/display'
-        },
-        'userDescription': {
-          'type': 'string'
-        }
-      },
-      'additionalProperties': false,
-      'required': [
-        'processor',
-        'dimension',
-      ]
+          "title": {
+              "type": "string"
+          },
+          "description": {
+              "type": "string"
+          },
+          "tutorialFolder": {
+              "type": "string"
+          },
+          "exercises": {
+              "type": "array",
+              "items": {
+                  "$ref": "#/definitions/exercise"
+              }
+          }
+      }
     },
-    'brewingunit': {
-      'title': 'Brewing Unit',
-      'properties': {
-        'typeId': {
-          'const': 'BrewingUnit'
-        },
-        'temperature': {
-          'type': 'number',
-          'default': 92.5,
-          'maximum': 100
-        }
-      },
-      'additionalProperties': false
-    },
-    'driptray': {
-      'title': 'Drip Tray',
-      'properties': {
-        'typeId': {
-          'const': 'DripTray'
-        },
-        'material': {
-          'type': 'string',
-          'enum': [
-            'aluminium',
-            'plastic',
-            'steel'
-          ]
-        }
-      },
-      'additionalProperties': false
-    },
-    'watertank': {
-      'title': 'Water Tank',
-      'properties': {
-        'typeId': {
-          'const': 'WaterTank'
-        },
-        'capacity': {
-          'type': 'integer',
-          'minimum': 50
-        }
-      },
-      'required': [ 'capacity' ],
-      'additionalProperties': false
-    },
-    'processor': {
-      'type': 'object',
-      'title': 'Processor',
-      'properties': {
-        'typeId': {
-          'const': 'Processor'
-        },
-        'vendor': {
-          'type': 'string',
-          'minLength': 3,
-        },
-        'clockSpeed': {
-          'type': 'integer'
-        },
-        'numberOfCores': {
-          'type': 'integer',
-          'minimum': 1,
-          'maximum': 16
-        },
-        'advancedConfiguration': {
-          'type': 'boolean'
-        },
-        'socketconnectorType': {
-          'type': 'string',
-          'enum': [
-            'A1T',
-            'Z51'
-          ]
-        },
-        'thermalDesignPower': {
-          'type': 'integer'
-        },
-        'manufactoringProcess': {
-          'type': 'string',
-          'enum': [
-            '18nm',
-            '25nm'
-          ]
-        }
-      },
-      'required': [
-        'vendor',
-        'clockSpeed'
+    "exercise": {
+      // "$id": "#exercise",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+          "title",
+          "description"
       ],
-      'additionalProperties': false
-    },
-    'dimension': {
-      'title': 'Dimension',
-      'type': 'object',
-      'properties': {
+      "properties": {
         'typeId': {
-          'const': 'Dimension'
+          'const': '#exercise'
         },
-        'width': {
-          'type': 'integer',
-          'minimum': 1
-        },
-        'height': {
-          'type': 'integer',
-          'minimum': 1
-        },
-        'length': {
-          'type': 'integer',
-          'minimum': 1
-        }
-      },
-      'required': [
-        'width',
-        'height',
-        'length'
-      ],
-      'additionalProperties': false
-    },
-    'ram': {
-      'title': 'RAM',
-      'type': 'object',
-      'properties': {
-        'typeId': {
-          'const': 'RAM'
-        },
-        'clockSpeed': {
-          'type': 'integer'
-        },
-        'size': {
-          'type': 'integer'
-        },
-        'type': {
-          'type': 'string',
-          'enum': [
-            'SODIMM',
-            'SIDIMM'
-          ]
-        }
-      },
-      'additionalProperties': false
-    },
-    'display': {
-      'type': 'object',
-      'title': 'Display',
-      'properties': {
-        'typeId': {
-          'const': 'Display'
-        },
-        'width': {
-          'type': 'integer',
-          'minimum': 1
-        },
-        'height': {
-          'type': 'integer',
-          'minimum': 1
-        }
-      },
-      'required': [
-        'width',
-        'height'
-      ],
-      'additionalProperties': false
-    }
+          "title": {
+              "type": "string"
+          },
+          "description": {
+              "type": "string"
+          },
+          "checkStartState": {
+              "type": "array",
+              "items": {
+                  "type": "object",
+                  "properties": {
+                      "testName": {
+                          "type": "string"
+                      },
+                      "command": {
+                          "$ref": "#/definitions/command"
+                      }
+                  },
+                  "required": [
+                      "testName",
+                      "command"
+                  ],
+                  "additionalProperties": false
+              }
+          },
+          "buildExercise": {
+              "type": "array",
+              "items": {
+                  "$ref": "#/definitions/command"
+              }
+          },
+          "cleanState": {
+              "type": "array",
+              "items": {
+                  "$ref": "#/definitions/command"
+              }
+          },
+          "test": {
+              "type": "array",
+              "items": {
+                  "type": "object",
+                  "properties": {
+                      "testName": {
+                          "type": "string"
+                      },
+                      "command": {
+                          "$ref": "#/definitions/command"
+                      },
+                      "filename": {
+                          "type": "string"
+                      },
+                      "solution": {
+                          "type": "string"
+                      }
+                  },
+                  "required": [
+                      "testName",
+                      "command"
+                  ],
+                  "additionalProperties": false
+              }
+          },
+          "solve": {
+              "type": "array",
+              "items": {
+                  "$ref": "#/definitions/command"
+              }
+          },
+          "content": {
+              "type": "array",
+              "items": {
+                  "$ref": "#/definitions/instruction"
+              }
+          }
+      }
   },
-  '$ref': '#/definitions/machine'
+  "command": {
+    // "$id": "#command",
+    "type": "object",
+    'properties': {
+      'typeId': {
+        'const': '#command'
+      },
+    },
+    "oneOf": [
+        {
+            "$ref": "#/definitions/checkIfFilesExist"
+        },
+        {
+            "$ref": "#/definitions/terminalCommands"
+        },
+        {
+            "$ref": "#/definitions/openFile"
+        },
+        {
+            "$ref": "#/definitions/automaticImport"
+        },
+        {
+            "$ref": "#/definitions/fileDiff"
+        },
+        {
+            "$ref": "#/definitions/cleanExerciseFolder"
+        }
+    ]
+},
+"fileDiff": {
+    // "$id": "#fileDiff",
+    "type": "object",
+    "properties": {
+      'typeId': {
+        'const': '#fileDiff'
+      },
+        "fileDiff": {
+            "type": "object",
+            "properties": {
+                "filename": {
+                    "type": "string"
+                },
+                "solution": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "required": [
+        "fileDiff"
+    ]
+},
+"automaticImport": {
+    // "$id": "#automaticImport",
+    "type": "object",
+    "properties": {
+      'typeId': {
+        'const': '#automaticImport'
+      },
+        "automaticImport": {
+            "type": "object",
+            "properties": {
+                "imports": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "path": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "imports",
+                "path"
+            ]
+        }
+    },
+    "required": [
+        "automaticImport"
+    ]
+},
+"openFile": {
+    // "$id": "#openFile",
+    "type": "object",
+    "properties": {
+      'typeId': {
+        'const': '#openFile'
+      },
+        "openFile": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "openFile"
+    ]
+},
+"checkIfFilesExist": {
+    // "$id": "#checkIfFilesExist",
+    "type": "object",
+    "properties": {
+      'typeId': {
+        'const': '#checkIfFilesExist'
+      },
+        "checkIfFilesExist": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "checkIfFilesExist"
+    ]
+},
+"terminalCommands": {
+    // "$id": "#terminalCommands",
+    "type": "object",
+    "properties": {
+      'typeId': {
+        'const': '#terminalCommands'
+      },
+        "terminalCommands": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "terminalCommands"
+    ]
+},
+"cleanExerciseFolder": {
+    // "$id": "#cleanExerciseFolder",
+    "type": "object",
+    "properties": {
+      'typeId': {
+        'const': '#cleanExerciseFolder'
+      },
+        "cleanExerciseFolder": {
+            "type": "object"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "cleanExerciseFolder"
+    ]
+},
+"instruction": {
+  // "$id": "#instruction",
+  "type": "object",
+  'properties': {
+    'typeId': {
+      'const': '#instruction'
+    },
+  },
+  "oneOf": [
+      {
+          "$ref": "#/definitions/html"
+      },
+      {
+          "$ref": "#/definitions/image"
+      },
+      {
+          "$ref": "#/definitions/hint"
+      },
+      {
+          "$ref": "#/definitions/commandButton"
+      }
+  ]
+},
+"html": {
+  // "$id": "#html",
+  "type": "object",
+  "properties": {
+    'typeId': {
+      'const': '#html'
+    },
+      "html": {
+          "type": "string"
+      }
+  },
+  "additionalProperties": false,
+  "required": [
+      "html"
+  ]
+},
+"image": {
+  // "$id": "#image",
+  "type": "object",
+  "properties": {
+    'typeId': {
+      'const': '#image'
+    },
+      "image": {
+          "type": "object",
+          "properties": {
+              "src": {
+                  "type": "string"
+              },
+              "description": {
+                  "type": "string"
+              },
+              "width": {
+                  "type": "string"
+              }
+          },
+          "additionalProperties": false,
+          "required": [
+              "src"
+          ]
+      }
+  },
+  "required": [
+      "image"
+  ],
+  "additionalProperties": false
+},
+"hint": {
+  // "$id": "#hint",
+  "type": "object",
+  "properties": {
+    'typeId': {
+      'const': '#hint'
+    },
+      "hint": {
+          "type": "object",
+          "properties": {
+              "text": {
+                  "type": "string"
+              },
+              "content": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/instruction"
+                  }
+              }
+          },
+          "additionalProperties": false
+      }
+  },
+  "required": [
+      "hint"
+  ],
+  "additionalProperties": false
+},
+"commandButton": {
+  // "$id": "#commandButton",
+  "type": "object",
+  "properties": {
+    'typeId': {
+      'const': '#commandButton'
+    },
+      "button": {
+          "type": "object",
+          "properties": {
+              "text": {
+                  "type": "string"
+              },
+              "commands": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/command"
+                  }
+              }
+          },
+          "additionalProperties": false
+      }
+  },
+  "required": [
+      "button"
+  ],
+  "additionalProperties": false
+},
+  },
 };

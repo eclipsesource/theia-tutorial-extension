@@ -5,32 +5,45 @@ var CoffeeModel;
 (function (CoffeeModel) {
     var Type;
     (function (Type) {
-        Type.BrewingUnit = 'BrewingUnit';
-        Type.ControlUnit = 'ControlUnit';
-        Type.Dimension = 'Dimension';
-        Type.DripTray = 'DripTray';
-        Type.Display = 'Display';
-        Type.Machine = 'Machine';
-        Type.MultiComponent = 'MultiComponent';
-        Type.Processor = 'Processor';
-        Type.RAM = 'RAM';
-        Type.WaterTank = 'WaterTank';
+        Type.Exercise = '#exercise';
+        Type.Tutorial = '#tutorial';
+        Type.Command = '#command';
+        Type.FileDiff = '#fileDiff';
+        Type.AutomaticImport = '#automaticImport';
+        Type.OpenFile = '#openFile';
+        Type.CheckIfFilesExist = '#checkIfFilesExist';
+        Type.TerminalCommands = '#terminalCommands';
+        Type.CleanExerciseFolder = '#cleanExerciseFolder';
+        Type.Instruction = '#instruction';
+        Type.Html = '#html';
+        Type.Image = '#image';
+        Type.Hint = '#hint';
+        Type.CommandButton = '#commandButton';
         function name(type) {
             return type;
         }
         Type.name = name;
     })(Type = CoffeeModel.Type || (CoffeeModel.Type = {}));
     var components = [
-        Type.MultiComponent,
-        Type.BrewingUnit,
-        Type.ControlUnit,
-        Type.DripTray,
-        Type.WaterTank
+        Type.Tutorial,
+        Type.Exercise,
+        Type.Command,
+        Type.FileDiff,
+        Type.AutomaticImport,
+        Type.OpenFile,
+        Type.CheckIfFilesExist,
+        Type.TerminalCommands,
+        Type.CleanExerciseFolder,
+        Type.Instruction,
+        Type.Html,
+        Type.Image,
+        Type.Hint,
+        Type.CommandButton
     ];
     /** Maps types to their creatable children */
     CoffeeModel.childrenMapping = new Map([
         [
-            Type.Machine, [
+            Type.Tutorial, [
                 {
                     property: 'children',
                     children: components
@@ -38,13 +51,29 @@ var CoffeeModel;
             ]
         ],
         [
-            Type.MultiComponent, [
+            Type.Exercise, [
                 {
                     property: 'children',
                     children: components
                 }
             ]
-        ]
+        ],
+        [
+            Type.Instruction, [
+                {
+                    property: 'children',
+                    children: components
+                }
+            ]
+        ],
+        [
+            Type.Command, [
+                {
+                    property: 'children',
+                    children: components
+                }
+            ]
+        ],
     ]);
 })(CoffeeModel = exports.CoffeeModel || (exports.CoffeeModel = {}));
 //# sourceMappingURL=tree-model.js.map

@@ -372,7 +372,7 @@ var common_2 = __webpack_require__(/*! @theia/filesystem/lib/common */ "../node_
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
 var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
 exports.NewTreeExampleFileCommand = {
-    id: 'tree-editor-extension-tree.newExampleFile',
+    id: 'my-extension-tree.newExampleFile',
     label: 'New Tree Example File'
 };
 var NewTreeExampleFileCommandHandler = /** @class */ (function () {
@@ -439,48 +439,10 @@ var NewTreeExampleFileCommandHandler = /** @class */ (function () {
 }());
 exports.NewTreeExampleFileCommandHandler = NewTreeExampleFileCommandHandler;
 var defaultData = {
-    "typeId": "Machine",
-    "name": "Super Coffee 4000",
-    "children": [
-        {
-            "typeId": "ControlUnit",
-            "processor": {
-                "socketconnectorType": "A1T",
-                "manufactoringProcess": "18nm",
-                "thermalDesignPower": 10,
-                "numberOfCores": 2,
-                "clockSpeed": 800,
-                "vendor": "CMD",
-                "advancedConfiguration": true
-            },
-            "display": {
-                "width": 70,
-                "height": 40
-            },
-            "dimension": {
-                "width": 100,
-                "height": 80,
-                "length": 50
-            },
-            "userDescription": "Small processing unit for user input"
-        },
-        {
-            "typeId": "MultiComponent",
-            "width": 100,
-            "height": 100,
-            "length": 60,
-            "children": [
-                {
-                    "typeId": "WaterTank",
-                    "capacity": 400
-                },
-                {
-                    "typeId": "DripTray",
-                    "material": "aluminium"
-                }
-            ]
-        }
-    ]
+    "typeId": "#tutorial",
+    "title": "Tutorial 0",
+    "description": "test description",
+    "tutorialFolder": "theia-extension",
 };
 
 
@@ -886,16 +848,7 @@ var tree_model_1 = __webpack_require__(/*! ./tree-model */ "../tree-editor-exten
 var tree_editor_widget_1 = __webpack_require__(/*! ./tree-editor-widget */ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js");
 var DEFAULT_COLOR = 'black';
 var ICON_CLASSES = new Map([
-    [tree_model_1.CoffeeModel.Type.BrewingUnit, 'fa-fire ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.ControlUnit, 'fa-server ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.Dimension, 'fa-arrows-alt ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.DripTray, 'fa-inbox ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.Display, 'fa-tv ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.Machine, 'fa-cogs ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.MultiComponent, 'fa-cubes ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.Processor, 'fa-microchip ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.RAM, 'fa-memory ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.WaterTank, 'fa-tint ' + DEFAULT_COLOR],
+    [tree_model_1.CoffeeModel.Type.Exercise, 'fa-tint ' + DEFAULT_COLOR],
 ]);
 /* Icon for unknown types */
 var UNKNOWN_ICON = 'fa-question-circle ' + DEFAULT_COLOR;
@@ -976,10 +929,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TreeModelService = void 0;
+var tree_schema_1 = __webpack_require__(/*! ./tree-schema */ "../tree-editor-extension/lib/browser/tree/tree-schema.js");
 var core_1 = __webpack_require__(/*! @theia/core */ "../node_modules/@theia/core/lib/common/index.js");
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
 var tree_model_1 = __webpack_require__(/*! ./tree-model */ "../tree-editor-extension/lib/browser/tree/tree-model.js");
-var tree_schema_1 = __webpack_require__(/*! ./tree-schema */ "../tree-editor-extension/lib/browser/tree/tree-schema.js");
+var tree_schema_2 = __webpack_require__(/*! ./tree-schema */ "../tree-editor-extension/lib/browser/tree/tree-schema.js");
 var TreeModelService = /** @class */ (function () {
     function TreeModelService(logger) {
         this.logger = logger;
@@ -988,13 +942,13 @@ var TreeModelService = /** @class */ (function () {
         return node.jsonforms.data;
     };
     TreeModelService.prototype.getSchemaForNode = function (node) {
-        return __assign({ definitions: tree_schema_1.coffeeSchema.definitions }, this.getSchemaForType(node.jsonforms.type));
+        return __assign({ definitions: tree_schema_2.tutorialSchema.definitions }, this.getSchemaForType(node.jsonforms.type));
     };
     TreeModelService.prototype.getSchemaForType = function (type) {
         if (!type) {
             return undefined;
         }
-        var schema = Object.entries(tree_schema_1.coffeeSchema.definitions)
+        var schema = Object.entries(tree_schema_2.tutorialSchema.definitions)
             .map(function (entry) { return entry[1]; })
             .find(function (definition) {
             return definition.properties && definition.properties.typeId.const === type;
@@ -1007,18 +961,34 @@ var TreeModelService = /** @class */ (function () {
     TreeModelService.prototype.getUiSchemaForNode = function (node) {
         var type = node.jsonforms.type;
         switch (type) {
-            case tree_model_1.CoffeeModel.Type.Machine:
-                return tree_schema_1.machineView;
-            case tree_model_1.CoffeeModel.Type.MultiComponent:
-                return tree_schema_1.multiComponentView;
-            case tree_model_1.CoffeeModel.Type.ControlUnit:
-                return tree_schema_1.controlUnitView;
-            case tree_model_1.CoffeeModel.Type.BrewingUnit:
-                return tree_schema_1.brewingView;
-            case tree_model_1.CoffeeModel.Type.DripTray:
-                return tree_schema_1.dripTrayView;
-            case tree_model_1.CoffeeModel.Type.WaterTank:
-                return tree_schema_1.waterTankView;
+            case tree_model_1.CoffeeModel.Type.Exercise:
+                return tree_schema_2.exerciseView;
+            case tree_model_1.CoffeeModel.Type.Tutorial:
+                return tree_schema_2.tutorialView;
+            case tree_model_1.CoffeeModel.Type.Command:
+                return tree_schema_1.commandView;
+            case tree_model_1.CoffeeModel.Type.FileDiff:
+                return tree_schema_1.fileDiffView;
+            case tree_model_1.CoffeeModel.Type.AutomaticImport:
+                return tree_schema_1.automaticImportView;
+            case tree_model_1.CoffeeModel.Type.CheckIfFilesExist:
+                return tree_schema_1.checkIfFilesExistView;
+            case tree_model_1.CoffeeModel.Type.CleanExerciseFolder:
+                return tree_schema_1.cleanExerciseFolderView;
+            case tree_model_1.CoffeeModel.Type.OpenFile:
+                return tree_schema_1.openFileView;
+            case tree_model_1.CoffeeModel.Type.TerminalCommands:
+                return tree_schema_1.terminalCommandsView;
+            case tree_model_1.CoffeeModel.Type.Html:
+                return tree_schema_1.htmlView;
+            case tree_model_1.CoffeeModel.Type.Image:
+                return tree_schema_1.imageView;
+            case tree_model_1.CoffeeModel.Type.CommandButton:
+                return tree_schema_1.commandButtonView;
+            case tree_model_1.CoffeeModel.Type.Hint:
+                return tree_schema_1.hintView;
+            case tree_model_1.CoffeeModel.Type.Instruction:
+                return tree_schema_1.instructionView;
             default:
                 this.logger.warn("Can't find registered ui schema for type " + type);
                 return undefined;
@@ -1057,32 +1027,45 @@ var CoffeeModel;
 (function (CoffeeModel) {
     var Type;
     (function (Type) {
-        Type.BrewingUnit = 'BrewingUnit';
-        Type.ControlUnit = 'ControlUnit';
-        Type.Dimension = 'Dimension';
-        Type.DripTray = 'DripTray';
-        Type.Display = 'Display';
-        Type.Machine = 'Machine';
-        Type.MultiComponent = 'MultiComponent';
-        Type.Processor = 'Processor';
-        Type.RAM = 'RAM';
-        Type.WaterTank = 'WaterTank';
+        Type.Exercise = '#exercise';
+        Type.Tutorial = '#tutorial';
+        Type.Command = '#command';
+        Type.FileDiff = '#fileDiff';
+        Type.AutomaticImport = '#automaticImport';
+        Type.OpenFile = '#openFile';
+        Type.CheckIfFilesExist = '#checkIfFilesExist';
+        Type.TerminalCommands = '#terminalCommands';
+        Type.CleanExerciseFolder = '#cleanExerciseFolder';
+        Type.Instruction = '#instruction';
+        Type.Html = '#html';
+        Type.Image = '#image';
+        Type.Hint = '#hint';
+        Type.CommandButton = '#commandButton';
         function name(type) {
             return type;
         }
         Type.name = name;
     })(Type = CoffeeModel.Type || (CoffeeModel.Type = {}));
     var components = [
-        Type.MultiComponent,
-        Type.BrewingUnit,
-        Type.ControlUnit,
-        Type.DripTray,
-        Type.WaterTank
+        Type.Tutorial,
+        Type.Exercise,
+        Type.Command,
+        Type.FileDiff,
+        Type.AutomaticImport,
+        Type.OpenFile,
+        Type.CheckIfFilesExist,
+        Type.TerminalCommands,
+        Type.CleanExerciseFolder,
+        Type.Instruction,
+        Type.Html,
+        Type.Image,
+        Type.Hint,
+        Type.CommandButton
     ];
     /** Maps types to their creatable children */
     CoffeeModel.childrenMapping = new Map([
         [
-            Type.Machine, [
+            Type.Tutorial, [
                 {
                     property: 'children',
                     children: components
@@ -1090,13 +1073,29 @@ var CoffeeModel;
             ]
         ],
         [
-            Type.MultiComponent, [
+            Type.Exercise, [
                 {
                     property: 'children',
                     children: components
                 }
             ]
-        ]
+        ],
+        [
+            Type.Instruction, [
+                {
+                    property: 'children',
+                    children: components
+                }
+            ]
+        ],
+        [
+            Type.Command, [
+                {
+                    property: 'children',
+                    children: components
+                }
+            ]
+        ],
     ]);
 })(CoffeeModel = exports.CoffeeModel || (exports.CoffeeModel = {}));
 
@@ -1227,463 +1226,619 @@ exports.TreeNodeFactory = TreeNodeFactory;
 
 /* See https://jsonforms.io for more information on how to configure data and ui schemas. */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.coffeeSchema = exports.multiComponentView = exports.waterTankView = exports.dripTrayView = exports.brewingView = exports.machineView = exports.controlUnitView = void 0;
-exports.controlUnitView = {
+exports.tutorialSchema = exports.exerciseView = exports.instructionView = exports.commandButtonView = exports.hintView = exports.imageView = exports.htmlView = exports.cleanExerciseFolderView = exports.terminalCommandsView = exports.checkIfFilesExistView = exports.openFileView = exports.automaticImportView = exports.fileDiffView = exports.commandView = exports.tutorialView = void 0;
+exports.tutorialView = {
     'type': 'VerticalLayout',
     'elements': [
         {
-            'type': 'Group',
-            'label': 'Processor',
-            'elements': [
-                {
-                    'type': 'VerticalLayout',
-                    'elements': [
-                        {
-                            'type': 'HorizontalLayout',
-                            'elements': [
-                                {
-                                    'type': 'VerticalLayout',
-                                    'elements': [
-                                        {
-                                            'type': 'Control',
-                                            'label': 'Vendor',
-                                            'scope': '#/properties/processor/properties/vendor'
-                                        },
-                                        {
-                                            'type': 'Control',
-                                            'label': 'Clock Speed',
-                                            'scope': '#/properties/processor/properties/clockSpeed'
-                                        }
-                                    ]
-                                },
-                                {
-                                    'type': 'VerticalLayout',
-                                    'elements': [
-                                        {
-                                            'type': 'Control',
-                                            'label': 'Number Of Cores',
-                                            'scope': '#/properties/processor/properties/numberOfCores'
-                                        },
-                                        {
-                                            'type': 'Control',
-                                            'label': 'Enable Advanced Configuration',
-                                            'scope': '#/properties/processor/properties/advancedConfiguration'
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            'type': 'Group',
-                            'label': 'Advanced Configuration',
-                            'elements': [
-                                {
-                                    'type': 'HorizontalLayout',
-                                    'elements': [
-                                        {
-                                            'type': 'Control',
-                                            'label': 'Socketconnector Type',
-                                            'scope': '#/properties/processor/properties/socketconnectorType',
-                                            'rule': {
-                                                'effect': 'DISABLE',
-                                                'condition': {
-                                                    'scope': '#/properties/processor/properties/advancedConfiguration',
-                                                    'schema': {
-                                                        'const': false
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        {
-                                            'type': 'Control',
-                                            'label': 'Manufacturing Process',
-                                            'scope': '#/properties/processor/properties/manufactoringProcess',
-                                            'rule': {
-                                                'effect': 'DISABLE',
-                                                'condition': {
-                                                    'scope': '#/properties/processor/properties/advancedConfiguration',
-                                                    'schema': {
-                                                        'const': false
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        {
-                                            'type': 'Control',
-                                            'label': 'Thermal Design Power',
-                                            'scope': '#/properties/processor/properties/thermalDesignPower',
-                                            'rule': {
-                                                'effect': 'DISABLE',
-                                                'condition': {
-                                                    'scope': '#/properties/processor/properties/advancedConfiguration',
-                                                    'schema': {
-                                                        'const': false
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            ],
-                        }
-                    ]
-                }
-            ]
+            'type': 'Control',
+            'label': 'Title',
+            'scope': '#/properties/title'
         },
         {
-            'type': 'Group',
-            'label': 'Display',
-            'elements': [
-                {
-                    'type': 'HorizontalLayout',
-                    'elements': [
-                        {
-                            'type': 'Control',
-                            'label': 'Width',
-                            'scope': '#/properties/display/properties/width'
-                        },
-                        {
-                            'type': 'Control',
-                            'label': 'Height',
-                            'scope': '#/properties/display/properties/height'
-                        }
-                    ]
-                }
-            ]
+            'type': 'Control',
+            'label': 'Description',
+            'scope': '#/properties/description'
         },
         {
-            'type': 'Group',
-            'label': 'Dimension',
-            'elements': [
-                {
-                    'type': 'HorizontalLayout',
-                    'elements': [
-                        {
-                            'type': 'Control',
-                            'label': 'Width',
-                            'scope': '#/properties/dimension/properties/width'
-                        },
-                        {
-                            'type': 'Control',
-                            'label': 'Height',
-                            'scope': '#/properties/dimension/properties/height'
-                        },
-                        {
-                            'type': 'Control',
-                            'label': 'Length',
-                            'scope': '#/properties/dimension/properties/length'
-                        }
-                    ]
-                }
-            ]
+            'type': 'Control',
+            'label': 'Tutorial Folder',
+            'scope': '#/properties/tutorialFolder'
+        },
+    ]
+};
+exports.commandView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Command Type',
+            'scope': '#/oneOf'
+        }
+    ]
+};
+exports.fileDiffView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'File Name',
+            'scope': '#/properties/fileDiff/properties/filename'
         },
         {
-            'type': 'Group',
-            'label': 'Additional Information',
-            'elements': [
-                {
-                    'type': 'Control',
-                    'label': 'User Description',
-                    'scope': '#/properties/userDescription',
-                    "options": {
-                        "multi": true
+            'type': 'Control',
+            'label': 'Solution',
+            'scope': '#/properties/fileDiff/properties/solution'
+        },
+    ]
+};
+exports.automaticImportView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Imports',
+            'scope': '#/properties/automaticImport/properties/imports'
+        },
+        {
+            'type': 'Control',
+            'label': 'Path',
+            'scope': '#/properties/automaticImport/properties/path'
+        }
+    ]
+};
+exports.openFileView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Open File',
+            'scope': '#/properties/openFile'
+        }
+    ]
+};
+exports.checkIfFilesExistView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Check if file exist',
+            'scope': '#/properties/checkIfFilesExist'
+        }
+    ]
+};
+exports.terminalCommandsView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Terminal Command',
+            'scope': '#/properties/terminalCommands'
+        }
+    ]
+};
+exports.cleanExerciseFolderView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Clean Exercise Folder',
+            'scope': '#/properties/cleanExerciseFolder'
+        }
+    ]
+};
+exports.htmlView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Html',
+            'scope': '#/properties/html'
+        }
+    ]
+};
+exports.imageView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Src',
+            'scope': '#/properties/image/properties/src'
+        },
+        {
+            'type': 'Control',
+            'label': 'Description',
+            'scope': '#/properties/image/properties/description'
+        },
+        {
+            'type': 'Control',
+            'label': 'Width',
+            'scope': '#/properties/image/properties/width'
+        }
+    ]
+};
+exports.hintView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Text',
+            'scope': '#/properties/hint/properties/text'
+        },
+        {
+            'type': 'Control',
+            'label': 'Content',
+            'scope': '#/properties/hint/properties/content'
+        }
+    ]
+};
+exports.commandButtonView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Text',
+            'scope': '#/properties/button/properties/text'
+        },
+        {
+            'type': 'Control',
+            'label': 'Commands',
+            'scope': '#/properties/button/properties/commands'
+        }
+    ]
+};
+exports.instructionView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Instruction',
+            'scope': '#/oneOf'
+        }
+    ]
+};
+exports.exerciseView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Title',
+            'scope': '#/properties/title'
+        },
+        {
+            'type': 'Control',
+            'label': 'Description',
+            'scope': '#/properties/description'
+        },
+        {
+            'type': 'Control',
+            'label': 'Build Exercise',
+            'scope': '#/properties/buildExercise'
+        },
+        {
+            'type': 'Control',
+            'label': 'Clean State',
+            'scope': '#/properties/cleanState'
+        },
+        {
+            'type': 'Control',
+            'label': 'Solve',
+            'scope': '#/properties/solve'
+        },
+        {
+            'type': 'Control',
+            'label': 'checkStartState',
+            'scope': '#/properties/checkStartState'
+        },
+        {
+            'type': 'Control',
+            'label': 'Test',
+            'scope': '#/properties/test'
+        },
+        {
+            'type': 'Control',
+            'label': 'Content',
+            'scope': '#/properties/content'
+        },
+    ]
+};
+exports.tutorialSchema = {
+    'definitions': {
+        'tutorial': {
+            "type": "object",
+            "required": [
+                "title",
+                "description",
+                "tutorialFolder"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                'typeId': {
+                    'const': '#tutorial'
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "tutorialFolder": {
+                    "type": "string"
+                },
+                "exercises": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/exercise"
                     }
                 }
-            ]
-        }
-    ]
-};
-exports.machineView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Name',
-            'scope': '#/properties/name'
-        }
-    ]
-};
-exports.brewingView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Temperature (°C)',
-            'scope': '#/properties/temperature'
-        }
-    ]
-};
-exports.dripTrayView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Material',
-            'scope': '#/properties/material'
-        }
-    ]
-};
-exports.waterTankView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Capacity (ml)',
-            'scope': '#/properties/capacity'
-        }
-    ]
-};
-exports.multiComponentView = {
-    'type': 'HorizontalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Width (mm)',
-            'scope': '#/properties/width'
+            }
         },
-        {
-            'type': 'Control',
-            'label': 'Height (mm)',
-            'scope': '#/properties/height'
-        },
-        {
-            'type': 'Control',
-            'label': 'Length (mm)',
-            'scope': '#/properties/length'
-        },
-    ]
-};
-exports.coffeeSchema = {
-    'definitions': {
-        'machine': {
-            'title': 'Machine',
-            'properties': {
-                'typeId': {
-                    'const': 'Machine'
-                },
-                'name': {
-                    'type': 'string',
-                    'minLength': 3,
-                    'maxLength': 20
-                }
-            },
-            'required': ['name'],
-            'additionalProperties': false
-        },
-        'multicomponent': {
-            'title': 'Multi Component',
-            'properties': {
-                'typeId': {
-                    'const': 'MultiComponent'
-                },
-                'width': {
-                    'type': 'number'
-                },
-                'length': {
-                    'type': 'number'
-                },
-                'height': {
-                    'type': 'number'
-                }
-            },
-            'required': [
-                'width',
-                'length',
-                'height'
+        "exercise": {
+            // "$id": "#exercise",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "title",
+                "description"
             ],
-            'additionalProperties': false
+            "properties": {
+                'typeId': {
+                    'const': '#exercise'
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "checkStartState": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "testName": {
+                                "type": "string"
+                            },
+                            "command": {
+                                "$ref": "#/definitions/command"
+                            }
+                        },
+                        "required": [
+                            "testName",
+                            "command"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "buildExercise": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "cleanState": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "test": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "testName": {
+                                "type": "string"
+                            },
+                            "command": {
+                                "$ref": "#/definitions/command"
+                            },
+                            "filename": {
+                                "type": "string"
+                            },
+                            "solution": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "testName",
+                            "command"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "solve": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "content": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/instruction"
+                    }
+                }
+            }
         },
-        'controlunit': {
-            'title': 'Control Unit',
-            'type': 'object',
+        "command": {
+            // "$id": "#command",
+            "type": "object",
             'properties': {
                 'typeId': {
-                    'const': 'ControlUnit'
+                    'const': '#command'
                 },
-                'processor': {
-                    '$ref': '#/definitions/processor'
-                },
-                'dimension': {
-                    '$ref': '#/definitions/dimension'
-                },
-                'display': {
-                    '$ref': '#/definitions/display'
-                },
-                'userDescription': {
-                    'type': 'string'
-                }
             },
-            'additionalProperties': false,
-            'required': [
-                'processor',
-                'dimension',
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/checkIfFilesExist"
+                },
+                {
+                    "$ref": "#/definitions/terminalCommands"
+                },
+                {
+                    "$ref": "#/definitions/openFile"
+                },
+                {
+                    "$ref": "#/definitions/automaticImport"
+                },
+                {
+                    "$ref": "#/definitions/fileDiff"
+                },
+                {
+                    "$ref": "#/definitions/cleanExerciseFolder"
+                }
             ]
         },
-        'brewingunit': {
-            'title': 'Brewing Unit',
-            'properties': {
+        "fileDiff": {
+            // "$id": "#fileDiff",
+            "type": "object",
+            "properties": {
                 'typeId': {
-                    'const': 'BrewingUnit'
+                    'const': '#fileDiff'
                 },
-                'temperature': {
-                    'type': 'number',
-                    'default': 92.5,
-                    'maximum': 100
+                "fileDiff": {
+                    "type": "object",
+                    "properties": {
+                        "filename": {
+                            "type": "string"
+                        },
+                        "solution": {
+                            "type": "string"
+                        }
+                    }
                 }
             },
-            'additionalProperties': false
+            "required": [
+                "fileDiff"
+            ]
         },
-        'driptray': {
-            'title': 'Drip Tray',
-            'properties': {
+        "automaticImport": {
+            // "$id": "#automaticImport",
+            "type": "object",
+            "properties": {
                 'typeId': {
-                    'const': 'DripTray'
+                    'const': '#automaticImport'
                 },
-                'material': {
-                    'type': 'string',
-                    'enum': [
-                        'aluminium',
-                        'plastic',
-                        'steel'
+                "automaticImport": {
+                    "type": "object",
+                    "properties": {
+                        "imports": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "path": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "imports",
+                        "path"
                     ]
                 }
             },
-            'additionalProperties': false
+            "required": [
+                "automaticImport"
+            ]
         },
-        'watertank': {
-            'title': 'Water Tank',
-            'properties': {
+        "openFile": {
+            // "$id": "#openFile",
+            "type": "object",
+            "properties": {
                 'typeId': {
-                    'const': 'WaterTank'
+                    'const': '#openFile'
                 },
-                'capacity': {
-                    'type': 'integer',
-                    'minimum': 50
+                "openFile": {
+                    "type": "string"
                 }
             },
-            'required': ['capacity'],
-            'additionalProperties': false
+            "required": [
+                "openFile"
+            ]
         },
-        'processor': {
-            'type': 'object',
-            'title': 'Processor',
+        "checkIfFilesExist": {
+            // "$id": "#checkIfFilesExist",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#checkIfFilesExist'
+                },
+                "checkIfFilesExist": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "checkIfFilesExist"
+            ]
+        },
+        "terminalCommands": {
+            // "$id": "#terminalCommands",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#terminalCommands'
+                },
+                "terminalCommands": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "terminalCommands"
+            ]
+        },
+        "cleanExerciseFolder": {
+            // "$id": "#cleanExerciseFolder",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#cleanExerciseFolder'
+                },
+                "cleanExerciseFolder": {
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "cleanExerciseFolder"
+            ]
+        },
+        "instruction": {
+            // "$id": "#instruction",
+            "type": "object",
             'properties': {
                 'typeId': {
-                    'const': 'Processor'
+                    'const': '#instruction'
                 },
-                'vendor': {
-                    'type': 'string',
-                    'minLength': 3,
+            },
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/html"
                 },
-                'clockSpeed': {
-                    'type': 'integer'
+                {
+                    "$ref": "#/definitions/image"
                 },
-                'numberOfCores': {
-                    'type': 'integer',
-                    'minimum': 1,
-                    'maximum': 16
+                {
+                    "$ref": "#/definitions/hint"
                 },
-                'advancedConfiguration': {
-                    'type': 'boolean'
+                {
+                    "$ref": "#/definitions/commandButton"
+                }
+            ]
+        },
+        "html": {
+            // "$id": "#html",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#html'
                 },
-                'socketconnectorType': {
-                    'type': 'string',
-                    'enum': [
-                        'A1T',
-                        'Z51'
-                    ]
+                "html": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "html"
+            ]
+        },
+        "image": {
+            // "$id": "#image",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#image'
                 },
-                'thermalDesignPower': {
-                    'type': 'integer'
-                },
-                'manufactoringProcess': {
-                    'type': 'string',
-                    'enum': [
-                        '18nm',
-                        '25nm'
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "src": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "width": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "src"
                     ]
                 }
             },
-            'required': [
-                'vendor',
-                'clockSpeed'
+            "required": [
+                "image"
             ],
-            'additionalProperties': false
+            "additionalProperties": false
         },
-        'dimension': {
-            'title': 'Dimension',
-            'type': 'object',
-            'properties': {
+        "hint": {
+            // "$id": "#hint",
+            "type": "object",
+            "properties": {
                 'typeId': {
-                    'const': 'Dimension'
+                    'const': '#hint'
                 },
-                'width': {
-                    'type': 'integer',
-                    'minimum': 1
-                },
-                'height': {
-                    'type': 'integer',
-                    'minimum': 1
-                },
-                'length': {
-                    'type': 'integer',
-                    'minimum': 1
+                "hint": {
+                    "type": "object",
+                    "properties": {
+                        "text": {
+                            "type": "string"
+                        },
+                        "content": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/instruction"
+                            }
+                        }
+                    },
+                    "additionalProperties": false
                 }
             },
-            'required': [
-                'width',
-                'height',
-                'length'
+            "required": [
+                "hint"
             ],
-            'additionalProperties': false
+            "additionalProperties": false
         },
-        'ram': {
-            'title': 'RAM',
-            'type': 'object',
-            'properties': {
+        "commandButton": {
+            // "$id": "#commandButton",
+            "type": "object",
+            "properties": {
                 'typeId': {
-                    'const': 'RAM'
+                    'const': '#commandButton'
                 },
-                'clockSpeed': {
-                    'type': 'integer'
-                },
-                'size': {
-                    'type': 'integer'
-                },
-                'type': {
-                    'type': 'string',
-                    'enum': [
-                        'SODIMM',
-                        'SIDIMM'
-                    ]
+                "button": {
+                    "type": "object",
+                    "properties": {
+                        "text": {
+                            "type": "string"
+                        },
+                        "commands": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/command"
+                            }
+                        }
+                    },
+                    "additionalProperties": false
                 }
             },
-            'additionalProperties': false
-        },
-        'display': {
-            'type': 'object',
-            'title': 'Display',
-            'properties': {
-                'typeId': {
-                    'const': 'Display'
-                },
-                'width': {
-                    'type': 'integer',
-                    'minimum': 1
-                },
-                'height': {
-                    'type': 'integer',
-                    'minimum': 1
-                }
-            },
-            'required': [
-                'width',
-                'height'
+            "required": [
+                "button"
             ],
-            'additionalProperties': false
-        }
+            "additionalProperties": false
+        },
     },
-    '$ref': '#/definitions/machine'
 };
 
 

@@ -24,10 +24,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TreeModelService = void 0;
+var tree_schema_1 = require("./tree-schema");
 var core_1 = require("@theia/core");
 var inversify_1 = require("inversify");
 var tree_model_1 = require("./tree-model");
-var tree_schema_1 = require("./tree-schema");
+var tree_schema_2 = require("./tree-schema");
 var TreeModelService = /** @class */ (function () {
     function TreeModelService(logger) {
         this.logger = logger;
@@ -36,13 +37,13 @@ var TreeModelService = /** @class */ (function () {
         return node.jsonforms.data;
     };
     TreeModelService.prototype.getSchemaForNode = function (node) {
-        return __assign({ definitions: tree_schema_1.coffeeSchema.definitions }, this.getSchemaForType(node.jsonforms.type));
+        return __assign({ definitions: tree_schema_2.tutorialSchema.definitions }, this.getSchemaForType(node.jsonforms.type));
     };
     TreeModelService.prototype.getSchemaForType = function (type) {
         if (!type) {
             return undefined;
         }
-        var schema = Object.entries(tree_schema_1.coffeeSchema.definitions)
+        var schema = Object.entries(tree_schema_2.tutorialSchema.definitions)
             .map(function (entry) { return entry[1]; })
             .find(function (definition) {
             return definition.properties && definition.properties.typeId.const === type;
@@ -55,18 +56,34 @@ var TreeModelService = /** @class */ (function () {
     TreeModelService.prototype.getUiSchemaForNode = function (node) {
         var type = node.jsonforms.type;
         switch (type) {
-            case tree_model_1.CoffeeModel.Type.Machine:
-                return tree_schema_1.machineView;
-            case tree_model_1.CoffeeModel.Type.MultiComponent:
-                return tree_schema_1.multiComponentView;
-            case tree_model_1.CoffeeModel.Type.ControlUnit:
-                return tree_schema_1.controlUnitView;
-            case tree_model_1.CoffeeModel.Type.BrewingUnit:
-                return tree_schema_1.brewingView;
-            case tree_model_1.CoffeeModel.Type.DripTray:
-                return tree_schema_1.dripTrayView;
-            case tree_model_1.CoffeeModel.Type.WaterTank:
-                return tree_schema_1.waterTankView;
+            case tree_model_1.CoffeeModel.Type.Exercise:
+                return tree_schema_2.exerciseView;
+            case tree_model_1.CoffeeModel.Type.Tutorial:
+                return tree_schema_2.tutorialView;
+            case tree_model_1.CoffeeModel.Type.Command:
+                return tree_schema_1.commandView;
+            case tree_model_1.CoffeeModel.Type.FileDiff:
+                return tree_schema_1.fileDiffView;
+            case tree_model_1.CoffeeModel.Type.AutomaticImport:
+                return tree_schema_1.automaticImportView;
+            case tree_model_1.CoffeeModel.Type.CheckIfFilesExist:
+                return tree_schema_1.checkIfFilesExistView;
+            case tree_model_1.CoffeeModel.Type.CleanExerciseFolder:
+                return tree_schema_1.cleanExerciseFolderView;
+            case tree_model_1.CoffeeModel.Type.OpenFile:
+                return tree_schema_1.openFileView;
+            case tree_model_1.CoffeeModel.Type.TerminalCommands:
+                return tree_schema_1.terminalCommandsView;
+            case tree_model_1.CoffeeModel.Type.Html:
+                return tree_schema_1.htmlView;
+            case tree_model_1.CoffeeModel.Type.Image:
+                return tree_schema_1.imageView;
+            case tree_model_1.CoffeeModel.Type.CommandButton:
+                return tree_schema_1.commandButtonView;
+            case tree_model_1.CoffeeModel.Type.Hint:
+                return tree_schema_1.hintView;
+            case tree_model_1.CoffeeModel.Type.Instruction:
+                return tree_schema_1.instructionView;
             default:
                 this.logger.warn("Can't find registered ui schema for type " + type);
                 return undefined;

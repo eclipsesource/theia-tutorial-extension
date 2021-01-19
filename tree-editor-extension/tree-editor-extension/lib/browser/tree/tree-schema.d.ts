@@ -1,307 +1,432 @@
-export declare const controlUnitView: {
+export declare const tutorialView: {
     type: string;
-    elements: ({
+    elements: {
         type: string;
         label: string;
-        elements: {
+        scope: string;
+    }[];
+};
+export declare const commandView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const fileDiffView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const automaticImportView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const openFileView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const checkIfFilesExistView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const terminalCommandsView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const cleanExerciseFolderView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const htmlView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const imageView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const hintView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const commandButtonView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const instructionView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const exerciseView: {
+    type: string;
+    elements: {
+        type: string;
+        label: string;
+        scope: string;
+    }[];
+};
+export declare const tutorialSchema: {
+    definitions: {
+        tutorial: {
             type: string;
-            elements: ({
-                type: string;
-                elements: {
+            required: string[];
+            additionalProperties: boolean;
+            properties: {
+                typeId: {
+                    const: string;
+                };
+                title: {
                     type: string;
-                    elements: {
-                        type: string;
-                        label: string;
-                        scope: string;
-                    }[];
-                }[];
-                label?: undefined;
-            } | {
-                type: string;
-                label: string;
-                elements: {
+                };
+                description: {
                     type: string;
-                    elements: {
+                };
+                tutorialFolder: {
+                    type: string;
+                };
+                exercises: {
+                    type: string;
+                    items: {
+                        $ref: string;
+                    };
+                };
+            };
+        };
+        exercise: {
+            type: string;
+            additionalProperties: boolean;
+            required: string[];
+            properties: {
+                typeId: {
+                    const: string;
+                };
+                title: {
+                    type: string;
+                };
+                description: {
+                    type: string;
+                };
+                checkStartState: {
+                    type: string;
+                    items: {
                         type: string;
-                        label: string;
-                        scope: string;
-                        rule: {
-                            effect: string;
-                            condition: {
-                                scope: string;
-                                schema: {
-                                    const: boolean;
-                                };
+                        properties: {
+                            testName: {
+                                type: string;
+                            };
+                            command: {
+                                $ref: string;
                             };
                         };
-                    }[];
-                }[];
-            })[];
-        }[];
-    } | {
-        type: string;
-        label: string;
-        elements: {
+                        required: string[];
+                        additionalProperties: boolean;
+                    };
+                };
+                buildExercise: {
+                    type: string;
+                    items: {
+                        $ref: string;
+                    };
+                };
+                cleanState: {
+                    type: string;
+                    items: {
+                        $ref: string;
+                    };
+                };
+                test: {
+                    type: string;
+                    items: {
+                        type: string;
+                        properties: {
+                            testName: {
+                                type: string;
+                            };
+                            command: {
+                                $ref: string;
+                            };
+                            filename: {
+                                type: string;
+                            };
+                            solution: {
+                                type: string;
+                            };
+                        };
+                        required: string[];
+                        additionalProperties: boolean;
+                    };
+                };
+                solve: {
+                    type: string;
+                    items: {
+                        $ref: string;
+                    };
+                };
+                content: {
+                    type: string;
+                    items: {
+                        $ref: string;
+                    };
+                };
+            };
+        };
+        command: {
             type: string;
-            elements: {
-                type: string;
-                label: string;
-                scope: string;
+            properties: {
+                typeId: {
+                    const: string;
+                };
+            };
+            oneOf: {
+                $ref: string;
             }[];
-        }[];
-    } | {
-        type: string;
-        label: string;
-        elements: {
-            type: string;
-            label: string;
-            scope: string;
-            options: {
-                multi: boolean;
-            };
-        }[];
-    })[];
-};
-export declare const machineView: {
-    type: string;
-    elements: {
-        type: string;
-        label: string;
-        scope: string;
-    }[];
-};
-export declare const brewingView: {
-    type: string;
-    elements: {
-        type: string;
-        label: string;
-        scope: string;
-    }[];
-};
-export declare const dripTrayView: {
-    type: string;
-    elements: {
-        type: string;
-        label: string;
-        scope: string;
-    }[];
-};
-export declare const waterTankView: {
-    type: string;
-    elements: {
-        type: string;
-        label: string;
-        scope: string;
-    }[];
-};
-export declare const multiComponentView: {
-    type: string;
-    elements: {
-        type: string;
-        label: string;
-        scope: string;
-    }[];
-};
-export declare const coffeeSchema: {
-    definitions: {
-        machine: {
-            title: string;
-            properties: {
-                typeId: {
-                    const: string;
-                };
-                name: {
-                    type: string;
-                    minLength: number;
-                    maxLength: number;
-                };
-            };
-            required: string[];
-            additionalProperties: boolean;
         };
-        multicomponent: {
-            title: string;
-            properties: {
-                typeId: {
-                    const: string;
-                };
-                width: {
-                    type: string;
-                };
-                length: {
-                    type: string;
-                };
-                height: {
-                    type: string;
-                };
-            };
-            required: string[];
-            additionalProperties: boolean;
-        };
-        controlunit: {
-            title: string;
+        fileDiff: {
             type: string;
             properties: {
                 typeId: {
                     const: string;
                 };
-                processor: {
-                    $ref: string;
+                fileDiff: {
+                    type: string;
+                    properties: {
+                        filename: {
+                            type: string;
+                        };
+                        solution: {
+                            type: string;
+                        };
+                    };
                 };
-                dimension: {
-                    $ref: string;
+            };
+            required: string[];
+        };
+        automaticImport: {
+            type: string;
+            properties: {
+                typeId: {
+                    const: string;
                 };
-                display: {
-                    $ref: string;
+                automaticImport: {
+                    type: string;
+                    properties: {
+                        imports: {
+                            type: string;
+                            items: {
+                                type: string;
+                            };
+                        };
+                        path: {
+                            type: string;
+                        };
+                    };
+                    required: string[];
                 };
-                userDescription: {
+            };
+            required: string[];
+        };
+        openFile: {
+            type: string;
+            properties: {
+                typeId: {
+                    const: string;
+                };
+                openFile: {
+                    type: string;
+                };
+            };
+            required: string[];
+        };
+        checkIfFilesExist: {
+            type: string;
+            properties: {
+                typeId: {
+                    const: string;
+                };
+                checkIfFilesExist: {
+                    type: string;
+                    items: {
+                        type: string;
+                    };
+                };
+            };
+            additionalProperties: boolean;
+            required: string[];
+        };
+        terminalCommands: {
+            type: string;
+            properties: {
+                typeId: {
+                    const: string;
+                };
+                terminalCommands: {
+                    type: string;
+                    items: {
+                        type: string;
+                    };
+                };
+            };
+            additionalProperties: boolean;
+            required: string[];
+        };
+        cleanExerciseFolder: {
+            type: string;
+            properties: {
+                typeId: {
+                    const: string;
+                };
+                cleanExerciseFolder: {
                     type: string;
                 };
             };
             additionalProperties: boolean;
             required: string[];
         };
-        brewingunit: {
-            title: string;
+        instruction: {
+            type: string;
             properties: {
                 typeId: {
                     const: string;
                 };
-                temperature: {
+            };
+            oneOf: {
+                $ref: string;
+            }[];
+        };
+        html: {
+            type: string;
+            properties: {
+                typeId: {
+                    const: string;
+                };
+                html: {
                     type: string;
-                    default: number;
-                    maximum: number;
                 };
             };
             additionalProperties: boolean;
+            required: string[];
         };
-        driptray: {
-            title: string;
+        image: {
+            type: string;
             properties: {
                 typeId: {
                     const: string;
                 };
-                material: {
+                image: {
                     type: string;
-                    enum: string[];
-                };
-            };
-            additionalProperties: boolean;
-        };
-        watertank: {
-            title: string;
-            properties: {
-                typeId: {
-                    const: string;
-                };
-                capacity: {
-                    type: string;
-                    minimum: number;
+                    properties: {
+                        src: {
+                            type: string;
+                        };
+                        description: {
+                            type: string;
+                        };
+                        width: {
+                            type: string;
+                        };
+                    };
+                    additionalProperties: boolean;
+                    required: string[];
                 };
             };
             required: string[];
             additionalProperties: boolean;
         };
-        processor: {
+        hint: {
             type: string;
-            title: string;
             properties: {
                 typeId: {
                     const: string;
                 };
-                vendor: {
+                hint: {
                     type: string;
-                    minLength: number;
-                };
-                clockSpeed: {
-                    type: string;
-                };
-                numberOfCores: {
-                    type: string;
-                    minimum: number;
-                    maximum: number;
-                };
-                advancedConfiguration: {
-                    type: string;
-                };
-                socketconnectorType: {
-                    type: string;
-                    enum: string[];
-                };
-                thermalDesignPower: {
-                    type: string;
-                };
-                manufactoringProcess: {
-                    type: string;
-                    enum: string[];
+                    properties: {
+                        text: {
+                            type: string;
+                        };
+                        content: {
+                            type: string;
+                            items: {
+                                $ref: string;
+                            };
+                        };
+                    };
+                    additionalProperties: boolean;
                 };
             };
             required: string[];
             additionalProperties: boolean;
         };
-        dimension: {
-            title: string;
+        commandButton: {
             type: string;
             properties: {
                 typeId: {
                     const: string;
                 };
-                width: {
+                button: {
                     type: string;
-                    minimum: number;
-                };
-                height: {
-                    type: string;
-                    minimum: number;
-                };
-                length: {
-                    type: string;
-                    minimum: number;
-                };
-            };
-            required: string[];
-            additionalProperties: boolean;
-        };
-        ram: {
-            title: string;
-            type: string;
-            properties: {
-                typeId: {
-                    const: string;
-                };
-                clockSpeed: {
-                    type: string;
-                };
-                size: {
-                    type: string;
-                };
-                type: {
-                    type: string;
-                    enum: string[];
-                };
-            };
-            additionalProperties: boolean;
-        };
-        display: {
-            type: string;
-            title: string;
-            properties: {
-                typeId: {
-                    const: string;
-                };
-                width: {
-                    type: string;
-                    minimum: number;
-                };
-                height: {
-                    type: string;
-                    minimum: number;
+                    properties: {
+                        text: {
+                            type: string;
+                        };
+                        commands: {
+                            type: string;
+                            items: {
+                                $ref: string;
+                            };
+                        };
+                    };
+                    additionalProperties: boolean;
                 };
             };
             required: string[];
             additionalProperties: boolean;
         };
     };
-    $ref: string;
 };
 //# sourceMappingURL=tree-schema.d.ts.map

@@ -1,16 +1,20 @@
 import { TreeEditor } from '@eclipse-emfcloud/theia-tree-editor';
 export declare namespace CoffeeModel {
     namespace Type {
-        const BrewingUnit = "BrewingUnit";
-        const ControlUnit = "ControlUnit";
-        const Dimension = "Dimension";
-        const DripTray = "DripTray";
-        const Display = "Display";
-        const Machine = "Machine";
-        const MultiComponent = "MultiComponent";
-        const Processor = "Processor";
-        const RAM = "RAM";
-        const WaterTank = "WaterTank";
+        const Exercise = "#exercise";
+        const Tutorial = "#tutorial";
+        const Command = "#command";
+        const FileDiff = "#fileDiff";
+        const AutomaticImport = "#automaticImport";
+        const OpenFile = "#openFile";
+        const CheckIfFilesExist = "#checkIfFilesExist";
+        const TerminalCommands = "#terminalCommands";
+        const CleanExerciseFolder = "#cleanExerciseFolder";
+        const Instruction = "#instruction";
+        const Html = "#html";
+        const Image = "#image";
+        const Hint = "#hint";
+        const CommandButton = "#commandButton";
         function name(type: string): string;
     }
     /** Maps types to their creatable children */

@@ -13,16 +13,7 @@ var tree_model_1 = require("./tree-model");
 var tree_editor_widget_1 = require("./tree-editor-widget");
 var DEFAULT_COLOR = 'black';
 var ICON_CLASSES = new Map([
-    [tree_model_1.CoffeeModel.Type.BrewingUnit, 'fa-fire ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.ControlUnit, 'fa-server ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.Dimension, 'fa-arrows-alt ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.DripTray, 'fa-inbox ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.Display, 'fa-tv ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.Machine, 'fa-cogs ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.MultiComponent, 'fa-cubes ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.Processor, 'fa-microchip ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.RAM, 'fa-memory ' + DEFAULT_COLOR],
-    [tree_model_1.CoffeeModel.Type.WaterTank, 'fa-tint ' + DEFAULT_COLOR],
+    [tree_model_1.CoffeeModel.Type.Exercise, 'fa-tint ' + DEFAULT_COLOR],
 ]);
 /* Icon for unknown types */
 var UNKNOWN_ICON = 'fa-question-circle ' + DEFAULT_COLOR;

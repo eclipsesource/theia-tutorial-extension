@@ -10,7 +10,7 @@ import { inject, injectable } from 'inversify';
 import { OpenerService } from '@theia/core/lib/browser';
 
 export const NewTreeExampleFileCommand: Command = {
-    id: 'tree-editor-extension-tree.newExampleFile',
+    id: 'my-extension-tree.newExampleFile',
     label: 'New Tree Example File'
 };
 
@@ -57,46 +57,8 @@ export class NewTreeExampleFileCommandHandler implements SingleUriCommandHandler
 }
 
 const defaultData = {
-    "typeId": "Machine",
-    "name": "Super Coffee 4000",
-    "children": [
-        {
-            "typeId": "ControlUnit",
-            "processor": {
-                "socketconnectorType": "A1T",
-                "manufactoringProcess": "18nm",
-                "thermalDesignPower": 10,
-                "numberOfCores": 2,
-                "clockSpeed": 800,
-                "vendor": "CMD",
-                "advancedConfiguration": true
-            },
-            "display": {
-                "width": 70,
-                "height": 40
-            },
-            "dimension": {
-                "width": 100,
-                "height": 80,
-                "length": 50
-            },
-            "userDescription": "Small processing unit for user input"
-        },
-        {
-            "typeId": "MultiComponent",
-            "width": 100,
-            "height": 100,
-            "length": 60,
-            "children": [
-                {
-                    "typeId":"WaterTank",
-                    "capacity":400
-                },
-                {
-                    "typeId":"DripTray",
-                    "material":"aluminium"
-                }
-            ]
-        }
-    ]
-}
+    "typeId": "#tutorial",
+    "title": "Tutorial 0",
+    "description": "test description",
+    "tutorialFolder": "theia-extension",
+};

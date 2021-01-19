@@ -8,16 +8,7 @@ import { TreeEditorWidget } from './tree-editor-widget';
 const DEFAULT_COLOR = 'black';
 
 const ICON_CLASSES: Map<string, string> = new Map([
-    [CoffeeModel.Type.BrewingUnit, 'fa-fire ' + DEFAULT_COLOR],
-    [CoffeeModel.Type.ControlUnit, 'fa-server ' + DEFAULT_COLOR],
-    [CoffeeModel.Type.Dimension, 'fa-arrows-alt ' + DEFAULT_COLOR],
-    [CoffeeModel.Type.DripTray, 'fa-inbox ' + DEFAULT_COLOR],
-    [CoffeeModel.Type.Display, 'fa-tv ' + DEFAULT_COLOR],
-    [CoffeeModel.Type.Machine, 'fa-cogs ' + DEFAULT_COLOR],
-    [CoffeeModel.Type.MultiComponent, 'fa-cubes ' + DEFAULT_COLOR],
-    [CoffeeModel.Type.Processor, 'fa-microchip ' + DEFAULT_COLOR],
-    [CoffeeModel.Type.RAM, 'fa-memory ' + DEFAULT_COLOR],
-    [CoffeeModel.Type.WaterTank, 'fa-tint ' + DEFAULT_COLOR],
+     [CoffeeModel.Type.Exercise, 'fa-tint ' + DEFAULT_COLOR],
 ]);
 
 /* Icon for unknown types */

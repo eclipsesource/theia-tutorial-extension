@@ -1,16 +1,13 @@
+import { automaticImportView, checkIfFilesExistView, cleanExerciseFolderView, commandButtonView, commandView, fileDiffView, hintView, htmlView, imageView, instructionView, openFileView, terminalCommandsView } from './tree-schema';
 import { ILogger } from '@theia/core';
 import { inject, injectable } from 'inversify';
 import { TreeEditor } from '@eclipse-emfcloud/theia-tree-editor';
 
 import { CoffeeModel } from './tree-model';
 import {
-    brewingView,
-    coffeeSchema,
-    controlUnitView,
-    dripTrayView,
-    machineView,
-    multiComponentView,
-    waterTankView,
+    tutorialSchema,
+    exerciseView,
+    tutorialView
 } from './tree-schema';
 
 @injectable()
@@ -24,7 +21,7 @@ export class TreeModelService implements TreeEditor.ModelService {
 
     getSchemaForNode(node: TreeEditor.Node) {
         return {
-            definitions: coffeeSchema.definitions,
+            definitions: tutorialSchema.definitions,
             ...this.getSchemaForType(node.jsonforms.type),
         };
     }
@@ -33,7 +30,7 @@ export class TreeModelService implements TreeEditor.ModelService {
         if (!type) {
             return undefined;
         }
-        const schema = Object.entries(coffeeSchema.definitions)
+        const schema = Object.entries(tutorialSchema.definitions)
             .map(entry => entry[1])
             .find(
                 definition =>
@@ -48,18 +45,34 @@ export class TreeModelService implements TreeEditor.ModelService {
     getUiSchemaForNode(node: TreeEditor.Node) {
         const type = node.jsonforms.type;
         switch (type) {
-            case CoffeeModel.Type.Machine:
-                return machineView;
-            case CoffeeModel.Type.MultiComponent:
-                return multiComponentView;
-            case CoffeeModel.Type.ControlUnit:
-                return controlUnitView;
-            case CoffeeModel.Type.BrewingUnit:
-                return brewingView;
-            case CoffeeModel.Type.DripTray:
-                return dripTrayView;
-            case CoffeeModel.Type.WaterTank:
-                return waterTankView;
+            case CoffeeModel.Type.Exercise:
+                return exerciseView;
+            case CoffeeModel.Type.Tutorial:
+                return tutorialView;
+            case CoffeeModel.Type.Command:
+                return commandView;
+            case CoffeeModel.Type.FileDiff:
+                return fileDiffView;
+            case CoffeeModel.Type.AutomaticImport:
+                return automaticImportView;     
+            case CoffeeModel.Type.CheckIfFilesExist:
+                return checkIfFilesExistView; 
+            case CoffeeModel.Type.CleanExerciseFolder:
+                return cleanExerciseFolderView; 
+            case CoffeeModel.Type.OpenFile:
+                return openFileView; 
+            case CoffeeModel.Type.TerminalCommands:
+                return terminalCommandsView;  
+            case CoffeeModel.Type.Html:
+                return htmlView;  
+            case CoffeeModel.Type.Image:
+                return imageView;  
+            case CoffeeModel.Type.CommandButton:
+                return commandButtonView;  
+            case CoffeeModel.Type.Hint:
+                return hintView;        
+            case CoffeeModel.Type.Instruction:
+                return instructionView;      
             default:
                 this.logger.warn("Can't find registered ui schema for type " + type);
                 return undefined;
