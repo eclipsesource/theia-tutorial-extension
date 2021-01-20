@@ -100,7 +100,7 @@
                     "terminalCommands": [
                         "mkdir ./theia-extension",
                         "cd ./theia-extension && yo theia-extension -y empty --extensionName tutorial && exit",
-                        "cd ./tutorial/ && yarn install"
+                        "cd ./theia-extension/tutorial/ && yarn install"
                     ]
                 }
             ]
