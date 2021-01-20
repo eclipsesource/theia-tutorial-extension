@@ -36,7 +36,7 @@ interface TestParagraph {
 }
 
 interface TestFeedbackDialog {
-    test: Array<TestParagraph>,
+    test: Array<TestParagraph> | undefined,
     exerciseFolder: String
     closeModal: () => void
 }
@@ -55,7 +55,7 @@ export const TestFeedbackDialog = (props: TestFeedbackDialog) => {
             </IconButton>
         </MuiDialogTitle>
         <MuiDialogContent dividers>
-            {createTestParagraph(props.test, props.exerciseFolder)}
+            {props.test != null && createTestParagraph(props.test, props.exerciseFolder)}
         </MuiDialogContent>
     </Dialog></div >;
 };

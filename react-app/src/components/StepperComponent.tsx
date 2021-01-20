@@ -95,7 +95,9 @@ const StepperComponent = (props: StepperComponentProps) => {
   };
 
   const handlesolve = () => {
-    VSCodeAPI.postMessage({commands: props.tutorial.exercises![activeStep].solve, ids: [], exerciseFolder: props.tutorial.tutorialFolder});
+    if (props.tutorial.exercises != null) {
+      VSCodeAPI.postMessage({commands: props.tutorial.exercises[activeStep].solve, ids: [], exerciseFolder: props.tutorial.tutorialFolder});
+    }
   };
 
   const handleReset = () => {
@@ -132,11 +134,15 @@ const StepperComponent = (props: StepperComponentProps) => {
   }, [isDropdownActive]);
 
   const createTestfeedback = () => {
-    return <TestFeedbackDialog test={props.tutorial.exercises![activeStep].test!} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => {setTestModal(false)}} />
+    if (props.tutorial.exercises != null) {
+      return <TestFeedbackDialog test={props.tutorial.exercises[activeStep].test} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => {setTestModal(false)}} />
+    }
   }
 
   const createCheckStarStatefeedback = () => {
-    return <TestFeedbackDialog test={props.tutorial.exercises![activeStep].checkStartState!} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => {setCheckModal(false)}} />
+    if (props.tutorial.exercises != null) {
+      return <TestFeedbackDialog test={props.tutorial.exercises[activeStep].checkStartState} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => {setCheckModal(false)}} />
+    }
   }
 
   const createBuildWarning = () => {
@@ -169,7 +175,10 @@ const StepperComponent = (props: StepperComponentProps) => {
             Cancle
         </Button>
           <Button className={classes.buttonBigMargin} onClick={() => {
-            VSCodeAPI.postMessage({commands: props.tutorial.exercises![activeStep].buildExercise, ids: [], exerciseFolder: props.tutorial.tutorialFolder});
+            if (props.tutorial.exercises != null) {
+              VSCodeAPI.postMessage({commands: props.tutorial.exercises[activeStep].buildExercise, ids: [], exerciseFolder: props.tutorial.tutorialFolder});
+              setBuildWarning(false)
+            }
           }} variant="contained" color="primary">
             OK
         </Button></Grid>
@@ -199,8 +208,9 @@ const StepperComponent = (props: StepperComponentProps) => {
             </Step>
           ))}
         </Stepper>
-        {(props.tutorial.exercises![activeStep].buildExercise != null ||
-          props.tutorial.exercises![activeStep].checkStartState != null) ?
+        {(props.tutorial.exercises != null && (
+          props.tutorial.exercises[activeStep].buildExercise != null ||
+          props.tutorial.exercises[activeStep].checkStartState != null)) ?
           <IconButton
             ref={anchorRef}
             aria-controls={isDropdownActive ? 'menu-list-grow' : undefined}
@@ -224,19 +234,19 @@ const StepperComponent = (props: StepperComponentProps) => {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={isDropdownActive} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    {props.tutorial.exercises![activeStep].buildExercise != null && <MenuItem style={{
+                    {props.tutorial.exercises != undefined && props.tutorial.exercises[activeStep].buildExercise != null && <MenuItem style={{
                       backgroundColor: vsTheme.dropDown.background,
                     }} onClick={(event: React.MouseEvent<EventTarget>) => {
                       handleClose(event);
                       setBuildWarning(true);
                     }}><div className={classes.text} >Build Exercise</div></MenuItem>}
-                    {props.tutorial.exercises![activeStep].buildExercise != null && <MenuItem style={{
+                    {props.tutorial.exercises != undefined && props.tutorial.exercises[activeStep].buildExercise != null && <MenuItem style={{
                       backgroundColor: vsTheme.dropDown.background,
                     }} onClick={(event: React.MouseEvent<EventTarget>) => {
                       handleClose(event);
                       setBuildWarning(true);
                     }}><div className={classes.text}>Reset Exercise</div></MenuItem>}
-                    {props.tutorial.exercises![activeStep].checkStartState != null && <MenuItem style={{
+                    {props.tutorial.exercises != undefined && props.tutorial.exercises[activeStep].checkStartState != null && <MenuItem style={{
                       backgroundColor: vsTheme.dropDown.background,
                     }} onClick={(event: React.MouseEvent<EventTarget>) => {
                       handleClose(event);
@@ -258,8 +268,8 @@ const StepperComponent = (props: StepperComponentProps) => {
         ) : (
             <div>
               <Typography className={classes.instructions}>
-                <ExercisePage exercise={
-                  props.tutorial.exercises![activeStep]} exerciseFolder={props.tutorial.tutorialFolder}></ExercisePage>
+                {props.tutorial.exercises != undefined && <ExercisePage exercise={
+                  props.tutorial.exercises[activeStep]} exerciseFolder={props.tutorial.tutorialFolder}></ExercisePage>}
               </Typography>
               <div>
                 <Grid
@@ -272,14 +282,14 @@ const StepperComponent = (props: StepperComponentProps) => {
                     <Button
                       variant="contained"
                       disabled={
-                        props.tutorial.exercises![activeStep].test == null}
+                        props.tutorial.exercises == undefined || props.tutorial.exercises[activeStep].test == null}
                       onClick={() => {setTestModal(true)}}
                       className={classes.button}
                     >Test</Button>
                     <Button
                       variant="contained"
                       disabled={
-                        props.tutorial.exercises![activeStep].solve == null}
+                        props.tutorial.exercises == undefined || props.tutorial.exercises[activeStep].solve == null}
                       onClick={handlesolve}
                       className={classes.button}
                     >Solve</Button>

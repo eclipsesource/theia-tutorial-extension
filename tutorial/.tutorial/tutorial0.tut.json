@@ -81,7 +81,7 @@
                     ]
                 },
                 {
-                    "filename": "theia-extension/tutorial/src/browser/tutorial-contribution.ts",
+                    "fileName": "theia-extension/tutorial/src/browser/tutorial-contribution.ts",
                     "solution": ".tutorial/solution/tutorial-contribution.ts",
                     "tests": [
                         {
@@ -234,7 +234,7 @@
                         "commands": [
                             {
                                 "fileDiff": {
-                                    "filename": "theia-extension/tutorial/src/browser/tutorial-contribution.ts",
+                                    "fileName": "theia-extension/tutorial/src/browser/tutorial-contribution.ts",
                                     "solution": ".tutorial/solution/tutorial-contribution.ts"
                                 }
                             }
@@ -247,7 +247,7 @@
                         "commands": [
                             {
                                 "fileDiff": {
-                                    "filename": "theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
+                                    "fileName": "theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
                                     "solution": ".tutorial/solution/tutorial-frontend-module.ts"
                                 }
                             }

@@ -20,7 +20,7 @@
                     "items": {
                         "type": "object",
                         "properties": {
-                            "filename": {
+                            "fileName": {
                                 "type": "string"
                             },
                             "solution": {
@@ -68,7 +68,7 @@
                     "items": {
                         "type": "object",
                         "properties": {
-                            "filename": {
+                            "fileName": {
                                 "type": "string"
                             },
                             "solution": {
@@ -253,7 +253,7 @@
                 "fileDiff": {
                     "type": "object",
                     "properties": {
-                        "filename": {
+                        "fileName": {
                             "type": "string"
                         },
                         "solution": {
