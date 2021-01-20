@@ -35,7 +35,7 @@ const TutorialOverview = (props: TutorialOverviewProps) => {
         activeStep < 0 ?
             <div className={classes.root}>
                 <Stepper orientation="vertical" style={{backgroundColor: "transparent"}}>
-                    {props.tutorial.exercises && props.tutorial.exercises.map((ex: any) => (
+                    {props.tutorial.exercises && props.tutorial.exercises.map((ex) => (
                         <Step key={ex.title} active={true}>
                             <StepLabel><Typography className={classes.text}>{ex.title}</Typography></StepLabel>
                             <StepContent>
