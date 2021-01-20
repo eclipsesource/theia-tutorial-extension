@@ -31,7 +31,7 @@ interface Test {
 
 interface TestParagraph {
     tests: Array<Test>,
-    filename?: string | undefined,
+    fileName?: string | undefined,
     solution?: string | undefined
 }
 
@@ -68,11 +68,11 @@ const createTestParagraph = (tests: Array<TestParagraph>, exerciseFolder: String
             justify="flex-start"
             alignItems="center"
         >
-            <Typography style={{color: vsTheme.text.color}} variant="h6">{testParagraph.filename ? testParagraph.filename.split("/")[testParagraph.filename.split("/").length - 1] : "General"}</Typography>
-            {testParagraph.solution != null && testParagraph.filename != null &&
+            <Typography style={{color: vsTheme.text.color}} variant="h6">{testParagraph.fileName ? testParagraph.fileName.split("/")[testParagraph.fileName.split("/").length - 1] : "General"}</Typography>
+            {testParagraph.solution != null && testParagraph.fileName != null &&
                 <IconButton aria-label="compare to Solution" style={{color: vsTheme.icons.color}}
                     onClick={() => {
-                        VSCodeAPI.postMessage({commands: [{fileDiff: {filename: testParagraph.filename, solution: testParagraph.solution}}], ids: [], exerciseFolder: exerciseFolder});
+                        VSCodeAPI.postMessage({commands: [{fileDiff: {fileName: testParagraph.fileName, solution: testParagraph.solution}}], ids: [], exerciseFolder: exerciseFolder});
                     }}
                 >
                     <CompareIcon />

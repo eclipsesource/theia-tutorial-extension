@@ -29,7 +29,7 @@ const EXECUTETESTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('
                 });
                 break;
             case "contentCheck":
-                const filepath = path.join(workspaceFolder, test.filename);
+                const filepath = path.join(workspaceFolder, test.fileName);
                 ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `Testing: "${test.text}"`, variant: 'default'}});
                 setTimeout(() => {
                     fs.readFile(filepath, (err: any, data: string) => {
