@@ -24,7 +24,7 @@ export interface Exercise {
   title: string;
   description: string;
   checkStartState?: {
-    filename?: string;
+    fileName?: string;
     solution?: string;
     tests: {
       testName: string;
@@ -35,7 +35,7 @@ export interface Exercise {
   buildExercise?: Command[];
   cleanState?: Command[];
   test?: {
-    filename?: string;
+    fileName?: string;
     solution?: string;
     tests: {
       testName: string;
@@ -66,7 +66,7 @@ export interface AutomaticImport {
 }
 export interface FileDiff {
   fileDiff: {
-    filename?: string;
+    fileName?: string;
     solution?: string;
     [k: string]: unknown;
   };

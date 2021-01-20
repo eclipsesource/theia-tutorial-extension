@@ -21,7 +21,7 @@ const ADDIMPORTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('th
 
     let content = fs.readFileSync(filepath);
 
-    autoImportData.automaticImport.imports.forEach((element: any) => {
+    autoImportData.automaticImport.imports.forEach((element) => {
         if (!content.includes(element)) {
             content = element + "\n" + content
         }

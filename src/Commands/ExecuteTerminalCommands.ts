@@ -19,7 +19,7 @@ const exec = promisify(require('child_process').exec)
 
 const EXECUTETERMINALCOMMANDS: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.executeTerminalCommands', async (commands: TerminalCommands, id: string) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
-    let output: any;
+    let output;
     for (let command of commands.terminalCommands) {
         output = await execShellCommand(`cd ` + workspaceFolder + ` && ` + command);
     }

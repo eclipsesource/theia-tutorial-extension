@@ -17,7 +17,7 @@ const FILEDIFFERENCECOMMAND: vscode.Disposable = vscode.commands.registerCommand
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
-    const filepath = path.join(workspaceFolder, command.fileDiff.filename);
+    const filepath = path.join(workspaceFolder, command.fileDiff.fileName);
     const solpath = path.join(workspaceFolder, command.fileDiff.solution);
 
 

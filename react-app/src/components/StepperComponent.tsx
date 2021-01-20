@@ -20,7 +20,7 @@ import {ClickAwayListener, Dialog, Grid, Grow, IconButton, MenuItem, MenuList, P
 import {VSCodeAPI} from '../VSCodeAPI';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {TestFeedbackDialog} from './TestFeedbackDialog';
-import {Tutorial} from '../../../schema/tutorial';
+import {Exercise, Tutorial} from '../../../schema/tutorial';
 import {vsTheme} from '../VsTheme';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
@@ -75,8 +75,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const getSteps = (tutorialExercises: any) => {
-  return tutorialExercises && tutorialExercises.map((tutorial: any) => tutorial.title);
+const getSteps = (tutorialExercises: Array<Exercise> | undefined) => {
+  return tutorialExercises && tutorialExercises.map((tutorial) => tutorial.title);
 }
 
 interface StepperComponentProps {
@@ -205,7 +205,7 @@ const StepperComponent = (props: StepperComponentProps) => {
         alignItems="flex-start"
       ><div style={{width: 40}}></div>
         <Stepper activeStep={activeStep} alternativeLabel className={classes.stepper}>
-          {steps && steps.map((label: any) => (
+          {steps && steps.map((label) => (
             <Step key={label}>
               <StepLabel
                 classes={{
@@ -270,7 +270,7 @@ const StepperComponent = (props: StepperComponentProps) => {
         </Popper>
       </Grid>
       <div style={{marginBottom: 20}}>
-        {activeStep === steps.length ? (
+        {steps != null && activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>Congratulations! You finished the tutorial.</Typography>
             <Button className={classes.button} onClick={handleReset}>Reset</Button>
@@ -314,7 +314,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                       Back
               </Button>
                     <Button variant="contained" className={classes.button} onClick={handleNext}>
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                      {steps != null && activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                     </Button>
                   </div>
                 </Grid>

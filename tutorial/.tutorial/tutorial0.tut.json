@@ -100,7 +100,7 @@
                     "terminalCommands": [
                         "mkdir ./theia-extension",
                         "cd ./theia-extension && yo theia-extension -y empty --extensionName tutorial && exit",
-                        "cd ./tutorial/ && yarn install"
+                        "cd ./theia-extension/tutorial/ && yarn install"
                     ]
                 }
             ]
@@ -250,6 +250,22 @@
                                     "fileName": "theia-extension/tutorial/src/browser/tutorial-frontend-module.ts",
                                     "solution": ".tutorial/solution/tutorial-frontend-module.ts"
                                 }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "html": "<p>Now we have all pieces together to build and run the application. To run the browser app, enter:</p><code>cd browser-app </code> <br/><code> yarn start <path to workspace> </code><p>Or, Just click the Build and Start Button below, and we'll do it for you.</p>"
+                },
+                {
+                    "button": {
+                        "text": "Build and Start",
+                        "commands": [
+                            {
+                                "terminalCommands": [
+                                    "cd ./theia-extension/ && yarn install",
+                                    "cd ./theia-extension/browser-app && yarn start"
+                                ]
                             }
                         ]
                     }
