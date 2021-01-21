@@ -31,7 +31,6 @@ const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('th
     outputChannel.appendLine(`${checkIfFilesExist.checkIfFilesExist}`);
 
 
-    // const correctFiles = getCorrectFilePaths(workspaceFolder+'/'+exerciseFileName);
     const correctFilesFromConfig = getCorrectFilePathsFromConfig(workspaceFolder + '/' + exerciseFileName, checkIfFilesExist.checkIfFilesExist!);
     outputChannel.appendLine(`${correctFilesFromConfig}`);
     const isFileListCorrect = compareFileLists(correctFilesFromConfig, files);
@@ -68,9 +67,9 @@ const checkExerciseFile = (workspaceFolder: string) => {
   return fs.existsSync(path.join(workspaceFolder, exerciseFileName));
 };
 
-const getAllFiles = (dir: string, outputChannel: any) => (
-  fs.readdirSync(dir).reduce((files: any, file: any) => {
-
+const getAllFiles = (dir: string, outputChannel: vscode.OutputChannel) => (
+  fs.readdirSync(dir).reduce((files: string[], file: string) => {
+    
     outputChannel.appendLine(`file ${file}`);
 
     const name = path.join(dir, file);

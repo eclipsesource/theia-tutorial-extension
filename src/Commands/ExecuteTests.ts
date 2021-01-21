@@ -25,7 +25,7 @@ const EXECUTETESTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('
         switch (test.type) {
             case "testExecution":
                 test.tasks.map((task: string) => {
-                    exec(task, (error: any, stdout: string, stderr: string) => {
+                    exec(task, (error: Error, stdout: string, stderr: string) => {
                         if (error) {
                             ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `${test.text} failed: ${error.message}`, variant: 'error'}});
                             return;
@@ -42,7 +42,7 @@ const EXECUTETESTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('
                 const filepath = path.join(workspaceFolder, test.fileName);
                 ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `Testing: "${test.text}"`, variant: 'default'}});
                 setTimeout(() => {
-                    fs.readFile(filepath, (err: any, data: string) => {
+                    fs.readFile(filepath, (err: Error, data: string) => {
                         (test.contains.every((testString: string) => data.includes(testString))) ? ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `"${test.text}" was run successfully`, variant: 'success', preventDuplicate: true}}) : ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `${test.text} failed`, variant: 'error'}});;
                     });
                 }, 2000);
