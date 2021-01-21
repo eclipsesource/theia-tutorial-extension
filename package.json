@@ -2,6 +2,7 @@
 	"name": "theiatutorialextension",
 	"displayName": "TheiaTutorialExtension",
 	"description": "",
+	"publisher": "theiaextension",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.51.0"
@@ -32,8 +33,8 @@
 				"title": "Add Imports"
 			},
 			{
-				"command": "theiatutorialextension.initExerciseZero",
-				"title": "Init Exercise Zero"
+				"command": "theiatutorialextension.executeTerminalCommands",
+				"title": "Execute Terminal Commands"
 			},
 			{
 				"command": "theiatutorialextension.openFile",
@@ -74,7 +75,7 @@
 		"viewsWelcome": [
 			{
 				"view": "theiaTutorial",
-				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)\n[Display Content](command:theiatutorialextension.displayContent)\n[Init Exercise 0](command:theiatutorialextension.initExerciseZero)\n[Check Exercise 0 Files](command:theiatutorialextension.checkExerciseFiles)\n[Add Imports](command:theiatutorialextension.addImports)"
+				"contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)\n[Display Content](command:theiatutorialextension.displayContent)\n[Check Exercise 0 Files](command:theiatutorialextension.checkExerciseFiles)\n[Add Imports](command:theiatutorialextension.addImports)"
 			}
 		]
 	},
@@ -101,6 +102,11 @@
 		"vscode-test": "^1.4.0"
 	},
 	"dependencies": {
-		"node-cmd": "^4.0.0"
+		"@material-ui/icons": "^4.11.2",
+		"ajv": "^7.0.3",
+		"json-schema-to-typescript": "^10.1.1",
+		"node-cmd": "^4.0.0",
+		"ts-node": "^9.1.1",
+		"vsce": "^1.83.0"
 	}
 }

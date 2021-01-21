@@ -1,16 +1,26 @@
+/********************************************************************************
+ * Copyright (c) 2020-2021 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0, or the MIT License which is
+ * available at https://opensource.org/licenses/MIT.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR MIT
+ ********************************************************************************/
 import {Button} from '@material-ui/core';
+import {SnackbarProvider} from 'notistack';
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import './App.css';
 import TutorialOverview from './components/TutorialOverview';
 import {VSCodeAPI} from './VSCodeAPI';
+import {Tutorial} from '../../schema/tutorial';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export default function App() {
 
-  const [tutorials, setTutorials] = useState<Array<any>>([]);
+  const [tutorials, setTutorials] = useState<Array<Tutorial>>([]);
   const [selectedTutorial, selectTutorial] = useState(-1);
-
   useEffect(() => {
     return VSCodeAPI.onMessage((message) => {
 
@@ -22,12 +32,11 @@ export default function App() {
     });
   });
 
-  function createTutorialList() {
+  const createTutorialList = () => {
     return tutorials.map(tutorial => {
       return <div className="Box-margin">
         <Button onClick={() => selectTutorial(tutorials.indexOf(tutorial))} variant="contained" color="primary">
           {
-            //@ts-ignore
             tutorial.title}
         </Button>
       </div>;
@@ -45,7 +54,9 @@ export default function App() {
           {createTutorialList()}
           </p></p>
         :
-        <TutorialOverview tutorialExercises={tutorials[selectedTutorial].tutorial} />
+        <SnackbarProvider maxSnack={3}>
+          <TutorialOverview tutorial={tutorials[selectedTutorial]} />
+        </SnackbarProvider>
       }
     </div>
 
