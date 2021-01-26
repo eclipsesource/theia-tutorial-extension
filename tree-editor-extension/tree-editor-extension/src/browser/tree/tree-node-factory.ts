@@ -41,16 +41,27 @@ export class TreeNodeFactory implements TreeEditor.NodeFactory {
             }
         };
 
+        console.log('node', node);
         // containments
         if (parent) {
+            console.log('parent: ', parent);
             parent.children.push(node);
             parent.expanded = true;
         }
         if (data.children) {
             const children = data.children as Array<any>;
+            console.log('children: ', children);
             // component types
             children.forEach((element, idx) => {
+                console.log('element: ', element);
                 this.mapData(element, node, 'children', idx);
+                // if(element.children){
+                //     const elementChildren = element.children as Array<any>;;
+                //     elementChildren.forEach((child, i) => {
+                //     this.mapData(child, element, 'children', i);
+                // });
+  
+                // }
             });
         }
 

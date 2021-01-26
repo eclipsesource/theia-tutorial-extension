@@ -27,13 +27,22 @@ var CoffeeModel;
     var components = [
         Type.Tutorial,
         Type.Exercise,
+        Type.Instruction
+    ];
+    var exerciseComponents = [
         Type.Command,
-        Type.FileDiff,
-        Type.AutomaticImport,
-        Type.OpenFile,
-        Type.CheckIfFilesExist,
-        Type.TerminalCommands,
-        Type.CleanExerciseFolder,
+        Type.Instruction,
+        Type.Exercise,
+    ];
+    // const commandComponents = [
+    //     Type.FileDiff,
+    //     Type.AutomaticImport,
+    //     Type.OpenFile,
+    //     Type.CheckIfFilesExist,
+    //     Type.TerminalCommands,
+    //     Type.CleanExerciseFolder,
+    // ];
+    var instructionComponents = [
         Type.Instruction,
         Type.Html,
         Type.Image,
@@ -54,7 +63,7 @@ var CoffeeModel;
             Type.Exercise, [
                 {
                     property: 'children',
-                    children: components
+                    children: exerciseComponents
                 }
             ]
         ],
@@ -62,15 +71,7 @@ var CoffeeModel;
             Type.Instruction, [
                 {
                     property: 'children',
-                    children: components
-                }
-            ]
-        ],
-        [
-            Type.Command, [
-                {
-                    property: 'children',
-                    children: components
+                    children: instructionComponents
                 }
             ]
         ],

@@ -61,4 +61,11 @@ const defaultData = {
     "title": "Tutorial 0",
     "description": "test description",
     "tutorialFolder": "theia-extension",
+    // 'children': [
+    // //     {
+    // //     'typeId': '#exercise',
+    // //     "title": 'Exercise 0',
+    // //     "description": 'Exercise Description',
+    // // }
+    // ]
 };

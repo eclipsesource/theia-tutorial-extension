@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[29],{
 
-/***/ "../node_modules/@theia/core/lib/electron-browser/menu/electron-context-menu-renderer.js":
-/*!***********************************************************************************************!*\
-  !*** ../node_modules/@theia/core/lib/electron-browser/menu/electron-context-menu-renderer.js ***!
-  \***********************************************************************************************/
+/***/ "../node_modules/@theia/core/lib/node/file-uri.js":
+/*!********************************************************!*\
+  !*** ../node_modules/@theia/core/lib/node/file-uri.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11,6 +11,220 @@
 
 /********************************************************************************
  * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FileUri = void 0;
+var vscode_uri_1 = __webpack_require__(/*! vscode-uri */ "../node_modules/vscode-uri/lib/esm/index.js");
+var uri_1 = __webpack_require__(/*! ../common/uri */ "../node_modules/@theia/core/lib/common/uri.js");
+var os_1 = __webpack_require__(/*! ../common/os */ "../node_modules/@theia/core/lib/common/os.js");
+var FileUri;
+(function (FileUri) {
+    var windowsDriveRegex = /^([^:/?#]+?):$/;
+    /**
+     * Creates a new file URI from the filesystem path argument.
+     * @param fsPath the filesystem path.
+     */
+    function create(fsPath_) {
+        return new uri_1.default(vscode_uri_1.URI.file(fsPath_));
+    }
+    FileUri.create = create;
+    /**
+     * Returns with the platform specific FS path that is represented by the URI argument.
+     *
+     * @param uri the file URI that has to be resolved to a platform specific FS path.
+     */
+    function fsPath(uri) {
+        if (typeof uri === 'string') {
+            return fsPath(new uri_1.default(uri));
+        }
+        else {
+            /*
+             * A uri for the root of a Windows drive, eg file:\\\c%3A, is converted to c:
+             * by the Uri class.  However file:\\\c%3A is unambiguously a uri to the root of
+             * the drive and c: is interpreted as the default directory for the c drive
+             * (by, for example, the readdir function in the fs-extra module).
+             * A backslash must be appended to the drive, eg c:\, to ensure the correct path.
+             */
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            var fsPathFromVsCodeUri = uri.codeUri.fsPath;
+            if (os_1.isWindows) {
+                var isWindowsDriveRoot = windowsDriveRegex.exec(fsPathFromVsCodeUri);
+                if (isWindowsDriveRoot) {
+                    return fsPathFromVsCodeUri + '\\';
+                }
+            }
+            return fsPathFromVsCodeUri;
+        }
+    }
+    FileUri.fsPath = fsPath;
+})(FileUri = exports.FileUri || (exports.FileUri = {}));
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/filesystem/lib/common/filesystem.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/@theia/filesystem/lib/common/filesystem.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FileSystemError = exports.FileStat = exports.FileAccess = exports.FileSystem = void 0;
+var common_1 = __webpack_require__(/*! @theia/core/lib/common */ "../node_modules/@theia/core/lib/common/index.js");
+/**
+ * @deprecated since 1.4.0 - in order to support VS Code FS API (https://github.com/eclipse-theia/theia/pull/7908), use `FileService` instead
+ */
+exports.FileSystem = Symbol('FileSystem');
+/**
+ * @deprecated since 1.4.0 - in order to support VS Code FS API (https://github.com/eclipse-theia/theia/pull/7908), use `FileService.access` instead
+ */
+var FileAccess;
+(function (FileAccess) {
+    var Constants;
+    (function (Constants) {
+        /**
+         * Flag indicating that the file is visible to the calling process.
+         * This is useful for determining if a file exists, but says nothing about rwx permissions. Default if no mode is specified.
+         */
+        Constants.F_OK = 0;
+        /**
+         * Flag indicating that the file can be read by the calling process.
+         */
+        Constants.R_OK = 4;
+        /**
+         * Flag indicating that the file can be written by the calling process.
+         */
+        Constants.W_OK = 2;
+        /**
+         * Flag indicating that the file can be executed by the calling process.
+         * This has no effect on Windows (will behave like `FileAccess.F_OK`).
+         */
+        Constants.X_OK = 1;
+    })(Constants = FileAccess.Constants || (FileAccess.Constants = {}));
+})(FileAccess = exports.FileAccess || (exports.FileAccess = {}));
+var FileStat;
+(function (FileStat) {
+    function is(candidate) {
+        return typeof candidate === 'object' && ('uri' in candidate) && ('lastModification' in candidate) && ('isDirectory' in candidate);
+    }
+    FileStat.is = is;
+    function equals(one, other) {
+        if (!one || !other || !is(one) || !is(other)) {
+            return false;
+        }
+        return one.uri === other.uri
+            && one.lastModification === other.lastModification
+            && one.isDirectory === other.isDirectory;
+    }
+    FileStat.equals = equals;
+})(FileStat = exports.FileStat || (exports.FileStat = {}));
+/**
+ * @deprecated since 1.4.0 - in order to support VS Code FS API (https://github.com/eclipse-theia/theia/pull/7908), use `FileOperationError` instead
+ */
+var FileSystemError;
+(function (FileSystemError) {
+    FileSystemError.FileNotFound = common_1.ApplicationError.declare(-33000, function (uri, prefix) { return ({
+        message: (prefix ? prefix + ' ' : '') + "'" + uri + "' has not been found.",
+        data: { uri: uri }
+    }); });
+    FileSystemError.FileExists = common_1.ApplicationError.declare(-33001, function (uri, prefix) { return ({
+        message: (prefix ? prefix + ' ' : '') + "'" + uri + "' already exists.",
+        data: { uri: uri }
+    }); });
+    FileSystemError.FileIsDirectory = common_1.ApplicationError.declare(-33002, function (uri, prefix) { return ({
+        message: (prefix ? prefix + ' ' : '') + "'" + uri + "' is a directory.",
+        data: { uri: uri }
+    }); });
+    FileSystemError.FileNotDirectory = common_1.ApplicationError.declare(-33003, function (uri, prefix) { return ({
+        message: (prefix ? prefix + ' ' : '') + "'" + uri + "' is not a directory.",
+        data: { uri: uri }
+    }); });
+    FileSystemError.FileIsOutOfSync = common_1.ApplicationError.declare(-33004, function (file, stat) { return ({
+        message: "'" + file.uri + "' is out of sync.",
+        data: { file: file, stat: stat }
+    }); });
+})(FileSystemError = exports.FileSystemError || (exports.FileSystemError = {}));
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/filesystem/lib/electron-browser/file-dialog/electron-file-dialog-module.js":
+/*!*********************************************************************************************************!*\
+  !*** ../node_modules/@theia/filesystem/lib/electron-browser/file-dialog/electron-file-dialog-module.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2018 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+Object.defineProperty(exports, "__esModule", { value: true });
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var file_dialog_service_1 = __webpack_require__(/*! ../../browser/file-dialog/file-dialog-service */ "../node_modules/@theia/filesystem/lib/browser/file-dialog/file-dialog-service.js");
+var electron_file_dialog_service_1 = __webpack_require__(/*! ./electron-file-dialog-service */ "../node_modules/@theia/filesystem/lib/electron-browser/file-dialog/electron-file-dialog-service.js");
+exports.default = new inversify_1.ContainerModule(function (bind) {
+    bind(electron_file_dialog_service_1.ElectronFileDialogService).toSelf().inSingletonScope();
+    bind(file_dialog_service_1.FileDialogService).toService(electron_file_dialog_service_1.ElectronFileDialogService);
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/filesystem/lib/electron-browser/file-dialog/electron-file-dialog-service.js":
+/*!**********************************************************************************************************!*\
+  !*** ../node_modules/@theia/filesystem/lib/electron-browser/file-dialog/electron-file-dialog-service.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2018 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -37,6 +251,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -45,164 +270,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-};
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ElectronContextMenuRenderer = exports.ElectronTextInputContextMenuContribution = exports.ElectronTextInputContextMenu = exports.ElectronContextMenuAccess = void 0;
-var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var browser_1 = __webpack_require__(/*! ../../browser */ "../node_modules/@theia/core/lib/browser/index.js");
-var electron_main_menu_factory_1 = __webpack_require__(/*! ./electron-main-menu-factory */ "../node_modules/@theia/core/lib/electron-browser/menu/electron-main-menu-factory.js");
-var context_menu_context_1 = __webpack_require__(/*! ../../browser/menu/context-menu-context */ "../node_modules/@theia/core/lib/browser/menu/context-menu-context.js");
-var ElectronContextMenuAccess = /** @class */ (function (_super) {
-    __extends(ElectronContextMenuAccess, _super);
-    function ElectronContextMenuAccess(menu) {
-        var _this = _super.call(this, {
-            dispose: function () { return menu.closePopup(); }
-        }) || this;
-        _this.menu = menu;
-        return _this;
-    }
-    return ElectronContextMenuAccess;
-}(browser_1.ContextMenuAccess));
-exports.ElectronContextMenuAccess = ElectronContextMenuAccess;
-var ElectronTextInputContextMenu;
-(function (ElectronTextInputContextMenu) {
-    ElectronTextInputContextMenu.MENU_PATH = ['electron_text_input'];
-    ElectronTextInputContextMenu.UNDO_REDO_EDIT_GROUP = __spread(ElectronTextInputContextMenu.MENU_PATH, ['0_undo_redo_group']);
-    ElectronTextInputContextMenu.EDIT_GROUP = __spread(ElectronTextInputContextMenu.MENU_PATH, ['1_edit_group']);
-    ElectronTextInputContextMenu.SELECT_GROUP = __spread(ElectronTextInputContextMenu.MENU_PATH, ['2_select_group']);
-})(ElectronTextInputContextMenu = exports.ElectronTextInputContextMenu || (exports.ElectronTextInputContextMenu = {}));
-var ElectronTextInputContextMenuContribution = /** @class */ (function () {
-    function ElectronTextInputContextMenuContribution() {
-    }
-    ElectronTextInputContextMenuContribution.prototype.onStart = function () {
-        var _this = this;
-        window.document.addEventListener('contextmenu', function (event) {
-            if (event.target instanceof HTMLElement) {
-                var target_1 = event.target;
-                if (target_1.nodeName && (target_1.nodeName.toLowerCase() === 'input' || target_1.nodeName.toLowerCase() === 'textarea')) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    _this.contextMenuRenderer.render({
-                        anchor: event,
-                        menuPath: ElectronTextInputContextMenu.MENU_PATH,
-                        onHide: function () { return target_1.focus(); }
-                    });
-                }
-            }
-        });
-    };
-    ElectronTextInputContextMenuContribution.prototype.registerMenus = function (registry) {
-        registry.registerMenuAction(ElectronTextInputContextMenu.UNDO_REDO_EDIT_GROUP, { commandId: browser_1.CommonCommands.UNDO.id });
-        registry.registerMenuAction(ElectronTextInputContextMenu.UNDO_REDO_EDIT_GROUP, { commandId: browser_1.CommonCommands.REDO.id });
-        registry.registerMenuAction(ElectronTextInputContextMenu.EDIT_GROUP, { commandId: browser_1.CommonCommands.CUT.id });
-        registry.registerMenuAction(ElectronTextInputContextMenu.EDIT_GROUP, { commandId: browser_1.CommonCommands.COPY.id });
-        registry.registerMenuAction(ElectronTextInputContextMenu.EDIT_GROUP, { commandId: browser_1.CommonCommands.PASTE.id });
-        registry.registerMenuAction(ElectronTextInputContextMenu.SELECT_GROUP, { commandId: browser_1.CommonCommands.SELECT_ALL.id });
-    };
-    __decorate([
-        inversify_1.inject(browser_1.ContextMenuRenderer),
-        __metadata("design:type", browser_1.ContextMenuRenderer)
-    ], ElectronTextInputContextMenuContribution.prototype, "contextMenuRenderer", void 0);
-    ElectronTextInputContextMenuContribution = __decorate([
-        inversify_1.injectable()
-    ], ElectronTextInputContextMenuContribution);
-    return ElectronTextInputContextMenuContribution;
-}());
-exports.ElectronTextInputContextMenuContribution = ElectronTextInputContextMenuContribution;
-var ElectronContextMenuRenderer = /** @class */ (function (_super) {
-    __extends(ElectronContextMenuRenderer, _super);
-    function ElectronContextMenuRenderer(menuFactory) {
-        var _this = _super.call(this) || this;
-        _this.menuFactory = menuFactory;
-        return _this;
-    }
-    ElectronContextMenuRenderer.prototype.doRender = function (_a) {
-        var menuPath = _a.menuPath, anchor = _a.anchor, args = _a.args, onHide = _a.onHide;
-        var menu = this.menuFactory.createContextMenu(menuPath, args);
-        var _b = anchor instanceof MouseEvent ? { x: anchor.clientX, y: anchor.clientY } : anchor, x = _b.x, y = _b.y;
-        // x and y values must be Ints or else there is a conversion error
-        menu.popup({ x: Math.round(x), y: Math.round(y) });
-        // native context menu stops the event loop, so there is no keyboard events
-        this.context.resetAltPressed();
-        if (onHide) {
-            menu.once('menu-will-close', function () { return onHide(); });
-        }
-        return new ElectronContextMenuAccess(menu);
-    };
-    __decorate([
-        inversify_1.inject(context_menu_context_1.ContextMenuContext),
-        __metadata("design:type", context_menu_context_1.ContextMenuContext)
-    ], ElectronContextMenuRenderer.prototype, "context", void 0);
-    ElectronContextMenuRenderer = __decorate([
-        inversify_1.injectable(),
-        __param(0, inversify_1.inject(electron_main_menu_factory_1.ElectronMainMenuFactory)),
-        __metadata("design:paramtypes", [electron_main_menu_factory_1.ElectronMainMenuFactory])
-    ], ElectronContextMenuRenderer);
-    return ElectronContextMenuRenderer;
-}(browser_1.ContextMenuRenderer));
-exports.ElectronContextMenuRenderer = ElectronContextMenuRenderer;
-
-
-/***/ }),
-
-/***/ "../node_modules/@theia/core/lib/electron-browser/menu/electron-main-menu-factory.js":
-/*!*******************************************************************************************!*\
-  !*** ../node_modules/@theia/core/lib/electron-browser/menu/electron-main-menu-factory.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (C) 2017 TypeFox and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -272,590 +339,192 @@ var __spread = (this && this.__spread) || function () {
     return ar;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ElectronMainMenuFactory = void 0;
-/* eslint-disable @typescript-eslint/no-explicit-any */
-var electron = __webpack_require__(/*! electron */ "electron");
+exports.electron = exports.ElectronFileDialogService = void 0;
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var common_1 = __webpack_require__(/*! ../../common */ "../node_modules/@theia/core/lib/common/index.js");
-var browser_1 = __webpack_require__(/*! ../../browser */ "../node_modules/@theia/core/lib/browser/index.js");
-var context_key_service_1 = __webpack_require__(/*! ../../browser/context-key-service */ "../node_modules/@theia/core/lib/browser/context-key-service.js");
-var debounce = __webpack_require__(/*! lodash.debounce */ "../node_modules/lodash.debounce/index.js");
-var context_menu_context_1 = __webpack_require__(/*! ../../browser/menu/context-menu-context */ "../node_modules/@theia/core/lib/browser/menu/context-menu-context.js");
-var ElectronMainMenuFactory = /** @class */ (function () {
-    function ElectronMainMenuFactory(commandRegistry, preferencesService, menuProvider, keybindingRegistry) {
-        var _this = this;
-        this.commandRegistry = commandRegistry;
-        this.preferencesService = preferencesService;
-        this.menuProvider = menuProvider;
-        this.keybindingRegistry = keybindingRegistry;
-        this._toggledCommands = new Set();
-        preferencesService.onPreferenceChanged(debounce(function () {
-            var e_1, _a;
-            if (_this._menu) {
-                try {
-                    for (var _b = __values(_this._toggledCommands), _c = _b.next(); !_c.done; _c = _b.next()) {
-                        var item = _c.value;
-                        _this._menu.getMenuItemById(item).checked = _this.commandRegistry.isToggled(item);
-                    }
-                }
-                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                finally {
-                    try {
-                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                    }
-                    finally { if (e_1) throw e_1.error; }
-                }
-                electron.remote.getCurrentWindow().setMenu(_this._menu);
-            }
-        }, 10));
-        keybindingRegistry.onKeybindingsChanged(function () {
-            var createdMenuBar = _this.createMenuBar();
-            if (common_1.isOSX) {
-                electron.remote.Menu.setApplicationMenu(createdMenuBar);
-            }
-            else {
-                electron.remote.getCurrentWindow().setMenu(createdMenuBar);
-            }
-        });
+var electron_1 = __webpack_require__(/*! electron */ "electron");
+var os_1 = __webpack_require__(/*! @theia/core/lib/common/os */ "../node_modules/@theia/core/lib/common/os.js");
+var message_service_1 = __webpack_require__(/*! @theia/core/lib/common/message-service */ "../node_modules/@theia/core/lib/common/message-service.js");
+var filesystem_1 = __webpack_require__(/*! ../../common/filesystem */ "../node_modules/@theia/filesystem/lib/common/filesystem.js");
+var file_dialog_1 = __webpack_require__(/*! ../../browser/file-dialog */ "../node_modules/@theia/filesystem/lib/browser/file-dialog/index.js");
+//
+// We are OK to use this here because the electron backend and frontend are on the same host.
+// If required, we can move this single service (and its module) to a dedicated Theia extension,
+// and at packaging time, clients can decide whether they need the native or the browser-based
+// solution.
+//
+var file_uri_1 = __webpack_require__(/*! @theia/core/lib/node/file-uri */ "../node_modules/@theia/core/lib/node/file-uri.js");
+var ElectronFileDialogService = /** @class */ (function (_super) {
+    __extends(ElectronFileDialogService, _super);
+    function ElectronFileDialogService() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    ElectronMainMenuFactory.prototype.createMenuBar = function () {
-        var menuModel = this.menuProvider.getMenu(common_1.MAIN_MENU_BAR);
-        var template = this.fillMenuTemplate([], menuModel);
-        if (common_1.isOSX) {
-            template.unshift(this.createOSXMenu());
-        }
-        var menu = electron.remote.Menu.buildFromTemplate(template);
-        this._menu = menu;
-        return menu;
-    };
-    ElectronMainMenuFactory.prototype.createContextMenu = function (menuPath, args) {
-        var menuModel = this.menuProvider.getMenu(menuPath);
-        var template = this.fillMenuTemplate([], menuModel, args, { showDisabled: false });
-        return electron.remote.Menu.buildFromTemplate(template);
-    };
-    ElectronMainMenuFactory.prototype.fillMenuTemplate = function (items, menuModel, args, options) {
-        var e_2, _a;
-        var _this = this;
-        if (args === void 0) { args = []; }
-        var showDisabled = ((options === null || options === void 0 ? void 0 : options.showDisabled) === undefined) ? true : options === null || options === void 0 ? void 0 : options.showDisabled;
-        var _loop_1 = function (menu) {
-            var _a, _b, _c, _d, _e;
-            if (menu instanceof common_1.CompositeMenuNode) {
-                if (menu.children.length > 0) {
-                    // do not render empty nodes
-                    if (menu.isSubmenu) { // submenu node
-                        var submenu = this_1.fillMenuTemplate([], menu, args, options);
-                        if (submenu.length === 0) {
-                            return "continue";
-                        }
-                        items.push({
-                            label: menu.label,
-                            submenu: submenu
-                        });
-                    }
-                    else { // group node
-                        // process children
-                        var submenu = this_1.fillMenuTemplate([], menu, args, options);
-                        if (submenu.length === 0) {
-                            return "continue";
-                        }
-                        if (items.length > 0) {
-                            // do not put a separator above the first group
-                            items.push({
-                                type: 'separator'
-                            });
-                        }
-                        // render children
-                        items.push.apply(items, __spread(submenu));
-                    }
-                }
-            }
-            else if (menu instanceof common_1.ActionMenuNode) {
-                var node = menu.altNode && this_1.context.altPressed ? menu.altNode : menu;
-                var commandId_1 = node.action.commandId;
-                // That is only a sanity check at application startup.
-                if (!this_1.commandRegistry.getCommand(commandId_1)) {
-                    throw new Error("Unknown command with ID: " + commandId_1 + ".");
-                }
-                if (!(_a = this_1.commandRegistry).isVisible.apply(_a, __spread([commandId_1], args))
-                    || (!!node.action.when && !this_1.contextKeyService.match(node.action.when))) {
-                    return "continue";
-                }
-                // We should omit rendering context-menu items which are disabled.
-                if (!showDisabled && !(_b = this_1.commandRegistry).isEnabled.apply(_b, __spread([commandId_1], args))) {
-                    return "continue";
-                }
-                var bindings = this_1.keybindingRegistry.getKeybindingsForCommand(commandId_1);
-                var accelerator = void 0;
-                /* Only consider the first keybinding. */
-                if (bindings.length > 0) {
-                    var binding = bindings[0];
-                    accelerator = this_1.acceleratorFor(binding);
-                }
-                items.push({
-                    id: node.id,
-                    label: node.label,
-                    type: (_c = this_1.commandRegistry).getToggledHandler.apply(_c, __spread([commandId_1], args)) ? 'checkbox' : 'normal',
-                    checked: (_d = this_1.commandRegistry).isToggled.apply(_d, __spread([commandId_1], args)),
-                    enabled: true,
-                    visible: true,
-                    click: function () { return _this.execute(commandId_1, args); },
-                    accelerator: accelerator
-                });
-                if ((_e = this_1.commandRegistry).getToggledHandler.apply(_e, __spread([commandId_1], args))) {
-                    this_1._toggledCommands.add(commandId_1);
-                }
-            }
-            else {
-                items.push.apply(items, __spread(this_1.handleDefault(menu, args, options)));
-            }
-        };
-        var this_1 = this;
-        try {
-            for (var _b = __values(menuModel.children), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var menu = _c.value;
-                _loop_1(menu);
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_2) throw e_2.error; }
-        }
-        return items;
-    };
-    ElectronMainMenuFactory.prototype.handleDefault = function (menuNode, args, options) {
-        if (args === void 0) { args = []; }
-        return [];
-    };
-    /**
-     * Return a user visible representation of a keybinding.
-     */
-    ElectronMainMenuFactory.prototype.acceleratorFor = function (keybinding) {
-        var bindingKeySequence = this.keybindingRegistry.resolveKeybinding(keybinding);
-        // FIXME see https://github.com/electron/electron/issues/11740
-        // Key Sequences can't be represented properly in the electron menu.
-        //
-        // We can do what VS Code does, and append the chords as a suffix to the menu label.
-        // https://github.com/eclipse-theia/theia/issues/1199#issuecomment-430909480
-        if (bindingKeySequence.length > 1) {
-            return '';
-        }
-        var keyCode = bindingKeySequence[0];
-        return this.keybindingRegistry.acceleratorForKeyCode(keyCode, '+');
-    };
-    ElectronMainMenuFactory.prototype.execute = function (command, args) {
+    ElectronFileDialogService.prototype.showOpenDialog = function (props, folder) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            var _b, _c, _d, _e;
-            return __generator(this, function (_f) {
-                switch (_f.label) {
-                    case 0:
-                        _f.trys.push([0, 3, , 4]);
-                        if (!(_b = this.commandRegistry).isEnabled.apply(_b, __spread([command], args))) return [3 /*break*/, 2];
-                        return [4 /*yield*/, (_c = this.commandRegistry).executeCommand.apply(_c, __spread([command], args))];
+            var rootNode, filePaths, uris, canAccess, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getRootNode(folder)];
                     case 1:
-                        _f.sent();
-                        if (this._menu && (_d = this.commandRegistry).isVisible.apply(_d, __spread([command], args))) {
-                            this._menu.getMenuItemById(command).checked = (_e = this.commandRegistry).isToggled.apply(_e, __spread([command], args));
-                            electron.remote.getCurrentWindow().setMenu(this._menu);
+                        rootNode = _a.sent();
+                        if (!rootNode) return [3 /*break*/, 4];
+                        return [4 /*yield*/, electron_1.remote.dialog.showOpenDialog(this.toOpenDialogOptions(rootNode.uri, props))];
+                    case 2:
+                        filePaths = (_a.sent()).filePaths;
+                        if (filePaths.length === 0) {
+                            return [2 /*return*/, undefined];
                         }
-                        _f.label = 2;
-                    case 2: return [3 /*break*/, 4];
+                        uris = filePaths.map(function (path) { return file_uri_1.FileUri.create(path); });
+                        return [4 /*yield*/, this.canReadWrite(uris)];
                     case 3:
-                        _a = _f.sent();
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        canAccess = _a.sent();
+                        result = canAccess ? uris.length === 1 ? uris[0] : uris : undefined;
+                        return [2 /*return*/, result];
+                    case 4: return [2 /*return*/, undefined];
                 }
             });
         });
     };
-    ElectronMainMenuFactory.prototype.createOSXMenu = function () {
-        return {
-            label: 'Theia',
-            submenu: [
-                {
-                    role: 'about'
-                },
-                {
-                    type: 'separator'
-                },
-                {
-                    role: 'services',
-                    submenu: []
-                },
-                {
-                    type: 'separator'
-                },
-                {
-                    role: 'hide'
-                },
-                {
-                    role: 'hideOthers'
-                },
-                {
-                    role: 'unhide'
-                },
-                {
-                    type: 'separator'
-                },
-                {
-                    role: 'quit'
+    ElectronFileDialogService.prototype.showSaveDialog = function (props, folder) {
+        return __awaiter(this, void 0, void 0, function () {
+            var rootNode, filePath, uri, exists, canAccess;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getRootNode(folder)];
+                    case 1:
+                        rootNode = _a.sent();
+                        if (!rootNode) return [3 /*break*/, 5];
+                        return [4 /*yield*/, electron_1.remote.dialog.showSaveDialog(this.toSaveDialogOptions(rootNode.uri, props))];
+                    case 2:
+                        filePath = (_a.sent()).filePath;
+                        if (!filePath) {
+                            return [2 /*return*/, undefined];
+                        }
+                        uri = file_uri_1.FileUri.create(filePath);
+                        return [4 /*yield*/, this.fileService.exists(uri)];
+                    case 3:
+                        exists = _a.sent();
+                        if (!exists) {
+                            return [2 /*return*/, uri];
+                        }
+                        return [4 /*yield*/, this.canReadWrite(uri)];
+                    case 4:
+                        canAccess = _a.sent();
+                        return [2 /*return*/, canAccess ? uri : undefined];
+                    case 5: return [2 /*return*/, undefined];
                 }
-            ]
-        };
+            });
+        });
+    };
+    ElectronFileDialogService.prototype.canReadWrite = function (uris) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b, uri, e_1_1;
+            var e_1, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
+                    case 0:
+                        _d.trys.push([0, 5, 6, 7]);
+                        _a = __values(Array.isArray(uris) ? uris : [uris]), _b = _a.next();
+                        _d.label = 1;
+                    case 1:
+                        if (!!_b.done) return [3 /*break*/, 4];
+                        uri = _b.value;
+                        return [4 /*yield*/, this.fileService.access(uri, filesystem_1.FileAccess.Constants.R_OK | filesystem_1.FileAccess.Constants.W_OK)];
+                    case 2:
+                        if (!(_d.sent())) {
+                            this.messageService.error("Cannot access resource at " + uri.path + ".");
+                            return [2 /*return*/, false];
+                        }
+                        _d.label = 3;
+                    case 3:
+                        _b = _a.next();
+                        return [3 /*break*/, 1];
+                    case 4: return [3 /*break*/, 7];
+                    case 5:
+                        e_1_1 = _d.sent();
+                        e_1 = { error: e_1_1 };
+                        return [3 /*break*/, 7];
+                    case 6:
+                        try {
+                            if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                        }
+                        finally { if (e_1) throw e_1.error; }
+                        return [7 /*endfinally*/];
+                    case 7: return [2 /*return*/, true];
+                }
+            });
+        });
+    };
+    ElectronFileDialogService.prototype.toDialogOptions = function (uri, props, dialogTitle) {
+        var title = props.title || dialogTitle;
+        var defaultPath = file_uri_1.FileUri.fsPath(uri);
+        var filters = [{ name: 'All Files', extensions: ['*'] }];
+        if (props.filters) {
+            filters.push.apply(filters, __spread(Object.keys(props.filters).map(function (key) { return ({ name: key, extensions: props.filters[key] }); })));
+        }
+        return { title: title, defaultPath: defaultPath, filters: filters };
+    };
+    ElectronFileDialogService.prototype.toOpenDialogOptions = function (uri, props) {
+        var properties = electron.dialog.toDialogProperties(props);
+        var buttonLabel = props.openLabel;
+        return __assign(__assign({}, this.toDialogOptions(uri, props, 'Open')), { properties: properties, buttonLabel: buttonLabel });
+    };
+    ElectronFileDialogService.prototype.toSaveDialogOptions = function (uri, props) {
+        var buttonLabel = props.saveLabel;
+        var defaultPath = props.inputValue;
+        return __assign(__assign({}, this.toDialogOptions(uri, props, 'Save')), { buttonLabel: buttonLabel, defaultPath: defaultPath });
     };
     __decorate([
-        inversify_1.inject(context_key_service_1.ContextKeyService),
-        __metadata("design:type", context_key_service_1.ContextKeyService)
-    ], ElectronMainMenuFactory.prototype, "contextKeyService", void 0);
-    __decorate([
-        inversify_1.inject(context_menu_context_1.ContextMenuContext),
-        __metadata("design:type", context_menu_context_1.ContextMenuContext)
-    ], ElectronMainMenuFactory.prototype, "context", void 0);
-    ElectronMainMenuFactory = __decorate([
-        inversify_1.injectable(),
-        __param(0, inversify_1.inject(common_1.CommandRegistry)),
-        __param(1, inversify_1.inject(browser_1.PreferenceService)),
-        __param(2, inversify_1.inject(common_1.MenuModelRegistry)),
-        __param(3, inversify_1.inject(browser_1.KeybindingRegistry)),
-        __metadata("design:paramtypes", [common_1.CommandRegistry, Object, common_1.MenuModelRegistry,
-            browser_1.KeybindingRegistry])
-    ], ElectronMainMenuFactory);
-    return ElectronMainMenuFactory;
-}());
-exports.ElectronMainMenuFactory = ElectronMainMenuFactory;
-
-
-/***/ }),
-
-/***/ "../node_modules/@theia/core/lib/electron-browser/menu/electron-menu-contribution.js":
-/*!*******************************************************************************************!*\
-  !*** ../node_modules/@theia/core/lib/electron-browser/menu/electron-menu-contribution.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (C) 2017 TypeFox and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-};
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ElectronMenuContribution = exports.ElectronMenus = exports.ElectronCommands = void 0;
-var electron = __webpack_require__(/*! electron */ "electron");
-var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var common_1 = __webpack_require__(/*! ../../common */ "../node_modules/@theia/core/lib/common/index.js");
-var browser_1 = __webpack_require__(/*! ../../browser */ "../node_modules/@theia/core/lib/browser/index.js");
-var electron_main_menu_factory_1 = __webpack_require__(/*! ./electron-main-menu-factory */ "../node_modules/@theia/core/lib/electron-browser/menu/electron-main-menu-factory.js");
-var frontend_application_state_1 = __webpack_require__(/*! ../../browser/frontend-application-state */ "../node_modules/@theia/core/lib/browser/frontend-application-state.js");
-var ElectronCommands;
-(function (ElectronCommands) {
-    ElectronCommands.TOGGLE_DEVELOPER_TOOLS = {
-        id: 'theia.toggleDevTools',
-        label: 'Toggle Developer Tools'
-    };
-    ElectronCommands.RELOAD = {
-        id: 'view.reload',
-        label: 'Reload Window'
-    };
-    ElectronCommands.ZOOM_IN = {
-        id: 'view.zoomIn',
-        label: 'Zoom In'
-    };
-    ElectronCommands.ZOOM_OUT = {
-        id: 'view.zoomOut',
-        label: 'Zoom Out'
-    };
-    ElectronCommands.RESET_ZOOM = {
-        id: 'view.resetZoom',
-        label: 'Reset Zoom'
-    };
-    ElectronCommands.CLOSE_WINDOW = {
-        id: 'close.window',
-        label: 'Close Window'
-    };
-})(ElectronCommands = exports.ElectronCommands || (exports.ElectronCommands = {}));
-var ElectronMenus;
-(function (ElectronMenus) {
-    ElectronMenus.VIEW_WINDOW = __spread(browser_1.CommonMenus.VIEW, ['window']);
-    ElectronMenus.VIEW_ZOOM = __spread(browser_1.CommonMenus.VIEW, ['zoom']);
-})(ElectronMenus = exports.ElectronMenus || (exports.ElectronMenus = {}));
-(function (ElectronMenus) {
-    ElectronMenus.HELP_TOGGLE = __spread(browser_1.CommonMenus.HELP, ['z_toggle']);
-})(ElectronMenus = exports.ElectronMenus || (exports.ElectronMenus = {}));
-(function (ElectronMenus) {
-    ElectronMenus.FILE_CLOSE = __spread(browser_1.CommonMenus.FILE_CLOSE, ['window-close']);
-})(ElectronMenus = exports.ElectronMenus || (exports.ElectronMenus = {}));
-var ElectronMenuContribution = /** @class */ (function () {
-    function ElectronMenuContribution(factory) {
-        this.factory = factory;
-    }
-    ElectronMenuContribution.prototype.onStart = function (app) {
-        var _this = this;
-        this.hideTopPanel(app);
-        this.setMenu();
-        if (common_1.isOSX) {
-            // OSX: Recreate the menus when changing windows.
-            // OSX only has one menu bar for all windows, so we need to swap
-            // between them as the user switches windows.
-            electron.remote.getCurrentWindow().on('focus', function () { return _this.setMenu(); });
-        }
-        // Make sure the application menu is complete, once the frontend application is ready.
-        // https://github.com/theia-ide/theia/issues/5100
-        var onStateChange = undefined;
-        var stateServiceListener = function (state) {
-            if (state === 'ready') {
-                _this.setMenu();
+        inversify_1.inject(message_service_1.MessageService),
+        __metadata("design:type", message_service_1.MessageService)
+    ], ElectronFileDialogService.prototype, "messageService", void 0);
+    ElectronFileDialogService = __decorate([
+        inversify_1.injectable()
+    ], ElectronFileDialogService);
+    return ElectronFileDialogService;
+}(file_dialog_1.DefaultFileDialogService));
+exports.ElectronFileDialogService = ElectronFileDialogService;
+var electron;
+(function (electron) {
+    var dialog;
+    (function (dialog) {
+        /**
+         * Converts the Theia specific `OpenFileDialogProps` into an electron specific array.
+         *
+         * Note: On Windows and Linux an open dialog can not be both a file selector and a directory selector,
+         * so if you set properties to ['openFile', 'openDirectory'] on these platforms, a directory selector will be shown.
+         *
+         * See: https://github.com/electron/electron/issues/10252#issuecomment-322012159
+         */
+        function toDialogProperties(props) {
+            if (!os_1.isOSX && props.canSelectFiles !== false && props.canSelectFolders === true) {
+                throw new Error("Illegal props. Cannot have 'canSelectFiles' and 'canSelectFolders' at the same times. Props was: " + JSON.stringify(props) + ".");
             }
-            if (state === 'closing_window') {
-                if (!!onStateChange) {
-                    onStateChange.dispose();
+            var properties = [];
+            if (!os_1.isOSX) {
+                if (props.canSelectFiles !== false && props.canSelectFolders !== true) {
+                    properties.push('openFile');
                 }
-            }
-        };
-        onStateChange = this.stateService.onStateChanged(stateServiceListener);
-    };
-    /**
-     * Makes the `theia-top-panel` hidden as it is unused for the electron-based application.
-     * The `theia-top-panel` is used as the container of the main, application menu-bar for the
-     * browser. Electron has it's own.
-     * By default, this method is called on application `onStart`.
-     */
-    ElectronMenuContribution.prototype.hideTopPanel = function (app) {
-        var itr = app.shell.children();
-        var child = itr.next();
-        while (child) {
-            // Top panel for the menu contribution is not required for Electron.
-            if (child.id === 'theia-top-panel') {
-                child.setHidden(true);
-                child = undefined;
+                if (props.canSelectFolders === true && props.canSelectFiles === false) {
+                    properties.push('openDirectory');
+                }
             }
             else {
-                child = itr.next();
-            }
-        }
-    };
-    ElectronMenuContribution.prototype.setMenu = function (menu, electronWindow) {
-        if (menu === void 0) { menu = this.factory.createMenuBar(); }
-        if (electronWindow === void 0) { electronWindow = electron.remote.getCurrentWindow(); }
-        if (common_1.isOSX) {
-            electron.remote.Menu.setApplicationMenu(menu);
-        }
-        else {
-            // Unix/Windows: Set the per-window menus
-            electronWindow.setMenu(menu);
-        }
-    };
-    ElectronMenuContribution.prototype.registerCommands = function (registry) {
-        var currentWindow = electron.remote.getCurrentWindow();
-        registry.registerCommand(ElectronCommands.TOGGLE_DEVELOPER_TOOLS, {
-            execute: function () {
-                var webContent = electron.remote.getCurrentWebContents();
-                if (!webContent.isDevToolsOpened()) {
-                    webContent.openDevTools();
+                if (props.canSelectFiles !== false) {
+                    properties.push('openFile');
                 }
-                else {
-                    webContent.closeDevTools();
+                if (props.canSelectFolders === true) {
+                    properties.push('openDirectory');
+                    properties.push('createDirectory');
                 }
             }
-        });
-        registry.registerCommand(ElectronCommands.RELOAD, {
-            execute: function () { return currentWindow.reload(); }
-        });
-        registry.registerCommand(ElectronCommands.CLOSE_WINDOW, {
-            execute: function () { return currentWindow.close(); }
-        });
-        registry.registerCommand(ElectronCommands.ZOOM_IN, {
-            execute: function () {
-                var webContents = currentWindow.webContents;
-                webContents.setZoomLevel(webContents.zoomLevel + 0.5);
+            if (props.canSelectMany === true) {
+                properties.push('multiSelections');
             }
-        });
-        registry.registerCommand(ElectronCommands.ZOOM_OUT, {
-            execute: function () {
-                var webContents = currentWindow.webContents;
-                webContents.setZoomLevel(webContents.zoomLevel - 0.5);
-            }
-        });
-        registry.registerCommand(ElectronCommands.RESET_ZOOM, {
-            execute: function () { return currentWindow.webContents.setZoomLevel(0); }
-        });
-    };
-    ElectronMenuContribution.prototype.registerKeybindings = function (registry) {
-        registry.registerKeybindings({
-            command: ElectronCommands.TOGGLE_DEVELOPER_TOOLS.id,
-            keybinding: 'ctrlcmd+alt+i'
-        }, {
-            command: ElectronCommands.RELOAD.id,
-            keybinding: 'ctrlcmd+r'
-        }, {
-            command: ElectronCommands.ZOOM_IN.id,
-            keybinding: 'ctrlcmd+='
-        }, {
-            command: ElectronCommands.ZOOM_OUT.id,
-            keybinding: 'ctrlcmd+-'
-        }, {
-            command: ElectronCommands.RESET_ZOOM.id,
-            keybinding: 'ctrlcmd+0'
-        }, {
-            command: ElectronCommands.CLOSE_WINDOW.id,
-            keybinding: (common_1.isOSX ? 'cmd+shift+w' : (common_1.isWindows ? 'ctrl+w' : /* Linux */ 'ctrl+q'))
-        });
-    };
-    ElectronMenuContribution.prototype.registerMenus = function (registry) {
-        registry.registerMenuAction(ElectronMenus.HELP_TOGGLE, {
-            commandId: ElectronCommands.TOGGLE_DEVELOPER_TOOLS.id
-        });
-        registry.registerMenuAction(ElectronMenus.VIEW_WINDOW, {
-            commandId: ElectronCommands.RELOAD.id,
-            order: 'z0'
-        });
-        registry.registerMenuAction(ElectronMenus.VIEW_ZOOM, {
-            commandId: ElectronCommands.ZOOM_IN.id,
-            order: 'z1'
-        });
-        registry.registerMenuAction(ElectronMenus.VIEW_ZOOM, {
-            commandId: ElectronCommands.ZOOM_OUT.id,
-            order: 'z2'
-        });
-        registry.registerMenuAction(ElectronMenus.VIEW_ZOOM, {
-            commandId: ElectronCommands.RESET_ZOOM.id,
-            order: 'z3'
-        });
-        registry.registerMenuAction(ElectronMenus.FILE_CLOSE, {
-            commandId: ElectronCommands.CLOSE_WINDOW.id,
-        });
-    };
-    __decorate([
-        inversify_1.inject(frontend_application_state_1.FrontendApplicationStateService),
-        __metadata("design:type", frontend_application_state_1.FrontendApplicationStateService)
-    ], ElectronMenuContribution.prototype, "stateService", void 0);
-    ElectronMenuContribution = __decorate([
-        inversify_1.injectable(),
-        __param(0, inversify_1.inject(electron_main_menu_factory_1.ElectronMainMenuFactory)),
-        __metadata("design:paramtypes", [electron_main_menu_factory_1.ElectronMainMenuFactory])
-    ], ElectronMenuContribution);
-    return ElectronMenuContribution;
-}());
-exports.ElectronMenuContribution = ElectronMenuContribution;
-
-
-/***/ }),
-
-/***/ "../node_modules/@theia/core/lib/electron-browser/menu/electron-menu-module.js":
-/*!*************************************************************************************!*\
-  !*** ../node_modules/@theia/core/lib/electron-browser/menu/electron-menu-module.js ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (C) 2017 TypeFox and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
+            return properties;
         }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var common_1 = __webpack_require__(/*! ../../common */ "../node_modules/@theia/core/lib/common/index.js");
-var browser_1 = __webpack_require__(/*! ../../browser */ "../node_modules/@theia/core/lib/browser/index.js");
-var electron_main_menu_factory_1 = __webpack_require__(/*! ./electron-main-menu-factory */ "../node_modules/@theia/core/lib/electron-browser/menu/electron-main-menu-factory.js");
-var electron_context_menu_renderer_1 = __webpack_require__(/*! ./electron-context-menu-renderer */ "../node_modules/@theia/core/lib/electron-browser/menu/electron-context-menu-renderer.js");
-var electron_menu_contribution_1 = __webpack_require__(/*! ./electron-menu-contribution */ "../node_modules/@theia/core/lib/electron-browser/menu/electron-menu-contribution.js");
-exports.default = new inversify_1.ContainerModule(function (bind) {
-    var e_1, _a;
-    bind(electron_main_menu_factory_1.ElectronMainMenuFactory).toSelf().inSingletonScope();
-    bind(browser_1.ContextMenuRenderer).to(electron_context_menu_renderer_1.ElectronContextMenuRenderer).inSingletonScope();
-    bind(browser_1.KeybindingContext).toConstantValue({
-        id: 'theia.context',
-        isEnabled: true
-    });
-    bind(electron_menu_contribution_1.ElectronMenuContribution).toSelf().inSingletonScope();
-    try {
-        for (var _b = __values([browser_1.FrontendApplicationContribution, browser_1.KeybindingContribution, common_1.CommandContribution, common_1.MenuContribution]), _c = _b.next(); !_c.done; _c = _b.next()) {
-            var serviceIdentifier = _c.value;
-            bind(serviceIdentifier).toService(electron_menu_contribution_1.ElectronMenuContribution);
-        }
-    }
-    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-    finally {
-        try {
-            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-        }
-        finally { if (e_1) throw e_1.error; }
-    }
-    bind(browser_1.FrontendApplicationContribution).to(electron_context_menu_renderer_1.ElectronTextInputContextMenuContribution).inSingletonScope();
-    bind(common_1.MenuContribution).to(electron_context_menu_renderer_1.ElectronTextInputContextMenuContribution).inSingletonScope();
-});
+        dialog.toDialogProperties = toDialogProperties;
+    })(dialog = electron.dialog || (electron.dialog = {}));
+})(electron = exports.electron || (exports.electron = {}));
 
 
 /***/ })

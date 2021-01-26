@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[38],{
 
-/***/ "../node_modules/@theia/filesystem/lib/browser/download/file-download-frontend-module.js":
-/*!***********************************************************************************************!*\
-  !*** ../node_modules/@theia/filesystem/lib/browser/download/file-download-frontend-module.js ***!
-  \***********************************************************************************************/
+/***/ "../node_modules/@theia/filesystem/lib/browser/file-dialog/file-dialog-module.js":
+/*!***************************************************************************************!*\
+  !*** ../node_modules/@theia/filesystem/lib/browser/file-dialog/file-dialog-module.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26,12 +26,10 @@
  ********************************************************************************/
 Object.defineProperty(exports, "__esModule", { value: true });
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var command_1 = __webpack_require__(/*! @theia/core/lib/common/command */ "../node_modules/@theia/core/lib/common/command.js");
-var file_download_service_1 = __webpack_require__(/*! ./file-download-service */ "../node_modules/@theia/filesystem/lib/browser/download/file-download-service.js");
-var file_download_command_contribution_1 = __webpack_require__(/*! ./file-download-command-contribution */ "../node_modules/@theia/filesystem/lib/browser/download/file-download-command-contribution.js");
+var file_dialog_service_1 = __webpack_require__(/*! ./file-dialog-service */ "../node_modules/@theia/filesystem/lib/browser/file-dialog/file-dialog-service.js");
 exports.default = new inversify_1.ContainerModule(function (bind) {
-    bind(file_download_service_1.FileDownloadService).toSelf().inSingletonScope();
-    bind(command_1.CommandContribution).to(file_download_command_contribution_1.FileDownloadCommandContribution).inSingletonScope();
+    bind(file_dialog_service_1.DefaultFileDialogService).toSelf().inSingletonScope();
+    bind(file_dialog_service_1.FileDialogService).toService(file_dialog_service_1.DefaultFileDialogService);
 });
 
 

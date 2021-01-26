@@ -60,8 +60,8 @@ var TreeModelService = /** @class */ (function () {
                 return tree_schema_2.exerciseView;
             case tree_model_1.CoffeeModel.Type.Tutorial:
                 return tree_schema_2.tutorialView;
-            case tree_model_1.CoffeeModel.Type.Command:
-                return tree_schema_1.commandView;
+            // case CoffeeModel.Type.Command:
+            //     return commandView;
             case tree_model_1.CoffeeModel.Type.FileDiff:
                 return tree_schema_1.fileDiffView;
             case tree_model_1.CoffeeModel.Type.AutomaticImport:
@@ -82,8 +82,8 @@ var TreeModelService = /** @class */ (function () {
                 return tree_schema_1.commandButtonView;
             case tree_model_1.CoffeeModel.Type.Hint:
                 return tree_schema_1.hintView;
-            case tree_model_1.CoffeeModel.Type.Instruction:
-                return tree_schema_1.instructionView;
+            // case CoffeeModel.Type.Instruction:
+            //     return instructionView;      
             default:
                 this.logger.warn("Can't find registered ui schema for type " + type);
                 return undefined;

@@ -53,16 +53,26 @@ var TreeNodeFactory = /** @class */ (function () {
                 property: property,
                 index: typeof indexOrKey === 'number' ? indexOrKey.toFixed(0) : indexOrKey
             } });
+        console.log('node', node);
         // containments
         if (parent) {
+            console.log('parent: ', parent);
             parent.children.push(node);
             parent.expanded = true;
         }
         if (data.children) {
             var children = data.children;
+            console.log('children: ', children);
             // component types
             children.forEach(function (element, idx) {
+                console.log('element: ', element);
                 _this.mapData(element, node, 'children', idx);
+                // if(element.children){
+                //     const elementChildren = element.children as Array<any>;;
+                //     elementChildren.forEach((child, i) => {
+                //     this.mapData(child, element, 'children', i);
+                // });
+                // }
             });
         }
         return node;

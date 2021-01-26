@@ -25,19 +25,35 @@ export namespace CoffeeModel {
     const components = [
         Type.Tutorial,
         Type.Exercise,
+        Type.Instruction
+        ];
+    
+    const exerciseComponents = [
         Type.Command,
-        Type.FileDiff,
-        Type.AutomaticImport,
-        Type.OpenFile,
-        Type.CheckIfFilesExist,
-        Type.TerminalCommands,
-        Type.CleanExerciseFolder,
+        Type.Instruction,
+        Type.Exercise,
+        // Type.Html,
+        // Type.Image,
+        // Type.Hint,
+        // Type.CommandButton
+    ];
+
+    // const commandComponents = [
+    //     Type.FileDiff,
+    //     Type.AutomaticImport,
+    //     Type.OpenFile,
+    //     Type.CheckIfFilesExist,
+    //     Type.TerminalCommands,
+    //     Type.CleanExerciseFolder,
+    // ];
+
+    const instructionComponents = [
         Type.Instruction,
         Type.Html,
         Type.Image,
         Type.Hint,
         Type.CommandButton
-        ];
+    ];
 
 
     /** Maps types to their creatable children */
@@ -54,7 +70,7 @@ export namespace CoffeeModel {
             Type.Exercise, [
                 {
                     property: 'children',
-                    children: components
+                    children: exerciseComponents
                 }
             ]
         ],
@@ -62,18 +78,18 @@ export namespace CoffeeModel {
             Type.Instruction, [
                 {
                     property: 'children',
-                    children: components
+                    children: instructionComponents
                 }
             ]
         ],
-        [
-            Type.Command, [
-                {
-                    property: 'children',
-                    children: components
-                }
-            ]
-        ],
+        // [
+        //     Type.Command, [
+        //         {
+        //             property: 'children',
+        //             children: commandComponents
+        //         }
+        //     ]
+        // ],
     ]);
 
 }

@@ -16,6 +16,7 @@ var tree_label_provider_1 = require("./tree/tree-label-provider");
 var tree_label_provider_contribution_1 = require("./tree-label-provider-contribution");
 var example_file_command_1 = require("./example-file/example-file-command");
 var example_file_contribution_1 = require("./example-file/example-file-contribution");
+var tutorial_detail_form_widget_1 = require("./tree/tutorial-detail-form-widget");
 exports.default = new inversify_1.ContainerModule(function (bind) {
     // Bind Theia IDE contributions for the example file creation menu entry.
     bind(example_file_command_1.NewTreeExampleFileCommandHandler).toSelf();
@@ -34,6 +35,8 @@ exports.default = new inversify_1.ContainerModule(function (bind) {
         id: tree_editor_widget_1.TreeEditorWidget.WIDGET_ID,
         createWidget: function (options) {
             var treeContainer = theia_tree_editor_1.createBasicTreeContainter(context.container, tree_editor_widget_1.TreeEditorWidget, tree_model_service_1.TreeModelService, tree_node_factory_1.TreeNodeFactory);
+            //@ts-ignore
+            treeContainer.rebind(theia_tree_editor_1.DetailFormWidget).to(tutorial_detail_form_widget_1.TutorialDetailFormWidget);
             // Bind options.
             var uri = new uri_1.default(options.uri);
             treeContainer.bind(theia_tree_editor_1.NavigatableTreeEditorOptions).toConstantValue({ uri: uri });

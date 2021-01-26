@@ -1,4 +1,4 @@
-import { automaticImportView, checkIfFilesExistView, cleanExerciseFolderView, commandButtonView, commandView, fileDiffView, hintView, htmlView, imageView, instructionView, openFileView, terminalCommandsView } from './tree-schema';
+import { automaticImportView, checkIfFilesExistView, cleanExerciseFolderView, commandButtonView, /* commandView, */  fileDiffView, hintView, htmlView, imageView,/* instructionView,*/ openFileView, terminalCommandsView } from './tree-schema';
 import { ILogger } from '@theia/core';
 import { inject, injectable } from 'inversify';
 import { TreeEditor } from '@eclipse-emfcloud/theia-tree-editor';
@@ -49,8 +49,8 @@ export class TreeModelService implements TreeEditor.ModelService {
                 return exerciseView;
             case CoffeeModel.Type.Tutorial:
                 return tutorialView;
-            case CoffeeModel.Type.Command:
-                return commandView;
+            // case CoffeeModel.Type.Command:
+            //     return commandView;
             case CoffeeModel.Type.FileDiff:
                 return fileDiffView;
             case CoffeeModel.Type.AutomaticImport:
@@ -71,8 +71,8 @@ export class TreeModelService implements TreeEditor.ModelService {
                 return commandButtonView;  
             case CoffeeModel.Type.Hint:
                 return hintView;        
-            case CoffeeModel.Type.Instruction:
-                return instructionView;      
+            // case CoffeeModel.Type.Instruction:
+            //     return instructionView;      
             default:
                 this.logger.warn("Can't find registered ui schema for type " + type);
                 return undefined;

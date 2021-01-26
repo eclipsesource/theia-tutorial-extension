@@ -1,16 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[30],{
 
-/***/ "../node_modules/@theia/core/lib/node/file-uri.js":
-/*!********************************************************!*\
-  !*** ../node_modules/@theia/core/lib/node/file-uri.js ***!
-  \********************************************************/
+/***/ "../node_modules/@theia/variable-resolver/lib/browser/common-variable-contribution.js":
+/*!********************************************************************************************!*\
+  !*** ../node_modules/@theia/variable-resolver/lib/browser/common-variable-contribution.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 /********************************************************************************
- * Copyright (C) 2017 TypeFox and others.
+ * Copyright (C) 2019 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -24,244 +24,6 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FileUri = void 0;
-var vscode_uri_1 = __webpack_require__(/*! vscode-uri */ "../node_modules/vscode-uri/lib/esm/index.js");
-var uri_1 = __webpack_require__(/*! ../common/uri */ "../node_modules/@theia/core/lib/common/uri.js");
-var os_1 = __webpack_require__(/*! ../common/os */ "../node_modules/@theia/core/lib/common/os.js");
-var FileUri;
-(function (FileUri) {
-    var windowsDriveRegex = /^([^:/?#]+?):$/;
-    /**
-     * Creates a new file URI from the filesystem path argument.
-     * @param fsPath the filesystem path.
-     */
-    function create(fsPath_) {
-        return new uri_1.default(vscode_uri_1.URI.file(fsPath_));
-    }
-    FileUri.create = create;
-    /**
-     * Returns with the platform specific FS path that is represented by the URI argument.
-     *
-     * @param uri the file URI that has to be resolved to a platform specific FS path.
-     */
-    function fsPath(uri) {
-        if (typeof uri === 'string') {
-            return fsPath(new uri_1.default(uri));
-        }
-        else {
-            /*
-             * A uri for the root of a Windows drive, eg file:\\\c%3A, is converted to c:
-             * by the Uri class.  However file:\\\c%3A is unambiguously a uri to the root of
-             * the drive and c: is interpreted as the default directory for the c drive
-             * (by, for example, the readdir function in the fs-extra module).
-             * A backslash must be appended to the drive, eg c:\, to ensure the correct path.
-             */
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            var fsPathFromVsCodeUri = uri.codeUri.fsPath;
-            if (os_1.isWindows) {
-                var isWindowsDriveRoot = windowsDriveRegex.exec(fsPathFromVsCodeUri);
-                if (isWindowsDriveRoot) {
-                    return fsPathFromVsCodeUri + '\\';
-                }
-            }
-            return fsPathFromVsCodeUri;
-        }
-    }
-    FileUri.fsPath = fsPath;
-})(FileUri = exports.FileUri || (exports.FileUri = {}));
-
-
-/***/ }),
-
-/***/ "../node_modules/@theia/filesystem/lib/common/filesystem.js":
-/*!******************************************************************!*\
-  !*** ../node_modules/@theia/filesystem/lib/common/filesystem.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (C) 2017 TypeFox and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FileSystemError = exports.FileStat = exports.FileAccess = exports.FileSystem = void 0;
-var common_1 = __webpack_require__(/*! @theia/core/lib/common */ "../node_modules/@theia/core/lib/common/index.js");
-/**
- * @deprecated since 1.4.0 - in order to support VS Code FS API (https://github.com/eclipse-theia/theia/pull/7908), use `FileService` instead
- */
-exports.FileSystem = Symbol('FileSystem');
-/**
- * @deprecated since 1.4.0 - in order to support VS Code FS API (https://github.com/eclipse-theia/theia/pull/7908), use `FileService.access` instead
- */
-var FileAccess;
-(function (FileAccess) {
-    var Constants;
-    (function (Constants) {
-        /**
-         * Flag indicating that the file is visible to the calling process.
-         * This is useful for determining if a file exists, but says nothing about rwx permissions. Default if no mode is specified.
-         */
-        Constants.F_OK = 0;
-        /**
-         * Flag indicating that the file can be read by the calling process.
-         */
-        Constants.R_OK = 4;
-        /**
-         * Flag indicating that the file can be written by the calling process.
-         */
-        Constants.W_OK = 2;
-        /**
-         * Flag indicating that the file can be executed by the calling process.
-         * This has no effect on Windows (will behave like `FileAccess.F_OK`).
-         */
-        Constants.X_OK = 1;
-    })(Constants = FileAccess.Constants || (FileAccess.Constants = {}));
-})(FileAccess = exports.FileAccess || (exports.FileAccess = {}));
-var FileStat;
-(function (FileStat) {
-    function is(candidate) {
-        return typeof candidate === 'object' && ('uri' in candidate) && ('lastModification' in candidate) && ('isDirectory' in candidate);
-    }
-    FileStat.is = is;
-    function equals(one, other) {
-        if (!one || !other || !is(one) || !is(other)) {
-            return false;
-        }
-        return one.uri === other.uri
-            && one.lastModification === other.lastModification
-            && one.isDirectory === other.isDirectory;
-    }
-    FileStat.equals = equals;
-})(FileStat = exports.FileStat || (exports.FileStat = {}));
-/**
- * @deprecated since 1.4.0 - in order to support VS Code FS API (https://github.com/eclipse-theia/theia/pull/7908), use `FileOperationError` instead
- */
-var FileSystemError;
-(function (FileSystemError) {
-    FileSystemError.FileNotFound = common_1.ApplicationError.declare(-33000, function (uri, prefix) { return ({
-        message: (prefix ? prefix + ' ' : '') + "'" + uri + "' has not been found.",
-        data: { uri: uri }
-    }); });
-    FileSystemError.FileExists = common_1.ApplicationError.declare(-33001, function (uri, prefix) { return ({
-        message: (prefix ? prefix + ' ' : '') + "'" + uri + "' already exists.",
-        data: { uri: uri }
-    }); });
-    FileSystemError.FileIsDirectory = common_1.ApplicationError.declare(-33002, function (uri, prefix) { return ({
-        message: (prefix ? prefix + ' ' : '') + "'" + uri + "' is a directory.",
-        data: { uri: uri }
-    }); });
-    FileSystemError.FileNotDirectory = common_1.ApplicationError.declare(-33003, function (uri, prefix) { return ({
-        message: (prefix ? prefix + ' ' : '') + "'" + uri + "' is not a directory.",
-        data: { uri: uri }
-    }); });
-    FileSystemError.FileIsOutOfSync = common_1.ApplicationError.declare(-33004, function (file, stat) { return ({
-        message: "'" + file.uri + "' is out of sync.",
-        data: { file: file, stat: stat }
-    }); });
-})(FileSystemError = exports.FileSystemError || (exports.FileSystemError = {}));
-
-
-/***/ }),
-
-/***/ "../node_modules/@theia/filesystem/lib/electron-browser/file-dialog/electron-file-dialog-module.js":
-/*!*********************************************************************************************************!*\
-  !*** ../node_modules/@theia/filesystem/lib/electron-browser/file-dialog/electron-file-dialog-module.js ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (C) 2018 TypeFox and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-Object.defineProperty(exports, "__esModule", { value: true });
-var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var file_dialog_service_1 = __webpack_require__(/*! ../../browser/file-dialog/file-dialog-service */ "../node_modules/@theia/filesystem/lib/browser/file-dialog/file-dialog-service.js");
-var electron_file_dialog_service_1 = __webpack_require__(/*! ./electron-file-dialog-service */ "../node_modules/@theia/filesystem/lib/electron-browser/file-dialog/electron-file-dialog-service.js");
-exports.default = new inversify_1.ContainerModule(function (bind) {
-    bind(electron_file_dialog_service_1.ElectronFileDialogService).toSelf().inSingletonScope();
-    bind(file_dialog_service_1.FileDialogService).toService(electron_file_dialog_service_1.ElectronFileDialogService);
-});
-
-
-/***/ }),
-
-/***/ "../node_modules/@theia/filesystem/lib/electron-browser/file-dialog/electron-file-dialog-service.js":
-/*!**********************************************************************************************************!*\
-  !*** ../node_modules/@theia/filesystem/lib/electron-browser/file-dialog/electron-file-dialog-service.js ***!
-  \**********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (C) 2018 TypeFox and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -318,213 +80,340 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-};
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.electron = exports.ElectronFileDialogService = void 0;
+exports.CommonVariableContribution = void 0;
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var electron_1 = __webpack_require__(/*! electron */ "electron");
-var os_1 = __webpack_require__(/*! @theia/core/lib/common/os */ "../node_modules/@theia/core/lib/common/os.js");
-var message_service_1 = __webpack_require__(/*! @theia/core/lib/common/message-service */ "../node_modules/@theia/core/lib/common/message-service.js");
-var filesystem_1 = __webpack_require__(/*! ../../common/filesystem */ "../node_modules/@theia/filesystem/lib/common/filesystem.js");
-var file_dialog_1 = __webpack_require__(/*! ../../browser/file-dialog */ "../node_modules/@theia/filesystem/lib/browser/file-dialog/index.js");
-//
-// We are OK to use this here because the electron backend and frontend are on the same host.
-// If required, we can move this single service (and its module) to a dedicated Theia extension,
-// and at packaging time, clients can decide whether they need the native or the browser-based
-// solution.
-//
-var file_uri_1 = __webpack_require__(/*! @theia/core/lib/node/file-uri */ "../node_modules/@theia/core/lib/node/file-uri.js");
-var ElectronFileDialogService = /** @class */ (function (_super) {
-    __extends(ElectronFileDialogService, _super);
-    function ElectronFileDialogService() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var env_variables_1 = __webpack_require__(/*! @theia/core/lib/common/env-variables */ "../node_modules/@theia/core/lib/common/env-variables/index.js");
+var command_1 = __webpack_require__(/*! @theia/core/lib/common/command */ "../node_modules/@theia/core/lib/common/command.js");
+var preference_service_1 = __webpack_require__(/*! @theia/core/lib/browser/preferences/preference-service */ "../node_modules/@theia/core/lib/browser/preferences/preference-service.js");
+var resource_context_key_1 = __webpack_require__(/*! @theia/core/lib/browser/resource-context-key */ "../node_modules/@theia/core/lib/browser/resource-context-key.js");
+var quick_input_service_1 = __webpack_require__(/*! @theia/core/lib/browser/quick-open/quick-input-service */ "../node_modules/@theia/core/lib/browser/quick-open/quick-input-service.js");
+var quick_pick_service_1 = __webpack_require__(/*! @theia/core/lib/common/quick-pick-service */ "../node_modules/@theia/core/lib/common/quick-pick-service.js");
+var CommonVariableContribution = /** @class */ (function () {
+    function CommonVariableContribution() {
     }
-    ElectronFileDialogService.prototype.showOpenDialog = function (props, folder) {
+    CommonVariableContribution.prototype.registerVariables = function (variables) {
         return __awaiter(this, void 0, void 0, function () {
-            var rootNode, filePaths, uris, canAccess, result;
+            var execPath;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getRootNode(folder)];
+                    case 0: return [4 /*yield*/, this.env.getExecPath()];
                     case 1:
-                        rootNode = _a.sent();
-                        if (!rootNode) return [3 /*break*/, 4];
-                        return [4 /*yield*/, electron_1.remote.dialog.showOpenDialog(this.toOpenDialogOptions(rootNode.uri, props))];
-                    case 2:
-                        filePaths = (_a.sent()).filePaths;
-                        if (filePaths.length === 0) {
-                            return [2 /*return*/, undefined];
-                        }
-                        uris = filePaths.map(function (path) { return file_uri_1.FileUri.create(path); });
-                        return [4 /*yield*/, this.canReadWrite(uris)];
-                    case 3:
-                        canAccess = _a.sent();
-                        result = canAccess ? uris.length === 1 ? uris[0] : uris : undefined;
-                        return [2 /*return*/, result];
-                    case 4: return [2 /*return*/, undefined];
+                        execPath = _a.sent();
+                        variables.registerVariable({
+                            name: 'execPath',
+                            resolve: function () { return execPath; }
+                        });
+                        variables.registerVariable({
+                            name: 'env',
+                            resolve: function (_, envVariableName) { return __awaiter(_this, void 0, void 0, function () {
+                                var envVariable, _a, envValue;
+                                return __generator(this, function (_b) {
+                                    switch (_b.label) {
+                                        case 0:
+                                            _a = envVariableName;
+                                            if (!_a) return [3 /*break*/, 2];
+                                            return [4 /*yield*/, this.env.getValue(envVariableName)];
+                                        case 1:
+                                            _a = (_b.sent());
+                                            _b.label = 2;
+                                        case 2:
+                                            envVariable = _a;
+                                            envValue = envVariable && envVariable.value;
+                                            return [2 /*return*/, envValue || ''];
+                                    }
+                                });
+                            }); }
+                        });
+                        variables.registerVariable({
+                            name: 'config',
+                            resolve: function (resourceUri, preferenceName) {
+                                if (resourceUri === void 0) { resourceUri = _this.resourceContextKey.get(); }
+                                if (!preferenceName) {
+                                    return undefined;
+                                }
+                                return _this.preferences.get(preferenceName, undefined, resourceUri && resourceUri.toString());
+                            }
+                        });
+                        variables.registerVariable({
+                            name: 'command',
+                            resolve: function (_, command) { return __awaiter(_this, void 0, void 0, function () { var _a; return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0:
+                                        // eslint-disable-next-line no-return-await
+                                        _a = command;
+                                        if (!_a) 
+                                        // eslint-disable-next-line no-return-await
+                                        return [3 /*break*/, 2];
+                                        return [4 /*yield*/, this.commands.executeCommand(command)];
+                                    case 1:
+                                        _a = (_b.sent());
+                                        _b.label = 2;
+                                    case 2: 
+                                    // eslint-disable-next-line no-return-await
+                                    return [2 /*return*/, _a];
+                                }
+                            }); }); }
+                        });
+                        variables.registerVariable({
+                            name: 'input',
+                            resolve: function (resourceUri, variable, section) {
+                                if (resourceUri === void 0) { resourceUri = _this.resourceContextKey.get(); }
+                                return __awaiter(_this, void 0, void 0, function () {
+                                    var configuration, inputs, input, elements, _a, _b, option;
+                                    var e_1, _c;
+                                    return __generator(this, function (_d) {
+                                        if (!variable || !section) {
+                                            return [2 /*return*/, undefined];
+                                        }
+                                        configuration = this.preferences.get(section, undefined, resourceUri && resourceUri.toString());
+                                        inputs = !!configuration && 'inputs' in configuration ? configuration.inputs : undefined;
+                                        input = Array.isArray(inputs) && inputs.find(function (item) { return !!item && item.id === variable; });
+                                        if (!input) {
+                                            return [2 /*return*/, undefined];
+                                        }
+                                        if (input.type === 'promptString') {
+                                            if (typeof input.description !== 'string') {
+                                                return [2 /*return*/, undefined];
+                                            }
+                                            return [2 /*return*/, this.quickInputService.open({
+                                                    prompt: input.description,
+                                                    value: input.default
+                                                })];
+                                        }
+                                        if (input.type === 'pickString') {
+                                            if (typeof input.description !== 'string' || !Array.isArray(input.options)) {
+                                                return [2 /*return*/, undefined];
+                                            }
+                                            elements = [];
+                                            try {
+                                                for (_a = __values(input.options), _b = _a.next(); !_b.done; _b = _a.next()) {
+                                                    option = _b.value;
+                                                    if (typeof option !== 'string') {
+                                                        return [2 /*return*/, undefined];
+                                                    }
+                                                    if (option === input.default) {
+                                                        elements.unshift({
+                                                            description: 'Default',
+                                                            label: option,
+                                                            value: option
+                                                        });
+                                                    }
+                                                    else {
+                                                        elements.push({
+                                                            label: option,
+                                                            value: option
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                                            finally {
+                                                try {
+                                                    if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                                                }
+                                                finally { if (e_1) throw e_1.error; }
+                                            }
+                                            return [2 /*return*/, this.quickPickService.show(elements, { placeholder: input.description })];
+                                        }
+                                        if (input.type === 'command') {
+                                            if (typeof input.command !== 'string') {
+                                                return [2 /*return*/, undefined];
+                                            }
+                                            return [2 /*return*/, this.commands.executeCommand(input.command, input.args)];
+                                        }
+                                        return [2 /*return*/, undefined];
+                                    });
+                                });
+                            }
+                        });
+                        return [2 /*return*/];
                 }
             });
         });
-    };
-    ElectronFileDialogService.prototype.showSaveDialog = function (props, folder) {
-        return __awaiter(this, void 0, void 0, function () {
-            var rootNode, filePath, uri, exists, canAccess;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getRootNode(folder)];
-                    case 1:
-                        rootNode = _a.sent();
-                        if (!rootNode) return [3 /*break*/, 5];
-                        return [4 /*yield*/, electron_1.remote.dialog.showSaveDialog(this.toSaveDialogOptions(rootNode.uri, props))];
-                    case 2:
-                        filePath = (_a.sent()).filePath;
-                        if (!filePath) {
-                            return [2 /*return*/, undefined];
-                        }
-                        uri = file_uri_1.FileUri.create(filePath);
-                        return [4 /*yield*/, this.fileService.exists(uri)];
-                    case 3:
-                        exists = _a.sent();
-                        if (!exists) {
-                            return [2 /*return*/, uri];
-                        }
-                        return [4 /*yield*/, this.canReadWrite(uri)];
-                    case 4:
-                        canAccess = _a.sent();
-                        return [2 /*return*/, canAccess ? uri : undefined];
-                    case 5: return [2 /*return*/, undefined];
-                }
-            });
-        });
-    };
-    ElectronFileDialogService.prototype.canReadWrite = function (uris) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, _b, uri, e_1_1;
-            var e_1, _c;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
-                    case 0:
-                        _d.trys.push([0, 5, 6, 7]);
-                        _a = __values(Array.isArray(uris) ? uris : [uris]), _b = _a.next();
-                        _d.label = 1;
-                    case 1:
-                        if (!!_b.done) return [3 /*break*/, 4];
-                        uri = _b.value;
-                        return [4 /*yield*/, this.fileService.access(uri, filesystem_1.FileAccess.Constants.R_OK | filesystem_1.FileAccess.Constants.W_OK)];
-                    case 2:
-                        if (!(_d.sent())) {
-                            this.messageService.error("Cannot access resource at " + uri.path + ".");
-                            return [2 /*return*/, false];
-                        }
-                        _d.label = 3;
-                    case 3:
-                        _b = _a.next();
-                        return [3 /*break*/, 1];
-                    case 4: return [3 /*break*/, 7];
-                    case 5:
-                        e_1_1 = _d.sent();
-                        e_1 = { error: e_1_1 };
-                        return [3 /*break*/, 7];
-                    case 6:
-                        try {
-                            if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
-                        }
-                        finally { if (e_1) throw e_1.error; }
-                        return [7 /*endfinally*/];
-                    case 7: return [2 /*return*/, true];
-                }
-            });
-        });
-    };
-    ElectronFileDialogService.prototype.toDialogOptions = function (uri, props, dialogTitle) {
-        var title = props.title || dialogTitle;
-        var defaultPath = file_uri_1.FileUri.fsPath(uri);
-        var filters = [{ name: 'All Files', extensions: ['*'] }];
-        if (props.filters) {
-            filters.push.apply(filters, __spread(Object.keys(props.filters).map(function (key) { return ({ name: key, extensions: props.filters[key] }); })));
-        }
-        return { title: title, defaultPath: defaultPath, filters: filters };
-    };
-    ElectronFileDialogService.prototype.toOpenDialogOptions = function (uri, props) {
-        var properties = electron.dialog.toDialogProperties(props);
-        var buttonLabel = props.openLabel;
-        return __assign(__assign({}, this.toDialogOptions(uri, props, 'Open')), { properties: properties, buttonLabel: buttonLabel });
-    };
-    ElectronFileDialogService.prototype.toSaveDialogOptions = function (uri, props) {
-        var buttonLabel = props.saveLabel;
-        var defaultPath = props.inputValue;
-        return __assign(__assign({}, this.toDialogOptions(uri, props, 'Save')), { buttonLabel: buttonLabel, defaultPath: defaultPath });
     };
     __decorate([
-        inversify_1.inject(message_service_1.MessageService),
-        __metadata("design:type", message_service_1.MessageService)
-    ], ElectronFileDialogService.prototype, "messageService", void 0);
-    ElectronFileDialogService = __decorate([
+        inversify_1.inject(env_variables_1.EnvVariablesServer),
+        __metadata("design:type", Object)
+    ], CommonVariableContribution.prototype, "env", void 0);
+    __decorate([
+        inversify_1.inject(command_1.CommandService),
+        __metadata("design:type", Object)
+    ], CommonVariableContribution.prototype, "commands", void 0);
+    __decorate([
+        inversify_1.inject(preference_service_1.PreferenceService),
+        __metadata("design:type", Object)
+    ], CommonVariableContribution.prototype, "preferences", void 0);
+    __decorate([
+        inversify_1.inject(resource_context_key_1.ResourceContextKey),
+        __metadata("design:type", resource_context_key_1.ResourceContextKey)
+    ], CommonVariableContribution.prototype, "resourceContextKey", void 0);
+    __decorate([
+        inversify_1.inject(quick_input_service_1.QuickInputService),
+        __metadata("design:type", quick_input_service_1.QuickInputService)
+    ], CommonVariableContribution.prototype, "quickInputService", void 0);
+    __decorate([
+        inversify_1.inject(quick_pick_service_1.QuickPickService),
+        __metadata("design:type", Object)
+    ], CommonVariableContribution.prototype, "quickPickService", void 0);
+    CommonVariableContribution = __decorate([
         inversify_1.injectable()
-    ], ElectronFileDialogService);
-    return ElectronFileDialogService;
-}(file_dialog_1.DefaultFileDialogService));
-exports.ElectronFileDialogService = ElectronFileDialogService;
-var electron;
-(function (electron) {
-    var dialog;
-    (function (dialog) {
-        /**
-         * Converts the Theia specific `OpenFileDialogProps` into an electron specific array.
-         *
-         * Note: On Windows and Linux an open dialog can not be both a file selector and a directory selector,
-         * so if you set properties to ['openFile', 'openDirectory'] on these platforms, a directory selector will be shown.
-         *
-         * See: https://github.com/electron/electron/issues/10252#issuecomment-322012159
-         */
-        function toDialogProperties(props) {
-            if (!os_1.isOSX && props.canSelectFiles !== false && props.canSelectFolders === true) {
-                throw new Error("Illegal props. Cannot have 'canSelectFiles' and 'canSelectFolders' at the same times. Props was: " + JSON.stringify(props) + ".");
-            }
-            var properties = [];
-            if (!os_1.isOSX) {
-                if (props.canSelectFiles !== false && props.canSelectFolders !== true) {
-                    properties.push('openFile');
-                }
-                if (props.canSelectFolders === true && props.canSelectFiles === false) {
-                    properties.push('openDirectory');
-                }
-            }
-            else {
-                if (props.canSelectFiles !== false) {
-                    properties.push('openFile');
-                }
-                if (props.canSelectFolders === true) {
-                    properties.push('openDirectory');
-                    properties.push('createDirectory');
-                }
-            }
-            if (props.canSelectMany === true) {
-                properties.push('multiSelections');
-            }
-            return properties;
+    ], CommonVariableContribution);
+    return CommonVariableContribution;
+}());
+exports.CommonVariableContribution = CommonVariableContribution;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/variable-resolver/lib/browser/variable-resolver-frontend-contribution.js":
+/*!*******************************************************************************************************!*\
+  !*** ../node_modules/@theia/variable-resolver/lib/browser/variable-resolver-frontend-contribution.js ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2018 Red Hat, Inc. and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.VariableResolverFrontendContribution = exports.LIST_VARIABLES = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var common_1 = __webpack_require__(/*! @theia/core/lib/common */ "../node_modules/@theia/core/lib/common/index.js");
+var variable_1 = __webpack_require__(/*! ./variable */ "../node_modules/@theia/variable-resolver/lib/browser/variable.js");
+var variable_quick_open_service_1 = __webpack_require__(/*! ./variable-quick-open-service */ "../node_modules/@theia/variable-resolver/lib/browser/variable-quick-open-service.js");
+exports.LIST_VARIABLES = {
+    id: 'variable.list',
+    label: 'Variable: List All'
+};
+var VariableResolverFrontendContribution = /** @class */ (function () {
+    function VariableResolverFrontendContribution(contributionProvider, variableRegistry, variableQuickOpenService) {
+        this.contributionProvider = contributionProvider;
+        this.variableRegistry = variableRegistry;
+        this.variableQuickOpenService = variableQuickOpenService;
+    }
+    VariableResolverFrontendContribution.prototype.onStart = function () {
+        var _this = this;
+        this.contributionProvider.getContributions().forEach(function (contrib) {
+            return contrib.registerVariables(_this.variableRegistry);
+        });
+    };
+    VariableResolverFrontendContribution.prototype.registerCommands = function (commands) {
+        var _this = this;
+        commands.registerCommand(exports.LIST_VARIABLES, {
+            isEnabled: function () { return true; },
+            execute: function () { return _this.variableQuickOpenService.open(); }
+        });
+    };
+    VariableResolverFrontendContribution = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(common_1.ContributionProvider)), __param(0, inversify_1.named(variable_1.VariableContribution)),
+        __param(1, inversify_1.inject(variable_1.VariableRegistry)),
+        __param(2, inversify_1.inject(variable_quick_open_service_1.VariableQuickOpenService)),
+        __metadata("design:paramtypes", [Object, variable_1.VariableRegistry,
+            variable_quick_open_service_1.VariableQuickOpenService])
+    ], VariableResolverFrontendContribution);
+    return VariableResolverFrontendContribution;
+}());
+exports.VariableResolverFrontendContribution = VariableResolverFrontendContribution;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/variable-resolver/lib/browser/variable-resolver-frontend-module.js":
+/*!*************************************************************************************************!*\
+  !*** ../node_modules/@theia/variable-resolver/lib/browser/variable-resolver-frontend-module.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2018 Red Hat, Inc. and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
         }
-        dialog.toDialogProperties = toDialogProperties;
-    })(dialog = electron.dialog || (electron.dialog = {}));
-})(electron = exports.electron || (exports.electron = {}));
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var core_1 = __webpack_require__(/*! @theia/core */ "../node_modules/@theia/core/lib/common/index.js");
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var variable_1 = __webpack_require__(/*! ./variable */ "../node_modules/@theia/variable-resolver/lib/browser/variable.js");
+var variable_quick_open_service_1 = __webpack_require__(/*! ./variable-quick-open-service */ "../node_modules/@theia/variable-resolver/lib/browser/variable-quick-open-service.js");
+var variable_resolver_frontend_contribution_1 = __webpack_require__(/*! ./variable-resolver-frontend-contribution */ "../node_modules/@theia/variable-resolver/lib/browser/variable-resolver-frontend-contribution.js");
+var variable_resolver_service_1 = __webpack_require__(/*! ./variable-resolver-service */ "../node_modules/@theia/variable-resolver/lib/browser/variable-resolver-service.js");
+var common_variable_contribution_1 = __webpack_require__(/*! ./common-variable-contribution */ "../node_modules/@theia/variable-resolver/lib/browser/common-variable-contribution.js");
+exports.default = new inversify_1.ContainerModule(function (bind) {
+    var e_1, _a;
+    bind(variable_1.VariableRegistry).toSelf().inSingletonScope();
+    bind(variable_resolver_service_1.VariableResolverService).toSelf().inSingletonScope();
+    core_1.bindContributionProvider(bind, variable_1.VariableContribution);
+    bind(variable_resolver_frontend_contribution_1.VariableResolverFrontendContribution).toSelf().inSingletonScope();
+    try {
+        for (var _b = __values([browser_1.FrontendApplicationContribution, core_1.CommandContribution]), _c = _b.next(); !_c.done; _c = _b.next()) {
+            var identifier = _c.value;
+            bind(identifier).toService(variable_resolver_frontend_contribution_1.VariableResolverFrontendContribution);
+        }
+    }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+    finally {
+        try {
+            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+        }
+        finally { if (e_1) throw e_1.error; }
+    }
+    bind(variable_quick_open_service_1.VariableQuickOpenService).toSelf().inSingletonScope();
+    bind(common_variable_contribution_1.CommonVariableContribution).toSelf().inSingletonScope();
+    bind(variable_1.VariableContribution).toService(common_variable_contribution_1.CommonVariableContribution);
+});
 
 
 /***/ })

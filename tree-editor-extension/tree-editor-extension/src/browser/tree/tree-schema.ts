@@ -1,7 +1,7 @@
 /* See https://jsonforms.io for more information on how to configure data and ui schemas. */
-
-export const tutorialView = {
-  'type': 'VerticalLayout',
+export const ratingView = {
+  'type': 'Group',
+  "label": "My Group!!",
   'elements': [
     {
       'type': 'Control',
@@ -21,16 +21,39 @@ export const tutorialView = {
   ]
  };
 
- export const commandView = {
-  'type': 'VerticalLayout',
+
+export const tutorialView = {
+  'type': 'Group',
+  "label": "My Group!!",
   'elements': [
     {
       'type': 'Control',
-      'label': 'Command Type',
-      'scope': '#/oneOf'
-    }
+      'label': 'Title',
+      'scope': '#/properties/title'
+    },
+    {
+      'type': 'Control',
+      'label': 'Description',
+      'scope': '#/properties/description'
+    },
+    {
+      'type': 'Control',
+      'label': 'Tutorial Folder',
+      'scope': '#/properties/tutorialFolder'
+    },
   ]
  };
+
+//  export const commandView = {
+//   'type': 'VerticalLayout',
+//   'elements': [
+//     {
+//       'type': 'Control',
+//       'label': 'Command Type',
+//       'scope': '#/oneOf'
+//     }
+//   ]
+//  };
 
  export const fileDiffView = {
   'type': 'VerticalLayout',
@@ -172,16 +195,16 @@ export const tutorialView = {
   ]
  };
 
- export const instructionView = {
-  'type': 'VerticalLayout',
-  'elements': [
-    {
-      'type': 'Control',
-      'label': 'Instruction',
-      'scope': '#/oneOf'
-    }
-  ]
- };
+//  export const instructionView = {
+//   'type': 'VerticalLayout',
+//   'elements': [
+//     {
+//       'type': 'Control',
+//       'label': 'Instruction',
+//       'scope': '#/oneOf'
+//     }
+//   ]
+//  };
 
  export const exerciseView = {
   'type': 'VerticalLayout',
@@ -196,36 +219,36 @@ export const tutorialView = {
       'label': 'Description',
       'scope': '#/properties/description'
     },
-    {
-      'type': 'Control',
-      'label': 'Build Exercise',
-      'scope': '#/properties/buildExercise'
-    },
-    {
-      'type': 'Control',
-      'label': 'Clean State',
-      'scope': '#/properties/cleanState'
-    },
-    {
-      'type': 'Control',
-      'label': 'Solve',
-      'scope': '#/properties/solve'
-    },
-    {
-      'type': 'Control',
-      'label': 'checkStartState',
-      'scope': '#/properties/checkStartState'
-    },
-    {
-      'type': 'Control',
-      'label': 'Test',
-      'scope': '#/properties/test'
-    },
-    {
-      'type': 'Control',
-      'label': 'Content',
-      'scope': '#/properties/content'
-    },
+    // {
+    //   'type': 'Control',
+    //   'label': 'Build Exercise',
+    //   'scope': '#/properties/buildExercise'
+    // },
+    // {
+    //   'type': 'Control',
+    //   'label': 'Clean State',
+    //   'scope': '#/properties/cleanState'
+    // },
+    // {
+    //   'type': 'Control',
+    //   'label': 'Solve',
+    //   'scope': '#/properties/solve'
+    // },
+    // {
+    //   'type': 'Control',
+    //   'label': 'checkStartState',
+    //   'scope': '#/properties/checkStartState'
+    // },
+    // {
+    //   'type': 'Control',
+    //   'label': 'Test',
+    //   'scope': '#/properties/test'
+    // },
+    // {
+    //   'type': 'Control',
+    //   'label': 'Content',
+    //   'scope': '#/properties/content'
+    // },
   ]
  };
 

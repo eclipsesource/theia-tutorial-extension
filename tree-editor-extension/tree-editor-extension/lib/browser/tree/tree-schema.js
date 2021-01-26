@@ -1,9 +1,10 @@
 "use strict";
-/* See https://jsonforms.io for more information on how to configure data and ui schemas. */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.tutorialSchema = exports.exerciseView = exports.instructionView = exports.commandButtonView = exports.hintView = exports.imageView = exports.htmlView = exports.cleanExerciseFolderView = exports.terminalCommandsView = exports.checkIfFilesExistView = exports.openFileView = exports.automaticImportView = exports.fileDiffView = exports.commandView = exports.tutorialView = void 0;
-exports.tutorialView = {
-    'type': 'VerticalLayout',
+exports.tutorialSchema = exports.exerciseView = exports.commandButtonView = exports.hintView = exports.imageView = exports.htmlView = exports.cleanExerciseFolderView = exports.terminalCommandsView = exports.checkIfFilesExistView = exports.openFileView = exports.automaticImportView = exports.fileDiffView = exports.tutorialView = exports.ratingView = void 0;
+/* See https://jsonforms.io for more information on how to configure data and ui schemas. */
+exports.ratingView = {
+    'type': 'Group',
+    "label": "My Group!!",
     'elements': [
         {
             'type': 'Control',
@@ -22,16 +23,37 @@ exports.tutorialView = {
         },
     ]
 };
-exports.commandView = {
-    'type': 'VerticalLayout',
+exports.tutorialView = {
+    'type': 'Group',
+    "label": "My Group!!",
     'elements': [
         {
             'type': 'Control',
-            'label': 'Command Type',
-            'scope': '#/oneOf'
-        }
+            'label': 'Title',
+            'scope': '#/properties/title'
+        },
+        {
+            'type': 'Control',
+            'label': 'Description',
+            'scope': '#/properties/description'
+        },
+        {
+            'type': 'Control',
+            'label': 'Tutorial Folder',
+            'scope': '#/properties/tutorialFolder'
+        },
     ]
 };
+//  export const commandView = {
+//   'type': 'VerticalLayout',
+//   'elements': [
+//     {
+//       'type': 'Control',
+//       'label': 'Command Type',
+//       'scope': '#/oneOf'
+//     }
+//   ]
+//  };
 exports.fileDiffView = {
     'type': 'VerticalLayout',
     'elements': [
@@ -162,16 +184,16 @@ exports.commandButtonView = {
         }
     ]
 };
-exports.instructionView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Instruction',
-            'scope': '#/oneOf'
-        }
-    ]
-};
+//  export const instructionView = {
+//   'type': 'VerticalLayout',
+//   'elements': [
+//     {
+//       'type': 'Control',
+//       'label': 'Instruction',
+//       'scope': '#/oneOf'
+//     }
+//   ]
+//  };
 exports.exerciseView = {
     'type': 'VerticalLayout',
     'elements': [
@@ -184,36 +206,6 @@ exports.exerciseView = {
             'type': 'Control',
             'label': 'Description',
             'scope': '#/properties/description'
-        },
-        {
-            'type': 'Control',
-            'label': 'Build Exercise',
-            'scope': '#/properties/buildExercise'
-        },
-        {
-            'type': 'Control',
-            'label': 'Clean State',
-            'scope': '#/properties/cleanState'
-        },
-        {
-            'type': 'Control',
-            'label': 'Solve',
-            'scope': '#/properties/solve'
-        },
-        {
-            'type': 'Control',
-            'label': 'checkStartState',
-            'scope': '#/properties/checkStartState'
-        },
-        {
-            'type': 'Control',
-            'label': 'Test',
-            'scope': '#/properties/test'
-        },
-        {
-            'type': 'Control',
-            'label': 'Content',
-            'scope': '#/properties/content'
         },
     ]
 };

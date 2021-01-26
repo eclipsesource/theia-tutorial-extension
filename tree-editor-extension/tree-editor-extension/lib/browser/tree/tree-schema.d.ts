@@ -1,13 +1,15 @@
-export declare const tutorialView: {
+export declare const ratingView: {
     type: string;
+    label: string;
     elements: {
         type: string;
         label: string;
         scope: string;
     }[];
 };
-export declare const commandView: {
+export declare const tutorialView: {
     type: string;
+    label: string;
     elements: {
         type: string;
         label: string;
@@ -87,14 +89,6 @@ export declare const hintView: {
     }[];
 };
 export declare const commandButtonView: {
-    type: string;
-    elements: {
-        type: string;
-        label: string;
-        scope: string;
-    }[];
-};
-export declare const instructionView: {
     type: string;
     elements: {
         type: string;

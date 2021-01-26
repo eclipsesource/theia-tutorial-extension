@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[28],{
 
-/***/ "../node_modules/@theia/outline-view/lib/browser/outline-view-contribution.js":
-/*!************************************************************************************!*\
-  !*** ../node_modules/@theia/outline-view/lib/browser/outline-view-contribution.js ***!
-  \************************************************************************************/
+/***/ "../node_modules/@theia/core/lib/electron-browser/menu/electron-context-menu-renderer.js":
+/*!***********************************************************************************************!*\
+  !*** ../node_modules/@theia/core/lib/electron-browser/menu/electron-context-menu-renderer.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -46,6 +46,164 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ElectronContextMenuRenderer = exports.ElectronTextInputContextMenuContribution = exports.ElectronTextInputContextMenu = exports.ElectronContextMenuAccess = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var browser_1 = __webpack_require__(/*! ../../browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var electron_main_menu_factory_1 = __webpack_require__(/*! ./electron-main-menu-factory */ "../node_modules/@theia/core/lib/electron-browser/menu/electron-main-menu-factory.js");
+var context_menu_context_1 = __webpack_require__(/*! ../../browser/menu/context-menu-context */ "../node_modules/@theia/core/lib/browser/menu/context-menu-context.js");
+var ElectronContextMenuAccess = /** @class */ (function (_super) {
+    __extends(ElectronContextMenuAccess, _super);
+    function ElectronContextMenuAccess(menu) {
+        var _this = _super.call(this, {
+            dispose: function () { return menu.closePopup(); }
+        }) || this;
+        _this.menu = menu;
+        return _this;
+    }
+    return ElectronContextMenuAccess;
+}(browser_1.ContextMenuAccess));
+exports.ElectronContextMenuAccess = ElectronContextMenuAccess;
+var ElectronTextInputContextMenu;
+(function (ElectronTextInputContextMenu) {
+    ElectronTextInputContextMenu.MENU_PATH = ['electron_text_input'];
+    ElectronTextInputContextMenu.UNDO_REDO_EDIT_GROUP = __spread(ElectronTextInputContextMenu.MENU_PATH, ['0_undo_redo_group']);
+    ElectronTextInputContextMenu.EDIT_GROUP = __spread(ElectronTextInputContextMenu.MENU_PATH, ['1_edit_group']);
+    ElectronTextInputContextMenu.SELECT_GROUP = __spread(ElectronTextInputContextMenu.MENU_PATH, ['2_select_group']);
+})(ElectronTextInputContextMenu = exports.ElectronTextInputContextMenu || (exports.ElectronTextInputContextMenu = {}));
+var ElectronTextInputContextMenuContribution = /** @class */ (function () {
+    function ElectronTextInputContextMenuContribution() {
+    }
+    ElectronTextInputContextMenuContribution.prototype.onStart = function () {
+        var _this = this;
+        window.document.addEventListener('contextmenu', function (event) {
+            if (event.target instanceof HTMLElement) {
+                var target_1 = event.target;
+                if (target_1.nodeName && (target_1.nodeName.toLowerCase() === 'input' || target_1.nodeName.toLowerCase() === 'textarea')) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    _this.contextMenuRenderer.render({
+                        anchor: event,
+                        menuPath: ElectronTextInputContextMenu.MENU_PATH,
+                        onHide: function () { return target_1.focus(); }
+                    });
+                }
+            }
+        });
+    };
+    ElectronTextInputContextMenuContribution.prototype.registerMenus = function (registry) {
+        registry.registerMenuAction(ElectronTextInputContextMenu.UNDO_REDO_EDIT_GROUP, { commandId: browser_1.CommonCommands.UNDO.id });
+        registry.registerMenuAction(ElectronTextInputContextMenu.UNDO_REDO_EDIT_GROUP, { commandId: browser_1.CommonCommands.REDO.id });
+        registry.registerMenuAction(ElectronTextInputContextMenu.EDIT_GROUP, { commandId: browser_1.CommonCommands.CUT.id });
+        registry.registerMenuAction(ElectronTextInputContextMenu.EDIT_GROUP, { commandId: browser_1.CommonCommands.COPY.id });
+        registry.registerMenuAction(ElectronTextInputContextMenu.EDIT_GROUP, { commandId: browser_1.CommonCommands.PASTE.id });
+        registry.registerMenuAction(ElectronTextInputContextMenu.SELECT_GROUP, { commandId: browser_1.CommonCommands.SELECT_ALL.id });
+    };
+    __decorate([
+        inversify_1.inject(browser_1.ContextMenuRenderer),
+        __metadata("design:type", browser_1.ContextMenuRenderer)
+    ], ElectronTextInputContextMenuContribution.prototype, "contextMenuRenderer", void 0);
+    ElectronTextInputContextMenuContribution = __decorate([
+        inversify_1.injectable()
+    ], ElectronTextInputContextMenuContribution);
+    return ElectronTextInputContextMenuContribution;
+}());
+exports.ElectronTextInputContextMenuContribution = ElectronTextInputContextMenuContribution;
+var ElectronContextMenuRenderer = /** @class */ (function (_super) {
+    __extends(ElectronContextMenuRenderer, _super);
+    function ElectronContextMenuRenderer(menuFactory) {
+        var _this = _super.call(this) || this;
+        _this.menuFactory = menuFactory;
+        return _this;
+    }
+    ElectronContextMenuRenderer.prototype.doRender = function (_a) {
+        var menuPath = _a.menuPath, anchor = _a.anchor, args = _a.args, onHide = _a.onHide;
+        var menu = this.menuFactory.createContextMenu(menuPath, args);
+        var _b = anchor instanceof MouseEvent ? { x: anchor.clientX, y: anchor.clientY } : anchor, x = _b.x, y = _b.y;
+        // x and y values must be Ints or else there is a conversion error
+        menu.popup({ x: Math.round(x), y: Math.round(y) });
+        // native context menu stops the event loop, so there is no keyboard events
+        this.context.resetAltPressed();
+        if (onHide) {
+            menu.once('menu-will-close', function () { return onHide(); });
+        }
+        return new ElectronContextMenuAccess(menu);
+    };
+    __decorate([
+        inversify_1.inject(context_menu_context_1.ContextMenuContext),
+        __metadata("design:type", context_menu_context_1.ContextMenuContext)
+    ], ElectronContextMenuRenderer.prototype, "context", void 0);
+    ElectronContextMenuRenderer = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(electron_main_menu_factory_1.ElectronMainMenuFactory)),
+        __metadata("design:paramtypes", [electron_main_menu_factory_1.ElectronMainMenuFactory])
+    ], ElectronContextMenuRenderer);
+    return ElectronContextMenuRenderer;
+}(browser_1.ContextMenuRenderer));
+exports.ElectronContextMenuRenderer = ElectronContextMenuRenderer;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/core/lib/electron-browser/menu/electron-main-menu-factory.js":
+/*!*******************************************************************************************!*\
+  !*** ../node_modules/@theia/core/lib/electron-browser/menu/electron-main-menu-factory.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -82,118 +240,301 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.OutlineViewContribution = exports.OutlineViewCommands = exports.OUTLINE_WIDGET_FACTORY_ID = void 0;
-var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var view_contribution_1 = __webpack_require__(/*! @theia/core/lib/browser/shell/view-contribution */ "../node_modules/@theia/core/lib/browser/shell/view-contribution.js");
-var outline_view_widget_1 = __webpack_require__(/*! ./outline-view-widget */ "../node_modules/@theia/outline-view/lib/browser/outline-view-widget.js");
-var tree_1 = __webpack_require__(/*! @theia/core/lib/browser/tree */ "../node_modules/@theia/core/lib/browser/tree/index.js");
-var os_1 = __webpack_require__(/*! @theia/core/lib/common/os */ "../node_modules/@theia/core/lib/common/os.js");
-exports.OUTLINE_WIDGET_FACTORY_ID = 'outline-view';
-/**
- * Collection of `outline-view` commands.
- */
-var OutlineViewCommands;
-(function (OutlineViewCommands) {
-    /**
-     * Command which collapses all nodes
-     * from the `outline-view` tree.
-     */
-    OutlineViewCommands.COLLAPSE_ALL = {
-        id: 'outlineView.collapse.all',
-        iconClass: 'collapse-all'
-    };
-})(OutlineViewCommands = exports.OutlineViewCommands || (exports.OutlineViewCommands = {}));
-var OutlineViewContribution = /** @class */ (function (_super) {
-    __extends(OutlineViewContribution, _super);
-    function OutlineViewContribution() {
-        return _super.call(this, {
-            widgetId: exports.OUTLINE_WIDGET_FACTORY_ID,
-            widgetName: 'Outline',
-            defaultWidgetOptions: {
-                area: 'right',
-                rank: 500
-            },
-            toggleCommandId: 'outlineView:toggle',
-            toggleKeybinding: os_1.OS.type() !== os_1.OS.Type.Linux
-                ? 'ctrlcmd+shift+i'
-                : undefined
-        }) || this;
-    }
-    OutlineViewContribution.prototype.initializeLayout = function (app) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.openView()];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    OutlineViewContribution.prototype.registerCommands = function (commands) {
-        var _this = this;
-        _super.prototype.registerCommands.call(this, commands);
-        commands.registerCommand(OutlineViewCommands.COLLAPSE_ALL, {
-            isEnabled: function (widget) { return _this.withWidget(widget, function () { return true; }); },
-            isVisible: function (widget) { return _this.withWidget(widget, function () { return true; }); },
-            execute: function () { return _this.collapseAllItems(); }
-        });
-    };
-    OutlineViewContribution.prototype.registerToolbarItems = function (toolbar) {
-        toolbar.registerItem({
-            id: OutlineViewCommands.COLLAPSE_ALL.id,
-            command: OutlineViewCommands.COLLAPSE_ALL.id,
-            tooltip: 'Collapse All',
-            priority: 0
-        });
-    };
-    /**
-     * Collapse all nodes in the outline view tree.
-     */
-    OutlineViewContribution.prototype.collapseAllItems = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var model, root;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.widget];
-                    case 1:
-                        model = (_a.sent()).model;
-                        root = model.root;
-                        if (tree_1.CompositeTreeNode.is(root)) {
-                            model.collapseAll(root);
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    /**
-     * Determine if the current widget is the `outline-view`.
-     */
-    OutlineViewContribution.prototype.withWidget = function (widget, cb) {
-        if (widget === void 0) { widget = this.tryGetWidget(); }
-        if (widget instanceof outline_view_widget_1.OutlineViewWidget && widget.id === exports.OUTLINE_WIDGET_FACTORY_ID) {
-            return cb(widget);
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
         }
-        return false;
     };
-    OutlineViewContribution = __decorate([
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ElectronMainMenuFactory = void 0;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+var electron = __webpack_require__(/*! electron */ "electron");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var common_1 = __webpack_require__(/*! ../../common */ "../node_modules/@theia/core/lib/common/index.js");
+var browser_1 = __webpack_require__(/*! ../../browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var context_key_service_1 = __webpack_require__(/*! ../../browser/context-key-service */ "../node_modules/@theia/core/lib/browser/context-key-service.js");
+var debounce = __webpack_require__(/*! lodash.debounce */ "../node_modules/lodash.debounce/index.js");
+var context_menu_context_1 = __webpack_require__(/*! ../../browser/menu/context-menu-context */ "../node_modules/@theia/core/lib/browser/menu/context-menu-context.js");
+var ElectronMainMenuFactory = /** @class */ (function () {
+    function ElectronMainMenuFactory(commandRegistry, preferencesService, menuProvider, keybindingRegistry) {
+        var _this = this;
+        this.commandRegistry = commandRegistry;
+        this.preferencesService = preferencesService;
+        this.menuProvider = menuProvider;
+        this.keybindingRegistry = keybindingRegistry;
+        this._toggledCommands = new Set();
+        preferencesService.onPreferenceChanged(debounce(function () {
+            var e_1, _a;
+            if (_this._menu) {
+                try {
+                    for (var _b = __values(_this._toggledCommands), _c = _b.next(); !_c.done; _c = _b.next()) {
+                        var item = _c.value;
+                        _this._menu.getMenuItemById(item).checked = _this.commandRegistry.isToggled(item);
+                    }
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                }
+                electron.remote.getCurrentWindow().setMenu(_this._menu);
+            }
+        }, 10));
+        keybindingRegistry.onKeybindingsChanged(function () {
+            var createdMenuBar = _this.createMenuBar();
+            if (common_1.isOSX) {
+                electron.remote.Menu.setApplicationMenu(createdMenuBar);
+            }
+            else {
+                electron.remote.getCurrentWindow().setMenu(createdMenuBar);
+            }
+        });
+    }
+    ElectronMainMenuFactory.prototype.createMenuBar = function () {
+        var menuModel = this.menuProvider.getMenu(common_1.MAIN_MENU_BAR);
+        var template = this.fillMenuTemplate([], menuModel);
+        if (common_1.isOSX) {
+            template.unshift(this.createOSXMenu());
+        }
+        var menu = electron.remote.Menu.buildFromTemplate(template);
+        this._menu = menu;
+        return menu;
+    };
+    ElectronMainMenuFactory.prototype.createContextMenu = function (menuPath, args) {
+        var menuModel = this.menuProvider.getMenu(menuPath);
+        var template = this.fillMenuTemplate([], menuModel, args, { showDisabled: false });
+        return electron.remote.Menu.buildFromTemplate(template);
+    };
+    ElectronMainMenuFactory.prototype.fillMenuTemplate = function (items, menuModel, args, options) {
+        var e_2, _a;
+        var _this = this;
+        if (args === void 0) { args = []; }
+        var showDisabled = ((options === null || options === void 0 ? void 0 : options.showDisabled) === undefined) ? true : options === null || options === void 0 ? void 0 : options.showDisabled;
+        var _loop_1 = function (menu) {
+            var _a, _b, _c, _d, _e;
+            if (menu instanceof common_1.CompositeMenuNode) {
+                if (menu.children.length > 0) {
+                    // do not render empty nodes
+                    if (menu.isSubmenu) { // submenu node
+                        var submenu = this_1.fillMenuTemplate([], menu, args, options);
+                        if (submenu.length === 0) {
+                            return "continue";
+                        }
+                        items.push({
+                            label: menu.label,
+                            submenu: submenu
+                        });
+                    }
+                    else { // group node
+                        // process children
+                        var submenu = this_1.fillMenuTemplate([], menu, args, options);
+                        if (submenu.length === 0) {
+                            return "continue";
+                        }
+                        if (items.length > 0) {
+                            // do not put a separator above the first group
+                            items.push({
+                                type: 'separator'
+                            });
+                        }
+                        // render children
+                        items.push.apply(items, __spread(submenu));
+                    }
+                }
+            }
+            else if (menu instanceof common_1.ActionMenuNode) {
+                var node = menu.altNode && this_1.context.altPressed ? menu.altNode : menu;
+                var commandId_1 = node.action.commandId;
+                // That is only a sanity check at application startup.
+                if (!this_1.commandRegistry.getCommand(commandId_1)) {
+                    throw new Error("Unknown command with ID: " + commandId_1 + ".");
+                }
+                if (!(_a = this_1.commandRegistry).isVisible.apply(_a, __spread([commandId_1], args))
+                    || (!!node.action.when && !this_1.contextKeyService.match(node.action.when))) {
+                    return "continue";
+                }
+                // We should omit rendering context-menu items which are disabled.
+                if (!showDisabled && !(_b = this_1.commandRegistry).isEnabled.apply(_b, __spread([commandId_1], args))) {
+                    return "continue";
+                }
+                var bindings = this_1.keybindingRegistry.getKeybindingsForCommand(commandId_1);
+                var accelerator = void 0;
+                /* Only consider the first keybinding. */
+                if (bindings.length > 0) {
+                    var binding = bindings[0];
+                    accelerator = this_1.acceleratorFor(binding);
+                }
+                items.push({
+                    id: node.id,
+                    label: node.label,
+                    type: (_c = this_1.commandRegistry).getToggledHandler.apply(_c, __spread([commandId_1], args)) ? 'checkbox' : 'normal',
+                    checked: (_d = this_1.commandRegistry).isToggled.apply(_d, __spread([commandId_1], args)),
+                    enabled: true,
+                    visible: true,
+                    click: function () { return _this.execute(commandId_1, args); },
+                    accelerator: accelerator
+                });
+                if ((_e = this_1.commandRegistry).getToggledHandler.apply(_e, __spread([commandId_1], args))) {
+                    this_1._toggledCommands.add(commandId_1);
+                }
+            }
+            else {
+                items.push.apply(items, __spread(this_1.handleDefault(menu, args, options)));
+            }
+        };
+        var this_1 = this;
+        try {
+            for (var _b = __values(menuModel.children), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var menu = _c.value;
+                _loop_1(menu);
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        return items;
+    };
+    ElectronMainMenuFactory.prototype.handleDefault = function (menuNode, args, options) {
+        if (args === void 0) { args = []; }
+        return [];
+    };
+    /**
+     * Return a user visible representation of a keybinding.
+     */
+    ElectronMainMenuFactory.prototype.acceleratorFor = function (keybinding) {
+        var bindingKeySequence = this.keybindingRegistry.resolveKeybinding(keybinding);
+        // FIXME see https://github.com/electron/electron/issues/11740
+        // Key Sequences can't be represented properly in the electron menu.
+        //
+        // We can do what VS Code does, and append the chords as a suffix to the menu label.
+        // https://github.com/eclipse-theia/theia/issues/1199#issuecomment-430909480
+        if (bindingKeySequence.length > 1) {
+            return '';
+        }
+        var keyCode = bindingKeySequence[0];
+        return this.keybindingRegistry.acceleratorForKeyCode(keyCode, '+');
+    };
+    ElectronMainMenuFactory.prototype.execute = function (command, args) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            var _b, _c, _d, _e;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
+                    case 0:
+                        _f.trys.push([0, 3, , 4]);
+                        if (!(_b = this.commandRegistry).isEnabled.apply(_b, __spread([command], args))) return [3 /*break*/, 2];
+                        return [4 /*yield*/, (_c = this.commandRegistry).executeCommand.apply(_c, __spread([command], args))];
+                    case 1:
+                        _f.sent();
+                        if (this._menu && (_d = this.commandRegistry).isVisible.apply(_d, __spread([command], args))) {
+                            this._menu.getMenuItemById(command).checked = (_e = this.commandRegistry).isToggled.apply(_e, __spread([command], args));
+                            electron.remote.getCurrentWindow().setMenu(this._menu);
+                        }
+                        _f.label = 2;
+                    case 2: return [3 /*break*/, 4];
+                    case 3:
+                        _a = _f.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ElectronMainMenuFactory.prototype.createOSXMenu = function () {
+        return {
+            label: 'Theia',
+            submenu: [
+                {
+                    role: 'about'
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    role: 'services',
+                    submenu: []
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    role: 'hide'
+                },
+                {
+                    role: 'hideOthers'
+                },
+                {
+                    role: 'unhide'
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    role: 'quit'
+                }
+            ]
+        };
+    };
+    __decorate([
+        inversify_1.inject(context_key_service_1.ContextKeyService),
+        __metadata("design:type", context_key_service_1.ContextKeyService)
+    ], ElectronMainMenuFactory.prototype, "contextKeyService", void 0);
+    __decorate([
+        inversify_1.inject(context_menu_context_1.ContextMenuContext),
+        __metadata("design:type", context_menu_context_1.ContextMenuContext)
+    ], ElectronMainMenuFactory.prototype, "context", void 0);
+    ElectronMainMenuFactory = __decorate([
         inversify_1.injectable(),
-        __metadata("design:paramtypes", [])
-    ], OutlineViewContribution);
-    return OutlineViewContribution;
-}(view_contribution_1.AbstractViewContribution));
-exports.OutlineViewContribution = OutlineViewContribution;
+        __param(0, inversify_1.inject(common_1.CommandRegistry)),
+        __param(1, inversify_1.inject(browser_1.PreferenceService)),
+        __param(2, inversify_1.inject(common_1.MenuModelRegistry)),
+        __param(3, inversify_1.inject(browser_1.KeybindingRegistry)),
+        __metadata("design:paramtypes", [common_1.CommandRegistry, Object, common_1.MenuModelRegistry,
+            browser_1.KeybindingRegistry])
+    ], ElectronMainMenuFactory);
+    return ElectronMainMenuFactory;
+}());
+exports.ElectronMainMenuFactory = ElectronMainMenuFactory;
 
 
 /***/ }),
 
-/***/ "../node_modules/@theia/outline-view/lib/browser/outline-view-frontend-module.js":
-/*!***************************************************************************************!*\
-  !*** ../node_modules/@theia/outline-view/lib/browser/outline-view-frontend-module.js ***!
-  \***************************************************************************************/
+/***/ "../node_modules/@theia/core/lib/electron-browser/menu/electron-menu-contribution.js":
+/*!*******************************************************************************************!*\
+  !*** ../node_modules/@theia/core/lib/electron-browser/menu/electron-menu-contribution.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -214,110 +555,307 @@ exports.OutlineViewContribution = OutlineViewContribution;
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
         }
-        return t;
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ElectronMenuContribution = exports.ElectronMenus = exports.ElectronCommands = void 0;
+var electron = __webpack_require__(/*! electron */ "electron");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var common_1 = __webpack_require__(/*! ../../common */ "../node_modules/@theia/core/lib/common/index.js");
+var browser_1 = __webpack_require__(/*! ../../browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var electron_main_menu_factory_1 = __webpack_require__(/*! ./electron-main-menu-factory */ "../node_modules/@theia/core/lib/electron-browser/menu/electron-main-menu-factory.js");
+var frontend_application_state_1 = __webpack_require__(/*! ../../browser/frontend-application-state */ "../node_modules/@theia/core/lib/browser/frontend-application-state.js");
+var ElectronCommands;
+(function (ElectronCommands) {
+    ElectronCommands.TOGGLE_DEVELOPER_TOOLS = {
+        id: 'theia.toggleDevTools',
+        label: 'Toggle Developer Tools'
     };
-    return __assign.apply(this, arguments);
+    ElectronCommands.RELOAD = {
+        id: 'view.reload',
+        label: 'Reload Window'
+    };
+    ElectronCommands.ZOOM_IN = {
+        id: 'view.zoomIn',
+        label: 'Zoom In'
+    };
+    ElectronCommands.ZOOM_OUT = {
+        id: 'view.zoomOut',
+        label: 'Zoom Out'
+    };
+    ElectronCommands.RESET_ZOOM = {
+        id: 'view.resetZoom',
+        label: 'Reset Zoom'
+    };
+    ElectronCommands.CLOSE_WINDOW = {
+        id: 'close.window',
+        label: 'Close Window'
+    };
+})(ElectronCommands = exports.ElectronCommands || (exports.ElectronCommands = {}));
+var ElectronMenus;
+(function (ElectronMenus) {
+    ElectronMenus.VIEW_WINDOW = __spread(browser_1.CommonMenus.VIEW, ['window']);
+    ElectronMenus.VIEW_ZOOM = __spread(browser_1.CommonMenus.VIEW, ['zoom']);
+})(ElectronMenus = exports.ElectronMenus || (exports.ElectronMenus = {}));
+(function (ElectronMenus) {
+    ElectronMenus.HELP_TOGGLE = __spread(browser_1.CommonMenus.HELP, ['z_toggle']);
+})(ElectronMenus = exports.ElectronMenus || (exports.ElectronMenus = {}));
+(function (ElectronMenus) {
+    ElectronMenus.FILE_CLOSE = __spread(browser_1.CommonMenus.FILE_CLOSE, ['window-close']);
+})(ElectronMenus = exports.ElectronMenus || (exports.ElectronMenus = {}));
+var ElectronMenuContribution = /** @class */ (function () {
+    function ElectronMenuContribution(factory) {
+        this.factory = factory;
+    }
+    ElectronMenuContribution.prototype.onStart = function (app) {
+        var _this = this;
+        this.hideTopPanel(app);
+        this.setMenu();
+        if (common_1.isOSX) {
+            // OSX: Recreate the menus when changing windows.
+            // OSX only has one menu bar for all windows, so we need to swap
+            // between them as the user switches windows.
+            electron.remote.getCurrentWindow().on('focus', function () { return _this.setMenu(); });
+        }
+        // Make sure the application menu is complete, once the frontend application is ready.
+        // https://github.com/theia-ide/theia/issues/5100
+        var onStateChange = undefined;
+        var stateServiceListener = function (state) {
+            if (state === 'ready') {
+                _this.setMenu();
+            }
+            if (state === 'closing_window') {
+                if (!!onStateChange) {
+                    onStateChange.dispose();
+                }
+            }
+        };
+        onStateChange = this.stateService.onStateChanged(stateServiceListener);
+    };
+    /**
+     * Makes the `theia-top-panel` hidden as it is unused for the electron-based application.
+     * The `theia-top-panel` is used as the container of the main, application menu-bar for the
+     * browser. Electron has it's own.
+     * By default, this method is called on application `onStart`.
+     */
+    ElectronMenuContribution.prototype.hideTopPanel = function (app) {
+        var itr = app.shell.children();
+        var child = itr.next();
+        while (child) {
+            // Top panel for the menu contribution is not required for Electron.
+            if (child.id === 'theia-top-panel') {
+                child.setHidden(true);
+                child = undefined;
+            }
+            else {
+                child = itr.next();
+            }
+        }
+    };
+    ElectronMenuContribution.prototype.setMenu = function (menu, electronWindow) {
+        if (menu === void 0) { menu = this.factory.createMenuBar(); }
+        if (electronWindow === void 0) { electronWindow = electron.remote.getCurrentWindow(); }
+        if (common_1.isOSX) {
+            electron.remote.Menu.setApplicationMenu(menu);
+        }
+        else {
+            // Unix/Windows: Set the per-window menus
+            electronWindow.setMenu(menu);
+        }
+    };
+    ElectronMenuContribution.prototype.registerCommands = function (registry) {
+        var currentWindow = electron.remote.getCurrentWindow();
+        registry.registerCommand(ElectronCommands.TOGGLE_DEVELOPER_TOOLS, {
+            execute: function () {
+                var webContent = electron.remote.getCurrentWebContents();
+                if (!webContent.isDevToolsOpened()) {
+                    webContent.openDevTools();
+                }
+                else {
+                    webContent.closeDevTools();
+                }
+            }
+        });
+        registry.registerCommand(ElectronCommands.RELOAD, {
+            execute: function () { return currentWindow.reload(); }
+        });
+        registry.registerCommand(ElectronCommands.CLOSE_WINDOW, {
+            execute: function () { return currentWindow.close(); }
+        });
+        registry.registerCommand(ElectronCommands.ZOOM_IN, {
+            execute: function () {
+                var webContents = currentWindow.webContents;
+                webContents.setZoomLevel(webContents.zoomLevel + 0.5);
+            }
+        });
+        registry.registerCommand(ElectronCommands.ZOOM_OUT, {
+            execute: function () {
+                var webContents = currentWindow.webContents;
+                webContents.setZoomLevel(webContents.zoomLevel - 0.5);
+            }
+        });
+        registry.registerCommand(ElectronCommands.RESET_ZOOM, {
+            execute: function () { return currentWindow.webContents.setZoomLevel(0); }
+        });
+    };
+    ElectronMenuContribution.prototype.registerKeybindings = function (registry) {
+        registry.registerKeybindings({
+            command: ElectronCommands.TOGGLE_DEVELOPER_TOOLS.id,
+            keybinding: 'ctrlcmd+alt+i'
+        }, {
+            command: ElectronCommands.RELOAD.id,
+            keybinding: 'ctrlcmd+r'
+        }, {
+            command: ElectronCommands.ZOOM_IN.id,
+            keybinding: 'ctrlcmd+='
+        }, {
+            command: ElectronCommands.ZOOM_OUT.id,
+            keybinding: 'ctrlcmd+-'
+        }, {
+            command: ElectronCommands.RESET_ZOOM.id,
+            keybinding: 'ctrlcmd+0'
+        }, {
+            command: ElectronCommands.CLOSE_WINDOW.id,
+            keybinding: (common_1.isOSX ? 'cmd+shift+w' : (common_1.isWindows ? 'ctrl+w' : /* Linux */ 'ctrl+q'))
+        });
+    };
+    ElectronMenuContribution.prototype.registerMenus = function (registry) {
+        registry.registerMenuAction(ElectronMenus.HELP_TOGGLE, {
+            commandId: ElectronCommands.TOGGLE_DEVELOPER_TOOLS.id
+        });
+        registry.registerMenuAction(ElectronMenus.VIEW_WINDOW, {
+            commandId: ElectronCommands.RELOAD.id,
+            order: 'z0'
+        });
+        registry.registerMenuAction(ElectronMenus.VIEW_ZOOM, {
+            commandId: ElectronCommands.ZOOM_IN.id,
+            order: 'z1'
+        });
+        registry.registerMenuAction(ElectronMenus.VIEW_ZOOM, {
+            commandId: ElectronCommands.ZOOM_OUT.id,
+            order: 'z2'
+        });
+        registry.registerMenuAction(ElectronMenus.VIEW_ZOOM, {
+            commandId: ElectronCommands.RESET_ZOOM.id,
+            order: 'z3'
+        });
+        registry.registerMenuAction(ElectronMenus.FILE_CLOSE, {
+            commandId: ElectronCommands.CLOSE_WINDOW.id,
+        });
+    };
+    __decorate([
+        inversify_1.inject(frontend_application_state_1.FrontendApplicationStateService),
+        __metadata("design:type", frontend_application_state_1.FrontendApplicationStateService)
+    ], ElectronMenuContribution.prototype, "stateService", void 0);
+    ElectronMenuContribution = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(electron_main_menu_factory_1.ElectronMainMenuFactory)),
+        __metadata("design:paramtypes", [electron_main_menu_factory_1.ElectronMainMenuFactory])
+    ], ElectronMenuContribution);
+    return ElectronMenuContribution;
+}());
+exports.ElectronMenuContribution = ElectronMenuContribution;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/core/lib/electron-browser/menu/electron-menu-module.js":
+/*!*************************************************************************************!*\
+  !*** ../node_modules/@theia/core/lib/electron-browser/menu/electron-menu-module.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var outline_view_service_1 = __webpack_require__(/*! ./outline-view-service */ "../node_modules/@theia/outline-view/lib/browser/outline-view-service.js");
-var outline_view_contribution_1 = __webpack_require__(/*! ./outline-view-contribution */ "../node_modules/@theia/outline-view/lib/browser/outline-view-contribution.js");
-var widget_manager_1 = __webpack_require__(/*! @theia/core/lib/browser/widget-manager */ "../node_modules/@theia/core/lib/browser/widget-manager.js");
-var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
-var tab_bar_toolbar_1 = __webpack_require__(/*! @theia/core/lib/browser/shell/tab-bar-toolbar */ "../node_modules/@theia/core/lib/browser/shell/tab-bar-toolbar.js");
-var outline_view_widget_1 = __webpack_require__(/*! ./outline-view-widget */ "../node_modules/@theia/outline-view/lib/browser/outline-view-widget.js");
-__webpack_require__(/*! ../../src/browser/styles/index.css */ "../node_modules/@theia/outline-view/src/browser/styles/index.css");
-var contribution_provider_1 = __webpack_require__(/*! @theia/core/lib/common/contribution-provider */ "../node_modules/@theia/core/lib/common/contribution-provider.js");
-var outline_decorator_service_1 = __webpack_require__(/*! ./outline-decorator-service */ "../node_modules/@theia/outline-view/lib/browser/outline-decorator-service.js");
-var outline_view_tree_1 = __webpack_require__(/*! ./outline-view-tree */ "../node_modules/@theia/outline-view/lib/browser/outline-view-tree.js");
+var common_1 = __webpack_require__(/*! ../../common */ "../node_modules/@theia/core/lib/common/index.js");
+var browser_1 = __webpack_require__(/*! ../../browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var electron_main_menu_factory_1 = __webpack_require__(/*! ./electron-main-menu-factory */ "../node_modules/@theia/core/lib/electron-browser/menu/electron-main-menu-factory.js");
+var electron_context_menu_renderer_1 = __webpack_require__(/*! ./electron-context-menu-renderer */ "../node_modules/@theia/core/lib/electron-browser/menu/electron-context-menu-renderer.js");
+var electron_menu_contribution_1 = __webpack_require__(/*! ./electron-menu-contribution */ "../node_modules/@theia/core/lib/electron-browser/menu/electron-menu-contribution.js");
 exports.default = new inversify_1.ContainerModule(function (bind) {
-    bind(outline_view_widget_1.OutlineViewWidgetFactory).toFactory(function (ctx) {
-        return function () { return createOutlineViewWidget(ctx.container); };
+    var e_1, _a;
+    bind(electron_main_menu_factory_1.ElectronMainMenuFactory).toSelf().inSingletonScope();
+    bind(browser_1.ContextMenuRenderer).to(electron_context_menu_renderer_1.ElectronContextMenuRenderer).inSingletonScope();
+    bind(browser_1.KeybindingContext).toConstantValue({
+        id: 'theia.context',
+        isEnabled: true
     });
-    bind(outline_view_service_1.OutlineViewService).toSelf().inSingletonScope();
-    bind(widget_manager_1.WidgetFactory).toService(outline_view_service_1.OutlineViewService);
-    browser_1.bindViewContribution(bind, outline_view_contribution_1.OutlineViewContribution);
-    bind(browser_1.FrontendApplicationContribution).toService(outline_view_contribution_1.OutlineViewContribution);
-    bind(tab_bar_toolbar_1.TabBarToolbarContribution).toService(outline_view_contribution_1.OutlineViewContribution);
+    bind(electron_menu_contribution_1.ElectronMenuContribution).toSelf().inSingletonScope();
+    try {
+        for (var _b = __values([browser_1.FrontendApplicationContribution, browser_1.KeybindingContribution, common_1.CommandContribution, common_1.MenuContribution]), _c = _b.next(); !_c.done; _c = _b.next()) {
+            var serviceIdentifier = _c.value;
+            bind(serviceIdentifier).toService(electron_menu_contribution_1.ElectronMenuContribution);
+        }
+    }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+    finally {
+        try {
+            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+        }
+        finally { if (e_1) throw e_1.error; }
+    }
+    bind(browser_1.FrontendApplicationContribution).to(electron_context_menu_renderer_1.ElectronTextInputContextMenuContribution).inSingletonScope();
+    bind(common_1.MenuContribution).to(electron_context_menu_renderer_1.ElectronTextInputContextMenuContribution).inSingletonScope();
 });
-/**
- * Create an `OutlineViewWidget`.
- * - The creation of the `OutlineViewWidget` includes:
- *  - The creation of the tree widget itself with it's own customized props.
- *  - The binding of necessary components into the container.
- * @param parent the Inversify container.
- *
- * @returns the `OutlineViewWidget`.
- */
-function createOutlineViewWidget(parent) {
-    var child = browser_1.createTreeContainer(parent);
-    child.rebind(browser_1.TreeProps).toConstantValue(__assign(__assign({}, browser_1.defaultTreeProps), { search: true }));
-    child.unbind(browser_1.TreeWidget);
-    child.bind(outline_view_widget_1.OutlineViewWidget).toSelf();
-    child.unbind(browser_1.TreeModelImpl);
-    child.bind(outline_view_tree_1.OutlineViewTreeModel).toSelf();
-    child.rebind(browser_1.TreeModel).toService(outline_view_tree_1.OutlineViewTreeModel);
-    child.bind(outline_decorator_service_1.OutlineDecoratorService).toSelf().inSingletonScope();
-    child.rebind(browser_1.TreeDecoratorService).toDynamicValue(function (ctx) { return ctx.container.get(outline_decorator_service_1.OutlineDecoratorService); }).inSingletonScope();
-    contribution_provider_1.bindContributionProvider(child, outline_decorator_service_1.OutlineTreeDecorator);
-    return child.get(outline_view_widget_1.OutlineViewWidget);
-}
-
-
-/***/ }),
-
-/***/ "../node_modules/@theia/outline-view/src/browser/styles/index.css":
-/*!************************************************************************!*\
-  !*** ../node_modules/@theia/outline-view/src/browser/styles/index.css ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../../css-loader!./index.css */ "../node_modules/css-loader/index.js!../node_modules/@theia/outline-view/src/browser/styles/index.css");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../../style-loader/lib/addStyles.js */ "../node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "../node_modules/css-loader/index.js!../node_modules/@theia/outline-view/src/browser/styles/index.css":
-/*!***************************************************************************************************!*\
-  !*** ../node_modules/css-loader!../node_modules/@theia/outline-view/src/browser/styles/index.css ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/********************************************************************************\n * Copyright (C) 2017-2018 TypeFox and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n.outline-view-tab-icon::before {\n    content: \"\\F03A\"\n}\n\n.no-outline {\n    color: var(--theia-foreground);\n    text-align: left;\n}\n\n.theia-side-panel .no-outline {\n    margin-left: 9px;\n}\n", ""]);
-
-// exports
 
 
 /***/ })

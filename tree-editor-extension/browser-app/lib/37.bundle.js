@@ -1,16 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[37],{
 
-/***/ "../node_modules/@theia/core/lib/browser/keyboard/browser-keyboard-module.js":
-/*!***********************************************************************************!*\
-  !*** ../node_modules/@theia/core/lib/browser/keyboard/browser-keyboard-module.js ***!
-  \***********************************************************************************/
+/***/ "../node_modules/@theia/filesystem/lib/browser/download/file-download-frontend-module.js":
+/*!***********************************************************************************************!*\
+  !*** ../node_modules/@theia/filesystem/lib/browser/download/file-download-frontend-module.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 /********************************************************************************
- * Copyright (C) 2019 TypeFox and others.
+ * Copyright (C) 2018 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -26,17 +26,12 @@
  ********************************************************************************/
 Object.defineProperty(exports, "__esModule", { value: true });
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var command_1 = __webpack_require__(/*! ../../common/command */ "../node_modules/@theia/core/lib/common/command.js");
-var keyboard_layout_provider_1 = __webpack_require__(/*! ../../common/keyboard/keyboard-layout-provider */ "../node_modules/@theia/core/lib/common/keyboard/keyboard-layout-provider.js");
-var browser_keyboard_layout_provider_1 = __webpack_require__(/*! ./browser-keyboard-layout-provider */ "../node_modules/@theia/core/lib/browser/keyboard/browser-keyboard-layout-provider.js");
-var browser_keyboard_frontend_contribution_1 = __webpack_require__(/*! ./browser-keyboard-frontend-contribution */ "../node_modules/@theia/core/lib/browser/keyboard/browser-keyboard-frontend-contribution.js");
-exports.default = new inversify_1.ContainerModule(function (bind, unbind, isBound, rebind) {
-    bind(browser_keyboard_layout_provider_1.BrowserKeyboardLayoutProvider).toSelf().inSingletonScope();
-    bind(keyboard_layout_provider_1.KeyboardLayoutProvider).toService(browser_keyboard_layout_provider_1.BrowserKeyboardLayoutProvider);
-    bind(keyboard_layout_provider_1.KeyboardLayoutChangeNotifier).toService(browser_keyboard_layout_provider_1.BrowserKeyboardLayoutProvider);
-    bind(keyboard_layout_provider_1.KeyValidator).toService(browser_keyboard_layout_provider_1.BrowserKeyboardLayoutProvider);
-    bind(browser_keyboard_frontend_contribution_1.BrowserKeyboardFrontendContribution).toSelf().inSingletonScope();
-    bind(command_1.CommandContribution).toService(browser_keyboard_frontend_contribution_1.BrowserKeyboardFrontendContribution);
+var command_1 = __webpack_require__(/*! @theia/core/lib/common/command */ "../node_modules/@theia/core/lib/common/command.js");
+var file_download_service_1 = __webpack_require__(/*! ./file-download-service */ "../node_modules/@theia/filesystem/lib/browser/download/file-download-service.js");
+var file_download_command_contribution_1 = __webpack_require__(/*! ./file-download-command-contribution */ "../node_modules/@theia/filesystem/lib/browser/download/file-download-command-contribution.js");
+exports.default = new inversify_1.ContainerModule(function (bind) {
+    bind(file_download_service_1.FileDownloadService).toSelf().inSingletonScope();
+    bind(command_1.CommandContribution).to(file_download_command_contribution_1.FileDownloadCommandContribution).inSingletonScope();
 });
 
 
