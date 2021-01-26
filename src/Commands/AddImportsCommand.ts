@@ -17,7 +17,7 @@ const ADDIMPORTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('th
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
-    let filepath = path.join(workspaceFolder, autoImportData.automaticImport.path);
+    const filepath = path.join(workspaceFolder, autoImportData.automaticImport.path);
 
     let content = fs.readFileSync(filepath);
 
@@ -32,8 +32,4 @@ const ADDIMPORTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('th
 
 });
 
-
-
-
 export default ADDIMPORTSCOMMAND;
-
