@@ -13,7 +13,7 @@ import {FileDiff} from '../../schema/tutorial';
 const fs = require('fs');
 const path = require('path');
 
-const FILEDIFFERENCECOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.fileDiff', async (command: FileDiff) => {
+const fileDifferenceCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.fileDiff', async (command: FileDiff) => {
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
@@ -36,5 +36,5 @@ const FILEDIFFERENCECOMMAND: vscode.Disposable = vscode.commands.registerCommand
 
 
 
-export default FILEDIFFERENCECOMMAND;
+export default fileDifferenceCommand;
 

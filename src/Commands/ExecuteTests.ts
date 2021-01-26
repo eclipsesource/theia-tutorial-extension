@@ -15,7 +15,7 @@ const fs = require('fs');
 const path = require('path');
 
 
-const EXECUTETESTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.executeTests', (tests: [any]) => {
+const executeTestsCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.executeTests', (tests: [any]) => {
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
@@ -55,4 +55,4 @@ const EXECUTETESTSCOMMAND: vscode.Disposable = vscode.commands.registerCommand('
     });
 });
 
-export default EXECUTETESTSCOMMAND;
+export default executeTestsCommand;
