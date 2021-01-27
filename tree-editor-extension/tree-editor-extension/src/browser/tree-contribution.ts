@@ -28,7 +28,7 @@ export class TreeContribution extends BaseTreeEditorContribution {
     readonly label = MasterTreeWidget.WIDGET_LABEL;
 
     canHandle(uri: URI): number {
-        if (uri.path.ext === '.tree') {
+        if (uri.path.ext === '.json') {
             return 1000;
         }
         return 0;

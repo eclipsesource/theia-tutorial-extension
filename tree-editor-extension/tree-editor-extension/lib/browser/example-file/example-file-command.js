@@ -93,7 +93,7 @@ var NewTreeExampleFileCommandHandler = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         dirUri = dir.resource;
-                        preliminaryFileUri = common_2.FileSystemUtils.generateUniqueResourceURI(dirUri, dir, 'tree-example', '.tree');
+                        preliminaryFileUri = common_2.FileSystemUtils.generateUniqueResourceURI(dirUri, dir, 'tutorial', '.json');
                         dialog = new dialogs_1.SingleTextInputDialog({
                             title: 'New Example File',
                             initialValue: preliminaryFileUri.path.base
@@ -127,6 +127,6 @@ var defaultData = {
     "typeId": "#tutorial",
     "title": "Tutorial 0",
     "description": "test description",
-    "tutorialFolder": "theia-extension",
+    "tutorialFolder": "theia-extension"
 };
 //# sourceMappingURL=example-file-command.js.map

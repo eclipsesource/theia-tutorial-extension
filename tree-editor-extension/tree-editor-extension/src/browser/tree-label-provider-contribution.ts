@@ -11,7 +11,7 @@ export class TreeLabelProviderContribution implements LabelProviderContribution 
             toCheck = new URI(toCheck.uri);
         }
         if (toCheck instanceof URI) {
-            if (toCheck.path.ext === '.tree') {
+            if (toCheck.path.ext === '.json') {
                 return 1000;
             }
         }

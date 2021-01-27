@@ -39,7 +39,7 @@ export class NewTreeExampleFileCommandHandler implements SingleUriCommandHandler
         }
 
         const dirUri = dir.resource;
-        const preliminaryFileUri = FileSystemUtils.generateUniqueResourceURI(dirUri, dir, 'tree-example', '.tree');
+        const preliminaryFileUri = FileSystemUtils.generateUniqueResourceURI(dirUri, dir, 'tutorial', '.json');
         const dialog = new SingleTextInputDialog({
             title: 'New Example File',
             initialValue: preliminaryFileUri.path.base
@@ -60,12 +60,5 @@ const defaultData = {
     "typeId": "#tutorial",
     "title": "Tutorial 0",
     "description": "test description",
-    "tutorialFolder": "theia-extension",
-    // 'children': [
-    // //     {
-    // //     'typeId': '#exercise',
-    // //     "title": 'Exercise 0',
-    // //     "description": 'Exercise Description',
-    // // }
-    // ]
+    "tutorialFolder": "theia-extension"
 };

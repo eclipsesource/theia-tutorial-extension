@@ -41,7 +41,7 @@ var TreeContribution = /** @class */ (function (_super) {
         return _this;
     }
     TreeContribution.prototype.canHandle = function (uri) {
-        if (uri.path.ext === '.tree') {
+        if (uri.path.ext === '.json') {
             return 1000;
         }
         return 0;

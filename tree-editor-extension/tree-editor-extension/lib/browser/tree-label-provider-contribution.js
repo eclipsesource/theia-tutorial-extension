@@ -19,7 +19,7 @@ var TreeLabelProviderContribution = /** @class */ (function () {
             toCheck = new uri_1.default(toCheck.uri);
         }
         if (toCheck instanceof uri_1.default) {
-            if (toCheck.path.ext === '.tree') {
+            if (toCheck.path.ext === '.json') {
                 return 1000;
             }
         }

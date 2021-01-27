@@ -710,7 +710,7 @@ var NewTreeExampleFileCommandHandler = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         dirUri = dir.resource;
-                        preliminaryFileUri = common_2.FileSystemUtils.generateUniqueResourceURI(dirUri, dir, 'tree-example', '.tree');
+                        preliminaryFileUri = common_2.FileSystemUtils.generateUniqueResourceURI(dirUri, dir, 'tutorial', '.json');
                         dialog = new dialogs_1.SingleTextInputDialog({
                             title: 'New Example File',
                             initialValue: preliminaryFileUri.path.base
@@ -744,7 +744,7 @@ var defaultData = {
     "typeId": "#tutorial",
     "title": "Tutorial 0",
     "description": "test description",
-    "tutorialFolder": "theia-extension",
+    "tutorialFolder": "theia-extension"
 };
 
 
@@ -891,7 +891,7 @@ var TreeContribution = /** @class */ (function (_super) {
         return _this;
     }
     TreeContribution.prototype.canHandle = function (uri) {
-        if (uri.path.ext === '.tree') {
+        if (uri.path.ext === '.json') {
             return 1000;
         }
         return 0;
@@ -1021,7 +1021,7 @@ var TreeLabelProviderContribution = /** @class */ (function () {
             toCheck = new uri_1.default(toCheck.uri);
         }
         if (toCheck instanceof uri_1.default) {
-            if (toCheck.path.ext === '.tree') {
+            if (toCheck.path.ext === '.json') {
                 return 1000;
             }
         }
