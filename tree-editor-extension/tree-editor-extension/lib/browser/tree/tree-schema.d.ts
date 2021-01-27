@@ -1,12 +1,3 @@
-export declare const ratingView: {
-    type: string;
-    label: string;
-    elements: {
-        type: string;
-        label: string;
-        scope: string;
-    }[];
-};
 export declare const tutorialView: {
     type: string;
     label: string;
@@ -18,6 +9,7 @@ export declare const tutorialView: {
 };
 export declare const fileDiffView: {
     type: string;
+    label: string;
     elements: {
         type: string;
         label: string;
@@ -26,6 +18,7 @@ export declare const fileDiffView: {
 };
 export declare const automaticImportView: {
     type: string;
+    label: string;
     elements: {
         type: string;
         label: string;
@@ -66,6 +59,7 @@ export declare const cleanExerciseFolderView: {
 };
 export declare const htmlView: {
     type: string;
+    label: string;
     elements: {
         type: string;
         label: string;
@@ -74,6 +68,7 @@ export declare const htmlView: {
 };
 export declare const imageView: {
     type: string;
+    label: string;
     elements: {
         type: string;
         label: string;
@@ -82,6 +77,7 @@ export declare const imageView: {
 };
 export declare const hintView: {
     type: string;
+    label: string;
     elements: {
         type: string;
         label: string;
@@ -90,6 +86,7 @@ export declare const hintView: {
 };
 export declare const commandButtonView: {
     type: string;
+    label: string;
     elements: {
         type: string;
         label: string;
@@ -98,6 +95,7 @@ export declare const commandButtonView: {
 };
 export declare const exerciseView: {
     type: string;
+    label: string;
     elements: {
         type: string;
         label: string;
@@ -184,7 +182,7 @@ export declare const tutorialSchema: {
                             command: {
                                 $ref: string;
                             };
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -229,7 +227,7 @@ export declare const tutorialSchema: {
                 fileDiff: {
                     type: string;
                     properties: {
-                        filename: {
+                        fileName: {
                             type: string;
                         };
                         solution: {
@@ -382,12 +380,6 @@ export declare const tutorialSchema: {
                     properties: {
                         text: {
                             type: string;
-                        };
-                        content: {
-                            type: string;
-                            items: {
-                                $ref: string;
-                            };
                         };
                     };
                     additionalProperties: boolean;

@@ -19,31 +19,16 @@ var CoffeeModel;
         Type.Image = '#image';
         Type.Hint = '#hint';
         Type.CommandButton = '#commandButton';
+        Type.Content = '#content';
         function name(type) {
             return type;
         }
         Type.name = name;
     })(Type = CoffeeModel.Type || (CoffeeModel.Type = {}));
     var components = [
-        Type.Tutorial,
-        Type.Exercise,
-        Type.Instruction
+        Type.Exercise
     ];
-    var exerciseComponents = [
-        Type.Command,
-        Type.Instruction,
-        Type.Exercise,
-    ];
-    // const commandComponents = [
-    //     Type.FileDiff,
-    //     Type.AutomaticImport,
-    //     Type.OpenFile,
-    //     Type.CheckIfFilesExist,
-    //     Type.TerminalCommands,
-    //     Type.CleanExerciseFolder,
-    // ];
     var instructionComponents = [
-        Type.Instruction,
         Type.Html,
         Type.Image,
         Type.Hint,
@@ -54,7 +39,7 @@ var CoffeeModel;
         [
             Type.Tutorial, [
                 {
-                    property: 'children',
+                    property: 'exercises',
                     children: components
                 }
             ]
@@ -62,19 +47,27 @@ var CoffeeModel;
         [
             Type.Exercise, [
                 {
-                    property: 'children',
-                    children: exerciseComponents
+                    property: 'content',
+                    children: [Type.Content]
+                },
+            ]
+        ],
+        [
+            Type.Hint, [
+                {
+                    property: 'content',
+                    children: [Type.Content]
                 }
             ]
         ],
         [
-            Type.Instruction, [
+            Type.Content, [
                 {
-                    property: 'children',
+                    property: 'contents',
                     children: instructionComponents
                 }
             ]
-        ],
+        ]
     ]);
 })(CoffeeModel = exports.CoffeeModel || (exports.CoffeeModel = {}));
 //# sourceMappingURL=tree-model.js.map

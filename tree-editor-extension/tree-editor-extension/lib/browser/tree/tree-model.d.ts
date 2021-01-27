@@ -15,6 +15,7 @@ export declare namespace CoffeeModel {
         const Image = "#image";
         const Hint = "#hint";
         const CommandButton = "#commandButton";
+        const Content = "#content";
         function name(type: string): string;
     }
     /** Maps types to their creatable children */

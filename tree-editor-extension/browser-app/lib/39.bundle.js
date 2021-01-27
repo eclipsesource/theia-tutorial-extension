@@ -1,16 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[39],{
 
-/***/ "../node_modules/@theia/process/lib/common/process-common-module.js":
-/*!**************************************************************************!*\
-  !*** ../node_modules/@theia/process/lib/common/process-common-module.js ***!
-  \**************************************************************************/
+/***/ "../node_modules/@theia/filesystem/lib/browser/file-dialog/file-dialog-module.js":
+/*!***************************************************************************************!*\
+  !*** ../node_modules/@theia/filesystem/lib/browser/file-dialog/file-dialog-module.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 /********************************************************************************
- * Copyright (C) 2020 Ericsson and others.
+ * Copyright (C) 2018 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -26,9 +26,10 @@
  ********************************************************************************/
 Object.defineProperty(exports, "__esModule", { value: true });
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var shell_command_builder_1 = __webpack_require__(/*! ./shell-command-builder */ "../node_modules/@theia/process/lib/common/shell-command-builder.js");
-exports.default = new inversify_1.ContainerModule(function (bind, unbind, isBound, rebind) {
-    bind(shell_command_builder_1.ShellCommandBuilder).toSelf().inSingletonScope();
+var file_dialog_service_1 = __webpack_require__(/*! ./file-dialog-service */ "../node_modules/@theia/filesystem/lib/browser/file-dialog/file-dialog-service.js");
+exports.default = new inversify_1.ContainerModule(function (bind) {
+    bind(file_dialog_service_1.DefaultFileDialogService).toSelf().inSingletonScope();
+    bind(file_dialog_service_1.FileDialogService).toService(file_dialog_service_1.DefaultFileDialogService);
 });
 
 

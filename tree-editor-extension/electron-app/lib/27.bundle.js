@@ -1,9 +1,248 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[27],{
 
-/***/ "../node_modules/@theia/outline-view/lib/browser/outline-view-contribution.js":
-/*!************************************************************************************!*\
-  !*** ../node_modules/@theia/outline-view/lib/browser/outline-view-contribution.js ***!
-  \************************************************************************************/
+/***/ "../node_modules/@theia/core/lib/browser/window/default-window-service.js":
+/*!********************************************************************************!*\
+  !*** ../node_modules/@theia/core/lib/browser/window/default-window-service.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DefaultWindowService = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var common_1 = __webpack_require__(/*! ../../common */ "../node_modules/@theia/core/lib/common/index.js");
+var core_preferences_1 = __webpack_require__(/*! ../core-preferences */ "../node_modules/@theia/core/lib/browser/core-preferences.js");
+var contribution_provider_1 = __webpack_require__(/*! ../../common/contribution-provider */ "../node_modules/@theia/core/lib/common/contribution-provider.js");
+var frontend_application_1 = __webpack_require__(/*! ../frontend-application */ "../node_modules/@theia/core/lib/browser/frontend-application.js");
+var DefaultWindowService = /** @class */ (function () {
+    function DefaultWindowService() {
+        this.onUnloadEmitter = new common_1.Emitter();
+    }
+    Object.defineProperty(DefaultWindowService.prototype, "onUnload", {
+        get: function () {
+            return this.onUnloadEmitter.event;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    DefaultWindowService.prototype.onStart = function (app) {
+        this.frontendApplication = app;
+        this.registerUnloadListeners();
+    };
+    DefaultWindowService.prototype.openNewWindow = function (url) {
+        window.open(url, undefined, 'noopener');
+        return undefined;
+    };
+    DefaultWindowService.prototype.canUnload = function () {
+        var e_1, _a;
+        var _b;
+        var confirmExit = this.corePreferences['application.confirmExit'];
+        var preventUnload = confirmExit === 'always';
+        try {
+            for (var _c = __values(this.contributions.getContributions()), _d = _c.next(); !_d.done; _d = _c.next()) {
+                var contribution = _d.value;
+                if ((_b = contribution.onWillStop) === null || _b === void 0 ? void 0 : _b.call(contribution, this.frontendApplication)) {
+                    preventUnload = true;
+                }
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return confirmExit === 'never' || !preventUnload;
+    };
+    /**
+     * Implement the mechanism to detect unloading of the page.
+     */
+    DefaultWindowService.prototype.registerUnloadListeners = function () {
+        var _this = this;
+        window.addEventListener('beforeunload', function (event) {
+            if (!_this.canUnload()) {
+                return _this.preventUnload(event);
+            }
+        });
+        // In a browser, `unload` is correctly fired when the page unloads, unlike Electron.
+        // If `beforeunload` is cancelled, the user will be prompted to leave or stay.
+        // If the user stays, the page won't be unloaded, so `unload` is not fired.
+        // If the user leaves, the page will be unloaded, so `unload` is fired.
+        window.addEventListener('unload', function () { return _this.onUnloadEmitter.fire(); });
+    };
+    /**
+     * Notify the browser that we do not want to unload.
+     *
+     * Notes:
+     *  - Shows a confirmation popup in browsers.
+     *  - Prevents the window from closing without confirmation in electron.
+     *
+     * @param event The beforeunload event
+     */
+    DefaultWindowService.prototype.preventUnload = function (event) {
+        event.returnValue = '';
+        event.preventDefault();
+        return '';
+    };
+    __decorate([
+        inversify_1.inject(core_preferences_1.CorePreferences),
+        __metadata("design:type", Object)
+    ], DefaultWindowService.prototype, "corePreferences", void 0);
+    __decorate([
+        inversify_1.inject(contribution_provider_1.ContributionProvider),
+        inversify_1.named(frontend_application_1.FrontendApplicationContribution),
+        __metadata("design:type", Object)
+    ], DefaultWindowService.prototype, "contributions", void 0);
+    DefaultWindowService = __decorate([
+        inversify_1.injectable()
+    ], DefaultWindowService);
+    return DefaultWindowService;
+}());
+exports.DefaultWindowService = DefaultWindowService;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/core/lib/electron-browser/electron-clipboard-service.js":
+/*!**************************************************************************************!*\
+  !*** ../node_modules/@theia/core/lib/electron-browser/electron-clipboard-service.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2019 RedHat and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ElectronClipboardService = void 0;
+var electron_1 = __webpack_require__(/*! electron */ "electron");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var ElectronClipboardService = /** @class */ (function () {
+    function ElectronClipboardService() {
+    }
+    ElectronClipboardService.prototype.readText = function () {
+        return electron_1.clipboard.readText();
+    };
+    ElectronClipboardService.prototype.writeText = function (value) {
+        electron_1.clipboard.writeText(value);
+    };
+    ElectronClipboardService = __decorate([
+        inversify_1.injectable()
+    ], ElectronClipboardService);
+    return ElectronClipboardService;
+}());
+exports.ElectronClipboardService = ElectronClipboardService;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/core/lib/electron-browser/window/electron-window-module.js":
+/*!*****************************************************************************************!*\
+  !*** ../node_modules/@theia/core/lib/electron-browser/window/electron-window-module.js ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+Object.defineProperty(exports, "__esModule", { value: true });
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var window_service_1 = __webpack_require__(/*! ../../browser/window/window-service */ "../node_modules/@theia/core/lib/browser/window/window-service.js");
+var electron_window_service_1 = __webpack_require__(/*! ./electron-window-service */ "../node_modules/@theia/core/lib/electron-browser/window/electron-window-service.js");
+var frontend_application_1 = __webpack_require__(/*! ../../browser/frontend-application */ "../node_modules/@theia/core/lib/browser/frontend-application.js");
+var electron_clipboard_service_1 = __webpack_require__(/*! ../electron-clipboard-service */ "../node_modules/@theia/core/lib/electron-browser/electron-clipboard-service.js");
+var clipboard_service_1 = __webpack_require__(/*! ../../browser/clipboard-service */ "../node_modules/@theia/core/lib/browser/clipboard-service.js");
+var electron_main_window_service_1 = __webpack_require__(/*! ../../electron-common/electron-main-window-service */ "../node_modules/@theia/core/lib/electron-common/electron-main-window-service.js");
+var electron_ipc_connection_provider_1 = __webpack_require__(/*! ../messaging/electron-ipc-connection-provider */ "../node_modules/@theia/core/lib/electron-browser/messaging/electron-ipc-connection-provider.js");
+exports.default = new inversify_1.ContainerModule(function (bind) {
+    bind(electron_main_window_service_1.ElectronMainWindowService).toDynamicValue(function (context) {
+        return electron_ipc_connection_provider_1.ElectronIpcConnectionProvider.createProxy(context.container, electron_main_window_service_1.electronMainWindowServicePath);
+    }).inSingletonScope();
+    bind(window_service_1.WindowService).to(electron_window_service_1.ElectronWindowService).inSingletonScope();
+    bind(frontend_application_1.FrontendApplicationContribution).toService(window_service_1.WindowService);
+    bind(clipboard_service_1.ClipboardService).to(electron_clipboard_service_1.ElectronClipboardService).inSingletonScope();
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/core/lib/electron-browser/window/electron-window-service.js":
+/*!******************************************************************************************!*\
+  !*** ../node_modules/@theia/core/lib/electron-browser/window/electron-window-service.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -46,153 +285,94 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OutlineViewContribution = exports.OutlineViewCommands = exports.OUTLINE_WIDGET_FACTORY_ID = void 0;
+exports.ElectronWindowService = void 0;
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var view_contribution_1 = __webpack_require__(/*! @theia/core/lib/browser/shell/view-contribution */ "../node_modules/@theia/core/lib/browser/shell/view-contribution.js");
-var outline_view_widget_1 = __webpack_require__(/*! ./outline-view-widget */ "../node_modules/@theia/outline-view/lib/browser/outline-view-widget.js");
-var tree_1 = __webpack_require__(/*! @theia/core/lib/browser/tree */ "../node_modules/@theia/core/lib/browser/tree/index.js");
-var os_1 = __webpack_require__(/*! @theia/core/lib/common/os */ "../node_modules/@theia/core/lib/common/os.js");
-exports.OUTLINE_WIDGET_FACTORY_ID = 'outline-view';
-/**
- * Collection of `outline-view` commands.
- */
-var OutlineViewCommands;
-(function (OutlineViewCommands) {
-    /**
-     * Command which collapses all nodes
-     * from the `outline-view` tree.
-     */
-    OutlineViewCommands.COLLAPSE_ALL = {
-        id: 'outlineView.collapse.all',
-        iconClass: 'collapse-all'
-    };
-})(OutlineViewCommands = exports.OutlineViewCommands || (exports.OutlineViewCommands = {}));
-var OutlineViewContribution = /** @class */ (function (_super) {
-    __extends(OutlineViewContribution, _super);
-    function OutlineViewContribution() {
-        return _super.call(this, {
-            widgetId: exports.OUTLINE_WIDGET_FACTORY_ID,
-            widgetName: 'Outline',
-            defaultWidgetOptions: {
-                area: 'right',
-                rank: 500
-            },
-            toggleCommandId: 'outlineView:toggle',
-            toggleKeybinding: os_1.OS.type() !== os_1.OS.Type.Linux
-                ? 'ctrlcmd+shift+i'
-                : undefined
-        }) || this;
+var electron_1 = __webpack_require__(/*! electron */ "electron");
+var default_window_service_1 = __webpack_require__(/*! ../../browser/window/default-window-service */ "../node_modules/@theia/core/lib/browser/window/default-window-service.js");
+var electron_main_window_service_1 = __webpack_require__(/*! ../../electron-common/electron-main-window-service */ "../node_modules/@theia/core/lib/electron-common/electron-main-window-service.js");
+var ElectronWindowService = /** @class */ (function (_super) {
+    __extends(ElectronWindowService, _super);
+    function ElectronWindowService() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * Lock to prevent multiple parallel executions of the `beforeunload` listener.
+         */
+        _this.isUnloading = false;
+        /**
+         * Close the window right away when `true`, else check if we can unload.
+         */
+        _this.closeOnUnload = false;
+        return _this;
     }
-    OutlineViewContribution.prototype.initializeLayout = function (app) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.openView()];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
+    ElectronWindowService.prototype.openNewWindow = function (url, _a) {
+        var external = (_a === void 0 ? {} : _a).external;
+        this.delegate.openNewWindow(url, { external: external });
+        return undefined;
     };
-    OutlineViewContribution.prototype.registerCommands = function (commands) {
+    ElectronWindowService.prototype.registerUnloadListeners = function () {
         var _this = this;
-        _super.prototype.registerCommands.call(this, commands);
-        commands.registerCommand(OutlineViewCommands.COLLAPSE_ALL, {
-            isEnabled: function (widget) { return _this.withWidget(widget, function () { return true; }); },
-            isVisible: function (widget) { return _this.withWidget(widget, function () { return true; }); },
-            execute: function () { return _this.collapseAllItems(); }
-        });
-    };
-    OutlineViewContribution.prototype.registerToolbarItems = function (toolbar) {
-        toolbar.registerItem({
-            id: OutlineViewCommands.COLLAPSE_ALL.id,
-            command: OutlineViewCommands.COLLAPSE_ALL.id,
-            tooltip: 'Collapse All',
-            priority: 0
-        });
-    };
-    /**
-     * Collapse all nodes in the outline view tree.
-     */
-    OutlineViewContribution.prototype.collapseAllItems = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var model, root;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.widget];
-                    case 1:
-                        model = (_a.sent()).model;
-                        root = model.root;
-                        if (tree_1.CompositeTreeNode.is(root)) {
-                            model.collapseAll(root);
-                        }
-                        return [2 /*return*/];
-                }
-            });
+        window.addEventListener('beforeunload', function (event) {
+            if (_this.isUnloading) {
+                // Unloading process ongoing, do nothing:
+                return _this.preventUnload(event);
+            }
+            else if (_this.closeOnUnload || _this.canUnload()) {
+                // Let the window close and notify clients:
+                delete event.returnValue;
+                _this.onUnloadEmitter.fire();
+                return;
+            }
+            else {
+                _this.isUnloading = true;
+                // Fix https://github.com/eclipse-theia/theia/issues/8186#issuecomment-742624480
+                // On Electron/Linux doing `showMessageBoxSync` does not seems to block the closing
+                // process long enough and closes the window no matter what you click on (yes/no).
+                // Instead we'll prevent closing right away, ask for confirmation and finally close.
+                setTimeout(function () {
+                    if (_this.shouldUnload()) {
+                        _this.closeOnUnload = true;
+                        window.close();
+                    }
+                    _this.isUnloading = false;
+                });
+                return _this.preventUnload(event);
+            }
         });
     };
     /**
-     * Determine if the current widget is the `outline-view`.
+     * When preventing `beforeunload` on Electron, no popup is shown.
+     *
+     * This method implements a modal to ask the user if he wants to quit the page.
      */
-    OutlineViewContribution.prototype.withWidget = function (widget, cb) {
-        if (widget === void 0) { widget = this.tryGetWidget(); }
-        if (widget instanceof outline_view_widget_1.OutlineViewWidget && widget.id === exports.OUTLINE_WIDGET_FACTORY_ID) {
-            return cb(widget);
-        }
-        return false;
+    ElectronWindowService.prototype.shouldUnload = function () {
+        var electronWindow = electron_1.remote.getCurrentWindow();
+        var response = electron_1.remote.dialog.showMessageBoxSync(electronWindow, {
+            type: 'question',
+            buttons: ['Yes', 'No'],
+            title: 'Confirm',
+            message: 'Are you sure you want to quit?',
+            detail: 'Any unsaved changes will not be saved.'
+        });
+        return response === 0; // 'Yes', close the window.
     };
-    OutlineViewContribution = __decorate([
-        inversify_1.injectable(),
-        __metadata("design:paramtypes", [])
-    ], OutlineViewContribution);
-    return OutlineViewContribution;
-}(view_contribution_1.AbstractViewContribution));
-exports.OutlineViewContribution = OutlineViewContribution;
+    __decorate([
+        inversify_1.inject(electron_main_window_service_1.ElectronMainWindowService),
+        __metadata("design:type", Object)
+    ], ElectronWindowService.prototype, "delegate", void 0);
+    ElectronWindowService = __decorate([
+        inversify_1.injectable()
+    ], ElectronWindowService);
+    return ElectronWindowService;
+}(default_window_service_1.DefaultWindowService));
+exports.ElectronWindowService = ElectronWindowService;
 
 
 /***/ }),
 
-/***/ "../node_modules/@theia/outline-view/lib/browser/outline-view-frontend-module.js":
+/***/ "../node_modules/@theia/core/lib/electron-common/electron-main-window-service.js":
 /*!***************************************************************************************!*\
-  !*** ../node_modules/@theia/outline-view/lib/browser/outline-view-frontend-module.js ***!
+  !*** ../node_modules/@theia/core/lib/electron-common/electron-main-window-service.js ***!
   \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -200,7 +380,7 @@ exports.OutlineViewContribution = OutlineViewContribution;
 "use strict";
 
 /********************************************************************************
- * Copyright (C) 2017 TypeFox and others.
+ * Copyright (C) 2020 Ericsson and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -214,110 +394,10 @@ exports.OutlineViewContribution = OutlineViewContribution;
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var outline_view_service_1 = __webpack_require__(/*! ./outline-view-service */ "../node_modules/@theia/outline-view/lib/browser/outline-view-service.js");
-var outline_view_contribution_1 = __webpack_require__(/*! ./outline-view-contribution */ "../node_modules/@theia/outline-view/lib/browser/outline-view-contribution.js");
-var widget_manager_1 = __webpack_require__(/*! @theia/core/lib/browser/widget-manager */ "../node_modules/@theia/core/lib/browser/widget-manager.js");
-var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
-var tab_bar_toolbar_1 = __webpack_require__(/*! @theia/core/lib/browser/shell/tab-bar-toolbar */ "../node_modules/@theia/core/lib/browser/shell/tab-bar-toolbar.js");
-var outline_view_widget_1 = __webpack_require__(/*! ./outline-view-widget */ "../node_modules/@theia/outline-view/lib/browser/outline-view-widget.js");
-__webpack_require__(/*! ../../src/browser/styles/index.css */ "../node_modules/@theia/outline-view/src/browser/styles/index.css");
-var contribution_provider_1 = __webpack_require__(/*! @theia/core/lib/common/contribution-provider */ "../node_modules/@theia/core/lib/common/contribution-provider.js");
-var outline_decorator_service_1 = __webpack_require__(/*! ./outline-decorator-service */ "../node_modules/@theia/outline-view/lib/browser/outline-decorator-service.js");
-var outline_view_tree_1 = __webpack_require__(/*! ./outline-view-tree */ "../node_modules/@theia/outline-view/lib/browser/outline-view-tree.js");
-exports.default = new inversify_1.ContainerModule(function (bind) {
-    bind(outline_view_widget_1.OutlineViewWidgetFactory).toFactory(function (ctx) {
-        return function () { return createOutlineViewWidget(ctx.container); };
-    });
-    bind(outline_view_service_1.OutlineViewService).toSelf().inSingletonScope();
-    bind(widget_manager_1.WidgetFactory).toService(outline_view_service_1.OutlineViewService);
-    browser_1.bindViewContribution(bind, outline_view_contribution_1.OutlineViewContribution);
-    bind(browser_1.FrontendApplicationContribution).toService(outline_view_contribution_1.OutlineViewContribution);
-    bind(tab_bar_toolbar_1.TabBarToolbarContribution).toService(outline_view_contribution_1.OutlineViewContribution);
-});
-/**
- * Create an `OutlineViewWidget`.
- * - The creation of the `OutlineViewWidget` includes:
- *  - The creation of the tree widget itself with it's own customized props.
- *  - The binding of necessary components into the container.
- * @param parent the Inversify container.
- *
- * @returns the `OutlineViewWidget`.
- */
-function createOutlineViewWidget(parent) {
-    var child = browser_1.createTreeContainer(parent);
-    child.rebind(browser_1.TreeProps).toConstantValue(__assign(__assign({}, browser_1.defaultTreeProps), { search: true }));
-    child.unbind(browser_1.TreeWidget);
-    child.bind(outline_view_widget_1.OutlineViewWidget).toSelf();
-    child.unbind(browser_1.TreeModelImpl);
-    child.bind(outline_view_tree_1.OutlineViewTreeModel).toSelf();
-    child.rebind(browser_1.TreeModel).toService(outline_view_tree_1.OutlineViewTreeModel);
-    child.bind(outline_decorator_service_1.OutlineDecoratorService).toSelf().inSingletonScope();
-    child.rebind(browser_1.TreeDecoratorService).toDynamicValue(function (ctx) { return ctx.container.get(outline_decorator_service_1.OutlineDecoratorService); }).inSingletonScope();
-    contribution_provider_1.bindContributionProvider(child, outline_decorator_service_1.OutlineTreeDecorator);
-    return child.get(outline_view_widget_1.OutlineViewWidget);
-}
-
-
-/***/ }),
-
-/***/ "../node_modules/@theia/outline-view/src/browser/styles/index.css":
-/*!************************************************************************!*\
-  !*** ../node_modules/@theia/outline-view/src/browser/styles/index.css ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../../css-loader!./index.css */ "../node_modules/css-loader/index.js!../node_modules/@theia/outline-view/src/browser/styles/index.css");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../../style-loader/lib/addStyles.js */ "../node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "../node_modules/css-loader/index.js!../node_modules/@theia/outline-view/src/browser/styles/index.css":
-/*!***************************************************************************************************!*\
-  !*** ../node_modules/css-loader!../node_modules/@theia/outline-view/src/browser/styles/index.css ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/********************************************************************************\n * Copyright (C) 2017-2018 TypeFox and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n.outline-view-tab-icon::before {\n    content: \"\\F03A\"\n}\n\n.no-outline {\n    color: var(--theia-foreground);\n    text-align: left;\n}\n\n.theia-side-panel .no-outline {\n    margin-left: 9px;\n}\n", ""]);
-
-// exports
+exports.ElectronMainWindowService = exports.electronMainWindowServicePath = void 0;
+exports.electronMainWindowServicePath = '/services/electron-window';
+exports.ElectronMainWindowService = Symbol('ElectronMainWindowService');
 
 
 /***/ })

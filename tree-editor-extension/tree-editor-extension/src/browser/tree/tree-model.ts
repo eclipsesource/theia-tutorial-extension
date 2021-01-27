@@ -16,6 +16,7 @@ export namespace CoffeeModel {
         export const Image = '#image';
         export const Hint = '#hint';
         export const CommandButton = '#commandButton';
+        export const Content = '#content';
 
         export function name(type: string): string {
             return type;
@@ -23,32 +24,11 @@ export namespace CoffeeModel {
     }
 
     const components = [
-        Type.Tutorial,
-        Type.Exercise,
-        Type.Instruction
+        Type.Exercise
         ];
     
-    const exerciseComponents = [
-        Type.Command,
-        Type.Instruction,
-        Type.Exercise,
-        // Type.Html,
-        // Type.Image,
-        // Type.Hint,
-        // Type.CommandButton
-    ];
-
-    // const commandComponents = [
-    //     Type.FileDiff,
-    //     Type.AutomaticImport,
-    //     Type.OpenFile,
-    //     Type.CheckIfFilesExist,
-    //     Type.TerminalCommands,
-    //     Type.CleanExerciseFolder,
-    // ];
 
     const instructionComponents = [
-        Type.Instruction,
         Type.Html,
         Type.Image,
         Type.Hint,
@@ -61,7 +41,7 @@ export namespace CoffeeModel {
         [
             Type.Tutorial, [
                 {
-                    property: 'children',
+                    property: 'exercises',
                     children: components
                 }
             ]
@@ -69,27 +49,27 @@ export namespace CoffeeModel {
         [
             Type.Exercise, [
                 {
-                    property: 'children',
-                    children: exerciseComponents
+                    property: 'content',
+                    children: [Type.Content]
+                },
+            ]
+        ],
+        [
+            Type.Hint, [
+                {
+                    property: 'content',
+                    children: [Type.Content]
                 }
             ]
         ],
         [
-            Type.Instruction, [
+            Type.Content, [
                 {
-                    property: 'children',
+                    property: 'contents',
                     children: instructionComponents
                 }
             ]
-        ],
-        // [
-        //     Type.Command, [
-        //         {
-        //             property: 'children',
-        //             children: commandComponents
-        //         }
-        //     ]
-        // ],
+        ]
     ]);
 
 }

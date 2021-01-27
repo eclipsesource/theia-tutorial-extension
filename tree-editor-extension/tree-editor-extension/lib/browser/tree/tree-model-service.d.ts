@@ -84,7 +84,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -129,7 +129,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -282,12 +282,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -425,7 +419,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -470,7 +464,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -624,12 +618,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             text: {
                                 type: string;
                             };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
-                            };
                         };
                         additionalProperties: boolean;
                     };
@@ -716,7 +704,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         command: {
                             $ref: string;
                         };
-                        filename: {
+                        fileName: {
                             type: string;
                         };
                         solution: {
@@ -819,7 +807,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -864,7 +852,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -1017,12 +1005,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -1146,7 +1128,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -1191,7 +1173,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -1345,12 +1327,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             text: {
                                 type: string;
                             };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
-                            };
                         };
                         additionalProperties: boolean;
                     };
@@ -1393,7 +1369,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
             fileDiff: {
                 type: string;
                 properties: {
-                    filename: {
+                    fileName: {
                         type: string;
                     };
                     solution: {
@@ -1482,7 +1458,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -1527,7 +1503,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -1680,12 +1656,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -1822,7 +1792,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -1867,7 +1837,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -2020,12 +1990,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -2150,7 +2114,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -2195,7 +2159,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -2348,12 +2312,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -2482,7 +2440,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -2527,7 +2485,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -2680,12 +2638,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -2814,7 +2766,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -2859,7 +2811,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -3012,12 +2964,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -3143,7 +3089,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -3188,7 +3134,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -3341,12 +3287,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -3472,7 +3412,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -3517,7 +3457,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -3670,12 +3610,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -3814,7 +3748,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -3859,7 +3793,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -4013,12 +3947,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             text: {
                                 type: string;
                             };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
-                            };
                         };
                         additionalProperties: boolean;
                     };
@@ -4063,12 +3991,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                 properties: {
                     text: {
                         type: string;
-                    };
-                    content: {
-                        type: string;
-                        items: {
-                            $ref: string;
-                        };
                     };
                 };
                 additionalProperties: boolean;
@@ -4155,7 +4077,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -4200,7 +4122,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -4353,12 +4275,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -4496,7 +4412,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                                 command: {
                                     $ref: string;
                                 };
-                                filename: {
+                                fileName: {
                                     type: string;
                                 };
                                 solution: {
@@ -4541,7 +4457,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     fileDiff: {
                         type: string;
                         properties: {
-                            filename: {
+                            fileName: {
                                 type: string;
                             };
                             solution: {
@@ -4694,12 +4610,6 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
-                            };
-                            content: {
-                                type: string;
-                                items: {
-                                    $ref: string;
-                                };
                             };
                         };
                         additionalProperties: boolean;

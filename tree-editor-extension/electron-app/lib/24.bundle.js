@@ -1,33 +1,893 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[24],{
 
-/***/ "../node_modules/css-loader/index.js!../tree-editor-extension/src/browser/style/editor.css":
-/*!****************************************************************************************!*\
-  !*** ../node_modules/css-loader!../tree-editor-extension/src/browser/style/editor.css ***!
-  \****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".theia-tree-editor-form {\n  display: flex;\n}\n\n.theia-tree-editor-form > .jsonforms-container {\n  flex-grow: 1;\n  max-width: 960px; /* Half the width of a full hd display. */\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "../tree-editor-extension/lib/browser/example-file/example-file-command.js":
-/*!*********************************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/example-file/example-file-command.js ***!
-  \*********************************************************************************/
+/***/ "../node_modules/@theia/markers/lib/browser/marker-tree-label-provider.js":
+/*!********************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/marker-tree-label-provider.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+/********************************************************************************
+ * Copyright (C) 2019 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MarkerTreeLabelProvider = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var label_provider_1 = __webpack_require__(/*! @theia/core/lib/browser/label-provider */ "../node_modules/@theia/core/lib/browser/label-provider.js");
+var marker_tree_1 = __webpack_require__(/*! ./marker-tree */ "../node_modules/@theia/markers/lib/browser/marker-tree.js");
+var tree_label_provider_1 = __webpack_require__(/*! @theia/core/lib/browser/tree/tree-label-provider */ "../node_modules/@theia/core/lib/browser/tree/tree-label-provider.js");
+var browser_1 = __webpack_require__(/*! @theia/workspace/lib/browser */ "../node_modules/@theia/workspace/lib/browser/index.js");
+var MarkerTreeLabelProvider = /** @class */ (function () {
+    function MarkerTreeLabelProvider() {
+    }
+    MarkerTreeLabelProvider.prototype.canHandle = function (element) {
+        return marker_tree_1.MarkerInfoNode.is(element) ?
+            this.treeLabelProvider.canHandle(element) + 1 :
+            0;
+    };
+    MarkerTreeLabelProvider.prototype.getIcon = function (node) {
+        return this.labelProvider.getIcon(node.uri);
+    };
+    MarkerTreeLabelProvider.prototype.getName = function (node) {
+        return this.labelProvider.getName(node.uri);
+    };
+    MarkerTreeLabelProvider.prototype.getLongName = function (node) {
+        var description = [];
+        var rootUri = this.workspaceService.getWorkspaceRootUri(node.uri);
+        // In a multiple-root workspace include the root name to the label before the parent directory.
+        if (this.workspaceService.isMultiRootWorkspaceOpened && rootUri) {
+            description.push(this.labelProvider.getName(rootUri));
+        }
+        // If the given resource is not at the workspace root, include the parent directory to the label.
+        if (rootUri && rootUri.toString() !== node.uri.parent.toString()) {
+            description.push(this.labelProvider.getLongName(node.uri.parent));
+        }
+        // Get the full path of a resource which does not exist in the given workspace.
+        if (!rootUri) {
+            description.push(this.labelProvider.getLongName(node.uri.parent.withScheme('markers')));
+        }
+        return description.join(' ● ');
+    };
+    MarkerTreeLabelProvider.prototype.getDescription = function (node) {
+        return this.labelProvider.getLongName(node.uri.parent);
+    };
+    MarkerTreeLabelProvider.prototype.affects = function (node, event) {
+        return event.affects(node.uri) || event.affects(node.uri.parent);
+    };
+    __decorate([
+        inversify_1.inject(label_provider_1.LabelProvider),
+        __metadata("design:type", label_provider_1.LabelProvider)
+    ], MarkerTreeLabelProvider.prototype, "labelProvider", void 0);
+    __decorate([
+        inversify_1.inject(tree_label_provider_1.TreeLabelProvider),
+        __metadata("design:type", tree_label_provider_1.TreeLabelProvider)
+    ], MarkerTreeLabelProvider.prototype, "treeLabelProvider", void 0);
+    __decorate([
+        inversify_1.inject(browser_1.WorkspaceService),
+        __metadata("design:type", browser_1.WorkspaceService)
+    ], MarkerTreeLabelProvider.prototype, "workspaceService", void 0);
+    MarkerTreeLabelProvider = __decorate([
+        inversify_1.injectable()
+    ], MarkerTreeLabelProvider);
+    return MarkerTreeLabelProvider;
+}());
+exports.MarkerTreeLabelProvider = MarkerTreeLabelProvider;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/markers/lib/browser/marker-tree-model.js":
+/*!***********************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/marker-tree-model.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MarkerTreeModel = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var marker_tree_1 = __webpack_require__(/*! ./marker-tree */ "../node_modules/@theia/markers/lib/browser/marker-tree.js");
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var MarkerTreeModel = /** @class */ (function (_super) {
+    __extends(MarkerTreeModel, _super);
+    function MarkerTreeModel() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MarkerTreeModel.prototype.doOpenNode = function (node) {
+        if (marker_tree_1.MarkerNode.is(node)) {
+            browser_1.open(this.openerService, node.uri, this.getOpenerOptionsByMarker(node));
+        }
+        else {
+            _super.prototype.doOpenNode.call(this, node);
+        }
+    };
+    MarkerTreeModel.prototype.getOpenerOptionsByMarker = function (node) {
+        return undefined;
+    };
+    /**
+     * Reveal the corresponding node at the marker.
+     * @param node {TreeNode} the tree node.
+     */
+    MarkerTreeModel.prototype.revealNode = function (node) {
+        if (marker_tree_1.MarkerNode.is(node)) {
+            browser_1.open(this.openerService, node.uri, __assign(__assign({}, this.getOpenerOptionsByMarker(node)), { mode: 'reveal' }));
+        }
+    };
+    __decorate([
+        inversify_1.inject(browser_1.OpenerService),
+        __metadata("design:type", Object)
+    ], MarkerTreeModel.prototype, "openerService", void 0);
+    MarkerTreeModel = __decorate([
+        inversify_1.injectable()
+    ], MarkerTreeModel);
+    return MarkerTreeModel;
+}(browser_1.TreeModelImpl));
+exports.MarkerTreeModel = MarkerTreeModel;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/markers/lib/browser/marker-tree.js":
+/*!*****************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/marker-tree.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MarkerRootNode = exports.MarkerInfoNode = exports.MarkerNode = exports.MarkerTree = exports.MarkerOptions = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var marker_manager_1 = __webpack_require__(/*! ./marker-manager */ "../node_modules/@theia/markers/lib/browser/marker-manager.js");
+var selection_1 = __webpack_require__(/*! @theia/core/lib/common/selection */ "../node_modules/@theia/core/lib/common/selection.js");
+var uri_1 = __webpack_require__(/*! @theia/core/lib/common/uri */ "../node_modules/@theia/core/lib/common/uri.js");
+var problem_selection_1 = __webpack_require__(/*! ./problem/problem-selection */ "../node_modules/@theia/markers/lib/browser/problem/problem-selection.js");
+exports.MarkerOptions = Symbol('MarkerOptions');
+var MarkerTree = /** @class */ (function (_super) {
+    __extends(MarkerTree, _super);
+    function MarkerTree(markerManager, markerOptions) {
+        var _this = _super.call(this) || this;
+        _this.markerManager = markerManager;
+        _this.markerOptions = markerOptions;
+        _this.toDispose.push(markerManager.onDidChangeMarkers(function (uri) { return _this.refreshMarkerInfo(uri); }));
+        _this.root = {
+            visible: false,
+            id: 'theia-' + markerOptions.kind + '-marker-widget',
+            name: 'MarkerTree',
+            kind: markerOptions.kind,
+            children: [],
+            parent: undefined
+        };
+        return _this;
+    }
+    MarkerTree.prototype.refreshMarkerInfo = function (uri) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, existing, markers, node, children;
+            return __generator(this, function (_a) {
+                id = uri.toString();
+                existing = this.getNode(id);
+                markers = this.markerManager.findMarkers({ uri: uri });
+                if (markers.length <= 0) {
+                    if (MarkerInfoNode.is(existing)) {
+                        browser_1.CompositeTreeNode.removeChild(existing.parent, existing);
+                        this.removeNode(existing);
+                        this.fireChanged();
+                    }
+                    return [2 /*return*/];
+                }
+                node = MarkerInfoNode.is(existing) ? existing : this.createMarkerInfo(id, uri);
+                browser_1.CompositeTreeNode.addChild(node.parent, node);
+                children = this.getMarkerNodes(node, markers);
+                node.numberOfMarkers = markers.length;
+                this.setChildren(node, children);
+                return [2 /*return*/];
+            });
+        });
+    };
+    MarkerTree.prototype.resolveChildren = function (parent) {
+        return __awaiter(this, void 0, void 0, function () {
+            var nodes, _a, _b, id, uri, existing, markers, node;
+            var e_1, _c;
+            return __generator(this, function (_d) {
+                if (MarkerRootNode.is(parent)) {
+                    nodes = [];
+                    try {
+                        for (_a = __values(this.markerManager.getUris()), _b = _a.next(); !_b.done; _b = _a.next()) {
+                            id = _b.value;
+                            uri = new uri_1.default(id);
+                            existing = this.getNode(id);
+                            markers = this.markerManager.findMarkers({ uri: uri });
+                            node = MarkerInfoNode.is(existing) ? existing : this.createMarkerInfo(id, uri);
+                            node.children = this.getMarkerNodes(node, markers);
+                            node.numberOfMarkers = node.children.length;
+                            nodes.push(node);
+                        }
+                    }
+                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                    finally {
+                        try {
+                            if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                        }
+                        finally { if (e_1) throw e_1.error; }
+                    }
+                    return [2 /*return*/, nodes];
+                }
+                return [2 /*return*/, _super.prototype.resolveChildren.call(this, parent)];
+            });
+        });
+    };
+    MarkerTree.prototype.createMarkerInfo = function (id, uri) {
+        return {
+            children: [],
+            expanded: true,
+            uri: uri,
+            id: id,
+            parent: this.root,
+            selected: false,
+            numberOfMarkers: 0
+        };
+    };
+    MarkerTree.prototype.getMarkerNodes = function (parent, markers) {
+        var _this = this;
+        return markers.map(function (marker, index) {
+            return _this.createMarkerNode(marker, index, parent);
+        });
+    };
+    MarkerTree.prototype.createMarkerNode = function (marker, index, parent) {
+        var id = parent.id + '_' + index;
+        var existing = this.getNode(id);
+        if (MarkerNode.is(existing)) {
+            existing.marker = marker;
+            return existing;
+        }
+        return {
+            id: id,
+            name: 'marker',
+            parent: parent,
+            selected: false,
+            uri: parent.uri,
+            marker: marker
+        };
+    };
+    MarkerTree = __decorate([
+        inversify_1.injectable(),
+        __metadata("design:paramtypes", [marker_manager_1.MarkerManager, Object])
+    ], MarkerTree);
+    return MarkerTree;
+}(browser_1.TreeImpl));
+exports.MarkerTree = MarkerTree;
+var MarkerNode;
+(function (MarkerNode) {
+    function is(node) {
+        return selection_1.UriSelection.is(node) && browser_1.SelectableTreeNode.is(node) && problem_selection_1.ProblemSelection.is(node);
+    }
+    MarkerNode.is = is;
+})(MarkerNode = exports.MarkerNode || (exports.MarkerNode = {}));
+var MarkerInfoNode;
+(function (MarkerInfoNode) {
+    function is(node) {
+        return browser_1.ExpandableTreeNode.is(node) && selection_1.UriSelection.is(node) && 'numberOfMarkers' in node;
+    }
+    MarkerInfoNode.is = is;
+})(MarkerInfoNode = exports.MarkerInfoNode || (exports.MarkerInfoNode = {}));
+var MarkerRootNode;
+(function (MarkerRootNode) {
+    function is(node) {
+        return browser_1.CompositeTreeNode.is(node) && 'kind' in node;
+    }
+    MarkerRootNode.is = is;
+})(MarkerRootNode = exports.MarkerRootNode || (exports.MarkerRootNode = {}));
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-container.js":
+/*!*******************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-container.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createProblemWidget = exports.createProblemTreeContainer = exports.PROBLEM_OPTIONS = exports.PROBLEM_TREE_PROPS = void 0;
+var marker_tree_1 = __webpack_require__(/*! ../marker-tree */ "../node_modules/@theia/markers/lib/browser/marker-tree.js");
+var problem_widget_1 = __webpack_require__(/*! ./problem-widget */ "../node_modules/@theia/markers/lib/browser/problem/problem-widget.js");
+var problem_tree_model_1 = __webpack_require__(/*! ./problem-tree-model */ "../node_modules/@theia/markers/lib/browser/problem/problem-tree-model.js");
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var problem_marker_1 = __webpack_require__(/*! ../../common/problem-marker */ "../node_modules/@theia/markers/lib/common/problem-marker.js");
+exports.PROBLEM_TREE_PROPS = __assign(__assign({}, browser_1.defaultTreeProps), { contextMenuPath: [problem_marker_1.PROBLEM_KIND], globalSelection: true });
+exports.PROBLEM_OPTIONS = {
+    kind: 'problem'
+};
+function createProblemTreeContainer(parent) {
+    var child = browser_1.createTreeContainer(parent);
+    child.unbind(browser_1.TreeImpl);
+    child.bind(problem_tree_model_1.ProblemTree).toSelf();
+    child.rebind(browser_1.Tree).toService(problem_tree_model_1.ProblemTree);
+    child.unbind(browser_1.TreeWidget);
+    child.bind(problem_widget_1.ProblemWidget).toSelf();
+    child.unbind(browser_1.TreeModelImpl);
+    child.bind(problem_tree_model_1.ProblemTreeModel).toSelf();
+    child.rebind(browser_1.TreeModel).toService(problem_tree_model_1.ProblemTreeModel);
+    child.rebind(browser_1.TreeProps).toConstantValue(exports.PROBLEM_TREE_PROPS);
+    child.bind(marker_tree_1.MarkerOptions).toConstantValue(exports.PROBLEM_OPTIONS);
+    return child;
+}
+exports.createProblemTreeContainer = createProblemTreeContainer;
+function createProblemWidget(parent) {
+    return createProblemTreeContainer(parent).get(problem_widget_1.ProblemWidget);
+}
+exports.createProblemWidget = createProblemWidget;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-contribution.js":
+/*!**********************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-contribution.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProblemContribution = exports.ProblemsCommands = exports.ProblemsMenu = exports.PROBLEMS_CONTEXT_MENU = void 0;
+var debounce = __webpack_require__(/*! lodash.debounce */ "../node_modules/lodash.debounce/index.js");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var status_bar_1 = __webpack_require__(/*! @theia/core/lib/browser/status-bar/status-bar */ "../node_modules/@theia/core/lib/browser/status-bar/status-bar.js");
+var view_contribution_1 = __webpack_require__(/*! @theia/core/lib/browser/shell/view-contribution */ "../node_modules/@theia/core/lib/browser/shell/view-contribution.js");
+var problem_marker_1 = __webpack_require__(/*! ../../common/problem-marker */ "../node_modules/@theia/markers/lib/common/problem-marker.js");
+var problem_manager_1 = __webpack_require__(/*! ./problem-manager */ "../node_modules/@theia/markers/lib/browser/problem/problem-manager.js");
+var problem_widget_1 = __webpack_require__(/*! ./problem-widget */ "../node_modules/@theia/markers/lib/browser/problem/problem-widget.js");
+var selection_service_1 = __webpack_require__(/*! @theia/core/lib/common/selection-service */ "../node_modules/@theia/core/lib/common/selection-service.js");
+var problem_selection_1 = __webpack_require__(/*! ./problem-selection */ "../node_modules/@theia/markers/lib/browser/problem/problem-selection.js");
+exports.PROBLEMS_CONTEXT_MENU = [problem_marker_1.PROBLEM_KIND];
+var ProblemsMenu;
+(function (ProblemsMenu) {
+    ProblemsMenu.CLIPBOARD = __spread(exports.PROBLEMS_CONTEXT_MENU, ['1_clipboard']);
+    ProblemsMenu.PROBLEMS = __spread(exports.PROBLEMS_CONTEXT_MENU, ['2_problems']);
+})(ProblemsMenu = exports.ProblemsMenu || (exports.ProblemsMenu = {}));
+var ProblemsCommands;
+(function (ProblemsCommands) {
+    ProblemsCommands.COLLAPSE_ALL = {
+        id: 'problems.collapse.all'
+    };
+    ProblemsCommands.COLLAPSE_ALL_TOOLBAR = {
+        id: 'problems.collapse.all.toolbar',
+        iconClass: 'theia-collapse-all-icon'
+    };
+    ProblemsCommands.COPY = {
+        id: 'problems.copy'
+    };
+    ProblemsCommands.COPY_MESSAGE = {
+        id: 'problems.copy.message',
+    };
+    ProblemsCommands.CLEAR_ALL = {
+        id: 'problems.clear.all',
+        category: 'Problems',
+        label: 'Clear All',
+        iconClass: 'clear-all'
+    };
+})(ProblemsCommands = exports.ProblemsCommands || (exports.ProblemsCommands = {}));
+var ProblemContribution = /** @class */ (function (_super) {
+    __extends(ProblemContribution, _super);
+    function ProblemContribution() {
+        var _this = _super.call(this, {
+            widgetId: problem_widget_1.PROBLEMS_WIDGET_ID,
+            widgetName: 'Problems',
+            defaultWidgetOptions: {
+                area: 'bottom'
+            },
+            toggleCommandId: 'problemsView:toggle',
+            toggleKeybinding: 'ctrlcmd+shift+m'
+        }) || this;
+        _this.updateStatusBarElement = debounce(function () { return _this.setStatusBarElement(_this.problemManager.getProblemStat()); }, 10);
+        return _this;
+    }
+    ProblemContribution.prototype.onStart = function (app) {
+        this.updateStatusBarElement();
+        this.problemManager.onDidChangeMarkers(this.updateStatusBarElement);
+    };
+    ProblemContribution.prototype.initializeLayout = function (app) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.openView()];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProblemContribution.prototype.setStatusBarElement = function (problemStat) {
+        this.statusBar.setElement('problem-marker-status', {
+            text: problemStat.infos <= 0
+                ? "$(times-circle) " + problemStat.errors + " $(exclamation-triangle) " + problemStat.warnings
+                : "$(times-circle) " + problemStat.errors + " $(exclamation-triangle) " + problemStat.warnings + " $(info-circle) " + problemStat.infos,
+            alignment: status_bar_1.StatusBarAlignment.LEFT,
+            priority: 10,
+            command: this.toggleCommand ? this.toggleCommand.id : undefined,
+            tooltip: this.getStatusBarTooltip(problemStat)
+        });
+    };
+    /**
+     * Get the tooltip to be displayed when hovering over the problem statusbar item.
+     * - Displays `No Problems` when no problems are present.
+     * - Displays a human-readable label which describes for each type of problem stat properties,
+     * their overall count and type when any one of these properties has a positive count.
+     * @param stat the problem stat describing the number of `errors`, `warnings` and `infos`.
+     *
+     * @return the tooltip to be displayed in the statusbar.
+     */
+    ProblemContribution.prototype.getStatusBarTooltip = function (stat) {
+        if (stat.errors <= 0 && stat.warnings <= 0 && stat.infos <= 0) {
+            return 'No Problems';
+        }
+        var tooltip = [];
+        if (stat.errors > 0) {
+            tooltip.push(stat.errors + " Errors");
+        }
+        if (stat.warnings > 0) {
+            tooltip.push(stat.warnings + " Warnings");
+        }
+        if (stat.infos > 0) {
+            tooltip.push(stat.infos + " Infos");
+        }
+        return tooltip.join(', ');
+    };
+    ProblemContribution.prototype.registerCommands = function (commands) {
+        var _this = this;
+        _super.prototype.registerCommands.call(this, commands);
+        commands.registerCommand(ProblemsCommands.COLLAPSE_ALL, {
+            execute: function () { return _this.collapseAllProblems(); }
+        });
+        commands.registerCommand(ProblemsCommands.COLLAPSE_ALL_TOOLBAR, {
+            isEnabled: function (widget) { return _this.withWidget(widget, function () { return true; }); },
+            isVisible: function (widget) { return _this.withWidget(widget, function () { return true; }); },
+            execute: function (widget) { return _this.withWidget(widget, function () { return _this.collapseAllProblems(); }); }
+        });
+        commands.registerCommand(ProblemsCommands.COPY, new problem_selection_1.ProblemSelection.CommandHandler(this.selectionService, {
+            multi: false,
+            isEnabled: function () { return true; },
+            isVisible: function () { return true; },
+            execute: function (selection) { return _this.copy(selection); }
+        }));
+        commands.registerCommand(ProblemsCommands.COPY_MESSAGE, new problem_selection_1.ProblemSelection.CommandHandler(this.selectionService, {
+            multi: false,
+            isEnabled: function () { return true; },
+            isVisible: function () { return true; },
+            execute: function (selection) { return _this.copyMessage(selection); }
+        }));
+        commands.registerCommand(ProblemsCommands.CLEAR_ALL, {
+            isEnabled: function (widget) { return _this.withWidget(widget, function () { return true; }); },
+            isVisible: function (widget) { return _this.withWidget(widget, function () { return true; }); },
+            execute: function (widget) { return _this.withWidget(widget, function () { return _this.problemManager.cleanAllMarkers(); }); }
+        });
+    };
+    ProblemContribution.prototype.registerMenus = function (menus) {
+        _super.prototype.registerMenus.call(this, menus);
+        menus.registerMenuAction(ProblemsMenu.CLIPBOARD, {
+            commandId: ProblemsCommands.COPY.id,
+            label: 'Copy',
+            order: '0'
+        });
+        menus.registerMenuAction(ProblemsMenu.CLIPBOARD, {
+            commandId: ProblemsCommands.COPY_MESSAGE.id,
+            label: 'Copy Message',
+            order: '1'
+        });
+        menus.registerMenuAction(ProblemsMenu.PROBLEMS, {
+            commandId: ProblemsCommands.COLLAPSE_ALL.id,
+            label: 'Collapse All',
+            order: '2'
+        });
+    };
+    ProblemContribution.prototype.registerToolbarItems = function (toolbarRegistry) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                toolbarRegistry.registerItem({
+                    id: ProblemsCommands.COLLAPSE_ALL_TOOLBAR.id,
+                    command: ProblemsCommands.COLLAPSE_ALL_TOOLBAR.id,
+                    tooltip: 'Collapse All',
+                    priority: 0,
+                });
+                toolbarRegistry.registerItem({
+                    id: ProblemsCommands.CLEAR_ALL.id,
+                    command: ProblemsCommands.CLEAR_ALL.id,
+                    tooltip: 'Clear All',
+                    priority: 1,
+                });
+                return [2 /*return*/];
+            });
+        });
+    };
+    ProblemContribution.prototype.collapseAllProblems = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var model, root, firstChild;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.widget];
+                    case 1:
+                        model = (_a.sent()).model;
+                        root = model.root;
+                        firstChild = root.children[0];
+                        root.children.forEach(function (child) { return browser_1.CompositeTreeNode.is(child) && model.collapseAll(child); });
+                        if (browser_1.SelectableTreeNode.is(firstChild)) {
+                            model.selectNode(firstChild);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProblemContribution.prototype.addToClipboard = function (content) {
+        var handleCopy = function (e) {
+            document.removeEventListener('copy', handleCopy);
+            if (e.clipboardData) {
+                e.clipboardData.setData('text/plain', content);
+                e.preventDefault();
+            }
+        };
+        document.addEventListener('copy', handleCopy);
+        document.execCommand('copy');
+    };
+    ProblemContribution.prototype.copy = function (selection) {
+        var marker = selection.marker;
+        var serializedProblem = JSON.stringify({
+            resource: marker.uri,
+            owner: marker.uri,
+            code: marker.data.code,
+            severity: marker.data.severity,
+            message: marker.data.message,
+            source: marker.data.source,
+            startLineNumber: marker.data.range.start.line,
+            startColumn: marker.data.range.start.character,
+            endLineNumber: marker.data.range.end.line,
+            endColumn: marker.data.range.end.character
+        }, undefined, '\t');
+        this.addToClipboard(serializedProblem);
+    };
+    ProblemContribution.prototype.copyMessage = function (selection) {
+        var marker = selection.marker;
+        this.addToClipboard(marker.data.message);
+    };
+    ProblemContribution.prototype.withWidget = function (widget, cb) {
+        if (widget === void 0) { widget = this.tryGetWidget(); }
+        if (widget instanceof problem_widget_1.ProblemWidget && widget.id === problem_widget_1.PROBLEMS_WIDGET_ID) {
+            return cb(widget);
+        }
+        return false;
+    };
+    __decorate([
+        inversify_1.inject(problem_manager_1.ProblemManager),
+        __metadata("design:type", problem_manager_1.ProblemManager)
+    ], ProblemContribution.prototype, "problemManager", void 0);
+    __decorate([
+        inversify_1.inject(status_bar_1.StatusBar),
+        __metadata("design:type", Object)
+    ], ProblemContribution.prototype, "statusBar", void 0);
+    __decorate([
+        inversify_1.inject(selection_service_1.SelectionService),
+        __metadata("design:type", selection_service_1.SelectionService)
+    ], ProblemContribution.prototype, "selectionService", void 0);
+    ProblemContribution = __decorate([
+        inversify_1.injectable(),
+        __metadata("design:paramtypes", [])
+    ], ProblemContribution);
+    return ProblemContribution;
+}(view_contribution_1.AbstractViewContribution));
+exports.ProblemContribution = ProblemContribution;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-decorator.js":
+/*!*******************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-decorator.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2018 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -76,112 +936,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NewTreeExampleFileCommandHandler = exports.NewTreeExampleFileCommand = void 0;
-var dialogs_1 = __webpack_require__(/*! @theia/core/lib/browser/dialogs */ "../tree-editor-extension/node_modules/@theia/core/lib/browser/dialogs.js");
-var common_1 = __webpack_require__(/*! @theia/core/lib/common */ "../tree-editor-extension/node_modules/@theia/core/lib/common/index.js");
-var buffer_1 = __webpack_require__(/*! @theia/core/lib/common/buffer */ "../tree-editor-extension/node_modules/@theia/core/lib/common/buffer.js");
-var file_service_1 = __webpack_require__(/*! @theia/filesystem/lib/browser/file-service */ "../tree-editor-extension/node_modules/@theia/filesystem/lib/browser/file-service.js");
-var common_2 = __webpack_require__(/*! @theia/filesystem/lib/common */ "../tree-editor-extension/node_modules/@theia/filesystem/lib/common/index.js");
-var inversify_1 = __webpack_require__(/*! inversify */ "../tree-editor-extension/node_modules/inversify/lib/inversify.js");
-var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../tree-editor-extension/node_modules/@theia/core/lib/browser/index.js");
-exports.NewTreeExampleFileCommand = {
-    id: 'my-extension-tree.newExampleFile',
-    label: 'New Tree Example File'
-};
-var NewTreeExampleFileCommandHandler = /** @class */ (function () {
-    function NewTreeExampleFileCommandHandler(openerService, fileService, logger) {
-        this.openerService = openerService;
-        this.fileService = fileService;
-        this.logger = logger;
-    }
-    NewTreeExampleFileCommandHandler.prototype.execute = function (uri) {
-        return __awaiter(this, void 0, void 0, function () {
-            var stat, dir, _a, dirUri, preliminaryFileUri, dialog, fileName, fileUri_1, contentBuffer;
-            var _this = this;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.fileService.resolve(uri)];
-                    case 1:
-                        stat = _b.sent();
-                        if (!stat) {
-                            this.logger.error("[NewTreeExampleFileCommandHandler] Could not create file stat for uri", uri);
-                            return [2 /*return*/];
-                        }
-                        if (!stat.isDirectory) return [3 /*break*/, 2];
-                        _a = stat;
-                        return [3 /*break*/, 4];
-                    case 2: return [4 /*yield*/, this.fileService.resolve(uri.parent)];
-                    case 3:
-                        _a = _b.sent();
-                        _b.label = 4;
-                    case 4:
-                        dir = _a;
-                        if (!dir) {
-                            this.logger.error("[NewTreeExampleFileCommandHandler] Could not create file stat for uri", uri.parent);
-                            return [2 /*return*/];
-                        }
-                        dirUri = dir.resource;
-                        preliminaryFileUri = common_2.FileSystemUtils.generateUniqueResourceURI(dirUri, dir, 'tree-example', '.tree');
-                        dialog = new dialogs_1.SingleTextInputDialog({
-                            title: 'New Example File',
-                            initialValue: preliminaryFileUri.path.base
-                        });
-                        return [4 /*yield*/, dialog.open()];
-                    case 5:
-                        fileName = _b.sent();
-                        if (fileName) {
-                            fileUri_1 = dirUri.resolve(fileName);
-                            contentBuffer = buffer_1.BinaryBuffer.fromString(JSON.stringify(defaultData, null, 2));
-                            this.fileService.createFile(fileUri_1, contentBuffer)
-                                .then(function (_) { return _this.openerService.getOpener(fileUri_1); })
-                                .then(function (openHandler) { return openHandler.open(fileUri_1); });
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
     };
-    NewTreeExampleFileCommandHandler = __decorate([
-        inversify_1.injectable(),
-        __param(0, inversify_1.inject(browser_1.OpenerService)),
-        __param(1, inversify_1.inject(file_service_1.FileService)),
-        __param(2, inversify_1.inject(common_1.ILogger)),
-        __metadata("design:paramtypes", [Object, file_service_1.FileService, Object])
-    ], NewTreeExampleFileCommandHandler);
-    return NewTreeExampleFileCommandHandler;
-}());
-exports.NewTreeExampleFileCommandHandler = NewTreeExampleFileCommandHandler;
-var defaultData = {
-    "typeId": "#tutorial",
-    "title": "Tutorial 0",
-    "description": "test description",
-    "tutorialFolder": "theia-extension",
-};
-
-
-/***/ }),
-
-/***/ "../tree-editor-extension/lib/browser/example-file/example-file-contribution.js":
-/*!**************************************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/example-file/example-file-contribution.js ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
@@ -199,220 +963,321 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NewTreeExampleFileMenuContribution = exports.NewTreeExampleFileCommandContribution = void 0;
-var common_1 = __webpack_require__(/*! @theia/core/lib/common */ "../tree-editor-extension/node_modules/@theia/core/lib/common/index.js");
-var inversify_1 = __webpack_require__(/*! inversify */ "../tree-editor-extension/node_modules/inversify/lib/inversify.js");
-var workspace_commands_1 = __webpack_require__(/*! @theia/workspace/lib/browser/workspace-commands */ "../tree-editor-extension/node_modules/@theia/workspace/lib/browser/workspace-commands.js");
-var browser_1 = __webpack_require__(/*! @theia/workspace/lib/browser */ "../tree-editor-extension/node_modules/@theia/workspace/lib/browser/index.js");
-var example_file_command_1 = __webpack_require__(/*! ./example-file-command */ "../tree-editor-extension/lib/browser/example-file/example-file-command.js");
-var TREE_EDITOR_MAIN_MENU = __spread(common_1.MAIN_MENU_BAR, ['9_treeeditormenu']);
-var NewTreeExampleFileCommandContribution = /** @class */ (function () {
-    function NewTreeExampleFileCommandContribution(selectionService, workspaceService, newExampleFileHandler) {
-        this.selectionService = selectionService;
-        this.workspaceService = workspaceService;
-        this.newExampleFileHandler = newExampleFileHandler;
+exports.ProblemDecorator = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var vscode_languageserver_types_1 = __webpack_require__(/*! vscode-languageserver-types */ "../node_modules/vscode-languageserver-types/lib/esm/main.js");
+var uri_1 = __webpack_require__(/*! @theia/core/lib/common/uri */ "../node_modules/@theia/core/lib/common/uri.js");
+var objects_1 = __webpack_require__(/*! @theia/core/lib/common/objects */ "../node_modules/@theia/core/lib/common/objects.js");
+var event_1 = __webpack_require__(/*! @theia/core/lib/common/event */ "../node_modules/@theia/core/lib/common/event.js");
+var tree_iterator_1 = __webpack_require__(/*! @theia/core/lib/browser/tree/tree-iterator */ "../node_modules/@theia/core/lib/browser/tree/tree-iterator.js");
+var tree_decorator_1 = __webpack_require__(/*! @theia/core/lib/browser/tree/tree-decorator */ "../node_modules/@theia/core/lib/browser/tree/tree-decorator.js");
+var browser_1 = __webpack_require__(/*! @theia/filesystem/lib/browser */ "../node_modules/@theia/filesystem/lib/browser/index.js");
+var problem_manager_1 = __webpack_require__(/*! ./problem-manager */ "../node_modules/@theia/markers/lib/browser/problem/problem-manager.js");
+var problem_preferences_1 = __webpack_require__(/*! ./problem-preferences */ "../node_modules/@theia/markers/lib/browser/problem/problem-preferences.js");
+var problem_utils_1 = __webpack_require__(/*! ./problem-utils */ "../node_modules/@theia/markers/lib/browser/problem/problem-utils.js");
+var ProblemDecorator = /** @class */ (function () {
+    function ProblemDecorator(problemManager) {
+        var _this = this;
+        this.problemManager = problemManager;
+        this.id = 'theia-problem-decorator';
+        this.emitter = new event_1.Emitter();
+        this.problemManager.onDidChangeMarkers(function () { return _this.fireDidChangeDecorations(function (tree) { return _this.collectDecorators(tree); }); });
     }
-    NewTreeExampleFileCommandContribution.prototype.registerCommands = function (registry) {
-        registry.registerCommand(example_file_command_1.NewTreeExampleFileCommand, new workspace_commands_1.WorkspaceRootUriAwareCommandHandler(this.workspaceService, this.selectionService, this.newExampleFileHandler));
-    };
-    NewTreeExampleFileCommandContribution = __decorate([
-        inversify_1.injectable(),
-        __param(0, inversify_1.inject(common_1.SelectionService)),
-        __param(1, inversify_1.inject(browser_1.WorkspaceService)),
-        __param(2, inversify_1.inject(example_file_command_1.NewTreeExampleFileCommandHandler)),
-        __metadata("design:paramtypes", [common_1.SelectionService,
-            browser_1.WorkspaceService,
-            example_file_command_1.NewTreeExampleFileCommandHandler])
-    ], NewTreeExampleFileCommandContribution);
-    return NewTreeExampleFileCommandContribution;
-}());
-exports.NewTreeExampleFileCommandContribution = NewTreeExampleFileCommandContribution;
-var NewTreeExampleFileMenuContribution = /** @class */ (function () {
-    function NewTreeExampleFileMenuContribution() {
-    }
-    NewTreeExampleFileMenuContribution.prototype.registerMenus = function (menus) {
-        menus.registerSubmenu(TREE_EDITOR_MAIN_MENU, 'Tree Editor');
-        menus.registerMenuAction(TREE_EDITOR_MAIN_MENU, {
-            commandId: example_file_command_1.NewTreeExampleFileCommand.id,
-            label: 'New Example File'
+    ProblemDecorator_1 = ProblemDecorator;
+    ProblemDecorator.prototype.init = function () {
+        var _this = this;
+        this.problemPreferences.onPreferenceChanged(function (event) {
+            var preferenceName = event.preferenceName;
+            if (preferenceName === 'problems.decorations.enabled') {
+                _this.fireDidChangeDecorations(function (tree) { return _this.collectDecorators(tree); });
+            }
         });
     };
-    NewTreeExampleFileMenuContribution = __decorate([
-        inversify_1.injectable()
-    ], NewTreeExampleFileMenuContribution);
-    return NewTreeExampleFileMenuContribution;
-}());
-exports.NewTreeExampleFileMenuContribution = NewTreeExampleFileMenuContribution;
-
-
-/***/ }),
-
-/***/ "../tree-editor-extension/lib/browser/tree-contribution.js":
-/*!*****************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree-contribution.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
+    ProblemDecorator.prototype.decorations = function (tree) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.collectDecorators(tree)];
+            });
+        });
     };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    Object.defineProperty(ProblemDecorator.prototype, "onDidChangeDecorations", {
+        get: function () {
+            return this.emitter.event;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    ProblemDecorator.prototype.fireDidChangeDecorations = function (event) {
+        this.emitter.fire(event);
     };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TreeContribution = void 0;
-var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../tree-editor-extension/node_modules/@theia/core/lib/browser/index.js");
-var inversify_1 = __webpack_require__(/*! inversify */ "../tree-editor-extension/node_modules/inversify/lib/inversify.js");
-var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../tree-editor-extension/node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
-var tree_model_service_1 = __webpack_require__(/*! ./tree/tree-model-service */ "../tree-editor-extension/lib/browser/tree/tree-model-service.js");
-var tree_editor_widget_1 = __webpack_require__(/*! ./tree/tree-editor-widget */ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js");
-var tree_label_provider_1 = __webpack_require__(/*! ./tree/tree-label-provider */ "../tree-editor-extension/lib/browser/tree/tree-label-provider.js");
-var TreeContribution = /** @class */ (function (_super) {
-    __extends(TreeContribution, _super);
-    function TreeContribution(modelService, labelProvider) {
-        var _this = _super.call(this, tree_editor_widget_1.TreeEditorWidget.WIDGET_ID, modelService, labelProvider) || this;
-        _this.id = tree_editor_widget_1.TreeEditorWidget.WIDGET_ID;
-        _this.label = theia_tree_editor_1.MasterTreeWidget.WIDGET_LABEL;
-        return _this;
-    }
-    TreeContribution.prototype.canHandle = function (uri) {
-        if (uri.path.ext === '.tree') {
-            return 1000;
+    ProblemDecorator.prototype.collectDecorators = function (tree) {
+        var e_1, _a;
+        var _this = this;
+        var result = new Map();
+        // If the tree root is undefined or the preference for the decorations is disabled, return an empty result map.
+        if (tree.root === undefined || !this.problemPreferences['problems.decorations.enabled']) {
+            return result;
         }
-        return 0;
+        var markers = this.appendContainerMarkers(tree, this.collectMarkers(tree));
+        try {
+            for (var _b = __values(new tree_iterator_1.DepthFirstTreeIterator(tree.root)), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var node = _c.value;
+                var nodeUri = browser_1.FileStatNode.getUri(node);
+                if (nodeUri) {
+                    var marker = markers.get(nodeUri);
+                    if (marker) {
+                        result.set(node.id, marker);
+                    }
+                }
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return new Map(Array.from(result.entries()).map(function (m) { return [m[0], _this.toDecorator(m[1])]; }));
     };
-    TreeContribution.prototype.registerCommands = function (commands) {
-        // register your custom commands here
-        _super.prototype.registerCommands.call(this, commands);
+    ProblemDecorator.prototype.appendContainerMarkers = function (tree, markers) {
+        var e_2, _a;
+        var result = new Map();
+        try {
+            // We traverse up and assign the diagnostic to the container directory.
+            // Note, instead of stopping at the WS root, we traverse up the driver root.
+            // We will filter them later based on the expansion state of the tree.
+            for (var _b = __values(new Map(markers.map(function (m) { return [new uri_1.default(m.uri), m]; })).entries()), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var _d = __read(_c.value, 2), uri = _d[0], marker = _d[1];
+                var uriString = uri.toString();
+                result.set(uriString, marker);
+                var parentUri = uri.parent;
+                while (parentUri && !parentUri.path.isRoot) {
+                    var parentUriString = parentUri.toString();
+                    var existing = result.get(parentUriString);
+                    // Make sure the highest diagnostic severity (smaller number) will be propagated to the container directory.
+                    if (existing === undefined || this.compare(marker, existing) < 0) {
+                        result.set(parentUriString, {
+                            data: marker.data,
+                            uri: parentUriString,
+                            owner: marker.owner,
+                            kind: marker.kind
+                        });
+                        parentUri = parentUri.parent;
+                    }
+                    else {
+                        parentUri = undefined;
+                    }
+                }
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        return result;
     };
-    TreeContribution.prototype.registerMenus = function (menus) {
-        // register your custom menu actions here
-        _super.prototype.registerMenus.call(this, menus);
+    ProblemDecorator.prototype.collectMarkers = function (tree) {
+        var _this = this;
+        return Array.from(this.problemManager.getUris())
+            .map(function (uri) { return new uri_1.default(uri); })
+            .map(function (uri) { return _this.problemManager.findMarkers({ uri: uri }); })
+            .map(function (markers) { return markers.sort(_this.compare.bind(_this)); })
+            .map(function (markers) { return markers.shift(); })
+            .filter(objects_1.notEmpty)
+            .filter(this.filterMarker.bind(this));
     };
-    TreeContribution.prototype.createWidgetOptions = function (uri, options) {
+    ProblemDecorator.prototype.toDecorator = function (marker) {
+        var position = tree_decorator_1.TreeDecoration.IconOverlayPosition.BOTTOM_RIGHT;
+        var icon = this.getOverlayIcon(marker);
+        var color = this.getOverlayIconColor(marker);
+        var priority = this.getPriority(marker);
         return {
-            kind: 'navigatable',
-            uri: this.serializeUri(uri)
+            priority: priority,
+            fontData: {
+                color: color,
+            },
+            iconOverlay: {
+                position: position,
+                icon: icon,
+                color: color,
+                background: {
+                    shape: 'circle',
+                    color: 'transparent'
+                }
+            },
         };
     };
-    TreeContribution.prototype.serializeUri = function (uri) {
-        return uri.withoutFragment().toString();
+    ProblemDecorator.prototype.getOverlayIcon = function (marker) {
+        var severity = marker.data.severity;
+        switch (severity) {
+            case 1: return 'times-circle';
+            case 2: return 'exclamation-circle';
+            case 3: return 'info-circle';
+            default: return 'hand-o-up';
+        }
     };
+    ProblemDecorator.prototype.getOverlayIconColor = function (marker) {
+        var severity = marker.data.severity;
+        switch (severity) {
+            case 1: return 'var(--theia-editorError-foreground)';
+            case 2: return 'var(--theia-editorWarning-foreground)';
+            case 3: return 'var(--theia-editorInfo-foreground)';
+            default: return 'var(--theia-successBackground)';
+        }
+    };
+    /**
+     * Get the decoration for a given marker diagnostic.
+     * Markers with higher severity have a higher priority and should be displayed.
+     * @param marker the diagnostic marker.
+     */
+    ProblemDecorator.prototype.getPriority = function (marker) {
+        var severity = marker.data.severity;
+        switch (severity) {
+            case 1: return 30; // Errors.
+            case 2: return 20; // Warnings.
+            case 3: return 10; // Infos.
+            default: return 0;
+        }
+    };
+    /**
+     * Returns `true` if the diagnostic (`data`) of the marker argument has `Error`, `Warning`, or `Information` severity.
+     * Otherwise, returns `false`.
+     */
+    ProblemDecorator.prototype.filterMarker = function (marker) {
+        var severity = marker.data.severity;
+        return severity === vscode_languageserver_types_1.DiagnosticSeverity.Error
+            || severity === vscode_languageserver_types_1.DiagnosticSeverity.Warning
+            || severity === vscode_languageserver_types_1.DiagnosticSeverity.Information;
+    };
+    ProblemDecorator.prototype.compare = function (left, right) {
+        return ProblemDecorator_1.severityCompare(left, right);
+    };
+    var ProblemDecorator_1;
     __decorate([
-        inversify_1.inject(browser_1.ApplicationShell),
-        __metadata("design:type", browser_1.ApplicationShell)
-    ], TreeContribution.prototype, "shell", void 0);
-    __decorate([
-        inversify_1.inject(browser_1.OpenerService),
+        inversify_1.inject(problem_preferences_1.ProblemPreferences),
         __metadata("design:type", Object)
-    ], TreeContribution.prototype, "opener", void 0);
-    TreeContribution = __decorate([
+    ], ProblemDecorator.prototype, "problemPreferences", void 0);
+    __decorate([
+        inversify_1.postConstruct(),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], ProblemDecorator.prototype, "init", null);
+    ProblemDecorator = ProblemDecorator_1 = __decorate([
         inversify_1.injectable(),
-        __param(0, inversify_1.inject(tree_model_service_1.TreeModelService)),
-        __param(1, inversify_1.inject(tree_label_provider_1.TreeLabelProvider)),
-        __metadata("design:paramtypes", [Object, tree_label_provider_1.TreeLabelProvider])
-    ], TreeContribution);
-    return TreeContribution;
-}(theia_tree_editor_1.BaseTreeEditorContribution));
-exports.TreeContribution = TreeContribution;
+        __param(0, inversify_1.inject(problem_manager_1.ProblemManager)),
+        __metadata("design:paramtypes", [problem_manager_1.ProblemManager])
+    ], ProblemDecorator);
+    return ProblemDecorator;
+}());
+exports.ProblemDecorator = ProblemDecorator;
+(function (ProblemDecorator) {
+    // Highest severities (errors) come first, then the others. Undefined severities treated as the last ones.
+    ProblemDecorator.severityCompare = problem_utils_1.ProblemUtils.severityCompare;
+})(ProblemDecorator = exports.ProblemDecorator || (exports.ProblemDecorator = {}));
+exports.ProblemDecorator = ProblemDecorator;
 
 
 /***/ }),
 
-/***/ "../tree-editor-extension/lib/browser/tree-editor-extension-frontend-module.js":
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-frontend-module.js":
 /*!*************************************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree-editor-extension-frontend-module.js ***!
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-frontend-module.js ***!
   \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
 Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor/style/index.css */ "../tree-editor-extension/node_modules/@eclipse-emfcloud/theia-tree-editor/style/index.css");
-__webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor/style/forms.css */ "../tree-editor-extension/node_modules/@eclipse-emfcloud/theia-tree-editor/style/forms.css");
-__webpack_require__(/*! ../../src/browser/style/editor.css */ "../tree-editor-extension/src/browser/style/editor.css");
-var core_1 = __webpack_require__(/*! @theia/core */ "../tree-editor-extension/node_modules/@theia/core/lib/common/index.js");
-var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../tree-editor-extension/node_modules/@theia/core/lib/browser/index.js");
-var uri_1 = __webpack_require__(/*! @theia/core/lib/common/uri */ "../tree-editor-extension/node_modules/@theia/core/lib/common/uri.js");
-var inversify_1 = __webpack_require__(/*! inversify */ "../tree-editor-extension/node_modules/inversify/lib/inversify.js");
-var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../tree-editor-extension/node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
-var tree_contribution_1 = __webpack_require__(/*! ./tree-contribution */ "../tree-editor-extension/lib/browser/tree-contribution.js");
-var tree_model_service_1 = __webpack_require__(/*! ./tree/tree-model-service */ "../tree-editor-extension/lib/browser/tree/tree-model-service.js");
-var tree_node_factory_1 = __webpack_require__(/*! ./tree/tree-node-factory */ "../tree-editor-extension/lib/browser/tree/tree-node-factory.js");
-var tree_editor_widget_1 = __webpack_require__(/*! ./tree/tree-editor-widget */ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js");
-var tree_label_provider_1 = __webpack_require__(/*! ./tree/tree-label-provider */ "../tree-editor-extension/lib/browser/tree/tree-label-provider.js");
-var tree_label_provider_contribution_1 = __webpack_require__(/*! ./tree-label-provider-contribution */ "../tree-editor-extension/lib/browser/tree-label-provider-contribution.js");
-var example_file_command_1 = __webpack_require__(/*! ./example-file/example-file-command */ "../tree-editor-extension/lib/browser/example-file/example-file-command.js");
-var example_file_contribution_1 = __webpack_require__(/*! ./example-file/example-file-contribution */ "../tree-editor-extension/lib/browser/example-file/example-file-contribution.js");
-var tutorial_detail_form_widget_1 = __webpack_require__(/*! ./tree/tutorial-detail-form-widget */ "../tree-editor-extension/lib/browser/tree/tutorial-detail-form-widget.js");
+__webpack_require__(/*! ../../../src/browser/style/index.css */ "../node_modules/@theia/markers/src/browser/style/index.css");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var problem_widget_1 = __webpack_require__(/*! ./problem-widget */ "../node_modules/@theia/markers/lib/browser/problem/problem-widget.js");
+var problem_contribution_1 = __webpack_require__(/*! ./problem-contribution */ "../node_modules/@theia/markers/lib/browser/problem/problem-contribution.js");
+var problem_container_1 = __webpack_require__(/*! ./problem-container */ "../node_modules/@theia/markers/lib/browser/problem/problem-container.js");
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var problem_manager_1 = __webpack_require__(/*! ./problem-manager */ "../node_modules/@theia/markers/lib/browser/problem/problem-manager.js");
+var widget_manager_1 = __webpack_require__(/*! @theia/core/lib/browser/widget-manager */ "../node_modules/@theia/core/lib/browser/widget-manager.js");
+var navigator_decorator_service_1 = __webpack_require__(/*! @theia/navigator/lib/browser/navigator-decorator-service */ "../node_modules/@theia/navigator/lib/browser/navigator-decorator-service.js");
+var problem_decorator_1 = __webpack_require__(/*! ./problem-decorator */ "../node_modules/@theia/markers/lib/browser/problem/problem-decorator.js");
+var problem_tabbar_decorator_1 = __webpack_require__(/*! ./problem-tabbar-decorator */ "../node_modules/@theia/markers/lib/browser/problem/problem-tabbar-decorator.js");
+var tab_bar_toolbar_1 = __webpack_require__(/*! @theia/core/lib/browser/shell/tab-bar-toolbar */ "../node_modules/@theia/core/lib/browser/shell/tab-bar-toolbar.js");
+var problem_layout_migrations_1 = __webpack_require__(/*! ./problem-layout-migrations */ "../node_modules/@theia/markers/lib/browser/problem/problem-layout-migrations.js");
+var tab_bar_decorator_1 = __webpack_require__(/*! @theia/core/lib/browser/shell/tab-bar-decorator */ "../node_modules/@theia/core/lib/browser/shell/tab-bar-decorator.js");
+var problem_preferences_1 = __webpack_require__(/*! ./problem-preferences */ "../node_modules/@theia/markers/lib/browser/problem/problem-preferences.js");
+var marker_tree_label_provider_1 = __webpack_require__(/*! ../marker-tree-label-provider */ "../node_modules/@theia/markers/lib/browser/marker-tree-label-provider.js");
+var problem_widget_tab_bar_decorator_1 = __webpack_require__(/*! ./problem-widget-tab-bar-decorator */ "../node_modules/@theia/markers/lib/browser/problem/problem-widget-tab-bar-decorator.js");
 exports.default = new inversify_1.ContainerModule(function (bind) {
-    // Bind Theia IDE contributions for the example file creation menu entry.
-    bind(example_file_command_1.NewTreeExampleFileCommandHandler).toSelf();
-    bind(core_1.CommandContribution).to(example_file_contribution_1.NewTreeExampleFileCommandContribution);
-    bind(core_1.MenuContribution).to(example_file_contribution_1.NewTreeExampleFileMenuContribution);
-    // Bind Theia IDE contributions for the tree editor.
-    bind(browser_1.LabelProviderContribution).to(tree_label_provider_contribution_1.TreeLabelProviderContribution);
-    bind(browser_1.OpenHandler).to(tree_contribution_1.TreeContribution);
-    bind(core_1.MenuContribution).to(tree_contribution_1.TreeContribution);
-    bind(core_1.CommandContribution).to(tree_contribution_1.TreeContribution);
-    bind(browser_1.LabelProviderContribution).to(tree_label_provider_1.TreeLabelProvider);
-    // bind services to themselves because we use them outside of the editor widget, too.
-    bind(tree_model_service_1.TreeModelService).toSelf().inSingletonScope();
-    bind(tree_label_provider_1.TreeLabelProvider).toSelf().inSingletonScope();
-    bind(browser_1.WidgetFactory).toDynamicValue(function (context) { return ({
-        id: tree_editor_widget_1.TreeEditorWidget.WIDGET_ID,
-        createWidget: function (options) {
-            var treeContainer = theia_tree_editor_1.createBasicTreeContainter(context.container, tree_editor_widget_1.TreeEditorWidget, tree_model_service_1.TreeModelService, tree_node_factory_1.TreeNodeFactory);
-            //@ts-ignore
-            treeContainer.rebind(theia_tree_editor_1.DetailFormWidget).to(tutorial_detail_form_widget_1.TutorialDetailFormWidget);
-            // Bind options.
-            var uri = new uri_1.default(options.uri);
-            treeContainer.bind(theia_tree_editor_1.NavigatableTreeEditorOptions).toConstantValue({ uri: uri });
-            return treeContainer.get(tree_editor_widget_1.TreeEditorWidget);
-        }
+    problem_preferences_1.bindProblemPreferences(bind);
+    bind(problem_manager_1.ProblemManager).toSelf().inSingletonScope();
+    bind(problem_widget_1.ProblemWidget).toDynamicValue(function (ctx) {
+        return problem_container_1.createProblemWidget(ctx.container);
+    });
+    bind(widget_manager_1.WidgetFactory).toDynamicValue(function (context) { return ({
+        id: problem_widget_1.PROBLEMS_WIDGET_ID,
+        createWidget: function () { return context.container.get(problem_widget_1.ProblemWidget); }
     }); });
+    bind(browser_1.ApplicationShellLayoutMigration).to(problem_layout_migrations_1.ProblemLayoutVersion3Migration).inSingletonScope();
+    browser_1.bindViewContribution(bind, problem_contribution_1.ProblemContribution);
+    bind(browser_1.FrontendApplicationContribution).toService(problem_contribution_1.ProblemContribution);
+    bind(tab_bar_toolbar_1.TabBarToolbarContribution).toService(problem_contribution_1.ProblemContribution);
+    bind(problem_decorator_1.ProblemDecorator).toSelf().inSingletonScope();
+    bind(navigator_decorator_service_1.NavigatorTreeDecorator).toService(problem_decorator_1.ProblemDecorator);
+    bind(problem_tabbar_decorator_1.ProblemTabBarDecorator).toSelf().inSingletonScope();
+    bind(tab_bar_decorator_1.TabBarDecorator).toService(problem_tabbar_decorator_1.ProblemTabBarDecorator);
+    bind(marker_tree_label_provider_1.MarkerTreeLabelProvider).toSelf().inSingletonScope();
+    bind(browser_1.LabelProviderContribution).toService(marker_tree_label_provider_1.MarkerTreeLabelProvider);
+    bind(problem_widget_tab_bar_decorator_1.ProblemWidgetTabBarDecorator).toSelf().inSingletonScope();
+    bind(tab_bar_decorator_1.TabBarDecorator).toService(problem_widget_tab_bar_decorator_1.ProblemWidgetTabBarDecorator);
 });
 
 
 /***/ }),
 
-/***/ "../tree-editor-extension/lib/browser/tree-label-provider-contribution.js":
-/*!********************************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree-label-provider-contribution.js ***!
-  \********************************************************************************/
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-layout-migrations.js":
+/*!***************************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-layout-migrations.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+/********************************************************************************
+ * Copyright (C) 2019 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -420,1216 +1285,122 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TreeLabelProviderContribution = void 0;
-var uri_1 = __webpack_require__(/*! @theia/core/lib/common/uri */ "../tree-editor-extension/node_modules/@theia/core/lib/common/uri.js");
-var common_1 = __webpack_require__(/*! @theia/filesystem/lib/common */ "../tree-editor-extension/node_modules/@theia/filesystem/lib/common/index.js");
-var inversify_1 = __webpack_require__(/*! inversify */ "../tree-editor-extension/node_modules/inversify/lib/inversify.js");
-var TreeLabelProviderContribution = /** @class */ (function () {
-    function TreeLabelProviderContribution() {
+exports.ProblemLayoutVersion3Migration = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var problem_marker_1 = __webpack_require__(/*! ../../common/problem-marker */ "../node_modules/@theia/markers/lib/common/problem-marker.js");
+var problem_widget_1 = __webpack_require__(/*! ./problem-widget */ "../node_modules/@theia/markers/lib/browser/problem/problem-widget.js");
+var ProblemLayoutVersion3Migration = /** @class */ (function () {
+    function ProblemLayoutVersion3Migration() {
+        this.layoutVersion = 3.0;
     }
-    TreeLabelProviderContribution.prototype.canHandle = function (uri) {
-        var toCheck = uri;
-        if (common_1.FileStat.is(toCheck)) {
-            toCheck = new uri_1.default(toCheck.uri);
-        }
-        if (toCheck instanceof uri_1.default) {
-            if (toCheck.path.ext === '.tree') {
-                return 1000;
-            }
-        }
-        return 0;
-    };
-    TreeLabelProviderContribution.prototype.getIcon = function () {
-        return 'fa fa-coffee dark-purple';
-    };
-    TreeLabelProviderContribution = __decorate([
-        inversify_1.injectable()
-    ], TreeLabelProviderContribution);
-    return TreeLabelProviderContribution;
-}());
-exports.TreeLabelProviderContribution = TreeLabelProviderContribution;
-
-
-/***/ }),
-
-/***/ "../tree-editor-extension/lib/browser/tree/MyGroup.js":
-/*!************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree/MyGroup.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.myGroupTester = void 0;
-var core_1 = __webpack_require__(/*! @jsonforms/core */ "../tree-editor-extension/node_modules/@jsonforms/core/lib/index.js");
-var material_renderers_1 = __webpack_require__(/*! @jsonforms/material-renderers */ "../tree-editor-extension/node_modules/@jsonforms/material-renderers/lib/index.js");
-var core_2 = __webpack_require__(/*! @material-ui/core */ "../tree-editor-extension/node_modules/@material-ui/core/esm/index.js");
-var ExpandMore_1 = __webpack_require__(/*! @material-ui/icons/ExpandMore */ "../tree-editor-extension/node_modules/@material-ui/icons/ExpandMore.js");
-var React = __webpack_require__(/*! react */ "../tree-editor-extension/node_modules/react/index.js");
-var react_redux_1 = __webpack_require__(/*! react-redux */ "../tree-editor-extension/node_modules/react-redux/es/index.js");
-exports.myGroupTester = core_1.rankWith(1000, core_1.uiTypeIs("Group"));
-var MyGroupRenderer = function (props) {
-    var uischema = props.uischema, schema = props.schema, path = props.path, visible = props.visible, renderers = props.renderers;
-    var layoutProps = {
-        elements: uischema.elements,
-        schema: schema,
-        path: path,
-        direction: "column",
-        visible: visible,
-        uischema: uischema,
-        renderers: renderers,
-    };
-    return (React.createElement(core_2.Hidden, { xsUp: !visible },
-        React.createElement(core_2.ExpansionPanel, null,
-            React.createElement(core_2.ExpansionPanelSummary, { expandIcon: React.createElement(ExpandMore_1.default, null) },
-                React.createElement(core_2.Typography, null, uischema.label)),
-            React.createElement(core_2.ExpansionPanelDetails, null,
-                React.createElement(material_renderers_1.MaterialLayoutRenderer, __assign({}, layoutProps))))));
-};
-exports.default = react_redux_1.connect(core_1.mapStateToLayoutProps)(MyGroupRenderer);
-
-
-/***/ }),
-
-/***/ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js":
-/*!***********************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree/tree-editor-widget.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TreeEditorWidget = void 0;
-var common_1 = __webpack_require__(/*! @theia/core/lib/common */ "../tree-editor-extension/node_modules/@theia/core/lib/common/index.js");
-var browser_1 = __webpack_require__(/*! @theia/editor/lib/browser */ "../tree-editor-extension/node_modules/@theia/editor/lib/browser/index.js");
-var workspace_service_1 = __webpack_require__(/*! @theia/workspace/lib/browser/workspace-service */ "../tree-editor-extension/node_modules/@theia/workspace/lib/browser/workspace-service.js");
-var inversify_1 = __webpack_require__(/*! inversify */ "../tree-editor-extension/node_modules/inversify/lib/inversify.js");
-var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../tree-editor-extension/node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
-var theia_tree_editor_2 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../tree-editor-extension/node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
-var TreeEditorWidget = /** @class */ (function (_super) {
-    __extends(TreeEditorWidget, _super);
-    function TreeEditorWidget(treeWidget, formWidget, workspaceService, logger, options, provider, nodeFactory, editorPreferences) {
-        var _this = _super.call(this, treeWidget, formWidget, workspaceService, logger, TreeEditorWidget_1.WIDGET_ID, options, provider, nodeFactory, editorPreferences) || this;
-        _this.treeWidget = treeWidget;
-        _this.formWidget = formWidget;
-        _this.workspaceService = workspaceService;
-        _this.logger = logger;
-        _this.options = options;
-        _this.provider = provider;
-        _this.nodeFactory = nodeFactory;
-        _this.editorPreferences = editorPreferences;
-        return _this;
-    }
-    TreeEditorWidget_1 = TreeEditorWidget;
-    TreeEditorWidget.prototype.getTypeProperty = function () {
-        return "typeId";
-    };
-    TreeEditorWidget.prototype.configureTitle = function (title) {
-        _super.prototype.configureTitle.call(this, title);
-        title.iconClass = 'fa fa-coffee dark-purple';
-    };
-    var TreeEditorWidget_1;
-    TreeEditorWidget = TreeEditorWidget_1 = __decorate([
-        inversify_1.injectable(),
-        __param(0, inversify_1.inject(theia_tree_editor_1.MasterTreeWidget)),
-        __param(1, inversify_1.inject(theia_tree_editor_1.DetailFormWidget)),
-        __param(2, inversify_1.inject(workspace_service_1.WorkspaceService)),
-        __param(3, inversify_1.inject(common_1.ILogger)),
-        __param(4, inversify_1.inject(theia_tree_editor_1.NavigatableTreeEditorOptions)),
-        __param(5, inversify_1.inject(common_1.DefaultResourceProvider)),
-        __param(6, inversify_1.inject(theia_tree_editor_1.TreeEditor.NodeFactory)),
-        __param(7, inversify_1.inject(browser_1.EditorPreferences)),
-        __metadata("design:paramtypes", [theia_tree_editor_1.MasterTreeWidget,
-            theia_tree_editor_1.DetailFormWidget,
-            workspace_service_1.WorkspaceService, Object, Object, common_1.DefaultResourceProvider, Object, Object])
-    ], TreeEditorWidget);
-    return TreeEditorWidget;
-}(theia_tree_editor_2.ResourceTreeEditorWidget));
-exports.TreeEditorWidget = TreeEditorWidget;
-(function (TreeEditorWidget) {
-    TreeEditorWidget.WIDGET_ID = 'tree-editor-extension-tree-editor';
-})(TreeEditorWidget = exports.TreeEditorWidget || (exports.TreeEditorWidget = {}));
-exports.TreeEditorWidget = TreeEditorWidget;
-
-
-/***/ }),
-
-/***/ "../tree-editor-extension/lib/browser/tree/tree-label-provider.js":
-/*!************************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree/tree-label-provider.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TreeLabelProvider = void 0;
-var inversify_1 = __webpack_require__(/*! inversify */ "../tree-editor-extension/node_modules/inversify/lib/inversify.js");
-var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../tree-editor-extension/node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
-var tree_model_1 = __webpack_require__(/*! ./tree-model */ "../tree-editor-extension/lib/browser/tree/tree-model.js");
-var tree_editor_widget_1 = __webpack_require__(/*! ./tree-editor-widget */ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js");
-var DEFAULT_COLOR = 'black';
-var ICON_CLASSES = new Map([
-    [tree_model_1.CoffeeModel.Type.Exercise, 'fa-tint ' + DEFAULT_COLOR],
-]);
-/* Icon for unknown types */
-var UNKNOWN_ICON = 'fa-question-circle ' + DEFAULT_COLOR;
-var TreeLabelProvider = /** @class */ (function () {
-    function TreeLabelProvider() {
-    }
-    TreeLabelProvider.prototype.canHandle = function (element) {
-        if ((theia_tree_editor_1.TreeEditor.Node.is(element) || theia_tree_editor_1.TreeEditor.CommandIconInfo.is(element))
-            && element.editorId === tree_editor_widget_1.TreeEditorWidget.WIDGET_ID) {
-            return 1000;
-        }
-        return 0;
-    };
-    TreeLabelProvider.prototype.getIcon = function (element) {
-        var iconClass;
-        if (theia_tree_editor_1.TreeEditor.CommandIconInfo.is(element)) {
-            iconClass = ICON_CLASSES.get(element.type);
-        }
-        else if (theia_tree_editor_1.TreeEditor.Node.is(element)) {
-            iconClass = ICON_CLASSES.get(element.jsonforms.type);
-        }
-        return iconClass ? 'fa ' + iconClass : 'fa ' + UNKNOWN_ICON;
-    };
-    TreeLabelProvider.prototype.getName = function (element) {
-        var data = theia_tree_editor_1.TreeEditor.Node.is(element) ? element.jsonforms.data : element;
-        if (data.name) {
-            return data.name;
-        }
-        else if (data.typeId) {
-            return this.getTypeName(data.typeId);
+    ProblemLayoutVersion3Migration.prototype.onWillInflateWidget = function (desc) {
+        if (desc.constructionOptions.factoryId === problem_marker_1.PROBLEM_KIND) {
+            desc.constructionOptions.factoryId = problem_widget_1.PROBLEMS_WIDGET_ID;
+            return desc;
         }
         return undefined;
     };
-    TreeLabelProvider.prototype.getTypeName = function (typeId) {
-        return tree_model_1.CoffeeModel.Type.name(typeId);
-    };
-    TreeLabelProvider = __decorate([
+    ProblemLayoutVersion3Migration = __decorate([
         inversify_1.injectable()
-    ], TreeLabelProvider);
-    return TreeLabelProvider;
+    ], ProblemLayoutVersion3Migration);
+    return ProblemLayoutVersion3Migration;
 }());
-exports.TreeLabelProvider = TreeLabelProvider;
+exports.ProblemLayoutVersion3Migration = ProblemLayoutVersion3Migration;
 
 
 /***/ }),
 
-/***/ "../tree-editor-extension/lib/browser/tree/tree-model-service.js":
-/*!***********************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree/tree-model-service.js ***!
-  \***********************************************************************/
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-preferences.js":
+/*!*********************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-preferences.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
+/********************************************************************************
+ * Copyright (C) 2019 Ericsson and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TreeModelService = void 0;
-var tree_schema_1 = __webpack_require__(/*! ./tree-schema */ "../tree-editor-extension/lib/browser/tree/tree-schema.js");
-var core_1 = __webpack_require__(/*! @theia/core */ "../tree-editor-extension/node_modules/@theia/core/lib/common/index.js");
-var inversify_1 = __webpack_require__(/*! inversify */ "../tree-editor-extension/node_modules/inversify/lib/inversify.js");
-var tree_model_1 = __webpack_require__(/*! ./tree-model */ "../tree-editor-extension/lib/browser/tree/tree-model.js");
-var tree_schema_2 = __webpack_require__(/*! ./tree-schema */ "../tree-editor-extension/lib/browser/tree/tree-schema.js");
-var TreeModelService = /** @class */ (function () {
-    function TreeModelService(logger) {
-        this.logger = logger;
+exports.bindProblemPreferences = exports.createProblemPreferences = exports.ProblemPreferences = exports.ProblemConfigSchema = void 0;
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+exports.ProblemConfigSchema = {
+    'type': 'object',
+    'properties': {
+        'problems.decorations.enabled': {
+            'type': 'boolean',
+            'description': 'Show problem decorators (diagnostic markers) in tree widgets.',
+            'default': true,
+        },
+        'problems.decorations.tabbar.enabled': {
+            'type': 'boolean',
+            'description': 'Show problem decorators (diagnostic markers) in the tab bars.',
+            'default': true
+        },
+        'problems.autoReveal': {
+            'type': 'boolean',
+            'description': 'Controls whether Problems view should reveal markers when file is opened.',
+            'default': true
+        }
     }
-    TreeModelService.prototype.getDataForNode = function (node) {
-        return node.jsonforms.data;
-    };
-    TreeModelService.prototype.getSchemaForNode = function (node) {
-        return __assign({ definitions: tree_schema_2.tutorialSchema.definitions }, this.getSchemaForType(node.jsonforms.type));
-    };
-    TreeModelService.prototype.getSchemaForType = function (type) {
-        if (!type) {
-            return undefined;
-        }
-        var schema = Object.entries(tree_schema_2.tutorialSchema.definitions)
-            .map(function (entry) { return entry[1]; })
-            .find(function (definition) {
-            return definition.properties && definition.properties.typeId.const === type;
-        });
-        if (schema === undefined) {
-            this.logger.warn("Can't find definition schema for type " + type);
-        }
-        return schema;
-    };
-    TreeModelService.prototype.getUiSchemaForNode = function (node) {
-        var type = node.jsonforms.type;
-        switch (type) {
-            case tree_model_1.CoffeeModel.Type.Exercise:
-                return tree_schema_2.exerciseView;
-            case tree_model_1.CoffeeModel.Type.Tutorial:
-                return tree_schema_2.tutorialView;
-            // case CoffeeModel.Type.Command:
-            //     return commandView;
-            case tree_model_1.CoffeeModel.Type.FileDiff:
-                return tree_schema_1.fileDiffView;
-            case tree_model_1.CoffeeModel.Type.AutomaticImport:
-                return tree_schema_1.automaticImportView;
-            case tree_model_1.CoffeeModel.Type.CheckIfFilesExist:
-                return tree_schema_1.checkIfFilesExistView;
-            case tree_model_1.CoffeeModel.Type.CleanExerciseFolder:
-                return tree_schema_1.cleanExerciseFolderView;
-            case tree_model_1.CoffeeModel.Type.OpenFile:
-                return tree_schema_1.openFileView;
-            case tree_model_1.CoffeeModel.Type.TerminalCommands:
-                return tree_schema_1.terminalCommandsView;
-            case tree_model_1.CoffeeModel.Type.Html:
-                return tree_schema_1.htmlView;
-            case tree_model_1.CoffeeModel.Type.Image:
-                return tree_schema_1.imageView;
-            case tree_model_1.CoffeeModel.Type.CommandButton:
-                return tree_schema_1.commandButtonView;
-            case tree_model_1.CoffeeModel.Type.Hint:
-                return tree_schema_1.hintView;
-            // case CoffeeModel.Type.Instruction:
-            //     return instructionView;      
-            default:
-                this.logger.warn("Can't find registered ui schema for type " + type);
-                return undefined;
-        }
-    };
-    TreeModelService.prototype.getChildrenMapping = function () {
-        return tree_model_1.CoffeeModel.childrenMapping;
-    };
-    TreeModelService.prototype.getNameForType = function (type) {
-        return tree_model_1.CoffeeModel.Type.name(type);
-    };
-    TreeModelService = __decorate([
-        inversify_1.injectable(),
-        __param(0, inversify_1.inject(core_1.ILogger)),
-        __metadata("design:paramtypes", [Object])
-    ], TreeModelService);
-    return TreeModelService;
-}());
-exports.TreeModelService = TreeModelService;
-
-
-/***/ }),
-
-/***/ "../tree-editor-extension/lib/browser/tree/tree-model.js":
-/*!***************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree/tree-model.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CoffeeModel = void 0;
-var CoffeeModel;
-(function (CoffeeModel) {
-    var Type;
-    (function (Type) {
-        Type.Exercise = '#exercise';
-        Type.Tutorial = '#tutorial';
-        Type.Command = '#command';
-        Type.FileDiff = '#fileDiff';
-        Type.AutomaticImport = '#automaticImport';
-        Type.OpenFile = '#openFile';
-        Type.CheckIfFilesExist = '#checkIfFilesExist';
-        Type.TerminalCommands = '#terminalCommands';
-        Type.CleanExerciseFolder = '#cleanExerciseFolder';
-        Type.Instruction = '#instruction';
-        Type.Html = '#html';
-        Type.Image = '#image';
-        Type.Hint = '#hint';
-        Type.CommandButton = '#commandButton';
-        function name(type) {
-            return type;
-        }
-        Type.name = name;
-    })(Type = CoffeeModel.Type || (CoffeeModel.Type = {}));
-    var components = [
-        Type.Tutorial,
-        Type.Exercise,
-        Type.Instruction
-    ];
-    var exerciseComponents = [
-        Type.Command,
-        Type.Instruction,
-        Type.Exercise,
-    ];
-    // const commandComponents = [
-    //     Type.FileDiff,
-    //     Type.AutomaticImport,
-    //     Type.OpenFile,
-    //     Type.CheckIfFilesExist,
-    //     Type.TerminalCommands,
-    //     Type.CleanExerciseFolder,
-    // ];
-    var instructionComponents = [
-        Type.Instruction,
-        Type.Html,
-        Type.Image,
-        Type.Hint,
-        Type.CommandButton
-    ];
-    /** Maps types to their creatable children */
-    CoffeeModel.childrenMapping = new Map([
-        [
-            Type.Tutorial, [
-                {
-                    property: 'children',
-                    children: components
-                }
-            ]
-        ],
-        [
-            Type.Exercise, [
-                {
-                    property: 'children',
-                    children: exerciseComponents
-                }
-            ]
-        ],
-        [
-            Type.Instruction, [
-                {
-                    property: 'children',
-                    children: instructionComponents
-                }
-            ]
-        ],
-    ]);
-})(CoffeeModel = exports.CoffeeModel || (exports.CoffeeModel = {}));
-
-
-/***/ }),
-
-/***/ "../tree-editor-extension/lib/browser/tree/tree-node-factory.js":
-/*!**********************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree/tree-node-factory.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
 };
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+exports.ProblemPreferences = Symbol('ProblemPreferences');
+exports.createProblemPreferences = function (preferences) {
+    return browser_1.createPreferenceProxy(preferences, exports.ProblemConfigSchema);
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TreeNodeFactory = void 0;
-var core_1 = __webpack_require__(/*! @theia/core */ "../tree-editor-extension/node_modules/@theia/core/lib/common/index.js");
-var inversify_1 = __webpack_require__(/*! inversify */ "../tree-editor-extension/node_modules/inversify/lib/inversify.js");
-var uuid_1 = __webpack_require__(/*! uuid */ "../tree-editor-extension/node_modules/uuid/index.js");
-var tree_model_1 = __webpack_require__(/*! ./tree-model */ "../tree-editor-extension/lib/browser/tree/tree-model.js");
-var tree_editor_widget_1 = __webpack_require__(/*! ./tree-editor-widget */ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js");
-var tree_label_provider_1 = __webpack_require__(/*! ./tree-label-provider */ "../tree-editor-extension/lib/browser/tree/tree-label-provider.js");
-var TreeNodeFactory = /** @class */ (function () {
-    function TreeNodeFactory(labelProvider, logger) {
-        this.labelProvider = labelProvider;
-        this.logger = logger;
-    }
-    TreeNodeFactory.prototype.mapDataToNodes = function (treeData) {
-        var node = this.mapData(treeData.data);
-        if (node) {
-            return [node];
-        }
-        return [];
-    };
-    TreeNodeFactory.prototype.mapData = function (data, parent, property, indexOrKey) {
-        var _this = this;
-        if (!data) {
-            this.logger.warn('mapData called without data');
-        }
-        var node = __assign(__assign({}, this.defaultNode()), { editorId: tree_editor_widget_1.TreeEditorWidget.WIDGET_ID, name: this.labelProvider.getName(data), parent: parent, jsonforms: {
-                type: this.getTypeId(data),
-                data: data,
-                property: property,
-                index: typeof indexOrKey === 'number' ? indexOrKey.toFixed(0) : indexOrKey
-            } });
-        console.log('node', node);
-        // containments
-        if (parent) {
-            console.log('parent: ', parent);
-            parent.children.push(node);
-            parent.expanded = true;
-        }
-        if (data.children) {
-            var children = data.children;
-            console.log('children: ', children);
-            // component types
-            children.forEach(function (element, idx) {
-                console.log('element: ', element);
-                _this.mapData(element, node, 'children', idx);
-                // if(element.children){
-                //     const elementChildren = element.children as Array<any>;;
-                //     elementChildren.forEach((child, i) => {
-                //     this.mapData(child, element, 'children', i);
-                // });
-                // }
-            });
-        }
-        return node;
-    };
-    TreeNodeFactory.prototype.hasCreatableChildren = function (node) {
-        return node ? tree_model_1.CoffeeModel.childrenMapping.get(node.jsonforms.type) !== undefined : false;
-    };
-    TreeNodeFactory.prototype.defaultNode = function () {
-        return {
-            id: uuid_1.v4(),
-            expanded: false,
-            selected: false,
-            parent: undefined,
-            children: [],
-            decorationData: {},
-            name: '',
-            jsonforms: {
-                type: '',
-                property: '',
-                data: undefined
-            }
-        };
-    };
-    /** Derives the type id from the given data. */
-    TreeNodeFactory.prototype.getTypeId = function (data) {
-        return data && data.typeId || '';
-    };
-    TreeNodeFactory = __decorate([
-        inversify_1.injectable(),
-        __param(0, inversify_1.inject(tree_label_provider_1.TreeLabelProvider)),
-        __param(1, inversify_1.inject(core_1.ILogger)),
-        __metadata("design:paramtypes", [tree_label_provider_1.TreeLabelProvider, Object])
-    ], TreeNodeFactory);
-    return TreeNodeFactory;
-}());
-exports.TreeNodeFactory = TreeNodeFactory;
-
-
-/***/ }),
-
-/***/ "../tree-editor-extension/lib/browser/tree/tree-schema.js":
-/*!****************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree/tree-schema.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.tutorialSchema = exports.exerciseView = exports.commandButtonView = exports.hintView = exports.imageView = exports.htmlView = exports.cleanExerciseFolderView = exports.terminalCommandsView = exports.checkIfFilesExistView = exports.openFileView = exports.automaticImportView = exports.fileDiffView = exports.tutorialView = exports.ratingView = void 0;
-/* See https://jsonforms.io for more information on how to configure data and ui schemas. */
-exports.ratingView = {
-    'type': 'Group',
-    "label": "My Group!!",
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Title',
-            'scope': '#/properties/title'
-        },
-        {
-            'type': 'Control',
-            'label': 'Description',
-            'scope': '#/properties/description'
-        },
-        {
-            'type': 'Control',
-            'label': 'Tutorial Folder',
-            'scope': '#/properties/tutorialFolder'
-        },
-    ]
-};
-exports.tutorialView = {
-    'type': 'Group',
-    "label": "My Group!!",
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Title',
-            'scope': '#/properties/title'
-        },
-        {
-            'type': 'Control',
-            'label': 'Description',
-            'scope': '#/properties/description'
-        },
-        {
-            'type': 'Control',
-            'label': 'Tutorial Folder',
-            'scope': '#/properties/tutorialFolder'
-        },
-    ]
-};
-//  export const commandView = {
-//   'type': 'VerticalLayout',
-//   'elements': [
-//     {
-//       'type': 'Control',
-//       'label': 'Command Type',
-//       'scope': '#/oneOf'
-//     }
-//   ]
-//  };
-exports.fileDiffView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'File Name',
-            'scope': '#/properties/fileDiff/properties/filename'
-        },
-        {
-            'type': 'Control',
-            'label': 'Solution',
-            'scope': '#/properties/fileDiff/properties/solution'
-        },
-    ]
-};
-exports.automaticImportView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Imports',
-            'scope': '#/properties/automaticImport/properties/imports'
-        },
-        {
-            'type': 'Control',
-            'label': 'Path',
-            'scope': '#/properties/automaticImport/properties/path'
-        }
-    ]
-};
-exports.openFileView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Open File',
-            'scope': '#/properties/openFile'
-        }
-    ]
-};
-exports.checkIfFilesExistView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Check if file exist',
-            'scope': '#/properties/checkIfFilesExist'
-        }
-    ]
-};
-exports.terminalCommandsView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Terminal Command',
-            'scope': '#/properties/terminalCommands'
-        }
-    ]
-};
-exports.cleanExerciseFolderView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Clean Exercise Folder',
-            'scope': '#/properties/cleanExerciseFolder'
-        }
-    ]
-};
-exports.htmlView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Html',
-            'scope': '#/properties/html'
-        }
-    ]
-};
-exports.imageView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Src',
-            'scope': '#/properties/image/properties/src'
-        },
-        {
-            'type': 'Control',
-            'label': 'Description',
-            'scope': '#/properties/image/properties/description'
-        },
-        {
-            'type': 'Control',
-            'label': 'Width',
-            'scope': '#/properties/image/properties/width'
-        }
-    ]
-};
-exports.hintView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Text',
-            'scope': '#/properties/hint/properties/text'
-        },
-        {
-            'type': 'Control',
-            'label': 'Content',
-            'scope': '#/properties/hint/properties/content'
-        }
-    ]
-};
-exports.commandButtonView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Text',
-            'scope': '#/properties/button/properties/text'
-        },
-        {
-            'type': 'Control',
-            'label': 'Commands',
-            'scope': '#/properties/button/properties/commands'
-        }
-    ]
-};
-//  export const instructionView = {
-//   'type': 'VerticalLayout',
-//   'elements': [
-//     {
-//       'type': 'Control',
-//       'label': 'Instruction',
-//       'scope': '#/oneOf'
-//     }
-//   ]
-//  };
-exports.exerciseView = {
-    'type': 'VerticalLayout',
-    'elements': [
-        {
-            'type': 'Control',
-            'label': 'Title',
-            'scope': '#/properties/title'
-        },
-        {
-            'type': 'Control',
-            'label': 'Description',
-            'scope': '#/properties/description'
-        },
-    ]
-};
-exports.tutorialSchema = {
-    'definitions': {
-        'tutorial': {
-            "type": "object",
-            "required": [
-                "title",
-                "description",
-                "tutorialFolder"
-            ],
-            "additionalProperties": false,
-            "properties": {
-                'typeId': {
-                    'const': '#tutorial'
-                },
-                "title": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "tutorialFolder": {
-                    "type": "string"
-                },
-                "exercises": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/exercise"
-                    }
-                }
-            }
-        },
-        "exercise": {
-            // "$id": "#exercise",
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-                "title",
-                "description"
-            ],
-            "properties": {
-                'typeId': {
-                    'const': '#exercise'
-                },
-                "title": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "checkStartState": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "testName": {
-                                "type": "string"
-                            },
-                            "command": {
-                                "$ref": "#/definitions/command"
-                            }
-                        },
-                        "required": [
-                            "testName",
-                            "command"
-                        ],
-                        "additionalProperties": false
-                    }
-                },
-                "buildExercise": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/command"
-                    }
-                },
-                "cleanState": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/command"
-                    }
-                },
-                "test": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "testName": {
-                                "type": "string"
-                            },
-                            "command": {
-                                "$ref": "#/definitions/command"
-                            },
-                            "filename": {
-                                "type": "string"
-                            },
-                            "solution": {
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "testName",
-                            "command"
-                        ],
-                        "additionalProperties": false
-                    }
-                },
-                "solve": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/command"
-                    }
-                },
-                "content": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/instruction"
-                    }
-                }
-            }
-        },
-        "command": {
-            // "$id": "#command",
-            "type": "object",
-            'properties': {
-                'typeId': {
-                    'const': '#command'
-                },
-            },
-            "oneOf": [
-                {
-                    "$ref": "#/definitions/checkIfFilesExist"
-                },
-                {
-                    "$ref": "#/definitions/terminalCommands"
-                },
-                {
-                    "$ref": "#/definitions/openFile"
-                },
-                {
-                    "$ref": "#/definitions/automaticImport"
-                },
-                {
-                    "$ref": "#/definitions/fileDiff"
-                },
-                {
-                    "$ref": "#/definitions/cleanExerciseFolder"
-                }
-            ]
-        },
-        "fileDiff": {
-            // "$id": "#fileDiff",
-            "type": "object",
-            "properties": {
-                'typeId': {
-                    'const': '#fileDiff'
-                },
-                "fileDiff": {
-                    "type": "object",
-                    "properties": {
-                        "filename": {
-                            "type": "string"
-                        },
-                        "solution": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "required": [
-                "fileDiff"
-            ]
-        },
-        "automaticImport": {
-            // "$id": "#automaticImport",
-            "type": "object",
-            "properties": {
-                'typeId': {
-                    'const': '#automaticImport'
-                },
-                "automaticImport": {
-                    "type": "object",
-                    "properties": {
-                        "imports": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "path": {
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "imports",
-                        "path"
-                    ]
-                }
-            },
-            "required": [
-                "automaticImport"
-            ]
-        },
-        "openFile": {
-            // "$id": "#openFile",
-            "type": "object",
-            "properties": {
-                'typeId': {
-                    'const': '#openFile'
-                },
-                "openFile": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "openFile"
-            ]
-        },
-        "checkIfFilesExist": {
-            // "$id": "#checkIfFilesExist",
-            "type": "object",
-            "properties": {
-                'typeId': {
-                    'const': '#checkIfFilesExist'
-                },
-                "checkIfFilesExist": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "checkIfFilesExist"
-            ]
-        },
-        "terminalCommands": {
-            // "$id": "#terminalCommands",
-            "type": "object",
-            "properties": {
-                'typeId': {
-                    'const': '#terminalCommands'
-                },
-                "terminalCommands": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "terminalCommands"
-            ]
-        },
-        "cleanExerciseFolder": {
-            // "$id": "#cleanExerciseFolder",
-            "type": "object",
-            "properties": {
-                'typeId': {
-                    'const': '#cleanExerciseFolder'
-                },
-                "cleanExerciseFolder": {
-                    "type": "object"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "cleanExerciseFolder"
-            ]
-        },
-        "instruction": {
-            // "$id": "#instruction",
-            "type": "object",
-            'properties': {
-                'typeId': {
-                    'const': '#instruction'
-                },
-            },
-            "oneOf": [
-                {
-                    "$ref": "#/definitions/html"
-                },
-                {
-                    "$ref": "#/definitions/image"
-                },
-                {
-                    "$ref": "#/definitions/hint"
-                },
-                {
-                    "$ref": "#/definitions/commandButton"
-                }
-            ]
-        },
-        "html": {
-            // "$id": "#html",
-            "type": "object",
-            "properties": {
-                'typeId': {
-                    'const': '#html'
-                },
-                "html": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "html"
-            ]
-        },
-        "image": {
-            // "$id": "#image",
-            "type": "object",
-            "properties": {
-                'typeId': {
-                    'const': '#image'
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "src": {
-                            "type": "string"
-                        },
-                        "description": {
-                            "type": "string"
-                        },
-                        "width": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "src"
-                    ]
-                }
-            },
-            "required": [
-                "image"
-            ],
-            "additionalProperties": false
-        },
-        "hint": {
-            // "$id": "#hint",
-            "type": "object",
-            "properties": {
-                'typeId': {
-                    'const': '#hint'
-                },
-                "hint": {
-                    "type": "object",
-                    "properties": {
-                        "text": {
-                            "type": "string"
-                        },
-                        "content": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/instruction"
-                            }
-                        }
-                    },
-                    "additionalProperties": false
-                }
-            },
-            "required": [
-                "hint"
-            ],
-            "additionalProperties": false
-        },
-        "commandButton": {
-            // "$id": "#commandButton",
-            "type": "object",
-            "properties": {
-                'typeId': {
-                    'const': '#commandButton'
-                },
-                "button": {
-                    "type": "object",
-                    "properties": {
-                        "text": {
-                            "type": "string"
-                        },
-                        "commands": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/command"
-                            }
-                        }
-                    },
-                    "additionalProperties": false
-                }
-            },
-            "required": [
-                "button"
-            ],
-            "additionalProperties": false
-        },
-    },
+exports.bindProblemPreferences = function (bind) {
+    bind(exports.ProblemPreferences).toDynamicValue(function (ctx) {
+        var preferences = ctx.container.get(browser_1.PreferenceService);
+        return exports.createProblemPreferences(preferences);
+    });
+    bind(browser_1.PreferenceContribution).toConstantValue({ schema: exports.ProblemConfigSchema });
 };
 
 
 /***/ }),
 
-/***/ "../tree-editor-extension/lib/browser/tree/tutorial-detail-form-widget.js":
-/*!********************************************************************************!*\
-  !*** ../tree-editor-extension/lib/browser/tree/tutorial-detail-form-widget.js ***!
-  \********************************************************************************/
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-selection.js":
+/*!*******************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-selection.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+/********************************************************************************
+ * Copyright (C) 2019 Ericsson and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
@@ -1638,6 +1409,56 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProblemSelection = void 0;
+var selection_command_handler_1 = __webpack_require__(/*! @theia/core/lib/common/selection-command-handler */ "../node_modules/@theia/core/lib/common/selection-command-handler.js");
+var problem_marker_1 = __webpack_require__(/*! ../../common/problem-marker */ "../node_modules/@theia/markers/lib/common/problem-marker.js");
+var ProblemSelection;
+(function (ProblemSelection) {
+    function is(arg) {
+        return typeof arg === 'object' && ('marker' in arg) && problem_marker_1.ProblemMarker.is(arg['marker']);
+    }
+    ProblemSelection.is = is;
+    var CommandHandler = /** @class */ (function (_super) {
+        __extends(CommandHandler, _super);
+        function CommandHandler(selectionService, options) {
+            var _this = _super.call(this, selectionService, function (arg) { return ProblemSelection.is(arg) ? arg : undefined; }, options) || this;
+            _this.selectionService = selectionService;
+            _this.options = options;
+            return _this;
+        }
+        return CommandHandler;
+    }(selection_command_handler_1.SelectionCommandHandler));
+    ProblemSelection.CommandHandler = CommandHandler;
+})(ProblemSelection = exports.ProblemSelection || (exports.ProblemSelection = {}));
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-tabbar-decorator.js":
+/*!**************************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-tabbar-decorator.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2019 Ericsson and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1647,443 +1468,775 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TutorialDetailFormWidget = void 0;
-var material_renderers_1 = __webpack_require__(/*! @jsonforms/material-renderers */ "../tree-editor-extension/node_modules/@jsonforms/material-renderers/lib/index.js");
-var inversify_1 = __webpack_require__(/*! inversify */ "../tree-editor-extension/node_modules/inversify/lib/inversify.js");
-var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../tree-editor-extension/node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
-var MyGroup_1 = __webpack_require__(/*! ./MyGroup */ "../tree-editor-extension/lib/browser/tree/MyGroup.js");
-var TutorialDetailFormWidget = /** @class */ (function (_super) {
-    __extends(TutorialDetailFormWidget, _super);
-    function TutorialDetailFormWidget() {
-        return _super !== null && _super.apply(this, arguments) || this;
+exports.ProblemTabBarDecorator = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var vscode_languageserver_types_1 = __webpack_require__(/*! vscode-languageserver-types */ "../node_modules/vscode-languageserver-types/lib/esm/main.js");
+var event_1 = __webpack_require__(/*! @theia/core/lib/common/event */ "../node_modules/@theia/core/lib/common/event.js");
+var widget_decoration_1 = __webpack_require__(/*! @theia/core/lib/browser/widget-decoration */ "../node_modules/@theia/core/lib/browser/widget-decoration.js");
+var problem_manager_1 = __webpack_require__(/*! ./problem-manager */ "../node_modules/@theia/markers/lib/browser/problem/problem-manager.js");
+var problem_preferences_1 = __webpack_require__(/*! ./problem-preferences */ "../node_modules/@theia/markers/lib/browser/problem/problem-preferences.js");
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var ProblemTabBarDecorator = /** @class */ (function () {
+    function ProblemTabBarDecorator() {
+        this.id = 'theia-problem-tabbar-decorator';
+        this.emitter = new event_1.Emitter();
     }
-    // XXX Replace renderers in Redux store manually as they can't be customized at the current time.
-    // This is very hacky as the 'store' field is private and the Redux store is not intended to be modified like this.
-    // This should be removed once https://github.com/eclipse-emfcloud/theia-tree-editor/issues/20 is implemented
-    TutorialDetailFormWidget.prototype.customizeRenderers = function () {
-        var renderers = __spread(material_renderers_1.materialRenderers, [
-            {
-                tester: MyGroup_1.myGroupTester,
-                renderer: MyGroup_1.default,
-            },
-        ]);
-        var cells = __spread(material_renderers_1.materialCells);
-        //@ts-ignore
-        this.store.getState().jsonforms.renderers = renderers;
-        //@ts-ignore
-        this.store.getState().jsonforms.cells = cells;
+    ProblemTabBarDecorator.prototype.init = function () {
+        var _this = this;
+        this.problemManager.onDidChangeMarkers(function () { return _this.fireDidChangeDecorations(); });
+        this.preferences.onPreferenceChanged(function (event) { return _this.handlePreferenceChange(event); });
     };
+    ProblemTabBarDecorator.prototype.decorate = function (title) {
+        var e_1, _a;
+        var widget = title.owner;
+        if (browser_1.Navigatable.is(widget)) {
+            var resourceUri = widget.getResourceUri();
+            if (resourceUri) {
+                // Get the list of problem markers for the given resource URI.
+                var markers = this.problemManager.findMarkers({ uri: resourceUri });
+                // If no markers are available, return early.
+                if (markers.length === 0) {
+                    return [];
+                }
+                // Store the marker with the highest severity.
+                var maxSeverity = void 0;
+                try {
+                    // Iterate over available markers to determine that which has the highest severity.
+                    // Only display a decoration if an error or warning marker is available.
+                    for (var markers_1 = __values(markers), markers_1_1 = markers_1.next(); !markers_1_1.done; markers_1_1 = markers_1.next()) {
+                        var marker = markers_1_1.value;
+                        // Break early if an error marker is present, since it represents the highest severity.
+                        if (marker.data.severity === vscode_languageserver_types_1.DiagnosticSeverity.Error) {
+                            maxSeverity = marker;
+                            break;
+                        }
+                        else if (marker.data.severity === vscode_languageserver_types_1.DiagnosticSeverity.Warning) {
+                            maxSeverity = marker;
+                        }
+                    }
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (markers_1_1 && !markers_1_1.done && (_a = markers_1.return)) _a.call(markers_1);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                }
+                // Decorate the tabbar with the highest marker severity if available.
+                return maxSeverity ? [this.toDecorator(maxSeverity)] : [];
+            }
+        }
+        return [];
+    };
+    Object.defineProperty(ProblemTabBarDecorator.prototype, "onDidChangeDecorations", {
+        get: function () {
+            return this.emitter.event;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    ProblemTabBarDecorator.prototype.fireDidChangeDecorations = function () {
+        this.emitter.fire(undefined);
+    };
+    /**
+     * Handle changes in preference.
+     * @param {PreferenceChangeEvent<ProblemConfiguration>} event The event of the changes in preference.
+     */
+    ProblemTabBarDecorator.prototype.handlePreferenceChange = function (event) {
+        return __awaiter(this, void 0, void 0, function () {
+            var preferenceName;
+            return __generator(this, function (_a) {
+                preferenceName = event.preferenceName;
+                if (preferenceName === 'problems.decorations.tabbar.enabled') {
+                    this.fireDidChangeDecorations();
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
+    /**
+     * Convert a diagnostic marker to a decorator.
+     * @param {Marker<Diagnostic>} marker A diagnostic marker.
+     * @returns {WidgetDecoration.Data} The decoration data.
+     */
+    ProblemTabBarDecorator.prototype.toDecorator = function (marker) {
+        var position = widget_decoration_1.WidgetDecoration.IconOverlayPosition.BOTTOM_RIGHT;
+        var icon = this.getOverlayIcon(marker);
+        var color = this.getOverlayIconColor(marker);
+        return {
+            iconOverlay: {
+                position: position,
+                icon: icon,
+                color: color,
+                background: {
+                    shape: 'circle',
+                    color: 'transparent'
+                }
+            }
+        };
+    };
+    /**
+     * Get the appropriate overlay icon for decoration.
+     * @param {Marker<Diagnostic>} marker A diagnostic marker.
+     * @returns {string} A string representing the overlay icon class.
+     */
+    ProblemTabBarDecorator.prototype.getOverlayIcon = function (marker) {
+        var severity = marker.data.severity;
+        switch (severity) {
+            case 1: return 'times-circle';
+            case 2: return 'exclamation-circle';
+            case 3: return 'info-circle';
+            default: return 'hand-o-up';
+        }
+    };
+    /**
+     * Get the appropriate overlay icon color for decoration.
+     * @param {Marker<Diagnostic>} marker A diagnostic marker.
+     * @returns {WidgetDecoration.Color} The decoration color.
+     */
+    ProblemTabBarDecorator.prototype.getOverlayIconColor = function (marker) {
+        var severity = marker.data.severity;
+        switch (severity) {
+            case 1: return 'var(--theia-editorError-foreground)';
+            case 2: return 'var(--theia-editorWarning-foreground)';
+            case 3: return 'var(--theia-editorInfo-foreground)';
+            default: return 'var(--theia-successBackground)';
+        }
+    };
+    __decorate([
+        inversify_1.inject(problem_preferences_1.ProblemPreferences),
+        __metadata("design:type", Object)
+    ], ProblemTabBarDecorator.prototype, "preferences", void 0);
+    __decorate([
+        inversify_1.inject(problem_manager_1.ProblemManager),
+        __metadata("design:type", problem_manager_1.ProblemManager)
+    ], ProblemTabBarDecorator.prototype, "problemManager", void 0);
     __decorate([
         inversify_1.postConstruct(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
-    ], TutorialDetailFormWidget.prototype, "customizeRenderers", null);
-    TutorialDetailFormWidget = __decorate([
+    ], ProblemTabBarDecorator.prototype, "init", null);
+    ProblemTabBarDecorator = __decorate([
         inversify_1.injectable()
-    ], TutorialDetailFormWidget);
-    return TutorialDetailFormWidget;
-}(theia_tree_editor_1.DetailFormWidget));
-exports.TutorialDetailFormWidget = TutorialDetailFormWidget;
+    ], ProblemTabBarDecorator);
+    return ProblemTabBarDecorator;
+}());
+exports.ProblemTabBarDecorator = ProblemTabBarDecorator;
 
 
 /***/ }),
 
-/***/ "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts sync recursive ^\\.\\/.*\\.json$":
-/*!*********************************************************************************************************!*\
-  !*** ../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts sync ^\.\/.*\.json$ ***!
-  \*********************************************************************************************************/
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-tree-model.js":
+/*!********************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-tree-model.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var map = {
-	"./cs-Czech-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/cs-Czech-mac.json",
-	"./cs-Czech-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/cs-Czech-pc.json",
-	"./da-Danish-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/da-Danish-mac.json",
-	"./da-Danish-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/da-Danish-pc.json",
-	"./de-German-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/de-German-mac.json",
-	"./de-German-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/de-German-pc.json",
-	"./de-Swiss_German-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/de-Swiss_German-mac.json",
-	"./de-Swiss_German-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/de-Swiss_German-pc.json",
-	"./en-British-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-British-mac.json",
-	"./en-British-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-British-pc.json",
-	"./en-Colemak-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-Colemak-mac.json",
-	"./en-Dvorak-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-Dvorak-mac.json",
-	"./en-Dvorak-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-Dvorak-pc.json",
-	"./en-Dvorak_Lefthanded-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-Dvorak_Lefthanded-mac.json",
-	"./en-Dvorak_Lefthanded-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-Dvorak_Lefthanded-pc.json",
-	"./en-Dvorak_Righthanded-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-Dvorak_Righthanded-mac.json",
-	"./en-Dvorak_Righthanded-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-Dvorak_Righthanded-pc.json",
-	"./en-US-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-US-mac.json",
-	"./en-US-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/en-US-pc.json",
-	"./es-Spanish-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/es-Spanish-mac.json",
-	"./es-Spanish-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/es-Spanish-pc.json",
-	"./fr-Bepo-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/fr-Bepo-pc.json",
-	"./fr-Canadian_French-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/fr-Canadian_French-mac.json",
-	"./fr-Canadian_French-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/fr-Canadian_French-pc.json",
-	"./fr-French-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/fr-French-mac.json",
-	"./fr-French-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/fr-French-pc.json",
-	"./fr-Swiss_French-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/fr-Swiss_French-mac.json",
-	"./fr-Swiss_French-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/fr-Swiss_French-pc.json",
-	"./hu-Hungarian-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/hu-Hungarian-mac.json",
-	"./hu-Hungarian-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/hu-Hungarian-pc.json",
-	"./it-Italian-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/it-Italian-mac.json",
-	"./it-Italian-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/it-Italian-pc.json",
-	"./nb-Norwegian-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/nb-Norwegian-mac.json",
-	"./nb-Norwegian-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/nb-Norwegian-pc.json",
-	"./nl-Dutch-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/nl-Dutch-mac.json",
-	"./nl-Dutch-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/nl-Dutch-pc.json",
-	"./pl-Polish-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/pl-Polish-mac.json",
-	"./pl-Polish-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/pl-Polish-pc.json",
-	"./pt-Brazilian-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/pt-Brazilian-mac.json",
-	"./pt-Portuguese-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/pt-Portuguese-mac.json",
-	"./pt-Portuguese-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/pt-Portuguese-pc.json",
-	"./ro-Romanian-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/ro-Romanian-mac.json",
-	"./ro-Romanian-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/ro-Romanian-pc.json",
-	"./sv-Swedish-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/sv-Swedish-mac.json",
-	"./sv-Swedish-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/sv-Swedish-pc.json",
-	"./tr-Turkish_Q-mac.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/tr-Turkish_Q-mac.json",
-	"./tr-Turkish_Q-pc.json": "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts/tr-Turkish_Q-pc.json"
-};
+"use strict";
 
-
-function webpackContext(req) {
-	var id = webpackContextResolve(req);
-	return __webpack_require__(id);
-}
-function webpackContextResolve(req) {
-	if(!__webpack_require__.o(map, req)) {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
-	}
-	return map[req];
-}
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = "../tree-editor-extension/node_modules/@theia/core/src/common/keyboard/layouts sync recursive ^\\.\\/.*\\.json$";
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProblemTreeModel = exports.ProblemTree = void 0;
+var problem_marker_1 = __webpack_require__(/*! ../../common/problem-marker */ "../node_modules/@theia/markers/lib/common/problem-marker.js");
+var problem_manager_1 = __webpack_require__(/*! ./problem-manager */ "../node_modules/@theia/markers/lib/browser/problem/problem-manager.js");
+var marker_tree_1 = __webpack_require__(/*! ../marker-tree */ "../node_modules/@theia/markers/lib/browser/marker-tree.js");
+var marker_tree_model_1 = __webpack_require__(/*! ../marker-tree-model */ "../node_modules/@theia/markers/lib/browser/marker-tree-model.js");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var problem_utils_1 = __webpack_require__(/*! ./problem-utils */ "../node_modules/@theia/markers/lib/browser/problem/problem-utils.js");
+var ProblemTree = /** @class */ (function (_super) {
+    __extends(ProblemTree, _super);
+    function ProblemTree(problemManager, markerOptions) {
+        var _this = _super.call(this, problemManager, markerOptions) || this;
+        _this.problemManager = problemManager;
+        _this.markerOptions = markerOptions;
+        return _this;
+    }
+    ProblemTree.prototype.getMarkerNodes = function (parent, markers) {
+        var _this = this;
+        var nodes = _super.prototype.getMarkerNodes.call(this, parent, markers);
+        return nodes.sort(function (a, b) { return _this.sortMarkers(a, b); });
+    };
+    /**
+     * Sort markers based on the following rules:
+     * - Markers are fist sorted by `severity`.
+     * - Markers are sorted by `line number` if applicable.
+     * - Markers are sorted by `column number` if
+     * @param a the first marker for comparison.
+     * @param b the second marker for comparison.
+     */
+    ProblemTree.prototype.sortMarkers = function (a, b) {
+        var markerA = a.marker;
+        var markerB = b.marker;
+        // Determine the marker with the highest severity.
+        var severity = problem_utils_1.ProblemUtils.severityCompare(markerA, markerB);
+        if (severity !== 0) {
+            return severity;
+        }
+        // Determine the marker with the lower line number.
+        var lineNumber = problem_utils_1.ProblemUtils.lineNumberCompare(markerA, markerB);
+        if (lineNumber !== 0) {
+            return lineNumber;
+        }
+        // Determine the marker with the lower column number.
+        var columnNumber = problem_utils_1.ProblemUtils.columnNumberCompare(markerA, markerB);
+        if (columnNumber !== 0) {
+            return columnNumber;
+        }
+        return 0;
+    };
+    ProblemTree = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(problem_manager_1.ProblemManager)),
+        __param(1, inversify_1.inject(marker_tree_1.MarkerOptions)),
+        __metadata("design:paramtypes", [problem_manager_1.ProblemManager, Object])
+    ], ProblemTree);
+    return ProblemTree;
+}(marker_tree_1.MarkerTree));
+exports.ProblemTree = ProblemTree;
+var ProblemTreeModel = /** @class */ (function (_super) {
+    __extends(ProblemTreeModel, _super);
+    function ProblemTreeModel() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ProblemTreeModel.prototype.getOpenerOptionsByMarker = function (node) {
+        if (problem_marker_1.ProblemMarker.is(node.marker)) {
+            return {
+                selection: node.marker.data.range
+            };
+        }
+        return undefined;
+    };
+    ProblemTreeModel.prototype.removeNode = function (node) {
+        if (marker_tree_1.MarkerInfoNode.is(node)) {
+            this.problemManager.cleanAllMarkers(node.uri);
+        }
+        if (marker_tree_1.MarkerNode.is(node)) {
+            var uri = node.uri;
+            var owner = node.marker.owner;
+            var diagnostics = this.problemManager.findMarkers({ uri: uri, owner: owner, dataFilter: function (data) { return node.marker.data !== data; } }).map(function (_a) {
+                var data = _a.data;
+                return data;
+            });
+            this.problemManager.setMarkers(uri, owner, diagnostics);
+        }
+    };
+    __decorate([
+        inversify_1.inject(problem_manager_1.ProblemManager),
+        __metadata("design:type", problem_manager_1.ProblemManager)
+    ], ProblemTreeModel.prototype, "problemManager", void 0);
+    ProblemTreeModel = __decorate([
+        inversify_1.injectable()
+    ], ProblemTreeModel);
+    return ProblemTreeModel;
+}(marker_tree_model_1.MarkerTreeModel));
+exports.ProblemTreeModel = ProblemTreeModel;
+
 
 /***/ }),
 
-/***/ "../tree-editor-extension/node_modules/moment/locale sync recursive ^\\.\\/.*$":
-/*!*************************************************************************!*\
-  !*** ../tree-editor-extension/node_modules/moment/locale sync ^\.\/.*$ ***!
-  \*************************************************************************/
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-utils.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-utils.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var map = {
-	"./af": "../tree-editor-extension/node_modules/moment/locale/af.js",
-	"./af.js": "../tree-editor-extension/node_modules/moment/locale/af.js",
-	"./ar": "../tree-editor-extension/node_modules/moment/locale/ar.js",
-	"./ar-dz": "../tree-editor-extension/node_modules/moment/locale/ar-dz.js",
-	"./ar-dz.js": "../tree-editor-extension/node_modules/moment/locale/ar-dz.js",
-	"./ar-kw": "../tree-editor-extension/node_modules/moment/locale/ar-kw.js",
-	"./ar-kw.js": "../tree-editor-extension/node_modules/moment/locale/ar-kw.js",
-	"./ar-ly": "../tree-editor-extension/node_modules/moment/locale/ar-ly.js",
-	"./ar-ly.js": "../tree-editor-extension/node_modules/moment/locale/ar-ly.js",
-	"./ar-ma": "../tree-editor-extension/node_modules/moment/locale/ar-ma.js",
-	"./ar-ma.js": "../tree-editor-extension/node_modules/moment/locale/ar-ma.js",
-	"./ar-sa": "../tree-editor-extension/node_modules/moment/locale/ar-sa.js",
-	"./ar-sa.js": "../tree-editor-extension/node_modules/moment/locale/ar-sa.js",
-	"./ar-tn": "../tree-editor-extension/node_modules/moment/locale/ar-tn.js",
-	"./ar-tn.js": "../tree-editor-extension/node_modules/moment/locale/ar-tn.js",
-	"./ar.js": "../tree-editor-extension/node_modules/moment/locale/ar.js",
-	"./az": "../tree-editor-extension/node_modules/moment/locale/az.js",
-	"./az.js": "../tree-editor-extension/node_modules/moment/locale/az.js",
-	"./be": "../tree-editor-extension/node_modules/moment/locale/be.js",
-	"./be.js": "../tree-editor-extension/node_modules/moment/locale/be.js",
-	"./bg": "../tree-editor-extension/node_modules/moment/locale/bg.js",
-	"./bg.js": "../tree-editor-extension/node_modules/moment/locale/bg.js",
-	"./bm": "../tree-editor-extension/node_modules/moment/locale/bm.js",
-	"./bm.js": "../tree-editor-extension/node_modules/moment/locale/bm.js",
-	"./bn": "../tree-editor-extension/node_modules/moment/locale/bn.js",
-	"./bn.js": "../tree-editor-extension/node_modules/moment/locale/bn.js",
-	"./bo": "../tree-editor-extension/node_modules/moment/locale/bo.js",
-	"./bo.js": "../tree-editor-extension/node_modules/moment/locale/bo.js",
-	"./br": "../tree-editor-extension/node_modules/moment/locale/br.js",
-	"./br.js": "../tree-editor-extension/node_modules/moment/locale/br.js",
-	"./bs": "../tree-editor-extension/node_modules/moment/locale/bs.js",
-	"./bs.js": "../tree-editor-extension/node_modules/moment/locale/bs.js",
-	"./ca": "../tree-editor-extension/node_modules/moment/locale/ca.js",
-	"./ca.js": "../tree-editor-extension/node_modules/moment/locale/ca.js",
-	"./cs": "../tree-editor-extension/node_modules/moment/locale/cs.js",
-	"./cs.js": "../tree-editor-extension/node_modules/moment/locale/cs.js",
-	"./cv": "../tree-editor-extension/node_modules/moment/locale/cv.js",
-	"./cv.js": "../tree-editor-extension/node_modules/moment/locale/cv.js",
-	"./cy": "../tree-editor-extension/node_modules/moment/locale/cy.js",
-	"./cy.js": "../tree-editor-extension/node_modules/moment/locale/cy.js",
-	"./da": "../tree-editor-extension/node_modules/moment/locale/da.js",
-	"./da.js": "../tree-editor-extension/node_modules/moment/locale/da.js",
-	"./de": "../tree-editor-extension/node_modules/moment/locale/de.js",
-	"./de-at": "../tree-editor-extension/node_modules/moment/locale/de-at.js",
-	"./de-at.js": "../tree-editor-extension/node_modules/moment/locale/de-at.js",
-	"./de-ch": "../tree-editor-extension/node_modules/moment/locale/de-ch.js",
-	"./de-ch.js": "../tree-editor-extension/node_modules/moment/locale/de-ch.js",
-	"./de.js": "../tree-editor-extension/node_modules/moment/locale/de.js",
-	"./dv": "../tree-editor-extension/node_modules/moment/locale/dv.js",
-	"./dv.js": "../tree-editor-extension/node_modules/moment/locale/dv.js",
-	"./el": "../tree-editor-extension/node_modules/moment/locale/el.js",
-	"./el.js": "../tree-editor-extension/node_modules/moment/locale/el.js",
-	"./en-SG": "../tree-editor-extension/node_modules/moment/locale/en-SG.js",
-	"./en-SG.js": "../tree-editor-extension/node_modules/moment/locale/en-SG.js",
-	"./en-au": "../tree-editor-extension/node_modules/moment/locale/en-au.js",
-	"./en-au.js": "../tree-editor-extension/node_modules/moment/locale/en-au.js",
-	"./en-ca": "../tree-editor-extension/node_modules/moment/locale/en-ca.js",
-	"./en-ca.js": "../tree-editor-extension/node_modules/moment/locale/en-ca.js",
-	"./en-gb": "../tree-editor-extension/node_modules/moment/locale/en-gb.js",
-	"./en-gb.js": "../tree-editor-extension/node_modules/moment/locale/en-gb.js",
-	"./en-ie": "../tree-editor-extension/node_modules/moment/locale/en-ie.js",
-	"./en-ie.js": "../tree-editor-extension/node_modules/moment/locale/en-ie.js",
-	"./en-il": "../tree-editor-extension/node_modules/moment/locale/en-il.js",
-	"./en-il.js": "../tree-editor-extension/node_modules/moment/locale/en-il.js",
-	"./en-nz": "../tree-editor-extension/node_modules/moment/locale/en-nz.js",
-	"./en-nz.js": "../tree-editor-extension/node_modules/moment/locale/en-nz.js",
-	"./eo": "../tree-editor-extension/node_modules/moment/locale/eo.js",
-	"./eo.js": "../tree-editor-extension/node_modules/moment/locale/eo.js",
-	"./es": "../tree-editor-extension/node_modules/moment/locale/es.js",
-	"./es-do": "../tree-editor-extension/node_modules/moment/locale/es-do.js",
-	"./es-do.js": "../tree-editor-extension/node_modules/moment/locale/es-do.js",
-	"./es-us": "../tree-editor-extension/node_modules/moment/locale/es-us.js",
-	"./es-us.js": "../tree-editor-extension/node_modules/moment/locale/es-us.js",
-	"./es.js": "../tree-editor-extension/node_modules/moment/locale/es.js",
-	"./et": "../tree-editor-extension/node_modules/moment/locale/et.js",
-	"./et.js": "../tree-editor-extension/node_modules/moment/locale/et.js",
-	"./eu": "../tree-editor-extension/node_modules/moment/locale/eu.js",
-	"./eu.js": "../tree-editor-extension/node_modules/moment/locale/eu.js",
-	"./fa": "../tree-editor-extension/node_modules/moment/locale/fa.js",
-	"./fa.js": "../tree-editor-extension/node_modules/moment/locale/fa.js",
-	"./fi": "../tree-editor-extension/node_modules/moment/locale/fi.js",
-	"./fi.js": "../tree-editor-extension/node_modules/moment/locale/fi.js",
-	"./fo": "../tree-editor-extension/node_modules/moment/locale/fo.js",
-	"./fo.js": "../tree-editor-extension/node_modules/moment/locale/fo.js",
-	"./fr": "../tree-editor-extension/node_modules/moment/locale/fr.js",
-	"./fr-ca": "../tree-editor-extension/node_modules/moment/locale/fr-ca.js",
-	"./fr-ca.js": "../tree-editor-extension/node_modules/moment/locale/fr-ca.js",
-	"./fr-ch": "../tree-editor-extension/node_modules/moment/locale/fr-ch.js",
-	"./fr-ch.js": "../tree-editor-extension/node_modules/moment/locale/fr-ch.js",
-	"./fr.js": "../tree-editor-extension/node_modules/moment/locale/fr.js",
-	"./fy": "../tree-editor-extension/node_modules/moment/locale/fy.js",
-	"./fy.js": "../tree-editor-extension/node_modules/moment/locale/fy.js",
-	"./ga": "../tree-editor-extension/node_modules/moment/locale/ga.js",
-	"./ga.js": "../tree-editor-extension/node_modules/moment/locale/ga.js",
-	"./gd": "../tree-editor-extension/node_modules/moment/locale/gd.js",
-	"./gd.js": "../tree-editor-extension/node_modules/moment/locale/gd.js",
-	"./gl": "../tree-editor-extension/node_modules/moment/locale/gl.js",
-	"./gl.js": "../tree-editor-extension/node_modules/moment/locale/gl.js",
-	"./gom-latn": "../tree-editor-extension/node_modules/moment/locale/gom-latn.js",
-	"./gom-latn.js": "../tree-editor-extension/node_modules/moment/locale/gom-latn.js",
-	"./gu": "../tree-editor-extension/node_modules/moment/locale/gu.js",
-	"./gu.js": "../tree-editor-extension/node_modules/moment/locale/gu.js",
-	"./he": "../tree-editor-extension/node_modules/moment/locale/he.js",
-	"./he.js": "../tree-editor-extension/node_modules/moment/locale/he.js",
-	"./hi": "../tree-editor-extension/node_modules/moment/locale/hi.js",
-	"./hi.js": "../tree-editor-extension/node_modules/moment/locale/hi.js",
-	"./hr": "../tree-editor-extension/node_modules/moment/locale/hr.js",
-	"./hr.js": "../tree-editor-extension/node_modules/moment/locale/hr.js",
-	"./hu": "../tree-editor-extension/node_modules/moment/locale/hu.js",
-	"./hu.js": "../tree-editor-extension/node_modules/moment/locale/hu.js",
-	"./hy-am": "../tree-editor-extension/node_modules/moment/locale/hy-am.js",
-	"./hy-am.js": "../tree-editor-extension/node_modules/moment/locale/hy-am.js",
-	"./id": "../tree-editor-extension/node_modules/moment/locale/id.js",
-	"./id.js": "../tree-editor-extension/node_modules/moment/locale/id.js",
-	"./is": "../tree-editor-extension/node_modules/moment/locale/is.js",
-	"./is.js": "../tree-editor-extension/node_modules/moment/locale/is.js",
-	"./it": "../tree-editor-extension/node_modules/moment/locale/it.js",
-	"./it-ch": "../tree-editor-extension/node_modules/moment/locale/it-ch.js",
-	"./it-ch.js": "../tree-editor-extension/node_modules/moment/locale/it-ch.js",
-	"./it.js": "../tree-editor-extension/node_modules/moment/locale/it.js",
-	"./ja": "../tree-editor-extension/node_modules/moment/locale/ja.js",
-	"./ja.js": "../tree-editor-extension/node_modules/moment/locale/ja.js",
-	"./jv": "../tree-editor-extension/node_modules/moment/locale/jv.js",
-	"./jv.js": "../tree-editor-extension/node_modules/moment/locale/jv.js",
-	"./ka": "../tree-editor-extension/node_modules/moment/locale/ka.js",
-	"./ka.js": "../tree-editor-extension/node_modules/moment/locale/ka.js",
-	"./kk": "../tree-editor-extension/node_modules/moment/locale/kk.js",
-	"./kk.js": "../tree-editor-extension/node_modules/moment/locale/kk.js",
-	"./km": "../tree-editor-extension/node_modules/moment/locale/km.js",
-	"./km.js": "../tree-editor-extension/node_modules/moment/locale/km.js",
-	"./kn": "../tree-editor-extension/node_modules/moment/locale/kn.js",
-	"./kn.js": "../tree-editor-extension/node_modules/moment/locale/kn.js",
-	"./ko": "../tree-editor-extension/node_modules/moment/locale/ko.js",
-	"./ko.js": "../tree-editor-extension/node_modules/moment/locale/ko.js",
-	"./ku": "../tree-editor-extension/node_modules/moment/locale/ku.js",
-	"./ku.js": "../tree-editor-extension/node_modules/moment/locale/ku.js",
-	"./ky": "../tree-editor-extension/node_modules/moment/locale/ky.js",
-	"./ky.js": "../tree-editor-extension/node_modules/moment/locale/ky.js",
-	"./lb": "../tree-editor-extension/node_modules/moment/locale/lb.js",
-	"./lb.js": "../tree-editor-extension/node_modules/moment/locale/lb.js",
-	"./lo": "../tree-editor-extension/node_modules/moment/locale/lo.js",
-	"./lo.js": "../tree-editor-extension/node_modules/moment/locale/lo.js",
-	"./lt": "../tree-editor-extension/node_modules/moment/locale/lt.js",
-	"./lt.js": "../tree-editor-extension/node_modules/moment/locale/lt.js",
-	"./lv": "../tree-editor-extension/node_modules/moment/locale/lv.js",
-	"./lv.js": "../tree-editor-extension/node_modules/moment/locale/lv.js",
-	"./me": "../tree-editor-extension/node_modules/moment/locale/me.js",
-	"./me.js": "../tree-editor-extension/node_modules/moment/locale/me.js",
-	"./mi": "../tree-editor-extension/node_modules/moment/locale/mi.js",
-	"./mi.js": "../tree-editor-extension/node_modules/moment/locale/mi.js",
-	"./mk": "../tree-editor-extension/node_modules/moment/locale/mk.js",
-	"./mk.js": "../tree-editor-extension/node_modules/moment/locale/mk.js",
-	"./ml": "../tree-editor-extension/node_modules/moment/locale/ml.js",
-	"./ml.js": "../tree-editor-extension/node_modules/moment/locale/ml.js",
-	"./mn": "../tree-editor-extension/node_modules/moment/locale/mn.js",
-	"./mn.js": "../tree-editor-extension/node_modules/moment/locale/mn.js",
-	"./mr": "../tree-editor-extension/node_modules/moment/locale/mr.js",
-	"./mr.js": "../tree-editor-extension/node_modules/moment/locale/mr.js",
-	"./ms": "../tree-editor-extension/node_modules/moment/locale/ms.js",
-	"./ms-my": "../tree-editor-extension/node_modules/moment/locale/ms-my.js",
-	"./ms-my.js": "../tree-editor-extension/node_modules/moment/locale/ms-my.js",
-	"./ms.js": "../tree-editor-extension/node_modules/moment/locale/ms.js",
-	"./mt": "../tree-editor-extension/node_modules/moment/locale/mt.js",
-	"./mt.js": "../tree-editor-extension/node_modules/moment/locale/mt.js",
-	"./my": "../tree-editor-extension/node_modules/moment/locale/my.js",
-	"./my.js": "../tree-editor-extension/node_modules/moment/locale/my.js",
-	"./nb": "../tree-editor-extension/node_modules/moment/locale/nb.js",
-	"./nb.js": "../tree-editor-extension/node_modules/moment/locale/nb.js",
-	"./ne": "../tree-editor-extension/node_modules/moment/locale/ne.js",
-	"./ne.js": "../tree-editor-extension/node_modules/moment/locale/ne.js",
-	"./nl": "../tree-editor-extension/node_modules/moment/locale/nl.js",
-	"./nl-be": "../tree-editor-extension/node_modules/moment/locale/nl-be.js",
-	"./nl-be.js": "../tree-editor-extension/node_modules/moment/locale/nl-be.js",
-	"./nl.js": "../tree-editor-extension/node_modules/moment/locale/nl.js",
-	"./nn": "../tree-editor-extension/node_modules/moment/locale/nn.js",
-	"./nn.js": "../tree-editor-extension/node_modules/moment/locale/nn.js",
-	"./pa-in": "../tree-editor-extension/node_modules/moment/locale/pa-in.js",
-	"./pa-in.js": "../tree-editor-extension/node_modules/moment/locale/pa-in.js",
-	"./pl": "../tree-editor-extension/node_modules/moment/locale/pl.js",
-	"./pl.js": "../tree-editor-extension/node_modules/moment/locale/pl.js",
-	"./pt": "../tree-editor-extension/node_modules/moment/locale/pt.js",
-	"./pt-br": "../tree-editor-extension/node_modules/moment/locale/pt-br.js",
-	"./pt-br.js": "../tree-editor-extension/node_modules/moment/locale/pt-br.js",
-	"./pt.js": "../tree-editor-extension/node_modules/moment/locale/pt.js",
-	"./ro": "../tree-editor-extension/node_modules/moment/locale/ro.js",
-	"./ro.js": "../tree-editor-extension/node_modules/moment/locale/ro.js",
-	"./ru": "../tree-editor-extension/node_modules/moment/locale/ru.js",
-	"./ru.js": "../tree-editor-extension/node_modules/moment/locale/ru.js",
-	"./sd": "../tree-editor-extension/node_modules/moment/locale/sd.js",
-	"./sd.js": "../tree-editor-extension/node_modules/moment/locale/sd.js",
-	"./se": "../tree-editor-extension/node_modules/moment/locale/se.js",
-	"./se.js": "../tree-editor-extension/node_modules/moment/locale/se.js",
-	"./si": "../tree-editor-extension/node_modules/moment/locale/si.js",
-	"./si.js": "../tree-editor-extension/node_modules/moment/locale/si.js",
-	"./sk": "../tree-editor-extension/node_modules/moment/locale/sk.js",
-	"./sk.js": "../tree-editor-extension/node_modules/moment/locale/sk.js",
-	"./sl": "../tree-editor-extension/node_modules/moment/locale/sl.js",
-	"./sl.js": "../tree-editor-extension/node_modules/moment/locale/sl.js",
-	"./sq": "../tree-editor-extension/node_modules/moment/locale/sq.js",
-	"./sq.js": "../tree-editor-extension/node_modules/moment/locale/sq.js",
-	"./sr": "../tree-editor-extension/node_modules/moment/locale/sr.js",
-	"./sr-cyrl": "../tree-editor-extension/node_modules/moment/locale/sr-cyrl.js",
-	"./sr-cyrl.js": "../tree-editor-extension/node_modules/moment/locale/sr-cyrl.js",
-	"./sr.js": "../tree-editor-extension/node_modules/moment/locale/sr.js",
-	"./ss": "../tree-editor-extension/node_modules/moment/locale/ss.js",
-	"./ss.js": "../tree-editor-extension/node_modules/moment/locale/ss.js",
-	"./sv": "../tree-editor-extension/node_modules/moment/locale/sv.js",
-	"./sv.js": "../tree-editor-extension/node_modules/moment/locale/sv.js",
-	"./sw": "../tree-editor-extension/node_modules/moment/locale/sw.js",
-	"./sw.js": "../tree-editor-extension/node_modules/moment/locale/sw.js",
-	"./ta": "../tree-editor-extension/node_modules/moment/locale/ta.js",
-	"./ta.js": "../tree-editor-extension/node_modules/moment/locale/ta.js",
-	"./te": "../tree-editor-extension/node_modules/moment/locale/te.js",
-	"./te.js": "../tree-editor-extension/node_modules/moment/locale/te.js",
-	"./tet": "../tree-editor-extension/node_modules/moment/locale/tet.js",
-	"./tet.js": "../tree-editor-extension/node_modules/moment/locale/tet.js",
-	"./tg": "../tree-editor-extension/node_modules/moment/locale/tg.js",
-	"./tg.js": "../tree-editor-extension/node_modules/moment/locale/tg.js",
-	"./th": "../tree-editor-extension/node_modules/moment/locale/th.js",
-	"./th.js": "../tree-editor-extension/node_modules/moment/locale/th.js",
-	"./tl-ph": "../tree-editor-extension/node_modules/moment/locale/tl-ph.js",
-	"./tl-ph.js": "../tree-editor-extension/node_modules/moment/locale/tl-ph.js",
-	"./tlh": "../tree-editor-extension/node_modules/moment/locale/tlh.js",
-	"./tlh.js": "../tree-editor-extension/node_modules/moment/locale/tlh.js",
-	"./tr": "../tree-editor-extension/node_modules/moment/locale/tr.js",
-	"./tr.js": "../tree-editor-extension/node_modules/moment/locale/tr.js",
-	"./tzl": "../tree-editor-extension/node_modules/moment/locale/tzl.js",
-	"./tzl.js": "../tree-editor-extension/node_modules/moment/locale/tzl.js",
-	"./tzm": "../tree-editor-extension/node_modules/moment/locale/tzm.js",
-	"./tzm-latn": "../tree-editor-extension/node_modules/moment/locale/tzm-latn.js",
-	"./tzm-latn.js": "../tree-editor-extension/node_modules/moment/locale/tzm-latn.js",
-	"./tzm.js": "../tree-editor-extension/node_modules/moment/locale/tzm.js",
-	"./ug-cn": "../tree-editor-extension/node_modules/moment/locale/ug-cn.js",
-	"./ug-cn.js": "../tree-editor-extension/node_modules/moment/locale/ug-cn.js",
-	"./uk": "../tree-editor-extension/node_modules/moment/locale/uk.js",
-	"./uk.js": "../tree-editor-extension/node_modules/moment/locale/uk.js",
-	"./ur": "../tree-editor-extension/node_modules/moment/locale/ur.js",
-	"./ur.js": "../tree-editor-extension/node_modules/moment/locale/ur.js",
-	"./uz": "../tree-editor-extension/node_modules/moment/locale/uz.js",
-	"./uz-latn": "../tree-editor-extension/node_modules/moment/locale/uz-latn.js",
-	"./uz-latn.js": "../tree-editor-extension/node_modules/moment/locale/uz-latn.js",
-	"./uz.js": "../tree-editor-extension/node_modules/moment/locale/uz.js",
-	"./vi": "../tree-editor-extension/node_modules/moment/locale/vi.js",
-	"./vi.js": "../tree-editor-extension/node_modules/moment/locale/vi.js",
-	"./x-pseudo": "../tree-editor-extension/node_modules/moment/locale/x-pseudo.js",
-	"./x-pseudo.js": "../tree-editor-extension/node_modules/moment/locale/x-pseudo.js",
-	"./yo": "../tree-editor-extension/node_modules/moment/locale/yo.js",
-	"./yo.js": "../tree-editor-extension/node_modules/moment/locale/yo.js",
-	"./zh-cn": "../tree-editor-extension/node_modules/moment/locale/zh-cn.js",
-	"./zh-cn.js": "../tree-editor-extension/node_modules/moment/locale/zh-cn.js",
-	"./zh-hk": "../tree-editor-extension/node_modules/moment/locale/zh-hk.js",
-	"./zh-hk.js": "../tree-editor-extension/node_modules/moment/locale/zh-hk.js",
-	"./zh-tw": "../tree-editor-extension/node_modules/moment/locale/zh-tw.js",
-	"./zh-tw.js": "../tree-editor-extension/node_modules/moment/locale/zh-tw.js"
-};
+"use strict";
 
+/********************************************************************************
+ * Copyright (C) 2020 Ericsson and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProblemUtils = void 0;
+var ProblemUtils;
+(function (ProblemUtils) {
+    /**
+     * Comparator for severity.
+     * - The highest severity (`error`) come first followed by others.
+     * - `undefined` severities are treated as the last ones.
+     * @param a the first marker for comparison.
+     * @param b the second marker for comparison.
+     */
+    ProblemUtils.severityCompare = function (a, b) {
+        return (a.data.severity || Number.MAX_SAFE_INTEGER) - (b.data.severity || Number.MAX_SAFE_INTEGER);
+    };
+    /**
+     * Comparator for line numbers.
+     * - The lowest line number comes first.
+     * @param a the first marker for comparison.
+     * @param b the second marker for comparison.
+     */
+    ProblemUtils.lineNumberCompare = function (a, b) { return a.data.range.start.line - b.data.range.start.line; };
+    /**
+     * Comparator for column numbers.
+     * - The lowest column number comes first.
+     * @param a the first marker for comparison.
+     * @param b the second marker for comparison.
+     */
+    ProblemUtils.columnNumberCompare = function (a, b) { return a.data.range.start.character - b.data.range.start.character; };
+})(ProblemUtils = exports.ProblemUtils || (exports.ProblemUtils = {}));
 
-function webpackContext(req) {
-	var id = webpackContextResolve(req);
-	return __webpack_require__(id);
-}
-function webpackContextResolve(req) {
-	if(!__webpack_require__.o(map, req)) {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
-	}
-	return map[req];
-}
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = "../tree-editor-extension/node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 /***/ }),
 
-/***/ "../tree-editor-extension/src/browser/style/editor.css":
-/*!*************************************************************!*\
-  !*** ../tree-editor-extension/src/browser/style/editor.css ***!
-  \*************************************************************/
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-widget-tab-bar-decorator.js":
+/*!**********************************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-widget-tab-bar-decorator.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2020 Ericsson and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProblemWidgetTabBarDecorator = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var event_1 = __webpack_require__(/*! @theia/core/lib/common/event */ "../node_modules/@theia/core/lib/common/event.js");
+var problem_manager_1 = __webpack_require__(/*! ./problem-manager */ "../node_modules/@theia/markers/lib/browser/problem/problem-manager.js");
+var ProblemWidgetTabBarDecorator = /** @class */ (function () {
+    function ProblemWidgetTabBarDecorator() {
+        this.id = 'theia-problems-widget-tabbar-decorator';
+        this.emitter = new event_1.Emitter();
+    }
+    ProblemWidgetTabBarDecorator.prototype.init = function () {
+        var _this = this;
+        this.problemManager.onDidChangeMarkers(function () { return _this.fireDidChangeDecorations(); });
+    };
+    ProblemWidgetTabBarDecorator.prototype.decorate = function (title) {
+        if (title.owner.id === 'problems') {
+            var _a = this.problemManager.getProblemStat(), infos = _a.infos, warnings = _a.warnings, errors = _a.errors;
+            var markerCount = infos + warnings + errors;
+            return markerCount > 0 ? [{ badge: markerCount }] : [];
+        }
+        else {
+            return [];
+        }
+    };
+    Object.defineProperty(ProblemWidgetTabBarDecorator.prototype, "onDidChangeDecorations", {
+        get: function () {
+            return this.emitter.event;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    ProblemWidgetTabBarDecorator.prototype.fireDidChangeDecorations = function () {
+        this.emitter.fire(undefined);
+    };
+    __decorate([
+        inversify_1.inject(problem_manager_1.ProblemManager),
+        __metadata("design:type", problem_manager_1.ProblemManager)
+    ], ProblemWidgetTabBarDecorator.prototype, "problemManager", void 0);
+    __decorate([
+        inversify_1.postConstruct(),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], ProblemWidgetTabBarDecorator.prototype, "init", null);
+    ProblemWidgetTabBarDecorator = __decorate([
+        inversify_1.injectable()
+    ], ProblemWidgetTabBarDecorator);
+    return ProblemWidgetTabBarDecorator;
+}());
+exports.ProblemWidgetTabBarDecorator = ProblemWidgetTabBarDecorator;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/markers/lib/browser/problem/problem-widget.js":
+/*!****************************************************************************!*\
+  !*** ../node_modules/@theia/markers/lib/browser/problem/problem-widget.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProblemMarkerRemoveButton = exports.ProblemWidget = exports.PROBLEMS_WIDGET_ID = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var problem_manager_1 = __webpack_require__(/*! ./problem-manager */ "../node_modules/@theia/markers/lib/browser/problem/problem-manager.js");
+var problem_marker_1 = __webpack_require__(/*! ../../common/problem-marker */ "../node_modules/@theia/markers/lib/common/problem-marker.js");
+var problem_tree_model_1 = __webpack_require__(/*! ./problem-tree-model */ "../node_modules/@theia/markers/lib/browser/problem/problem-tree-model.js");
+var marker_tree_1 = __webpack_require__(/*! ../marker-tree */ "../node_modules/@theia/markers/lib/browser/marker-tree.js");
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var React = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+var problem_preferences_1 = __webpack_require__(/*! ./problem-preferences */ "../node_modules/@theia/markers/lib/browser/problem/problem-preferences.js");
+var disposable_1 = __webpack_require__(/*! @theia/core/lib/common/disposable */ "../node_modules/@theia/core/lib/common/disposable.js");
+exports.PROBLEMS_WIDGET_ID = 'problems';
+var ProblemWidget = /** @class */ (function (_super) {
+    __extends(ProblemWidget, _super);
+    function ProblemWidget(problemManager, treeProps, model, contextMenuRenderer) {
+        var _this = _super.call(this, treeProps, model, contextMenuRenderer) || this;
+        _this.problemManager = problemManager;
+        _this.treeProps = treeProps;
+        _this.model = model;
+        _this.contextMenuRenderer = contextMenuRenderer;
+        _this.toDisposeOnCurrentWidgetChanged = new disposable_1.DisposableCollection();
+        _this.id = exports.PROBLEMS_WIDGET_ID;
+        _this.title.label = 'Problems';
+        _this.title.caption = 'Problems';
+        _this.title.iconClass = 'fa problem-tab-icon';
+        _this.title.closable = true;
+        _this.addClass('theia-marker-container');
+        _this.addClipboardListener(_this.node, 'copy', function (e) { return _this.handleCopy(e); });
+        return _this;
+    }
+    ProblemWidget.prototype.init = function () {
+        var _this = this;
+        _super.prototype.init.call(this);
+        this.updateFollowActiveEditor();
+        this.toDispose.push(this.preferences.onPreferenceChanged(function (e) {
+            if (e.preferenceName === 'problems.autoReveal') {
+                _this.updateFollowActiveEditor();
+            }
+        }));
+    };
+    ProblemWidget.prototype.updateFollowActiveEditor = function () {
+        this.toDisposeOnCurrentWidgetChanged.dispose();
+        this.toDispose.push(this.toDisposeOnCurrentWidgetChanged);
+        if (this.preferences.get('problems.autoReveal')) {
+            this.followActiveEditor();
+        }
+    };
+    ProblemWidget.prototype.followActiveEditor = function () {
+        var _this = this;
+        this.autoRevealFromActiveEditor();
+        this.toDisposeOnCurrentWidgetChanged.push(this.shell.onDidChangeCurrentWidget(function () { return _this.autoRevealFromActiveEditor(); }));
+    };
+    ProblemWidget.prototype.autoRevealFromActiveEditor = function () {
+        var widget = this.shell.currentWidget;
+        if (widget && browser_1.Navigatable.is(widget)) {
+            var uri = widget.getResourceUri();
+            var node = uri && this.model.getNode(uri.toString());
+            if (browser_1.ExpandableTreeNode.is(node) && browser_1.SelectableTreeNode.is(node)) {
+                this.model.expandNode(node);
+                this.model.selectNode(node);
+            }
+        }
+    };
+    ProblemWidget.prototype.storeState = function () {
+        // no-op
+        return {};
+    };
+    ProblemWidget.prototype.superStoreState = function () {
+        return _super.prototype.storeState.call(this);
+    };
+    ProblemWidget.prototype.restoreState = function (state) {
+        // no-op
+    };
+    ProblemWidget.prototype.superRestoreState = function (state) {
+        _super.prototype.restoreState.call(this, state);
+        return;
+    };
+    ProblemWidget.prototype.handleClickEvent = function (node, event) {
+        _super.prototype.handleClickEvent.call(this, node, event);
+        if (marker_tree_1.MarkerNode.is(node)) {
+            this.model.revealNode(node);
+        }
+    };
+    ProblemWidget.prototype.handleCopy = function (event) {
+        var uris = this.model.selectedNodes.filter(marker_tree_1.MarkerNode.is).map(function (node) { return node.uri.toString(); });
+        if (uris.length > 0 && event.clipboardData) {
+            event.clipboardData.setData('text/plain', uris.join('\n'));
+            event.preventDefault();
+        }
+    };
+    ProblemWidget.prototype.handleDown = function (event) {
+        var node = this.model.getNextSelectableNode();
+        _super.prototype.handleDown.call(this, event);
+        if (marker_tree_1.MarkerNode.is(node)) {
+            this.model.revealNode(node);
+        }
+    };
+    ProblemWidget.prototype.handleUp = function (event) {
+        var node = this.model.getPrevSelectableNode();
+        _super.prototype.handleUp.call(this, event);
+        if (marker_tree_1.MarkerNode.is(node)) {
+            this.model.revealNode(node);
+        }
+    };
+    ProblemWidget.prototype.renderTree = function (model) {
+        if (marker_tree_1.MarkerRootNode.is(model.root) && model.root.children.length > 0) {
+            return _super.prototype.renderTree.call(this, model);
+        }
+        return React.createElement("div", { className: 'theia-widget-noInfo noMarkers' }, "No problems have been detected in the workspace so far.");
+    };
+    ProblemWidget.prototype.renderCaption = function (node, props) {
+        if (marker_tree_1.MarkerInfoNode.is(node)) {
+            return this.decorateMarkerFileNode(node);
+        }
+        else if (marker_tree_1.MarkerNode.is(node)) {
+            return this.decorateMarkerNode(node);
+        }
+        return 'caption';
+    };
+    ProblemWidget.prototype.renderTailDecorations = function (node, props) {
+        return React.createElement("div", { className: 'row-button-container' }, this.renderRemoveButton(node));
+    };
+    ProblemWidget.prototype.renderRemoveButton = function (node) {
+        return React.createElement(ProblemMarkerRemoveButton, { model: this.model, node: node });
+    };
+    ProblemWidget.prototype.decorateMarkerNode = function (node) {
+        if (problem_marker_1.ProblemMarker.is(node.marker)) {
+            var severityClass = '';
+            var problemMarker = node.marker;
+            if (problemMarker.data.severity) {
+                severityClass = this.getSeverityClass(problemMarker.data.severity);
+            }
+            return React.createElement("div", { className: 'markerNode', title: problemMarker.data.message + " (" + (problemMarker.data.range.start.line + 1) + ", " + (problemMarker.data.range.start.character + 1) + ")" },
+                React.createElement("div", null,
+                    React.createElement("i", { className: severityClass })),
+                React.createElement("div", { className: 'message' },
+                    problemMarker.data.message,
+                    React.createElement("span", { className: 'owner' },
+                        (problemMarker.data.source || problemMarker.owner),
+                        problemMarker.data.code ? "(" + problemMarker.data.code + ")" : ''),
+                    React.createElement("span", { className: 'position' }, '[' + (problemMarker.data.range.start.line + 1) + ', ' + (problemMarker.data.range.start.character + 1) + ']')));
+        }
+        return '';
+    };
+    ProblemWidget.prototype.getSeverityClass = function (severity) {
+        switch (severity) {
+            case 1: return 'fa fa-times-circle error';
+            case 2: return 'fa fa-exclamation-circle warning';
+            case 3: return 'fa fa-info-circle information';
+            default: return 'fa fa-hand-o-up hint';
+        }
+    };
+    ProblemWidget.prototype.decorateMarkerFileNode = function (node) {
+        var icon = this.toNodeIcon(node);
+        var name = this.toNodeName(node);
+        var description = this.toNodeDescription(node);
+        // Use a custom scheme so that we fallback to the `DefaultUriLabelProviderContribution`.
+        var path = this.labelProvider.getLongName(node.uri.withScheme('marker'));
+        return React.createElement("div", { title: path, className: 'markerFileNode' },
+            icon && React.createElement("div", { className: icon + ' file-icon' }),
+            React.createElement("div", { className: 'name' }, name),
+            React.createElement("div", { className: 'path' }, description),
+            React.createElement("div", { className: 'notification-count-container' },
+                React.createElement("span", { className: 'notification-count' }, node.numberOfMarkers.toString())));
+    };
+    __decorate([
+        inversify_1.inject(problem_preferences_1.ProblemPreferences),
+        __metadata("design:type", Object)
+    ], ProblemWidget.prototype, "preferences", void 0);
+    __decorate([
+        inversify_1.inject(browser_1.ApplicationShell),
+        __metadata("design:type", browser_1.ApplicationShell)
+    ], ProblemWidget.prototype, "shell", void 0);
+    __decorate([
+        inversify_1.postConstruct(),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], ProblemWidget.prototype, "init", null);
+    ProblemWidget = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(problem_manager_1.ProblemManager)),
+        __param(1, inversify_1.inject(browser_1.TreeProps)),
+        __param(2, inversify_1.inject(problem_tree_model_1.ProblemTreeModel)),
+        __param(3, inversify_1.inject(browser_1.ContextMenuRenderer)),
+        __metadata("design:paramtypes", [problem_manager_1.ProblemManager, Object, problem_tree_model_1.ProblemTreeModel,
+            browser_1.ContextMenuRenderer])
+    ], ProblemWidget);
+    return ProblemWidget;
+}(browser_1.TreeWidget));
+exports.ProblemWidget = ProblemWidget;
+var ProblemMarkerRemoveButton = /** @class */ (function (_super) {
+    __extends(ProblemMarkerRemoveButton, _super);
+    function ProblemMarkerRemoveButton() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.remove = function (e) { return _this.doRemove(e); };
+        return _this;
+    }
+    ProblemMarkerRemoveButton.prototype.render = function () {
+        return React.createElement("span", { className: 'remove-node', onClick: this.remove });
+    };
+    ProblemMarkerRemoveButton.prototype.doRemove = function (e) {
+        this.props.model.removeNode(this.props.node);
+        e.stopPropagation();
+    };
+    return ProblemMarkerRemoveButton;
+}(React.Component));
+exports.ProblemMarkerRemoveButton = ProblemMarkerRemoveButton;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/markers/src/browser/style/index.css":
+/*!******************************************************************!*\
+  !*** ../node_modules/@theia/markers/src/browser/style/index.css ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader!./editor.css */ "../node_modules/css-loader/index.js!../tree-editor-extension/src/browser/style/editor.css");
+var content = __webpack_require__(/*! !../../../../../css-loader!./index.css */ "../node_modules/css-loader/index.js!../node_modules/@theia/markers/src/browser/style/index.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -2097,11 +2250,154 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "../node_modules/style-loader/lib/addStyles.js")(content, options);
+var update = __webpack_require__(/*! ../../../../../style-loader/lib/addStyles.js */ "../node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
+
+/***/ }),
+
+/***/ "../node_modules/@theia/navigator/lib/browser/navigator-decorator-service.js":
+/*!***********************************************************************************!*\
+  !*** ../node_modules/@theia/navigator/lib/browser/navigator-decorator-service.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2018 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NavigatorDecoratorService = exports.NavigatorTreeDecorator = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var contribution_provider_1 = __webpack_require__(/*! @theia/core/lib/common/contribution-provider */ "../node_modules/@theia/core/lib/common/contribution-provider.js");
+var tree_decorator_1 = __webpack_require__(/*! @theia/core/lib/browser/tree/tree-decorator */ "../node_modules/@theia/core/lib/browser/tree/tree-decorator.js");
+/**
+ * Symbol for all decorators that would like to contribute into the navigator.
+ */
+exports.NavigatorTreeDecorator = Symbol('NavigatorTreeDecorator');
+/**
+ * Decorator service for the navigator.
+ */
+var NavigatorDecoratorService = /** @class */ (function (_super) {
+    __extends(NavigatorDecoratorService, _super);
+    function NavigatorDecoratorService(contributions) {
+        var _this = _super.call(this, contributions.getContributions()) || this;
+        _this.contributions = contributions;
+        return _this;
+    }
+    NavigatorDecoratorService = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(contribution_provider_1.ContributionProvider)), __param(0, inversify_1.named(exports.NavigatorTreeDecorator)),
+        __metadata("design:paramtypes", [Object])
+    ], NavigatorDecoratorService);
+    return NavigatorDecoratorService;
+}(tree_decorator_1.AbstractTreeDecoratorService));
+exports.NavigatorDecoratorService = NavigatorDecoratorService;
+
+
+/***/ }),
+
+/***/ "../node_modules/@theia/workspace/lib/browser/index.js":
+/*!*************************************************************!*\
+  !*** ../node_modules/@theia/workspace/lib/browser/index.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (C) 2017 TypeFox and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+__exportStar(__webpack_require__(/*! ./workspace-commands */ "../node_modules/@theia/workspace/lib/browser/workspace-commands.js"), exports);
+__exportStar(__webpack_require__(/*! ./workspace-service */ "../node_modules/@theia/workspace/lib/browser/workspace-service.js"), exports);
+__exportStar(__webpack_require__(/*! ./workspace-frontend-contribution */ "../node_modules/@theia/workspace/lib/browser/workspace-frontend-contribution.js"), exports);
+__exportStar(__webpack_require__(/*! ./workspace-frontend-module */ "../node_modules/@theia/workspace/lib/browser/workspace-frontend-module.js"), exports);
+__exportStar(__webpack_require__(/*! ./workspace-preferences */ "../node_modules/@theia/workspace/lib/browser/workspace-preferences.js"), exports);
+
+
+/***/ }),
+
+/***/ "../node_modules/css-loader/index.js!../node_modules/@theia/markers/src/browser/style/index.css":
+/*!*********************************************************************************************!*\
+  !*** ../node_modules/css-loader!../node_modules/@theia/markers/src/browser/style/index.css ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/********************************************************************************\n * Copyright (C) 2017 TypeFox and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n.theia-marker-container {\n    font-size: var(--theia-ui-font-size1);\n}\n\n.theia-side-panel .theia-marker-container .noMarkers {\n    padding-left: 19px;\n}\n\n.theia-marker-container .markerNode,\n.theia-marker-container .markerFileNode {\n    display: flex;\n    align-items: center;\n}\n\n.theia-marker-container .markerNode,\n.theia-marker-container .markerFileNode {\n    width: calc(100% - 32px);\n}\n\n.theia-marker-container .markerNode div,\n.theia-marker-container .markerFileNode div {\n    margin-right: 5px;\n}\n\n.theia-marker-container .markerFileNode .name,\n.theia-marker-container .markerFileNode .path {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.theia-marker-container .markerFileNode .path {\n    font-size: var(--theia-ui-font-size0);\n    color: var(--theia-descriptionForeground);\n    align-self: flex-end;\n    white-space: nowrap;\n}\n\n.theia-marker-container .error {\n    color: var(--theia-editorError-foreground);\n}\n\n.theia-marker-container .warning {\n    color: var(--theia-editorWarning-foreground);\n}\n\n.theia-marker-container .information {\n    color: var(--theia-editorInfo-foreground);\n}\n\n.theia-marker-container .hint {\n    color: var(--theia-successBackground);\n}\n\n.theia-marker-container .markerNode .position,\n.theia-marker-container .markerNode .owner {\n    color: var(--theia-descriptionForeground);\n    white-space: nowrap;\n    margin-left: 5px;\n}\n\n.theia-marker-container .markerNode .message {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\n.problem-tab-icon::before {\n    content: \"\\F06A\"\n}\n\n.theia-marker-container .row-button-container {\n    display: none;\n}\n\n.theia-marker-container .theia-TreeNodeContent:hover .row-button-container {\n    display: flex;\n    justify-content: flex-end;\n    flex: 1;\n    align-items: center;\n    align-self: center;\n}\n\n.theia-marker-container .row-button-container .remove-node {\n    background-image: var(--theia-icon-close);\n    width: 15px;\n    height: 15px;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 

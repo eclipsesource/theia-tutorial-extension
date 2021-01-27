@@ -43,7 +43,6 @@ var TreeNodeFactory = /** @class */ (function () {
         return [];
     };
     TreeNodeFactory.prototype.mapData = function (data, parent, property, indexOrKey) {
-        var _this = this;
         if (!data) {
             this.logger.warn('mapData called without data');
         }
@@ -56,26 +55,28 @@ var TreeNodeFactory = /** @class */ (function () {
         console.log('node', node);
         // containments
         if (parent) {
-            console.log('parent: ', parent);
             parent.children.push(node);
             parent.expanded = true;
         }
         if (data.children) {
-            var children = data.children;
-            console.log('children: ', children);
-            // component types
-            children.forEach(function (element, idx) {
-                console.log('element: ', element);
-                _this.mapData(element, node, 'children', idx);
-                // if(element.children){
-                //     const elementChildren = element.children as Array<any>;;
-                //     elementChildren.forEach((child, i) => {
-                //     this.mapData(child, element, 'children', i);
-                // });
-                // }
-            });
+            this.mapCustomData(data.children, node, 'children');
+        }
+        if (data.exercises) {
+            this.mapCustomData(data.exercises, node, 'exercises');
+        }
+        if (data.content) {
+            this.mapCustomData(data.content, node, 'content');
+        }
+        if (data.contents) {
+            this.mapCustomData(data.contents, node, 'contents');
         }
         return node;
+    };
+    TreeNodeFactory.prototype.mapCustomData = function (data, node, label) {
+        var _this = this;
+        data.forEach(function (element, idx) {
+            _this.mapData(element, node, label, idx);
+        });
     };
     TreeNodeFactory.prototype.hasCreatableChildren = function (node) {
         return node ? tree_model_1.CoffeeModel.childrenMapping.get(node.jsonforms.type) !== undefined : false;

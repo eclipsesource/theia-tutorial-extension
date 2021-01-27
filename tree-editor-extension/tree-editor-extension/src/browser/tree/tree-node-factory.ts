@@ -44,28 +44,32 @@ export class TreeNodeFactory implements TreeEditor.NodeFactory {
         console.log('node', node);
         // containments
         if (parent) {
-            console.log('parent: ', parent);
             parent.children.push(node);
             parent.expanded = true;
         }
         if (data.children) {
-            const children = data.children as Array<any>;
-            console.log('children: ', children);
-            // component types
-            children.forEach((element, idx) => {
-                console.log('element: ', element);
-                this.mapData(element, node, 'children', idx);
-                // if(element.children){
-                //     const elementChildren = element.children as Array<any>;;
-                //     elementChildren.forEach((child, i) => {
-                //     this.mapData(child, element, 'children', i);
-                // });
-  
-                // }
-            });
+            this.mapCustomData(data.children, node, 'children');
+        }
+
+        if (data.exercises) {
+            this.mapCustomData(data.exercises, node, 'exercises');
+        }
+
+        if (data.content) {
+            this.mapCustomData(data.content, node, 'content');
+        }
+
+        if (data.contents) {
+            this.mapCustomData(data.contents, node, 'contents');
         }
 
         return node;
+    }
+
+    mapCustomData(data: Array<any>, node: TreeEditor.Node, label: string): void{
+        data.forEach((element, idx) => {
+            this.mapData(element, node, label, idx);
+        });
     }
 
     hasCreatableChildren(node: TreeEditor.Node): boolean {

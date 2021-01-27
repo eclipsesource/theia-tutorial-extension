@@ -1,528 +1,621 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[25],{
 
-/***/ "../node_modules/@theia/filesystem/lib/browser/file-tree/file-tree-label-provider.js":
-/*!*******************************************************************************************!*\
-  !*** ../node_modules/@theia/filesystem/lib/browser/file-tree/file-tree-label-provider.js ***!
-  \*******************************************************************************************/
+/***/ "../node_modules/@theia/workspace/node_modules/moment/locale sync recursive ^\\.\\/.*$":
+/*!*********************************************************************************!*\
+  !*** ../node_modules/@theia/workspace/node_modules/moment/locale sync ^\.\/.*$ ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-/********************************************************************************
- * Copyright (C) 2019 TypeFox and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+var map = {
+	"./af": "../node_modules/@theia/workspace/node_modules/moment/locale/af.js",
+	"./af.js": "../node_modules/@theia/workspace/node_modules/moment/locale/af.js",
+	"./ar": "../node_modules/@theia/workspace/node_modules/moment/locale/ar.js",
+	"./ar-dz": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-dz.js",
+	"./ar-dz.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-dz.js",
+	"./ar-kw": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-kw.js",
+	"./ar-kw.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-kw.js",
+	"./ar-ly": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-ly.js",
+	"./ar-ly.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-ly.js",
+	"./ar-ma": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-ma.js",
+	"./ar-ma.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-ma.js",
+	"./ar-sa": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-sa.js",
+	"./ar-sa.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-sa.js",
+	"./ar-tn": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-tn.js",
+	"./ar-tn.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ar-tn.js",
+	"./ar.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ar.js",
+	"./az": "../node_modules/@theia/workspace/node_modules/moment/locale/az.js",
+	"./az.js": "../node_modules/@theia/workspace/node_modules/moment/locale/az.js",
+	"./be": "../node_modules/@theia/workspace/node_modules/moment/locale/be.js",
+	"./be.js": "../node_modules/@theia/workspace/node_modules/moment/locale/be.js",
+	"./bg": "../node_modules/@theia/workspace/node_modules/moment/locale/bg.js",
+	"./bg.js": "../node_modules/@theia/workspace/node_modules/moment/locale/bg.js",
+	"./bm": "../node_modules/@theia/workspace/node_modules/moment/locale/bm.js",
+	"./bm.js": "../node_modules/@theia/workspace/node_modules/moment/locale/bm.js",
+	"./bn": "../node_modules/@theia/workspace/node_modules/moment/locale/bn.js",
+	"./bn.js": "../node_modules/@theia/workspace/node_modules/moment/locale/bn.js",
+	"./bo": "../node_modules/@theia/workspace/node_modules/moment/locale/bo.js",
+	"./bo.js": "../node_modules/@theia/workspace/node_modules/moment/locale/bo.js",
+	"./br": "../node_modules/@theia/workspace/node_modules/moment/locale/br.js",
+	"./br.js": "../node_modules/@theia/workspace/node_modules/moment/locale/br.js",
+	"./bs": "../node_modules/@theia/workspace/node_modules/moment/locale/bs.js",
+	"./bs.js": "../node_modules/@theia/workspace/node_modules/moment/locale/bs.js",
+	"./ca": "../node_modules/@theia/workspace/node_modules/moment/locale/ca.js",
+	"./ca.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ca.js",
+	"./cs": "../node_modules/@theia/workspace/node_modules/moment/locale/cs.js",
+	"./cs.js": "../node_modules/@theia/workspace/node_modules/moment/locale/cs.js",
+	"./cv": "../node_modules/@theia/workspace/node_modules/moment/locale/cv.js",
+	"./cv.js": "../node_modules/@theia/workspace/node_modules/moment/locale/cv.js",
+	"./cy": "../node_modules/@theia/workspace/node_modules/moment/locale/cy.js",
+	"./cy.js": "../node_modules/@theia/workspace/node_modules/moment/locale/cy.js",
+	"./da": "../node_modules/@theia/workspace/node_modules/moment/locale/da.js",
+	"./da.js": "../node_modules/@theia/workspace/node_modules/moment/locale/da.js",
+	"./de": "../node_modules/@theia/workspace/node_modules/moment/locale/de.js",
+	"./de-at": "../node_modules/@theia/workspace/node_modules/moment/locale/de-at.js",
+	"./de-at.js": "../node_modules/@theia/workspace/node_modules/moment/locale/de-at.js",
+	"./de-ch": "../node_modules/@theia/workspace/node_modules/moment/locale/de-ch.js",
+	"./de-ch.js": "../node_modules/@theia/workspace/node_modules/moment/locale/de-ch.js",
+	"./de.js": "../node_modules/@theia/workspace/node_modules/moment/locale/de.js",
+	"./dv": "../node_modules/@theia/workspace/node_modules/moment/locale/dv.js",
+	"./dv.js": "../node_modules/@theia/workspace/node_modules/moment/locale/dv.js",
+	"./el": "../node_modules/@theia/workspace/node_modules/moment/locale/el.js",
+	"./el.js": "../node_modules/@theia/workspace/node_modules/moment/locale/el.js",
+	"./en-SG": "../node_modules/@theia/workspace/node_modules/moment/locale/en-SG.js",
+	"./en-SG.js": "../node_modules/@theia/workspace/node_modules/moment/locale/en-SG.js",
+	"./en-au": "../node_modules/@theia/workspace/node_modules/moment/locale/en-au.js",
+	"./en-au.js": "../node_modules/@theia/workspace/node_modules/moment/locale/en-au.js",
+	"./en-ca": "../node_modules/@theia/workspace/node_modules/moment/locale/en-ca.js",
+	"./en-ca.js": "../node_modules/@theia/workspace/node_modules/moment/locale/en-ca.js",
+	"./en-gb": "../node_modules/@theia/workspace/node_modules/moment/locale/en-gb.js",
+	"./en-gb.js": "../node_modules/@theia/workspace/node_modules/moment/locale/en-gb.js",
+	"./en-ie": "../node_modules/@theia/workspace/node_modules/moment/locale/en-ie.js",
+	"./en-ie.js": "../node_modules/@theia/workspace/node_modules/moment/locale/en-ie.js",
+	"./en-il": "../node_modules/@theia/workspace/node_modules/moment/locale/en-il.js",
+	"./en-il.js": "../node_modules/@theia/workspace/node_modules/moment/locale/en-il.js",
+	"./en-nz": "../node_modules/@theia/workspace/node_modules/moment/locale/en-nz.js",
+	"./en-nz.js": "../node_modules/@theia/workspace/node_modules/moment/locale/en-nz.js",
+	"./eo": "../node_modules/@theia/workspace/node_modules/moment/locale/eo.js",
+	"./eo.js": "../node_modules/@theia/workspace/node_modules/moment/locale/eo.js",
+	"./es": "../node_modules/@theia/workspace/node_modules/moment/locale/es.js",
+	"./es-do": "../node_modules/@theia/workspace/node_modules/moment/locale/es-do.js",
+	"./es-do.js": "../node_modules/@theia/workspace/node_modules/moment/locale/es-do.js",
+	"./es-us": "../node_modules/@theia/workspace/node_modules/moment/locale/es-us.js",
+	"./es-us.js": "../node_modules/@theia/workspace/node_modules/moment/locale/es-us.js",
+	"./es.js": "../node_modules/@theia/workspace/node_modules/moment/locale/es.js",
+	"./et": "../node_modules/@theia/workspace/node_modules/moment/locale/et.js",
+	"./et.js": "../node_modules/@theia/workspace/node_modules/moment/locale/et.js",
+	"./eu": "../node_modules/@theia/workspace/node_modules/moment/locale/eu.js",
+	"./eu.js": "../node_modules/@theia/workspace/node_modules/moment/locale/eu.js",
+	"./fa": "../node_modules/@theia/workspace/node_modules/moment/locale/fa.js",
+	"./fa.js": "../node_modules/@theia/workspace/node_modules/moment/locale/fa.js",
+	"./fi": "../node_modules/@theia/workspace/node_modules/moment/locale/fi.js",
+	"./fi.js": "../node_modules/@theia/workspace/node_modules/moment/locale/fi.js",
+	"./fo": "../node_modules/@theia/workspace/node_modules/moment/locale/fo.js",
+	"./fo.js": "../node_modules/@theia/workspace/node_modules/moment/locale/fo.js",
+	"./fr": "../node_modules/@theia/workspace/node_modules/moment/locale/fr.js",
+	"./fr-ca": "../node_modules/@theia/workspace/node_modules/moment/locale/fr-ca.js",
+	"./fr-ca.js": "../node_modules/@theia/workspace/node_modules/moment/locale/fr-ca.js",
+	"./fr-ch": "../node_modules/@theia/workspace/node_modules/moment/locale/fr-ch.js",
+	"./fr-ch.js": "../node_modules/@theia/workspace/node_modules/moment/locale/fr-ch.js",
+	"./fr.js": "../node_modules/@theia/workspace/node_modules/moment/locale/fr.js",
+	"./fy": "../node_modules/@theia/workspace/node_modules/moment/locale/fy.js",
+	"./fy.js": "../node_modules/@theia/workspace/node_modules/moment/locale/fy.js",
+	"./ga": "../node_modules/@theia/workspace/node_modules/moment/locale/ga.js",
+	"./ga.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ga.js",
+	"./gd": "../node_modules/@theia/workspace/node_modules/moment/locale/gd.js",
+	"./gd.js": "../node_modules/@theia/workspace/node_modules/moment/locale/gd.js",
+	"./gl": "../node_modules/@theia/workspace/node_modules/moment/locale/gl.js",
+	"./gl.js": "../node_modules/@theia/workspace/node_modules/moment/locale/gl.js",
+	"./gom-latn": "../node_modules/@theia/workspace/node_modules/moment/locale/gom-latn.js",
+	"./gom-latn.js": "../node_modules/@theia/workspace/node_modules/moment/locale/gom-latn.js",
+	"./gu": "../node_modules/@theia/workspace/node_modules/moment/locale/gu.js",
+	"./gu.js": "../node_modules/@theia/workspace/node_modules/moment/locale/gu.js",
+	"./he": "../node_modules/@theia/workspace/node_modules/moment/locale/he.js",
+	"./he.js": "../node_modules/@theia/workspace/node_modules/moment/locale/he.js",
+	"./hi": "../node_modules/@theia/workspace/node_modules/moment/locale/hi.js",
+	"./hi.js": "../node_modules/@theia/workspace/node_modules/moment/locale/hi.js",
+	"./hr": "../node_modules/@theia/workspace/node_modules/moment/locale/hr.js",
+	"./hr.js": "../node_modules/@theia/workspace/node_modules/moment/locale/hr.js",
+	"./hu": "../node_modules/@theia/workspace/node_modules/moment/locale/hu.js",
+	"./hu.js": "../node_modules/@theia/workspace/node_modules/moment/locale/hu.js",
+	"./hy-am": "../node_modules/@theia/workspace/node_modules/moment/locale/hy-am.js",
+	"./hy-am.js": "../node_modules/@theia/workspace/node_modules/moment/locale/hy-am.js",
+	"./id": "../node_modules/@theia/workspace/node_modules/moment/locale/id.js",
+	"./id.js": "../node_modules/@theia/workspace/node_modules/moment/locale/id.js",
+	"./is": "../node_modules/@theia/workspace/node_modules/moment/locale/is.js",
+	"./is.js": "../node_modules/@theia/workspace/node_modules/moment/locale/is.js",
+	"./it": "../node_modules/@theia/workspace/node_modules/moment/locale/it.js",
+	"./it-ch": "../node_modules/@theia/workspace/node_modules/moment/locale/it-ch.js",
+	"./it-ch.js": "../node_modules/@theia/workspace/node_modules/moment/locale/it-ch.js",
+	"./it.js": "../node_modules/@theia/workspace/node_modules/moment/locale/it.js",
+	"./ja": "../node_modules/@theia/workspace/node_modules/moment/locale/ja.js",
+	"./ja.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ja.js",
+	"./jv": "../node_modules/@theia/workspace/node_modules/moment/locale/jv.js",
+	"./jv.js": "../node_modules/@theia/workspace/node_modules/moment/locale/jv.js",
+	"./ka": "../node_modules/@theia/workspace/node_modules/moment/locale/ka.js",
+	"./ka.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ka.js",
+	"./kk": "../node_modules/@theia/workspace/node_modules/moment/locale/kk.js",
+	"./kk.js": "../node_modules/@theia/workspace/node_modules/moment/locale/kk.js",
+	"./km": "../node_modules/@theia/workspace/node_modules/moment/locale/km.js",
+	"./km.js": "../node_modules/@theia/workspace/node_modules/moment/locale/km.js",
+	"./kn": "../node_modules/@theia/workspace/node_modules/moment/locale/kn.js",
+	"./kn.js": "../node_modules/@theia/workspace/node_modules/moment/locale/kn.js",
+	"./ko": "../node_modules/@theia/workspace/node_modules/moment/locale/ko.js",
+	"./ko.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ko.js",
+	"./ku": "../node_modules/@theia/workspace/node_modules/moment/locale/ku.js",
+	"./ku.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ku.js",
+	"./ky": "../node_modules/@theia/workspace/node_modules/moment/locale/ky.js",
+	"./ky.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ky.js",
+	"./lb": "../node_modules/@theia/workspace/node_modules/moment/locale/lb.js",
+	"./lb.js": "../node_modules/@theia/workspace/node_modules/moment/locale/lb.js",
+	"./lo": "../node_modules/@theia/workspace/node_modules/moment/locale/lo.js",
+	"./lo.js": "../node_modules/@theia/workspace/node_modules/moment/locale/lo.js",
+	"./lt": "../node_modules/@theia/workspace/node_modules/moment/locale/lt.js",
+	"./lt.js": "../node_modules/@theia/workspace/node_modules/moment/locale/lt.js",
+	"./lv": "../node_modules/@theia/workspace/node_modules/moment/locale/lv.js",
+	"./lv.js": "../node_modules/@theia/workspace/node_modules/moment/locale/lv.js",
+	"./me": "../node_modules/@theia/workspace/node_modules/moment/locale/me.js",
+	"./me.js": "../node_modules/@theia/workspace/node_modules/moment/locale/me.js",
+	"./mi": "../node_modules/@theia/workspace/node_modules/moment/locale/mi.js",
+	"./mi.js": "../node_modules/@theia/workspace/node_modules/moment/locale/mi.js",
+	"./mk": "../node_modules/@theia/workspace/node_modules/moment/locale/mk.js",
+	"./mk.js": "../node_modules/@theia/workspace/node_modules/moment/locale/mk.js",
+	"./ml": "../node_modules/@theia/workspace/node_modules/moment/locale/ml.js",
+	"./ml.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ml.js",
+	"./mn": "../node_modules/@theia/workspace/node_modules/moment/locale/mn.js",
+	"./mn.js": "../node_modules/@theia/workspace/node_modules/moment/locale/mn.js",
+	"./mr": "../node_modules/@theia/workspace/node_modules/moment/locale/mr.js",
+	"./mr.js": "../node_modules/@theia/workspace/node_modules/moment/locale/mr.js",
+	"./ms": "../node_modules/@theia/workspace/node_modules/moment/locale/ms.js",
+	"./ms-my": "../node_modules/@theia/workspace/node_modules/moment/locale/ms-my.js",
+	"./ms-my.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ms-my.js",
+	"./ms.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ms.js",
+	"./mt": "../node_modules/@theia/workspace/node_modules/moment/locale/mt.js",
+	"./mt.js": "../node_modules/@theia/workspace/node_modules/moment/locale/mt.js",
+	"./my": "../node_modules/@theia/workspace/node_modules/moment/locale/my.js",
+	"./my.js": "../node_modules/@theia/workspace/node_modules/moment/locale/my.js",
+	"./nb": "../node_modules/@theia/workspace/node_modules/moment/locale/nb.js",
+	"./nb.js": "../node_modules/@theia/workspace/node_modules/moment/locale/nb.js",
+	"./ne": "../node_modules/@theia/workspace/node_modules/moment/locale/ne.js",
+	"./ne.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ne.js",
+	"./nl": "../node_modules/@theia/workspace/node_modules/moment/locale/nl.js",
+	"./nl-be": "../node_modules/@theia/workspace/node_modules/moment/locale/nl-be.js",
+	"./nl-be.js": "../node_modules/@theia/workspace/node_modules/moment/locale/nl-be.js",
+	"./nl.js": "../node_modules/@theia/workspace/node_modules/moment/locale/nl.js",
+	"./nn": "../node_modules/@theia/workspace/node_modules/moment/locale/nn.js",
+	"./nn.js": "../node_modules/@theia/workspace/node_modules/moment/locale/nn.js",
+	"./pa-in": "../node_modules/@theia/workspace/node_modules/moment/locale/pa-in.js",
+	"./pa-in.js": "../node_modules/@theia/workspace/node_modules/moment/locale/pa-in.js",
+	"./pl": "../node_modules/@theia/workspace/node_modules/moment/locale/pl.js",
+	"./pl.js": "../node_modules/@theia/workspace/node_modules/moment/locale/pl.js",
+	"./pt": "../node_modules/@theia/workspace/node_modules/moment/locale/pt.js",
+	"./pt-br": "../node_modules/@theia/workspace/node_modules/moment/locale/pt-br.js",
+	"./pt-br.js": "../node_modules/@theia/workspace/node_modules/moment/locale/pt-br.js",
+	"./pt.js": "../node_modules/@theia/workspace/node_modules/moment/locale/pt.js",
+	"./ro": "../node_modules/@theia/workspace/node_modules/moment/locale/ro.js",
+	"./ro.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ro.js",
+	"./ru": "../node_modules/@theia/workspace/node_modules/moment/locale/ru.js",
+	"./ru.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ru.js",
+	"./sd": "../node_modules/@theia/workspace/node_modules/moment/locale/sd.js",
+	"./sd.js": "../node_modules/@theia/workspace/node_modules/moment/locale/sd.js",
+	"./se": "../node_modules/@theia/workspace/node_modules/moment/locale/se.js",
+	"./se.js": "../node_modules/@theia/workspace/node_modules/moment/locale/se.js",
+	"./si": "../node_modules/@theia/workspace/node_modules/moment/locale/si.js",
+	"./si.js": "../node_modules/@theia/workspace/node_modules/moment/locale/si.js",
+	"./sk": "../node_modules/@theia/workspace/node_modules/moment/locale/sk.js",
+	"./sk.js": "../node_modules/@theia/workspace/node_modules/moment/locale/sk.js",
+	"./sl": "../node_modules/@theia/workspace/node_modules/moment/locale/sl.js",
+	"./sl.js": "../node_modules/@theia/workspace/node_modules/moment/locale/sl.js",
+	"./sq": "../node_modules/@theia/workspace/node_modules/moment/locale/sq.js",
+	"./sq.js": "../node_modules/@theia/workspace/node_modules/moment/locale/sq.js",
+	"./sr": "../node_modules/@theia/workspace/node_modules/moment/locale/sr.js",
+	"./sr-cyrl": "../node_modules/@theia/workspace/node_modules/moment/locale/sr-cyrl.js",
+	"./sr-cyrl.js": "../node_modules/@theia/workspace/node_modules/moment/locale/sr-cyrl.js",
+	"./sr.js": "../node_modules/@theia/workspace/node_modules/moment/locale/sr.js",
+	"./ss": "../node_modules/@theia/workspace/node_modules/moment/locale/ss.js",
+	"./ss.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ss.js",
+	"./sv": "../node_modules/@theia/workspace/node_modules/moment/locale/sv.js",
+	"./sv.js": "../node_modules/@theia/workspace/node_modules/moment/locale/sv.js",
+	"./sw": "../node_modules/@theia/workspace/node_modules/moment/locale/sw.js",
+	"./sw.js": "../node_modules/@theia/workspace/node_modules/moment/locale/sw.js",
+	"./ta": "../node_modules/@theia/workspace/node_modules/moment/locale/ta.js",
+	"./ta.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ta.js",
+	"./te": "../node_modules/@theia/workspace/node_modules/moment/locale/te.js",
+	"./te.js": "../node_modules/@theia/workspace/node_modules/moment/locale/te.js",
+	"./tet": "../node_modules/@theia/workspace/node_modules/moment/locale/tet.js",
+	"./tet.js": "../node_modules/@theia/workspace/node_modules/moment/locale/tet.js",
+	"./tg": "../node_modules/@theia/workspace/node_modules/moment/locale/tg.js",
+	"./tg.js": "../node_modules/@theia/workspace/node_modules/moment/locale/tg.js",
+	"./th": "../node_modules/@theia/workspace/node_modules/moment/locale/th.js",
+	"./th.js": "../node_modules/@theia/workspace/node_modules/moment/locale/th.js",
+	"./tl-ph": "../node_modules/@theia/workspace/node_modules/moment/locale/tl-ph.js",
+	"./tl-ph.js": "../node_modules/@theia/workspace/node_modules/moment/locale/tl-ph.js",
+	"./tlh": "../node_modules/@theia/workspace/node_modules/moment/locale/tlh.js",
+	"./tlh.js": "../node_modules/@theia/workspace/node_modules/moment/locale/tlh.js",
+	"./tr": "../node_modules/@theia/workspace/node_modules/moment/locale/tr.js",
+	"./tr.js": "../node_modules/@theia/workspace/node_modules/moment/locale/tr.js",
+	"./tzl": "../node_modules/@theia/workspace/node_modules/moment/locale/tzl.js",
+	"./tzl.js": "../node_modules/@theia/workspace/node_modules/moment/locale/tzl.js",
+	"./tzm": "../node_modules/@theia/workspace/node_modules/moment/locale/tzm.js",
+	"./tzm-latn": "../node_modules/@theia/workspace/node_modules/moment/locale/tzm-latn.js",
+	"./tzm-latn.js": "../node_modules/@theia/workspace/node_modules/moment/locale/tzm-latn.js",
+	"./tzm.js": "../node_modules/@theia/workspace/node_modules/moment/locale/tzm.js",
+	"./ug-cn": "../node_modules/@theia/workspace/node_modules/moment/locale/ug-cn.js",
+	"./ug-cn.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ug-cn.js",
+	"./uk": "../node_modules/@theia/workspace/node_modules/moment/locale/uk.js",
+	"./uk.js": "../node_modules/@theia/workspace/node_modules/moment/locale/uk.js",
+	"./ur": "../node_modules/@theia/workspace/node_modules/moment/locale/ur.js",
+	"./ur.js": "../node_modules/@theia/workspace/node_modules/moment/locale/ur.js",
+	"./uz": "../node_modules/@theia/workspace/node_modules/moment/locale/uz.js",
+	"./uz-latn": "../node_modules/@theia/workspace/node_modules/moment/locale/uz-latn.js",
+	"./uz-latn.js": "../node_modules/@theia/workspace/node_modules/moment/locale/uz-latn.js",
+	"./uz.js": "../node_modules/@theia/workspace/node_modules/moment/locale/uz.js",
+	"./vi": "../node_modules/@theia/workspace/node_modules/moment/locale/vi.js",
+	"./vi.js": "../node_modules/@theia/workspace/node_modules/moment/locale/vi.js",
+	"./x-pseudo": "../node_modules/@theia/workspace/node_modules/moment/locale/x-pseudo.js",
+	"./x-pseudo.js": "../node_modules/@theia/workspace/node_modules/moment/locale/x-pseudo.js",
+	"./yo": "../node_modules/@theia/workspace/node_modules/moment/locale/yo.js",
+	"./yo.js": "../node_modules/@theia/workspace/node_modules/moment/locale/yo.js",
+	"./zh-cn": "../node_modules/@theia/workspace/node_modules/moment/locale/zh-cn.js",
+	"./zh-cn.js": "../node_modules/@theia/workspace/node_modules/moment/locale/zh-cn.js",
+	"./zh-hk": "../node_modules/@theia/workspace/node_modules/moment/locale/zh-hk.js",
+	"./zh-hk.js": "../node_modules/@theia/workspace/node_modules/moment/locale/zh-hk.js",
+	"./zh-tw": "../node_modules/@theia/workspace/node_modules/moment/locale/zh-tw.js",
+	"./zh-tw.js": "../node_modules/@theia/workspace/node_modules/moment/locale/zh-tw.js"
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FileTreeLabelProvider = void 0;
-var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var label_provider_1 = __webpack_require__(/*! @theia/core/lib/browser/label-provider */ "../node_modules/@theia/core/lib/browser/label-provider.js");
-var file_tree_1 = __webpack_require__(/*! ./file-tree */ "../node_modules/@theia/filesystem/lib/browser/file-tree/file-tree.js");
-var tree_label_provider_1 = __webpack_require__(/*! @theia/core/lib/browser/tree/tree-label-provider */ "../node_modules/@theia/core/lib/browser/tree/tree-label-provider.js");
-var FileTreeLabelProvider = /** @class */ (function () {
-    function FileTreeLabelProvider() {
-    }
-    FileTreeLabelProvider.prototype.canHandle = function (element) {
-        return file_tree_1.FileStatNode.is(element) ?
-            this.treeLabelProvider.canHandle(element) + 1 :
-            0;
-    };
-    FileTreeLabelProvider.prototype.getIcon = function (node) {
-        return this.labelProvider.getIcon(node.fileStat);
-    };
-    FileTreeLabelProvider.prototype.getName = function (node) {
-        return this.labelProvider.getName(node.fileStat);
-    };
-    FileTreeLabelProvider.prototype.getDescription = function (node) {
-        return this.labelProvider.getLongName(node.fileStat);
-    };
-    FileTreeLabelProvider.prototype.affects = function (node, event) {
-        return event.affects(node.fileStat);
-    };
-    __decorate([
-        inversify_1.inject(label_provider_1.LabelProvider),
-        __metadata("design:type", label_provider_1.LabelProvider)
-    ], FileTreeLabelProvider.prototype, "labelProvider", void 0);
-    __decorate([
-        inversify_1.inject(tree_label_provider_1.TreeLabelProvider),
-        __metadata("design:type", tree_label_provider_1.TreeLabelProvider)
-    ], FileTreeLabelProvider.prototype, "treeLabelProvider", void 0);
-    FileTreeLabelProvider = __decorate([
-        inversify_1.injectable()
-    ], FileTreeLabelProvider);
-    return FileTreeLabelProvider;
-}());
-exports.FileTreeLabelProvider = FileTreeLabelProvider;
 
 
-/***/ }),
-
-/***/ "../node_modules/@theia/filesystem/lib/browser/filesystem-frontend-module.js":
-/*!***********************************************************************************!*\
-  !*** ../node_modules/@theia/filesystem/lib/browser/filesystem-frontend-module.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (C) 2017-2018 TypeFox and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.bindFileResource = void 0;
-__webpack_require__(/*! ../../src/browser/style/index.css */ "../node_modules/@theia/filesystem/src/browser/style/index.css");
-var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var common_1 = __webpack_require__(/*! @theia/core/lib/common */ "../node_modules/@theia/core/lib/common/index.js");
-var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
-var file_resource_1 = __webpack_require__(/*! ./file-resource */ "../node_modules/@theia/filesystem/lib/browser/file-resource.js");
-var filesystem_preferences_1 = __webpack_require__(/*! ./filesystem-preferences */ "../node_modules/@theia/filesystem/lib/browser/filesystem-preferences.js");
-var filesystem_watcher_1 = __webpack_require__(/*! ./filesystem-watcher */ "../node_modules/@theia/filesystem/lib/browser/filesystem-watcher.js");
-var filesystem_frontend_contribution_1 = __webpack_require__(/*! ./filesystem-frontend-contribution */ "../node_modules/@theia/filesystem/lib/browser/filesystem-frontend-contribution.js");
-var file_upload_service_1 = __webpack_require__(/*! ./file-upload-service */ "../node_modules/@theia/filesystem/lib/browser/file-upload-service.js");
-var file_tree_label_provider_1 = __webpack_require__(/*! ./file-tree/file-tree-label-provider */ "../node_modules/@theia/filesystem/lib/browser/file-tree/file-tree-label-provider.js");
-var file_service_1 = __webpack_require__(/*! ./file-service */ "../node_modules/@theia/filesystem/lib/browser/file-service.js");
-var remote_file_system_provider_1 = __webpack_require__(/*! ../common/remote-file-system-provider */ "../node_modules/@theia/filesystem/lib/common/remote-file-system-provider.js");
-var filesystem_1 = __webpack_require__(/*! ../common/filesystem */ "../node_modules/@theia/filesystem/lib/common/filesystem.js");
-var uri_1 = __webpack_require__(/*! @theia/core/lib/common/uri */ "../node_modules/@theia/core/lib/common/uri.js");
-var files_1 = __webpack_require__(/*! ../common/files */ "../node_modules/@theia/filesystem/lib/common/files.js");
-var env_variables_1 = __webpack_require__(/*! @theia/core/lib/common/env-variables */ "../node_modules/@theia/core/lib/common/env-variables/index.js");
-var contribution_provider_1 = __webpack_require__(/*! @theia/core/lib/common/contribution-provider */ "../node_modules/@theia/core/lib/common/contribution-provider.js");
-var remote_file_service_contribution_1 = __webpack_require__(/*! ./remote-file-service-contribution */ "../node_modules/@theia/filesystem/lib/browser/remote-file-service-contribution.js");
-var filesystem_watcher_error_handler_1 = __webpack_require__(/*! ./filesystem-watcher-error-handler */ "../node_modules/@theia/filesystem/lib/browser/filesystem-watcher-error-handler.js");
-var encodings_1 = __webpack_require__(/*! @theia/core/lib/common/encodings */ "../node_modules/@theia/core/lib/common/encodings.js");
-exports.default = new inversify_1.ContainerModule(function (bind) {
-    filesystem_preferences_1.bindFileSystemPreferences(bind);
-    contribution_provider_1.bindContributionProvider(bind, file_service_1.FileServiceContribution);
-    bind(file_service_1.FileService).toSelf().inSingletonScope();
-    bind(remote_file_system_provider_1.RemoteFileSystemServer).toDynamicValue(function (ctx) {
-        return browser_1.WebSocketConnectionProvider.createProxy(ctx.container, remote_file_system_provider_1.remoteFileSystemPath, new remote_file_system_provider_1.RemoteFileSystemProxyFactory());
-    });
-    bind(remote_file_system_provider_1.RemoteFileSystemProvider).toSelf().inSingletonScope();
-    bind(remote_file_service_contribution_1.RemoteFileServiceContribution).toSelf().inSingletonScope();
-    bind(file_service_1.FileServiceContribution).toService(remote_file_service_contribution_1.RemoteFileServiceContribution);
-    bind(filesystem_watcher_1.FileSystemWatcher).toSelf().inSingletonScope();
-    bind(filesystem_watcher_error_handler_1.FileSystemWatcherErrorHandler).toSelf().inSingletonScope();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    bind(filesystem_1.FileSystem).toDynamicValue(function (_a) {
-        var container = _a.container;
-        var fileService = container.get(file_service_1.FileService);
-        var environments = container.get(env_variables_1.EnvVariablesServer);
-        var convertStat = function (stat) {
-            var _a;
-            return ({
-                uri: stat.resource.toString(),
-                lastModification: stat.mtime,
-                size: stat.size,
-                isDirectory: 'isDirectory' in stat && stat.isDirectory,
-                children: 'children' in stat ? (_a = stat.children) === null || _a === void 0 ? void 0 : _a.map(convertStat) : undefined
-            });
-        };
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        var rethrowError = function (uri, error) {
-            if (error instanceof files_1.FileOperationError) {
-                if (error.fileOperationResult === 1 /* FILE_NOT_FOUND */) {
-                    throw filesystem_1.FileSystemError.FileNotFound(uri);
-                }
-                if (error.fileOperationResult === 0 /* FILE_IS_DIRECTORY */) {
-                    throw filesystem_1.FileSystemError.FileIsDirectory(uri);
-                }
-                if (error.fileOperationResult === 10 /* FILE_NOT_DIRECTORY */) {
-                    throw filesystem_1.FileSystemError.FileNotDirectory(uri);
-                }
-                if (error.fileOperationResult === 3 /* FILE_MODIFIED_SINCE */) {
-                    throw filesystem_1.FileSystemError.FileIsOutOfSync(uri);
-                }
-            }
-            throw error;
-        };
-        return new /** @class */ (function () {
-            function class_1() {
-            }
-            class_1.prototype.getFileStat = function (uri) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var stat, e_1;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, fileService.resolve(new uri_1.default(uri), { resolveMetadata: true })];
-                            case 1:
-                                stat = _a.sent();
-                                return [2 /*return*/, convertStat(stat)];
-                            case 2:
-                                e_1 = _a.sent();
-                                if (e_1 instanceof files_1.FileOperationError && e_1.fileOperationResult === 1 /* FILE_NOT_FOUND */) {
-                                    return [2 /*return*/, undefined];
-                                }
-                                rethrowError(uri, e_1);
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.exists = function (uri) {
-                return fileService.exists(new uri_1.default(uri));
-            };
-            class_1.prototype.resolveContent = function (uri, options) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var content, e_2;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, fileService.read(new uri_1.default(uri), options)];
-                            case 1:
-                                content = _a.sent();
-                                return [2 /*return*/, {
-                                        stat: convertStat(content),
-                                        content: content.value
-                                    }];
-                            case 2:
-                                e_2 = _a.sent();
-                                rethrowError(uri, e_2);
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.setContent = function (file, content, options) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var result, e_3;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, fileService.write(new uri_1.default(file.uri), content, __assign(__assign({}, options), { mtime: file.lastModification }))];
-                            case 1:
-                                result = _a.sent();
-                                return [2 /*return*/, convertStat(result)];
-                            case 2:
-                                e_3 = _a.sent();
-                                rethrowError(file.uri, e_3);
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.updateContent = function (file, contentChanges, options) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var result, e_4;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, fileService.update(new uri_1.default(file.uri), contentChanges, {
-                                        mtime: file.lastModification,
-                                        etag: files_1.etag({ size: file.size, mtime: file.lastModification }),
-                                        readEncoding: (options === null || options === void 0 ? void 0 : options.encoding) || encodings_1.UTF8,
-                                        encoding: options === null || options === void 0 ? void 0 : options.overwriteEncoding,
-                                        overwriteEncoding: !!(options === null || options === void 0 ? void 0 : options.overwriteEncoding)
-                                    })];
-                            case 1:
-                                result = _a.sent();
-                                return [2 /*return*/, convertStat(result)];
-                            case 2:
-                                e_4 = _a.sent();
-                                rethrowError(file.uri, e_4);
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.move = function (sourceUri, targetUri, options) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var result, e_5;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, fileService.move(new uri_1.default(sourceUri), new uri_1.default(targetUri), options)];
-                            case 1:
-                                result = _a.sent();
-                                return [2 /*return*/, convertStat(result)];
-                            case 2:
-                                e_5 = _a.sent();
-                                rethrowError(sourceUri, e_5);
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.copy = function (sourceUri, targetUri, options) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var result, e_6;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, fileService.copy(new uri_1.default(sourceUri), new uri_1.default(targetUri), options)];
-                            case 1:
-                                result = _a.sent();
-                                return [2 /*return*/, convertStat(result)];
-                            case 2:
-                                e_6 = _a.sent();
-                                rethrowError(sourceUri, e_6);
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.createFile = function (uri, options) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var result, e_7;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, fileService.create(new uri_1.default(uri), options === null || options === void 0 ? void 0 : options.content, { encoding: options === null || options === void 0 ? void 0 : options.encoding })];
-                            case 1:
-                                result = _a.sent();
-                                return [2 /*return*/, convertStat(result)];
-                            case 2:
-                                e_7 = _a.sent();
-                                rethrowError(uri, e_7);
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.createFolder = function (uri) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var result, e_8;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, fileService.createFolder(new uri_1.default(uri))];
-                            case 1:
-                                result = _a.sent();
-                                return [2 /*return*/, convertStat(result)];
-                            case 2:
-                                e_8 = _a.sent();
-                                rethrowError(uri, e_8);
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.touchFile = function (uri) {
-                throw new Error('Method not implemented.');
-            };
-            class_1.prototype.delete = function (uri, options) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var e_9;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, fileService.delete(new uri_1.default(uri), { useTrash: options === null || options === void 0 ? void 0 : options.moveToTrash, recursive: true })];
-                            case 1: return [2 /*return*/, _a.sent()];
-                            case 2:
-                                e_9 = _a.sent();
-                                rethrowError(uri, e_9);
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.getEncoding = function (uri) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var encoding;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, fileService.read(new uri_1.default(uri))];
-                            case 1:
-                                encoding = (_a.sent()).encoding;
-                                return [2 /*return*/, encoding];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.guessEncoding = function (uri) {
-                return __awaiter(this, void 0, void 0, function () {
-                    var encoding;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, fileService.read(new uri_1.default(uri), { autoGuessEncoding: true })];
-                            case 1:
-                                encoding = (_a.sent()).encoding;
-                                return [2 /*return*/, encoding];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.getRoots = function () {
-                return __awaiter(this, void 0, void 0, function () {
-                    var drives, roots;
-                    var _this = this;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, environments.getDrives()];
-                            case 1:
-                                drives = _a.sent();
-                                return [4 /*yield*/, Promise.all(drives.map(function (uri) { return _this.getFileStat(uri); }))];
-                            case 2:
-                                roots = _a.sent();
-                                return [2 /*return*/, roots.filter(function (root) { return !!root; })];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.getCurrentUserHome = function () {
-                return __awaiter(this, void 0, void 0, function () {
-                    var _a;
-                    return __generator(this, function (_b) {
-                        switch (_b.label) {
-                            case 0:
-                                _a = this.getFileStat;
-                                return [4 /*yield*/, environments.getHomeDirUri()];
-                            case 1: return [2 /*return*/, _a.apply(this, [_b.sent()])];
-                        }
-                    });
-                });
-            };
-            class_1.prototype.getDrives = function () {
-                return environments.getDrives();
-            };
-            class_1.prototype.access = function (uri, mode) {
-                return fileService.access(new uri_1.default(uri), mode);
-            };
-            class_1.prototype.getFsPath = function (uri) {
-                return fileService.fsPath(new uri_1.default(uri));
-            };
-            return class_1;
-        }());
-    }).inSingletonScope();
-    bindFileResource(bind);
-    bind(file_upload_service_1.FileUploadService).toSelf().inSingletonScope();
-    bind(filesystem_frontend_contribution_1.FileSystemFrontendContribution).toSelf().inSingletonScope();
-    bind(common_1.CommandContribution).toService(filesystem_frontend_contribution_1.FileSystemFrontendContribution);
-    bind(browser_1.FrontendApplicationContribution).toService(filesystem_frontend_contribution_1.FileSystemFrontendContribution);
-    bind(file_tree_label_provider_1.FileTreeLabelProvider).toSelf().inSingletonScope();
-    bind(browser_1.LabelProviderContribution).toService(file_tree_label_provider_1.FileTreeLabelProvider);
-});
-function bindFileResource(bind) {
-    bind(file_resource_1.FileResourceResolver).toSelf().inSingletonScope();
-    bind(common_1.ResourceResolver).toService(file_resource_1.FileResourceResolver);
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
 }
-exports.bindFileResource = bindFileResource;
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "../node_modules/@theia/workspace/node_modules/moment/locale sync recursive ^\\.\\/.*$";
+
+/***/ }),
+
+/***/ "../node_modules/css-loader/index.js!../tree-editor-extension/src/browser/style/editor.css":
+/*!****************************************************************************************!*\
+  !*** ../node_modules/css-loader!../tree-editor-extension/src/browser/style/editor.css ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".theia-tree-editor-form {\n  display: flex;\n}\n\n.theia-tree-editor-form > .jsonforms-container {\n  flex-grow: 1;\n  max-width: 960px; /* Half the width of a full hd display. */\n}\n", ""]);
+
+// exports
 
 
 /***/ }),
 
-/***/ "../node_modules/@theia/filesystem/lib/browser/remote-file-service-contribution.js":
-/*!*****************************************************************************************!*\
-  !*** ../node_modules/@theia/filesystem/lib/browser/remote-file-service-contribution.js ***!
-  \*****************************************************************************************/
+/***/ "../node_modules/moment/locale sync recursive ^\\.\\/.*$":
+/*!***************************************************!*\
+  !*** ../node_modules/moment/locale sync ^\.\/.*$ ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./af": "../node_modules/moment/locale/af.js",
+	"./af.js": "../node_modules/moment/locale/af.js",
+	"./ar": "../node_modules/moment/locale/ar.js",
+	"./ar-dz": "../node_modules/moment/locale/ar-dz.js",
+	"./ar-dz.js": "../node_modules/moment/locale/ar-dz.js",
+	"./ar-kw": "../node_modules/moment/locale/ar-kw.js",
+	"./ar-kw.js": "../node_modules/moment/locale/ar-kw.js",
+	"./ar-ly": "../node_modules/moment/locale/ar-ly.js",
+	"./ar-ly.js": "../node_modules/moment/locale/ar-ly.js",
+	"./ar-ma": "../node_modules/moment/locale/ar-ma.js",
+	"./ar-ma.js": "../node_modules/moment/locale/ar-ma.js",
+	"./ar-sa": "../node_modules/moment/locale/ar-sa.js",
+	"./ar-sa.js": "../node_modules/moment/locale/ar-sa.js",
+	"./ar-tn": "../node_modules/moment/locale/ar-tn.js",
+	"./ar-tn.js": "../node_modules/moment/locale/ar-tn.js",
+	"./ar.js": "../node_modules/moment/locale/ar.js",
+	"./az": "../node_modules/moment/locale/az.js",
+	"./az.js": "../node_modules/moment/locale/az.js",
+	"./be": "../node_modules/moment/locale/be.js",
+	"./be.js": "../node_modules/moment/locale/be.js",
+	"./bg": "../node_modules/moment/locale/bg.js",
+	"./bg.js": "../node_modules/moment/locale/bg.js",
+	"./bm": "../node_modules/moment/locale/bm.js",
+	"./bm.js": "../node_modules/moment/locale/bm.js",
+	"./bn": "../node_modules/moment/locale/bn.js",
+	"./bn-bd": "../node_modules/moment/locale/bn-bd.js",
+	"./bn-bd.js": "../node_modules/moment/locale/bn-bd.js",
+	"./bn.js": "../node_modules/moment/locale/bn.js",
+	"./bo": "../node_modules/moment/locale/bo.js",
+	"./bo.js": "../node_modules/moment/locale/bo.js",
+	"./br": "../node_modules/moment/locale/br.js",
+	"./br.js": "../node_modules/moment/locale/br.js",
+	"./bs": "../node_modules/moment/locale/bs.js",
+	"./bs.js": "../node_modules/moment/locale/bs.js",
+	"./ca": "../node_modules/moment/locale/ca.js",
+	"./ca.js": "../node_modules/moment/locale/ca.js",
+	"./cs": "../node_modules/moment/locale/cs.js",
+	"./cs.js": "../node_modules/moment/locale/cs.js",
+	"./cv": "../node_modules/moment/locale/cv.js",
+	"./cv.js": "../node_modules/moment/locale/cv.js",
+	"./cy": "../node_modules/moment/locale/cy.js",
+	"./cy.js": "../node_modules/moment/locale/cy.js",
+	"./da": "../node_modules/moment/locale/da.js",
+	"./da.js": "../node_modules/moment/locale/da.js",
+	"./de": "../node_modules/moment/locale/de.js",
+	"./de-at": "../node_modules/moment/locale/de-at.js",
+	"./de-at.js": "../node_modules/moment/locale/de-at.js",
+	"./de-ch": "../node_modules/moment/locale/de-ch.js",
+	"./de-ch.js": "../node_modules/moment/locale/de-ch.js",
+	"./de.js": "../node_modules/moment/locale/de.js",
+	"./dv": "../node_modules/moment/locale/dv.js",
+	"./dv.js": "../node_modules/moment/locale/dv.js",
+	"./el": "../node_modules/moment/locale/el.js",
+	"./el.js": "../node_modules/moment/locale/el.js",
+	"./en-au": "../node_modules/moment/locale/en-au.js",
+	"./en-au.js": "../node_modules/moment/locale/en-au.js",
+	"./en-ca": "../node_modules/moment/locale/en-ca.js",
+	"./en-ca.js": "../node_modules/moment/locale/en-ca.js",
+	"./en-gb": "../node_modules/moment/locale/en-gb.js",
+	"./en-gb.js": "../node_modules/moment/locale/en-gb.js",
+	"./en-ie": "../node_modules/moment/locale/en-ie.js",
+	"./en-ie.js": "../node_modules/moment/locale/en-ie.js",
+	"./en-il": "../node_modules/moment/locale/en-il.js",
+	"./en-il.js": "../node_modules/moment/locale/en-il.js",
+	"./en-in": "../node_modules/moment/locale/en-in.js",
+	"./en-in.js": "../node_modules/moment/locale/en-in.js",
+	"./en-nz": "../node_modules/moment/locale/en-nz.js",
+	"./en-nz.js": "../node_modules/moment/locale/en-nz.js",
+	"./en-sg": "../node_modules/moment/locale/en-sg.js",
+	"./en-sg.js": "../node_modules/moment/locale/en-sg.js",
+	"./eo": "../node_modules/moment/locale/eo.js",
+	"./eo.js": "../node_modules/moment/locale/eo.js",
+	"./es": "../node_modules/moment/locale/es.js",
+	"./es-do": "../node_modules/moment/locale/es-do.js",
+	"./es-do.js": "../node_modules/moment/locale/es-do.js",
+	"./es-mx": "../node_modules/moment/locale/es-mx.js",
+	"./es-mx.js": "../node_modules/moment/locale/es-mx.js",
+	"./es-us": "../node_modules/moment/locale/es-us.js",
+	"./es-us.js": "../node_modules/moment/locale/es-us.js",
+	"./es.js": "../node_modules/moment/locale/es.js",
+	"./et": "../node_modules/moment/locale/et.js",
+	"./et.js": "../node_modules/moment/locale/et.js",
+	"./eu": "../node_modules/moment/locale/eu.js",
+	"./eu.js": "../node_modules/moment/locale/eu.js",
+	"./fa": "../node_modules/moment/locale/fa.js",
+	"./fa.js": "../node_modules/moment/locale/fa.js",
+	"./fi": "../node_modules/moment/locale/fi.js",
+	"./fi.js": "../node_modules/moment/locale/fi.js",
+	"./fil": "../node_modules/moment/locale/fil.js",
+	"./fil.js": "../node_modules/moment/locale/fil.js",
+	"./fo": "../node_modules/moment/locale/fo.js",
+	"./fo.js": "../node_modules/moment/locale/fo.js",
+	"./fr": "../node_modules/moment/locale/fr.js",
+	"./fr-ca": "../node_modules/moment/locale/fr-ca.js",
+	"./fr-ca.js": "../node_modules/moment/locale/fr-ca.js",
+	"./fr-ch": "../node_modules/moment/locale/fr-ch.js",
+	"./fr-ch.js": "../node_modules/moment/locale/fr-ch.js",
+	"./fr.js": "../node_modules/moment/locale/fr.js",
+	"./fy": "../node_modules/moment/locale/fy.js",
+	"./fy.js": "../node_modules/moment/locale/fy.js",
+	"./ga": "../node_modules/moment/locale/ga.js",
+	"./ga.js": "../node_modules/moment/locale/ga.js",
+	"./gd": "../node_modules/moment/locale/gd.js",
+	"./gd.js": "../node_modules/moment/locale/gd.js",
+	"./gl": "../node_modules/moment/locale/gl.js",
+	"./gl.js": "../node_modules/moment/locale/gl.js",
+	"./gom-deva": "../node_modules/moment/locale/gom-deva.js",
+	"./gom-deva.js": "../node_modules/moment/locale/gom-deva.js",
+	"./gom-latn": "../node_modules/moment/locale/gom-latn.js",
+	"./gom-latn.js": "../node_modules/moment/locale/gom-latn.js",
+	"./gu": "../node_modules/moment/locale/gu.js",
+	"./gu.js": "../node_modules/moment/locale/gu.js",
+	"./he": "../node_modules/moment/locale/he.js",
+	"./he.js": "../node_modules/moment/locale/he.js",
+	"./hi": "../node_modules/moment/locale/hi.js",
+	"./hi.js": "../node_modules/moment/locale/hi.js",
+	"./hr": "../node_modules/moment/locale/hr.js",
+	"./hr.js": "../node_modules/moment/locale/hr.js",
+	"./hu": "../node_modules/moment/locale/hu.js",
+	"./hu.js": "../node_modules/moment/locale/hu.js",
+	"./hy-am": "../node_modules/moment/locale/hy-am.js",
+	"./hy-am.js": "../node_modules/moment/locale/hy-am.js",
+	"./id": "../node_modules/moment/locale/id.js",
+	"./id.js": "../node_modules/moment/locale/id.js",
+	"./is": "../node_modules/moment/locale/is.js",
+	"./is.js": "../node_modules/moment/locale/is.js",
+	"./it": "../node_modules/moment/locale/it.js",
+	"./it-ch": "../node_modules/moment/locale/it-ch.js",
+	"./it-ch.js": "../node_modules/moment/locale/it-ch.js",
+	"./it.js": "../node_modules/moment/locale/it.js",
+	"./ja": "../node_modules/moment/locale/ja.js",
+	"./ja.js": "../node_modules/moment/locale/ja.js",
+	"./jv": "../node_modules/moment/locale/jv.js",
+	"./jv.js": "../node_modules/moment/locale/jv.js",
+	"./ka": "../node_modules/moment/locale/ka.js",
+	"./ka.js": "../node_modules/moment/locale/ka.js",
+	"./kk": "../node_modules/moment/locale/kk.js",
+	"./kk.js": "../node_modules/moment/locale/kk.js",
+	"./km": "../node_modules/moment/locale/km.js",
+	"./km.js": "../node_modules/moment/locale/km.js",
+	"./kn": "../node_modules/moment/locale/kn.js",
+	"./kn.js": "../node_modules/moment/locale/kn.js",
+	"./ko": "../node_modules/moment/locale/ko.js",
+	"./ko.js": "../node_modules/moment/locale/ko.js",
+	"./ku": "../node_modules/moment/locale/ku.js",
+	"./ku.js": "../node_modules/moment/locale/ku.js",
+	"./ky": "../node_modules/moment/locale/ky.js",
+	"./ky.js": "../node_modules/moment/locale/ky.js",
+	"./lb": "../node_modules/moment/locale/lb.js",
+	"./lb.js": "../node_modules/moment/locale/lb.js",
+	"./lo": "../node_modules/moment/locale/lo.js",
+	"./lo.js": "../node_modules/moment/locale/lo.js",
+	"./lt": "../node_modules/moment/locale/lt.js",
+	"./lt.js": "../node_modules/moment/locale/lt.js",
+	"./lv": "../node_modules/moment/locale/lv.js",
+	"./lv.js": "../node_modules/moment/locale/lv.js",
+	"./me": "../node_modules/moment/locale/me.js",
+	"./me.js": "../node_modules/moment/locale/me.js",
+	"./mi": "../node_modules/moment/locale/mi.js",
+	"./mi.js": "../node_modules/moment/locale/mi.js",
+	"./mk": "../node_modules/moment/locale/mk.js",
+	"./mk.js": "../node_modules/moment/locale/mk.js",
+	"./ml": "../node_modules/moment/locale/ml.js",
+	"./ml.js": "../node_modules/moment/locale/ml.js",
+	"./mn": "../node_modules/moment/locale/mn.js",
+	"./mn.js": "../node_modules/moment/locale/mn.js",
+	"./mr": "../node_modules/moment/locale/mr.js",
+	"./mr.js": "../node_modules/moment/locale/mr.js",
+	"./ms": "../node_modules/moment/locale/ms.js",
+	"./ms-my": "../node_modules/moment/locale/ms-my.js",
+	"./ms-my.js": "../node_modules/moment/locale/ms-my.js",
+	"./ms.js": "../node_modules/moment/locale/ms.js",
+	"./mt": "../node_modules/moment/locale/mt.js",
+	"./mt.js": "../node_modules/moment/locale/mt.js",
+	"./my": "../node_modules/moment/locale/my.js",
+	"./my.js": "../node_modules/moment/locale/my.js",
+	"./nb": "../node_modules/moment/locale/nb.js",
+	"./nb.js": "../node_modules/moment/locale/nb.js",
+	"./ne": "../node_modules/moment/locale/ne.js",
+	"./ne.js": "../node_modules/moment/locale/ne.js",
+	"./nl": "../node_modules/moment/locale/nl.js",
+	"./nl-be": "../node_modules/moment/locale/nl-be.js",
+	"./nl-be.js": "../node_modules/moment/locale/nl-be.js",
+	"./nl.js": "../node_modules/moment/locale/nl.js",
+	"./nn": "../node_modules/moment/locale/nn.js",
+	"./nn.js": "../node_modules/moment/locale/nn.js",
+	"./oc-lnc": "../node_modules/moment/locale/oc-lnc.js",
+	"./oc-lnc.js": "../node_modules/moment/locale/oc-lnc.js",
+	"./pa-in": "../node_modules/moment/locale/pa-in.js",
+	"./pa-in.js": "../node_modules/moment/locale/pa-in.js",
+	"./pl": "../node_modules/moment/locale/pl.js",
+	"./pl.js": "../node_modules/moment/locale/pl.js",
+	"./pt": "../node_modules/moment/locale/pt.js",
+	"./pt-br": "../node_modules/moment/locale/pt-br.js",
+	"./pt-br.js": "../node_modules/moment/locale/pt-br.js",
+	"./pt.js": "../node_modules/moment/locale/pt.js",
+	"./ro": "../node_modules/moment/locale/ro.js",
+	"./ro.js": "../node_modules/moment/locale/ro.js",
+	"./ru": "../node_modules/moment/locale/ru.js",
+	"./ru.js": "../node_modules/moment/locale/ru.js",
+	"./sd": "../node_modules/moment/locale/sd.js",
+	"./sd.js": "../node_modules/moment/locale/sd.js",
+	"./se": "../node_modules/moment/locale/se.js",
+	"./se.js": "../node_modules/moment/locale/se.js",
+	"./si": "../node_modules/moment/locale/si.js",
+	"./si.js": "../node_modules/moment/locale/si.js",
+	"./sk": "../node_modules/moment/locale/sk.js",
+	"./sk.js": "../node_modules/moment/locale/sk.js",
+	"./sl": "../node_modules/moment/locale/sl.js",
+	"./sl.js": "../node_modules/moment/locale/sl.js",
+	"./sq": "../node_modules/moment/locale/sq.js",
+	"./sq.js": "../node_modules/moment/locale/sq.js",
+	"./sr": "../node_modules/moment/locale/sr.js",
+	"./sr-cyrl": "../node_modules/moment/locale/sr-cyrl.js",
+	"./sr-cyrl.js": "../node_modules/moment/locale/sr-cyrl.js",
+	"./sr.js": "../node_modules/moment/locale/sr.js",
+	"./ss": "../node_modules/moment/locale/ss.js",
+	"./ss.js": "../node_modules/moment/locale/ss.js",
+	"./sv": "../node_modules/moment/locale/sv.js",
+	"./sv.js": "../node_modules/moment/locale/sv.js",
+	"./sw": "../node_modules/moment/locale/sw.js",
+	"./sw.js": "../node_modules/moment/locale/sw.js",
+	"./ta": "../node_modules/moment/locale/ta.js",
+	"./ta.js": "../node_modules/moment/locale/ta.js",
+	"./te": "../node_modules/moment/locale/te.js",
+	"./te.js": "../node_modules/moment/locale/te.js",
+	"./tet": "../node_modules/moment/locale/tet.js",
+	"./tet.js": "../node_modules/moment/locale/tet.js",
+	"./tg": "../node_modules/moment/locale/tg.js",
+	"./tg.js": "../node_modules/moment/locale/tg.js",
+	"./th": "../node_modules/moment/locale/th.js",
+	"./th.js": "../node_modules/moment/locale/th.js",
+	"./tk": "../node_modules/moment/locale/tk.js",
+	"./tk.js": "../node_modules/moment/locale/tk.js",
+	"./tl-ph": "../node_modules/moment/locale/tl-ph.js",
+	"./tl-ph.js": "../node_modules/moment/locale/tl-ph.js",
+	"./tlh": "../node_modules/moment/locale/tlh.js",
+	"./tlh.js": "../node_modules/moment/locale/tlh.js",
+	"./tr": "../node_modules/moment/locale/tr.js",
+	"./tr.js": "../node_modules/moment/locale/tr.js",
+	"./tzl": "../node_modules/moment/locale/tzl.js",
+	"./tzl.js": "../node_modules/moment/locale/tzl.js",
+	"./tzm": "../node_modules/moment/locale/tzm.js",
+	"./tzm-latn": "../node_modules/moment/locale/tzm-latn.js",
+	"./tzm-latn.js": "../node_modules/moment/locale/tzm-latn.js",
+	"./tzm.js": "../node_modules/moment/locale/tzm.js",
+	"./ug-cn": "../node_modules/moment/locale/ug-cn.js",
+	"./ug-cn.js": "../node_modules/moment/locale/ug-cn.js",
+	"./uk": "../node_modules/moment/locale/uk.js",
+	"./uk.js": "../node_modules/moment/locale/uk.js",
+	"./ur": "../node_modules/moment/locale/ur.js",
+	"./ur.js": "../node_modules/moment/locale/ur.js",
+	"./uz": "../node_modules/moment/locale/uz.js",
+	"./uz-latn": "../node_modules/moment/locale/uz-latn.js",
+	"./uz-latn.js": "../node_modules/moment/locale/uz-latn.js",
+	"./uz.js": "../node_modules/moment/locale/uz.js",
+	"./vi": "../node_modules/moment/locale/vi.js",
+	"./vi.js": "../node_modules/moment/locale/vi.js",
+	"./x-pseudo": "../node_modules/moment/locale/x-pseudo.js",
+	"./x-pseudo.js": "../node_modules/moment/locale/x-pseudo.js",
+	"./yo": "../node_modules/moment/locale/yo.js",
+	"./yo.js": "../node_modules/moment/locale/yo.js",
+	"./zh-cn": "../node_modules/moment/locale/zh-cn.js",
+	"./zh-cn.js": "../node_modules/moment/locale/zh-cn.js",
+	"./zh-hk": "../node_modules/moment/locale/zh-hk.js",
+	"./zh-hk.js": "../node_modules/moment/locale/zh-hk.js",
+	"./zh-mo": "../node_modules/moment/locale/zh-mo.js",
+	"./zh-mo.js": "../node_modules/moment/locale/zh-mo.js",
+	"./zh-tw": "../node_modules/moment/locale/zh-tw.js",
+	"./zh-tw.js": "../node_modules/moment/locale/zh-tw.js"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "../node_modules/moment/locale sync recursive ^\\.\\/.*$";
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/example-file/example-file-command.js":
+/*!*********************************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/example-file/example-file-command.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-/********************************************************************************
- * Copyright (C) 2020 TypeFox and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -532,83 +625,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RemoteFileServiceContribution = void 0;
-var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var remote_file_system_provider_1 = __webpack_require__(/*! ../common/remote-file-system-provider */ "../node_modules/@theia/filesystem/lib/common/remote-file-system-provider.js");
-var RemoteFileServiceContribution = /** @class */ (function () {
-    function RemoteFileServiceContribution() {
-    }
-    RemoteFileServiceContribution.prototype.registerFileSystemProviders = function (service) {
-        var _this = this;
-        var registering = this.provider.ready.then(function () {
-            return service.registerProvider('file', _this.provider);
-        });
-        service.onWillActivateFileSystemProvider(function (event) {
-            if (event.scheme === 'file') {
-                event.waitUntil(registering);
-            }
-        });
-    };
-    __decorate([
-        inversify_1.inject(remote_file_system_provider_1.RemoteFileSystemProvider),
-        __metadata("design:type", remote_file_system_provider_1.RemoteFileSystemProvider)
-    ], RemoteFileServiceContribution.prototype, "provider", void 0);
-    RemoteFileServiceContribution = __decorate([
-        inversify_1.injectable()
-    ], RemoteFileServiceContribution);
-    return RemoteFileServiceContribution;
-}());
-exports.RemoteFileServiceContribution = RemoteFileServiceContribution;
-
-
-/***/ }),
-
-/***/ "../node_modules/@theia/filesystem/lib/common/remote-file-system-provider.js":
-/*!***********************************************************************************!*\
-  !*** ../node_modules/@theia/filesystem/lib/common/remote-file-system-provider.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (C) 2020 TypeFox and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -645,6 +663,113 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NewTreeExampleFileCommandHandler = exports.NewTreeExampleFileCommand = void 0;
+var dialogs_1 = __webpack_require__(/*! @theia/core/lib/browser/dialogs */ "../node_modules/@theia/core/lib/browser/dialogs.js");
+var common_1 = __webpack_require__(/*! @theia/core/lib/common */ "../node_modules/@theia/core/lib/common/index.js");
+var buffer_1 = __webpack_require__(/*! @theia/core/lib/common/buffer */ "../node_modules/@theia/core/lib/common/buffer.js");
+var file_service_1 = __webpack_require__(/*! @theia/filesystem/lib/browser/file-service */ "../node_modules/@theia/filesystem/lib/browser/file-service.js");
+var common_2 = __webpack_require__(/*! @theia/filesystem/lib/common */ "../node_modules/@theia/filesystem/lib/common/index.js");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+exports.NewTreeExampleFileCommand = {
+    id: 'my-extension-tree.newExampleFile',
+    label: 'New Tree Example File'
+};
+var NewTreeExampleFileCommandHandler = /** @class */ (function () {
+    function NewTreeExampleFileCommandHandler(openerService, fileService, logger) {
+        this.openerService = openerService;
+        this.fileService = fileService;
+        this.logger = logger;
+    }
+    NewTreeExampleFileCommandHandler.prototype.execute = function (uri) {
+        return __awaiter(this, void 0, void 0, function () {
+            var stat, dir, _a, dirUri, preliminaryFileUri, dialog, fileName, fileUri_1, contentBuffer;
+            var _this = this;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, this.fileService.resolve(uri)];
+                    case 1:
+                        stat = _b.sent();
+                        if (!stat) {
+                            this.logger.error("[NewTreeExampleFileCommandHandler] Could not create file stat for uri", uri);
+                            return [2 /*return*/];
+                        }
+                        if (!stat.isDirectory) return [3 /*break*/, 2];
+                        _a = stat;
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this.fileService.resolve(uri.parent)];
+                    case 3:
+                        _a = _b.sent();
+                        _b.label = 4;
+                    case 4:
+                        dir = _a;
+                        if (!dir) {
+                            this.logger.error("[NewTreeExampleFileCommandHandler] Could not create file stat for uri", uri.parent);
+                            return [2 /*return*/];
+                        }
+                        dirUri = dir.resource;
+                        preliminaryFileUri = common_2.FileSystemUtils.generateUniqueResourceURI(dirUri, dir, 'tree-example', '.tree');
+                        dialog = new dialogs_1.SingleTextInputDialog({
+                            title: 'New Example File',
+                            initialValue: preliminaryFileUri.path.base
+                        });
+                        return [4 /*yield*/, dialog.open()];
+                    case 5:
+                        fileName = _b.sent();
+                        if (fileName) {
+                            fileUri_1 = dirUri.resolve(fileName);
+                            contentBuffer = buffer_1.BinaryBuffer.fromString(JSON.stringify(defaultData, null, 2));
+                            this.fileService.createFile(fileUri_1, contentBuffer)
+                                .then(function (_) { return _this.openerService.getOpener(fileUri_1); })
+                                .then(function (openHandler) { return openHandler.open(fileUri_1); });
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    NewTreeExampleFileCommandHandler = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(browser_1.OpenerService)),
+        __param(1, inversify_1.inject(file_service_1.FileService)),
+        __param(2, inversify_1.inject(common_1.ILogger)),
+        __metadata("design:paramtypes", [Object, file_service_1.FileService, Object])
+    ], NewTreeExampleFileCommandHandler);
+    return NewTreeExampleFileCommandHandler;
+}());
+exports.NewTreeExampleFileCommandHandler = NewTreeExampleFileCommandHandler;
+var defaultData = {
+    "typeId": "#tutorial",
+    "title": "Tutorial 0",
+    "description": "test description",
+    "tutorialFolder": "theia-extension",
+};
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/example-file/example-file-contribution.js":
+/*!**************************************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/example-file/example-file-contribution.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
 };
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
@@ -666,517 +791,1435 @@ var __spread = (this && this.__spread) || function () {
     for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
     return ar;
 };
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FileSystemProviderServer = exports.RemoteFileSystemProvider = exports.RemoteFileSystemProxyFactory = exports.RemoteFileSystemProviderError = exports.RemoteFileSystemServer = exports.remoteFileSystemPath = void 0;
+exports.NewTreeExampleFileMenuContribution = exports.NewTreeExampleFileCommandContribution = void 0;
+var common_1 = __webpack_require__(/*! @theia/core/lib/common */ "../node_modules/@theia/core/lib/common/index.js");
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
-var uri_1 = __webpack_require__(/*! @theia/core/lib/common/uri */ "../node_modules/@theia/core/lib/common/uri.js");
-var event_1 = __webpack_require__(/*! @theia/core/lib/common/event */ "../node_modules/@theia/core/lib/common/event.js");
-var disposable_1 = __webpack_require__(/*! @theia/core/lib/common/disposable */ "../node_modules/@theia/core/lib/common/disposable.js");
-var buffer_1 = __webpack_require__(/*! @theia/core/lib/common/buffer */ "../node_modules/@theia/core/lib/common/buffer.js");
-var files_1 = __webpack_require__(/*! ./files */ "../node_modules/@theia/filesystem/lib/common/files.js");
-var proxy_factory_1 = __webpack_require__(/*! @theia/core/lib/common/messaging/proxy-factory */ "../node_modules/@theia/core/lib/common/messaging/proxy-factory.js");
-var application_error_1 = __webpack_require__(/*! @theia/core/lib/common/application-error */ "../node_modules/@theia/core/lib/common/application-error.js");
-var promise_util_1 = __webpack_require__(/*! @theia/core/lib/common/promise-util */ "../node_modules/@theia/core/lib/common/promise-util.js");
-var stream_1 = __webpack_require__(/*! @theia/core/lib/common/stream */ "../node_modules/@theia/core/lib/common/stream.js");
-var cancellation_1 = __webpack_require__(/*! @theia/core/lib/common/cancellation */ "../node_modules/@theia/core/lib/common/cancellation.js");
-exports.remoteFileSystemPath = '/services/remote-filesystem';
-exports.RemoteFileSystemServer = Symbol('RemoteFileSystemServer');
-exports.RemoteFileSystemProviderError = application_error_1.ApplicationError.declare(-33005, function (message, data, stack) {
-    return ({ message: message, data: data, stack: stack });
-});
-var RemoteFileSystemProxyFactory = /** @class */ (function (_super) {
-    __extends(RemoteFileSystemProxyFactory, _super);
-    function RemoteFileSystemProxyFactory() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var workspace_commands_1 = __webpack_require__(/*! @theia/workspace/lib/browser/workspace-commands */ "../node_modules/@theia/workspace/lib/browser/workspace-commands.js");
+var browser_1 = __webpack_require__(/*! @theia/workspace/lib/browser */ "../node_modules/@theia/workspace/lib/browser/index.js");
+var example_file_command_1 = __webpack_require__(/*! ./example-file-command */ "../tree-editor-extension/lib/browser/example-file/example-file-command.js");
+var TREE_EDITOR_MAIN_MENU = __spread(common_1.MAIN_MENU_BAR, ['9_treeeditormenu']);
+var NewTreeExampleFileCommandContribution = /** @class */ (function () {
+    function NewTreeExampleFileCommandContribution(selectionService, workspaceService, newExampleFileHandler) {
+        this.selectionService = selectionService;
+        this.workspaceService = workspaceService;
+        this.newExampleFileHandler = newExampleFileHandler;
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    RemoteFileSystemProxyFactory.prototype.serializeError = function (e) {
-        if (e instanceof files_1.FileSystemProviderError) {
-            var code = e.code, name_1 = e.name;
-            return _super.prototype.serializeError.call(this, exports.RemoteFileSystemProviderError(e.message, { code: code, name: name_1 }, e.stack));
-        }
-        return _super.prototype.serializeError.call(this, e);
+    NewTreeExampleFileCommandContribution.prototype.registerCommands = function (registry) {
+        registry.registerCommand(example_file_command_1.NewTreeExampleFileCommand, new workspace_commands_1.WorkspaceRootUriAwareCommandHandler(this.workspaceService, this.selectionService, this.newExampleFileHandler));
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    RemoteFileSystemProxyFactory.prototype.deserializeError = function (capturedError, e) {
-        var error = _super.prototype.deserializeError.call(this, capturedError, e);
-        if (exports.RemoteFileSystemProviderError.is(error)) {
-            var fileOperationError = new files_1.FileSystemProviderError(error.message, error.data.code);
-            fileOperationError.name = error.data.name;
-            fileOperationError.stack = error.stack;
-            return fileOperationError;
-        }
-        return e;
-    };
-    return RemoteFileSystemProxyFactory;
-}(proxy_factory_1.JsonRpcProxyFactory));
-exports.RemoteFileSystemProxyFactory = RemoteFileSystemProxyFactory;
-/**
- * Frontend component.
- *
- * Wraps the remote filesystem provider living on the backend.
- */
-var RemoteFileSystemProvider = /** @class */ (function () {
-    function RemoteFileSystemProvider() {
-        this.onDidChangeFileEmitter = new event_1.Emitter();
-        this.onDidChangeFile = this.onDidChangeFileEmitter.event;
-        this.onFileWatchErrorEmitter = new event_1.Emitter();
-        this.onFileWatchError = this.onFileWatchErrorEmitter.event;
-        this.onDidChangeCapabilitiesEmitter = new event_1.Emitter();
-        this.onDidChangeCapabilities = this.onDidChangeCapabilitiesEmitter.event;
-        this.onFileStreamDataEmitter = new event_1.Emitter();
-        this.onFileStreamData = this.onFileStreamDataEmitter.event;
-        this.onFileStreamEndEmitter = new event_1.Emitter();
-        this.onFileStreamEnd = this.onFileStreamEndEmitter.event;
-        this.toDispose = new disposable_1.DisposableCollection(this.onDidChangeFileEmitter, this.onDidChangeCapabilitiesEmitter, this.onFileStreamDataEmitter, this.onFileStreamEndEmitter);
-        this.watcherSequence = 0;
-        /**
-         * We'll track the currently allocated watchers, in order to re-allocate them
-         * with the same options once we reconnect to the backend after a disconnection.
-         */
-        this.watchOptions = new Map();
-        this._capabilities = 0;
-        this.readyDeferred = new promise_util_1.Deferred();
-        this.ready = this.readyDeferred.promise;
-    }
-    Object.defineProperty(RemoteFileSystemProvider.prototype, "capabilities", {
-        get: function () { return this._capabilities; },
-        enumerable: false,
-        configurable: true
-    });
-    RemoteFileSystemProvider.prototype.init = function () {
-        var _this = this;
-        this.server.getCapabilities().then(function (capabilities) {
-            _this._capabilities = capabilities;
-            _this.readyDeferred.resolve();
-        }, this.readyDeferred.reject);
-        this.server.setClient({
-            notifyDidChangeFile: function (_a) {
-                var changes = _a.changes;
-                _this.onDidChangeFileEmitter.fire(changes.map(function (event) { return ({ resource: new uri_1.default(event.resource), type: event.type }); }));
-            },
-            notifyFileWatchError: function () {
-                _this.onFileWatchErrorEmitter.fire();
-            },
-            notifyDidChangeCapabilities: function (capabilities) { return _this.setCapabilities(capabilities); },
-            onFileStreamData: function (handle, data) { return _this.onFileStreamDataEmitter.fire([handle, Uint8Array.from(data)]); },
-            onFileStreamEnd: function (handle, error) { return _this.onFileStreamEndEmitter.fire([handle, error]); }
-        });
-        var onInitialized = this.server.onDidOpenConnection(function () {
-            // skip reconnection on the first connection
-            onInitialized.dispose();
-            _this.toDispose.push(_this.server.onDidOpenConnection(function () { return _this.reconnect(); }));
-        });
-    };
-    RemoteFileSystemProvider.prototype.dispose = function () {
-        this.toDispose.dispose();
-    };
-    RemoteFileSystemProvider.prototype.setCapabilities = function (capabilities) {
-        this._capabilities = capabilities;
-        this.onDidChangeCapabilitiesEmitter.fire(undefined);
-    };
-    // --- forwarding calls
-    RemoteFileSystemProvider.prototype.stat = function (resource) {
-        return this.server.stat(resource.toString());
-    };
-    RemoteFileSystemProvider.prototype.access = function (resource, mode) {
-        return this.server.access(resource.toString(), mode);
-    };
-    RemoteFileSystemProvider.prototype.fsPath = function (resource) {
-        return this.server.fsPath(resource.toString());
-    };
-    RemoteFileSystemProvider.prototype.open = function (resource, opts) {
-        return this.server.open(resource.toString(), opts);
-    };
-    RemoteFileSystemProvider.prototype.close = function (fd) {
-        return this.server.close(fd);
-    };
-    RemoteFileSystemProvider.prototype.read = function (fd, pos, data, offset, length) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, bytes, bytesRead;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.server.read(fd, pos, length)];
-                    case 1:
-                        _a = _b.sent(), bytes = _a.bytes, bytesRead = _a.bytesRead;
-                        // copy back the data that was written into the buffer on the remote
-                        // side. we need to do this because buffers are not referenced by
-                        // pointer, but only by value and as such cannot be directly written
-                        // to from the other process.
-                        data.set(bytes.slice(0, bytesRead), offset);
-                        return [2 /*return*/, bytesRead];
-                }
-            });
-        });
-    };
-    RemoteFileSystemProvider.prototype.readFile = function (resource) {
-        return __awaiter(this, void 0, void 0, function () {
-            var bytes;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.server.readFile(resource.toString())];
-                    case 1:
-                        bytes = _a.sent();
-                        return [2 /*return*/, Uint8Array.from(bytes)];
-                }
-            });
-        });
-    };
-    RemoteFileSystemProvider.prototype.readFileStream = function (resource, opts, token) {
-        var _this = this;
-        var capturedError = new Error();
-        // eslint-disable-next-line @typescript-eslint/no-shadow
-        var stream = stream_1.newWriteableStream(function (data) { return buffer_1.BinaryBuffer.concat(data.map(function (data) { return buffer_1.BinaryBuffer.wrap(data); })).buffer; });
-        this.server.readFileStream(resource.toString(), opts, token).then(function (streamHandle) {
-            if (token.isCancellationRequested) {
-                stream.end(cancellation_1.cancelled());
-                return;
-            }
-            var toDispose = new disposable_1.DisposableCollection(token.onCancellationRequested(function () { return stream.end(cancellation_1.cancelled()); }), _this.onFileStreamData(function (_a) {
-                var _b = __read(_a, 2), handle = _b[0], data = _b[1];
-                if (streamHandle === handle) {
-                    stream.write(data);
-                }
-            }), _this.onFileStreamEnd(function (_a) {
-                var _b = __read(_a, 2), handle = _b[0], error = _b[1];
-                if (streamHandle === handle) {
-                    if (error) {
-                        var code = ('code' in error && error.code) || files_1.FileSystemProviderErrorCode.Unknown;
-                        var fileOperationError = new files_1.FileSystemProviderError(error.message, code);
-                        fileOperationError.name = error.name;
-                        var capturedStack = capturedError.stack || '';
-                        fileOperationError.stack = capturedStack + "\nCaused by: " + error.stack;
-                        stream.end(fileOperationError);
-                    }
-                    else {
-                        stream.end();
-                    }
-                }
-            }));
-            stream.on('end', function () { return toDispose.dispose(); });
-        }, function (error) { return stream.end(error); });
-        return stream;
-    };
-    RemoteFileSystemProvider.prototype.write = function (fd, pos, data, offset, length) {
-        return this.server.write(fd, pos, __spread(data.values()), offset, length);
-    };
-    RemoteFileSystemProvider.prototype.writeFile = function (resource, content, opts) {
-        return this.server.writeFile(resource.toString(), __spread(content.values()), opts);
-    };
-    RemoteFileSystemProvider.prototype.delete = function (resource, opts) {
-        return this.server.delete(resource.toString(), opts);
-    };
-    RemoteFileSystemProvider.prototype.mkdir = function (resource) {
-        return this.server.mkdir(resource.toString());
-    };
-    RemoteFileSystemProvider.prototype.readdir = function (resource) {
-        return this.server.readdir(resource.toString());
-    };
-    RemoteFileSystemProvider.prototype.rename = function (resource, target, opts) {
-        return this.server.rename(resource.toString(), target.toString(), opts);
-    };
-    RemoteFileSystemProvider.prototype.copy = function (resource, target, opts) {
-        return this.server.copy(resource.toString(), target.toString(), opts);
-    };
-    RemoteFileSystemProvider.prototype.updateFile = function (resource, changes, opts) {
-        return this.server.updateFile(resource.toString(), changes, opts);
-    };
-    RemoteFileSystemProvider.prototype.watch = function (resource, options) {
-        var _this = this;
-        var watcherId = this.watcherSequence++;
-        var uri = resource.toString();
-        this.watchOptions.set(watcherId, { uri: uri, options: options });
-        this.server.watch(watcherId, uri, options);
-        var toUnwatch = disposable_1.Disposable.create(function () {
-            _this.watchOptions.delete(watcherId);
-            _this.server.unwatch(watcherId);
-        });
-        this.toDispose.push(toUnwatch);
-        return toUnwatch;
-    };
-    /**
-     * When a frontend disconnects (e.g. bad connection) the backend resources will be cleared.
-     *
-     * This means that we need to re-allocate the watchers when a frontend reconnects.
-     */
-    RemoteFileSystemProvider.prototype.reconnect = function () {
-        var e_1, _a;
-        try {
-            for (var _b = __values(this.watchOptions.entries()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var _d = __read(_c.value, 2), watcher = _d[0], _e = _d[1], uri = _e.uri, options = _e.options;
-                this.server.watch(watcher, uri, options);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-    };
-    __decorate([
-        inversify_1.inject(exports.RemoteFileSystemServer),
-        __metadata("design:type", Object)
-    ], RemoteFileSystemProvider.prototype, "server", void 0);
-    __decorate([
-        inversify_1.postConstruct(),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", []),
-        __metadata("design:returntype", void 0)
-    ], RemoteFileSystemProvider.prototype, "init", null);
-    RemoteFileSystemProvider = __decorate([
-        inversify_1.injectable()
-    ], RemoteFileSystemProvider);
-    return RemoteFileSystemProvider;
+    NewTreeExampleFileCommandContribution = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(common_1.SelectionService)),
+        __param(1, inversify_1.inject(browser_1.WorkspaceService)),
+        __param(2, inversify_1.inject(example_file_command_1.NewTreeExampleFileCommandHandler)),
+        __metadata("design:paramtypes", [common_1.SelectionService,
+            browser_1.WorkspaceService,
+            example_file_command_1.NewTreeExampleFileCommandHandler])
+    ], NewTreeExampleFileCommandContribution);
+    return NewTreeExampleFileCommandContribution;
 }());
-exports.RemoteFileSystemProvider = RemoteFileSystemProvider;
-/**
- * Backend component.
- *
- * JSON-RPC server exposing a wrapped file system provider remotely.
- */
-var FileSystemProviderServer = /** @class */ (function () {
-    function FileSystemProviderServer() {
-        this.BUFFER_SIZE = 64 * 1024;
-        /**
-         * Mapping of `watcherId` to a disposable watcher handle.
-         */
-        this.watchers = new Map();
-        this.toDispose = new disposable_1.DisposableCollection();
-        this.readFileStreamSeq = 0;
+exports.NewTreeExampleFileCommandContribution = NewTreeExampleFileCommandContribution;
+var NewTreeExampleFileMenuContribution = /** @class */ (function () {
+    function NewTreeExampleFileMenuContribution() {
     }
-    FileSystemProviderServer.prototype.dispose = function () {
-        this.toDispose.dispose();
-    };
-    FileSystemProviderServer.prototype.setClient = function (client) {
-        this.client = client;
-    };
-    FileSystemProviderServer.prototype.init = function () {
-        var _this = this;
-        if (this.provider.dispose) {
-            this.toDispose.push(disposable_1.Disposable.create(function () { return _this.provider.dispose(); }));
-        }
-        this.toDispose.push(this.provider.onDidChangeCapabilities(function () {
-            if (_this.client) {
-                _this.client.notifyDidChangeCapabilities(_this.provider.capabilities);
-            }
-        }));
-        this.toDispose.push(this.provider.onDidChangeFile(function (changes) {
-            if (_this.client) {
-                _this.client.notifyDidChangeFile({
-                    changes: changes.map(function (_a) {
-                        var resource = _a.resource, type = _a.type;
-                        return ({ resource: resource.toString(), type: type });
-                    })
-                });
-            }
-        }));
-        this.toDispose.push(this.provider.onFileWatchError(function () {
-            if (_this.client) {
-                _this.client.notifyFileWatchError();
-            }
-        }));
-    };
-    FileSystemProviderServer.prototype.getCapabilities = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.provider.capabilities];
-            });
+    NewTreeExampleFileMenuContribution.prototype.registerMenus = function (menus) {
+        menus.registerSubmenu(TREE_EDITOR_MAIN_MENU, 'Tree Editor');
+        menus.registerMenuAction(TREE_EDITOR_MAIN_MENU, {
+            commandId: example_file_command_1.NewTreeExampleFileCommand.id,
+            label: 'New Example File'
         });
     };
-    FileSystemProviderServer.prototype.stat = function (resource) {
-        return this.provider.stat(new uri_1.default(resource));
-    };
-    FileSystemProviderServer.prototype.access = function (resource, mode) {
-        if (files_1.hasAccessCapability(this.provider)) {
-            return this.provider.access(new uri_1.default(resource), mode);
-        }
-        throw new Error('not supported');
-    };
-    FileSystemProviderServer.prototype.fsPath = function (resource) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                if (files_1.hasAccessCapability(this.provider)) {
-                    return [2 /*return*/, this.provider.fsPath(new uri_1.default(resource))];
-                }
-                throw new Error('not supported');
-            });
-        });
-    };
-    FileSystemProviderServer.prototype.open = function (resource, opts) {
-        if (files_1.hasOpenReadWriteCloseCapability(this.provider)) {
-            return this.provider.open(new uri_1.default(resource), opts);
-        }
-        throw new Error('not supported');
-    };
-    FileSystemProviderServer.prototype.close = function (fd) {
-        if (files_1.hasOpenReadWriteCloseCapability(this.provider)) {
-            return this.provider.close(fd);
-        }
-        throw new Error('not supported');
-    };
-    FileSystemProviderServer.prototype.read = function (fd, pos, length) {
-        return __awaiter(this, void 0, void 0, function () {
-            var buffer, bytes, bytesRead;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!files_1.hasOpenReadWriteCloseCapability(this.provider)) return [3 /*break*/, 2];
-                        buffer = buffer_1.BinaryBuffer.alloc(this.BUFFER_SIZE);
-                        bytes = buffer.buffer;
-                        return [4 /*yield*/, this.provider.read(fd, pos, bytes, 0, length)];
-                    case 1:
-                        bytesRead = _a.sent();
-                        return [2 /*return*/, { bytes: __spread(bytes.values()), bytesRead: bytesRead }];
-                    case 2: throw new Error('not supported');
-                }
-            });
-        });
-    };
-    FileSystemProviderServer.prototype.write = function (fd, pos, data, offset, length) {
-        if (files_1.hasOpenReadWriteCloseCapability(this.provider)) {
-            return this.provider.write(fd, pos, Uint8Array.from(data), offset, length);
-        }
-        throw new Error('not supported');
-    };
-    FileSystemProviderServer.prototype.readFile = function (resource) {
-        return __awaiter(this, void 0, void 0, function () {
-            var buffer;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!files_1.hasReadWriteCapability(this.provider)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.provider.readFile(new uri_1.default(resource))];
-                    case 1:
-                        buffer = _a.sent();
-                        return [2 /*return*/, __spread(buffer.values())];
-                    case 2: throw new Error('not supported');
-                }
-            });
-        });
-    };
-    FileSystemProviderServer.prototype.writeFile = function (resource, content, opts) {
-        if (files_1.hasReadWriteCapability(this.provider)) {
-            return this.provider.writeFile(new uri_1.default(resource), Uint8Array.from(content), opts);
-        }
-        throw new Error('not supported');
-    };
-    FileSystemProviderServer.prototype.delete = function (resource, opts) {
-        return this.provider.delete(new uri_1.default(resource), opts);
-    };
-    FileSystemProviderServer.prototype.mkdir = function (resource) {
-        return this.provider.mkdir(new uri_1.default(resource));
-    };
-    FileSystemProviderServer.prototype.readdir = function (resource) {
-        return this.provider.readdir(new uri_1.default(resource));
-    };
-    FileSystemProviderServer.prototype.rename = function (source, target, opts) {
-        return this.provider.rename(new uri_1.default(source), new uri_1.default(target), opts);
-    };
-    FileSystemProviderServer.prototype.copy = function (source, target, opts) {
-        if (files_1.hasFileFolderCopyCapability(this.provider)) {
-            return this.provider.copy(new uri_1.default(source), new uri_1.default(target), opts);
-        }
-        throw new Error('not supported');
-    };
-    FileSystemProviderServer.prototype.updateFile = function (resource, changes, opts) {
-        if (files_1.hasUpdateCapability(this.provider)) {
-            return this.provider.updateFile(new uri_1.default(resource), changes, opts);
-        }
-        throw new Error('not supported');
-    };
-    FileSystemProviderServer.prototype.watch = function (requestedWatcherId, resource, opts) {
-        return __awaiter(this, void 0, void 0, function () {
-            var watcher;
-            var _this = this;
-            return __generator(this, function (_a) {
-                if (this.watchers.has(requestedWatcherId)) {
-                    throw new Error('watcher id is already allocated!');
-                }
-                watcher = this.provider.watch(new uri_1.default(resource), opts);
-                this.watchers.set(requestedWatcherId, watcher);
-                this.toDispose.push(disposable_1.Disposable.create(function () { return _this.unwatch(requestedWatcherId); }));
-                return [2 /*return*/];
-            });
-        });
-    };
-    FileSystemProviderServer.prototype.unwatch = function (watcherId) {
-        return __awaiter(this, void 0, void 0, function () {
-            var watcher;
-            return __generator(this, function (_a) {
-                watcher = this.watchers.get(watcherId);
-                if (watcher) {
-                    this.watchers.delete(watcherId);
-                    watcher.dispose();
-                }
-                return [2 /*return*/];
-            });
-        });
-    };
-    FileSystemProviderServer.prototype.readFileStream = function (resource, opts, token) {
-        return __awaiter(this, void 0, void 0, function () {
-            var handle_1, stream;
-            var _this = this;
-            return __generator(this, function (_a) {
-                if (files_1.hasFileReadStreamCapability(this.provider)) {
-                    handle_1 = this.readFileStreamSeq++;
-                    stream = this.provider.readFileStream(new uri_1.default(resource), opts, token);
-                    stream.on('data', function (data) { var _a; return (_a = _this.client) === null || _a === void 0 ? void 0 : _a.onFileStreamData(handle_1, __spread(data.values())); });
-                    stream.on('error', function (error) {
-                        var _a;
-                        var code = error instanceof files_1.FileSystemProviderError ? error.code : undefined;
-                        var name = error.name, message = error.message, stack = error.stack;
-                        // eslint-disable-next-line no-unused-expressions
-                        (_a = _this.client) === null || _a === void 0 ? void 0 : _a.onFileStreamEnd(handle_1, { code: code, name: name, message: message, stack: stack });
-                    });
-                    stream.on('end', function () { var _a; return (_a = _this.client) === null || _a === void 0 ? void 0 : _a.onFileStreamEnd(handle_1, undefined); });
-                    return [2 /*return*/, handle_1];
-                }
-                throw new Error('not supported');
-            });
-        });
-    };
-    __decorate([
-        inversify_1.inject(files_1.FileSystemProvider),
-        __metadata("design:type", Object)
-    ], FileSystemProviderServer.prototype, "provider", void 0);
-    __decorate([
-        inversify_1.postConstruct(),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", []),
-        __metadata("design:returntype", void 0)
-    ], FileSystemProviderServer.prototype, "init", null);
-    FileSystemProviderServer = __decorate([
+    NewTreeExampleFileMenuContribution = __decorate([
         inversify_1.injectable()
-    ], FileSystemProviderServer);
-    return FileSystemProviderServer;
+    ], NewTreeExampleFileMenuContribution);
+    return NewTreeExampleFileMenuContribution;
 }());
-exports.FileSystemProviderServer = FileSystemProviderServer;
+exports.NewTreeExampleFileMenuContribution = NewTreeExampleFileMenuContribution;
 
 
 /***/ }),
 
-/***/ "../node_modules/@theia/filesystem/src/browser/style/index.css":
-/*!*********************************************************************!*\
-  !*** ../node_modules/@theia/filesystem/src/browser/style/index.css ***!
-  \*********************************************************************/
+/***/ "../tree-editor-extension/lib/browser/tree-contribution.js":
+/*!*****************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree-contribution.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeContribution = void 0;
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
+var tree_model_service_1 = __webpack_require__(/*! ./tree/tree-model-service */ "../tree-editor-extension/lib/browser/tree/tree-model-service.js");
+var tree_editor_widget_1 = __webpack_require__(/*! ./tree/tree-editor-widget */ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js");
+var tree_label_provider_1 = __webpack_require__(/*! ./tree/tree-label-provider */ "../tree-editor-extension/lib/browser/tree/tree-label-provider.js");
+var TreeContribution = /** @class */ (function (_super) {
+    __extends(TreeContribution, _super);
+    function TreeContribution(modelService, labelProvider) {
+        var _this = _super.call(this, tree_editor_widget_1.TreeEditorWidget.WIDGET_ID, modelService, labelProvider) || this;
+        _this.id = tree_editor_widget_1.TreeEditorWidget.WIDGET_ID;
+        _this.label = theia_tree_editor_1.MasterTreeWidget.WIDGET_LABEL;
+        return _this;
+    }
+    TreeContribution.prototype.canHandle = function (uri) {
+        if (uri.path.ext === '.tree') {
+            return 1000;
+        }
+        return 0;
+    };
+    TreeContribution.prototype.registerCommands = function (commands) {
+        // register your custom commands here
+        _super.prototype.registerCommands.call(this, commands);
+    };
+    TreeContribution.prototype.registerMenus = function (menus) {
+        // register your custom menu actions here
+        _super.prototype.registerMenus.call(this, menus);
+    };
+    TreeContribution.prototype.createWidgetOptions = function (uri, options) {
+        return {
+            kind: 'navigatable',
+            uri: this.serializeUri(uri)
+        };
+    };
+    TreeContribution.prototype.serializeUri = function (uri) {
+        return uri.withoutFragment().toString();
+    };
+    __decorate([
+        inversify_1.inject(browser_1.ApplicationShell),
+        __metadata("design:type", browser_1.ApplicationShell)
+    ], TreeContribution.prototype, "shell", void 0);
+    __decorate([
+        inversify_1.inject(browser_1.OpenerService),
+        __metadata("design:type", Object)
+    ], TreeContribution.prototype, "opener", void 0);
+    TreeContribution = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(tree_model_service_1.TreeModelService)),
+        __param(1, inversify_1.inject(tree_label_provider_1.TreeLabelProvider)),
+        __metadata("design:paramtypes", [Object, tree_label_provider_1.TreeLabelProvider])
+    ], TreeContribution);
+    return TreeContribution;
+}(theia_tree_editor_1.BaseTreeEditorContribution));
+exports.TreeContribution = TreeContribution;
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/tree-editor-extension-frontend-module.js":
+/*!*************************************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree-editor-extension-frontend-module.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor/style/index.css */ "../node_modules/@eclipse-emfcloud/theia-tree-editor/style/index.css");
+__webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor/style/forms.css */ "../node_modules/@eclipse-emfcloud/theia-tree-editor/style/forms.css");
+__webpack_require__(/*! ../../src/browser/style/editor.css */ "../tree-editor-extension/src/browser/style/editor.css");
+var core_1 = __webpack_require__(/*! @theia/core */ "../node_modules/@theia/core/lib/common/index.js");
+var browser_1 = __webpack_require__(/*! @theia/core/lib/browser */ "../node_modules/@theia/core/lib/browser/index.js");
+var uri_1 = __webpack_require__(/*! @theia/core/lib/common/uri */ "../node_modules/@theia/core/lib/common/uri.js");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
+var tree_contribution_1 = __webpack_require__(/*! ./tree-contribution */ "../tree-editor-extension/lib/browser/tree-contribution.js");
+var tree_model_service_1 = __webpack_require__(/*! ./tree/tree-model-service */ "../tree-editor-extension/lib/browser/tree/tree-model-service.js");
+var tree_node_factory_1 = __webpack_require__(/*! ./tree/tree-node-factory */ "../tree-editor-extension/lib/browser/tree/tree-node-factory.js");
+var tree_editor_widget_1 = __webpack_require__(/*! ./tree/tree-editor-widget */ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js");
+var tree_label_provider_1 = __webpack_require__(/*! ./tree/tree-label-provider */ "../tree-editor-extension/lib/browser/tree/tree-label-provider.js");
+var tree_label_provider_contribution_1 = __webpack_require__(/*! ./tree-label-provider-contribution */ "../tree-editor-extension/lib/browser/tree-label-provider-contribution.js");
+var example_file_command_1 = __webpack_require__(/*! ./example-file/example-file-command */ "../tree-editor-extension/lib/browser/example-file/example-file-command.js");
+var example_file_contribution_1 = __webpack_require__(/*! ./example-file/example-file-contribution */ "../tree-editor-extension/lib/browser/example-file/example-file-contribution.js");
+var tutorial_detail_form_widget_1 = __webpack_require__(/*! ./tree/tutorial-detail-form-widget */ "../tree-editor-extension/lib/browser/tree/tutorial-detail-form-widget.js");
+exports.default = new inversify_1.ContainerModule(function (bind) {
+    // Bind Theia IDE contributions for the example file creation menu entry.
+    bind(example_file_command_1.NewTreeExampleFileCommandHandler).toSelf();
+    bind(core_1.CommandContribution).to(example_file_contribution_1.NewTreeExampleFileCommandContribution);
+    bind(core_1.MenuContribution).to(example_file_contribution_1.NewTreeExampleFileMenuContribution);
+    // Bind Theia IDE contributions for the tree editor.
+    bind(browser_1.LabelProviderContribution).to(tree_label_provider_contribution_1.TreeLabelProviderContribution);
+    bind(browser_1.OpenHandler).to(tree_contribution_1.TreeContribution);
+    bind(core_1.MenuContribution).to(tree_contribution_1.TreeContribution);
+    bind(core_1.CommandContribution).to(tree_contribution_1.TreeContribution);
+    bind(browser_1.LabelProviderContribution).to(tree_label_provider_1.TreeLabelProvider);
+    // bind services to themselves because we use them outside of the editor widget, too.
+    bind(tree_model_service_1.TreeModelService).toSelf().inSingletonScope();
+    bind(tree_label_provider_1.TreeLabelProvider).toSelf().inSingletonScope();
+    bind(browser_1.WidgetFactory).toDynamicValue(function (context) { return ({
+        id: tree_editor_widget_1.TreeEditorWidget.WIDGET_ID,
+        createWidget: function (options) {
+            var treeContainer = theia_tree_editor_1.createBasicTreeContainter(context.container, tree_editor_widget_1.TreeEditorWidget, tree_model_service_1.TreeModelService, tree_node_factory_1.TreeNodeFactory);
+            //@ts-ignore
+            treeContainer.rebind(theia_tree_editor_1.DetailFormWidget).to(tutorial_detail_form_widget_1.TutorialDetailFormWidget);
+            // Bind options.
+            var uri = new uri_1.default(options.uri);
+            treeContainer.bind(theia_tree_editor_1.NavigatableTreeEditorOptions).toConstantValue({ uri: uri });
+            return treeContainer.get(tree_editor_widget_1.TreeEditorWidget);
+        }
+    }); });
+});
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/tree-label-provider-contribution.js":
+/*!********************************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree-label-provider-contribution.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeLabelProviderContribution = void 0;
+var uri_1 = __webpack_require__(/*! @theia/core/lib/common/uri */ "../node_modules/@theia/core/lib/common/uri.js");
+var common_1 = __webpack_require__(/*! @theia/filesystem/lib/common */ "../node_modules/@theia/filesystem/lib/common/index.js");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var TreeLabelProviderContribution = /** @class */ (function () {
+    function TreeLabelProviderContribution() {
+    }
+    TreeLabelProviderContribution.prototype.canHandle = function (uri) {
+        var toCheck = uri;
+        if (common_1.FileStat.is(toCheck)) {
+            toCheck = new uri_1.default(toCheck.uri);
+        }
+        if (toCheck instanceof uri_1.default) {
+            if (toCheck.path.ext === '.tree') {
+                return 1000;
+            }
+        }
+        return 0;
+    };
+    TreeLabelProviderContribution.prototype.getIcon = function () {
+        return 'fa fa-coffee dark-purple';
+    };
+    TreeLabelProviderContribution = __decorate([
+        inversify_1.injectable()
+    ], TreeLabelProviderContribution);
+    return TreeLabelProviderContribution;
+}());
+exports.TreeLabelProviderContribution = TreeLabelProviderContribution;
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js":
+/*!***********************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree/tree-editor-widget.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeEditorWidget = void 0;
+var common_1 = __webpack_require__(/*! @theia/core/lib/common */ "../node_modules/@theia/core/lib/common/index.js");
+var browser_1 = __webpack_require__(/*! @theia/editor/lib/browser */ "../node_modules/@theia/editor/lib/browser/index.js");
+var workspace_service_1 = __webpack_require__(/*! @theia/workspace/lib/browser/workspace-service */ "../node_modules/@theia/workspace/lib/browser/workspace-service.js");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
+var theia_tree_editor_2 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
+var TreeEditorWidget = /** @class */ (function (_super) {
+    __extends(TreeEditorWidget, _super);
+    function TreeEditorWidget(treeWidget, formWidget, workspaceService, logger, options, provider, nodeFactory, editorPreferences) {
+        var _this = _super.call(this, treeWidget, formWidget, workspaceService, logger, TreeEditorWidget_1.WIDGET_ID, options, provider, nodeFactory, editorPreferences) || this;
+        _this.treeWidget = treeWidget;
+        _this.formWidget = formWidget;
+        _this.workspaceService = workspaceService;
+        _this.logger = logger;
+        _this.options = options;
+        _this.provider = provider;
+        _this.nodeFactory = nodeFactory;
+        _this.editorPreferences = editorPreferences;
+        return _this;
+    }
+    TreeEditorWidget_1 = TreeEditorWidget;
+    TreeEditorWidget.prototype.getTypeProperty = function () {
+        return "typeId";
+    };
+    TreeEditorWidget.prototype.configureTitle = function (title) {
+        _super.prototype.configureTitle.call(this, title);
+        title.iconClass = 'fa fa-coffee dark-purple';
+    };
+    var TreeEditorWidget_1;
+    TreeEditorWidget = TreeEditorWidget_1 = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(theia_tree_editor_1.MasterTreeWidget)),
+        __param(1, inversify_1.inject(theia_tree_editor_1.DetailFormWidget)),
+        __param(2, inversify_1.inject(workspace_service_1.WorkspaceService)),
+        __param(3, inversify_1.inject(common_1.ILogger)),
+        __param(4, inversify_1.inject(theia_tree_editor_1.NavigatableTreeEditorOptions)),
+        __param(5, inversify_1.inject(common_1.DefaultResourceProvider)),
+        __param(6, inversify_1.inject(theia_tree_editor_1.TreeEditor.NodeFactory)),
+        __param(7, inversify_1.inject(browser_1.EditorPreferences)),
+        __metadata("design:paramtypes", [theia_tree_editor_1.MasterTreeWidget,
+            theia_tree_editor_1.DetailFormWidget,
+            workspace_service_1.WorkspaceService, Object, Object, common_1.DefaultResourceProvider, Object, Object])
+    ], TreeEditorWidget);
+    return TreeEditorWidget;
+}(theia_tree_editor_2.ResourceTreeEditorWidget));
+exports.TreeEditorWidget = TreeEditorWidget;
+(function (TreeEditorWidget) {
+    TreeEditorWidget.WIDGET_ID = 'tree-editor-extension-tree-editor';
+})(TreeEditorWidget = exports.TreeEditorWidget || (exports.TreeEditorWidget = {}));
+exports.TreeEditorWidget = TreeEditorWidget;
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/tree/tree-label-provider.js":
+/*!************************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree/tree-label-provider.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeLabelProvider = void 0;
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
+var tree_model_1 = __webpack_require__(/*! ./tree-model */ "../tree-editor-extension/lib/browser/tree/tree-model.js");
+var tree_editor_widget_1 = __webpack_require__(/*! ./tree-editor-widget */ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js");
+var DEFAULT_COLOR = 'black';
+var ICON_CLASSES = new Map([
+    [tree_model_1.CoffeeModel.Type.Exercise, 'fa-tint ' + DEFAULT_COLOR],
+]);
+/* Icon for unknown types */
+var UNKNOWN_ICON = 'fa-question-circle ' + DEFAULT_COLOR;
+var TreeLabelProvider = /** @class */ (function () {
+    function TreeLabelProvider() {
+    }
+    TreeLabelProvider.prototype.canHandle = function (element) {
+        if ((theia_tree_editor_1.TreeEditor.Node.is(element) || theia_tree_editor_1.TreeEditor.CommandIconInfo.is(element))
+            && element.editorId === tree_editor_widget_1.TreeEditorWidget.WIDGET_ID) {
+            return 1000;
+        }
+        return 0;
+    };
+    TreeLabelProvider.prototype.getIcon = function (element) {
+        var iconClass;
+        if (theia_tree_editor_1.TreeEditor.CommandIconInfo.is(element)) {
+            iconClass = ICON_CLASSES.get(element.type);
+        }
+        else if (theia_tree_editor_1.TreeEditor.Node.is(element)) {
+            iconClass = ICON_CLASSES.get(element.jsonforms.type);
+        }
+        return iconClass ? 'fa ' + iconClass : 'fa ' + UNKNOWN_ICON;
+    };
+    TreeLabelProvider.prototype.getName = function (element) {
+        var data = theia_tree_editor_1.TreeEditor.Node.is(element) ? element.jsonforms.data : element;
+        if (data.name) {
+            return data.name;
+        }
+        else if (data.typeId) {
+            return this.getTypeName(data.typeId);
+        }
+        return undefined;
+    };
+    TreeLabelProvider.prototype.getTypeName = function (typeId) {
+        return tree_model_1.CoffeeModel.Type.name(typeId);
+    };
+    TreeLabelProvider = __decorate([
+        inversify_1.injectable()
+    ], TreeLabelProvider);
+    return TreeLabelProvider;
+}());
+exports.TreeLabelProvider = TreeLabelProvider;
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/tree/tree-model-service.js":
+/*!***********************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree/tree-model-service.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeModelService = void 0;
+var tree_schema_1 = __webpack_require__(/*! ./tree-schema */ "../tree-editor-extension/lib/browser/tree/tree-schema.js");
+var core_1 = __webpack_require__(/*! @theia/core */ "../node_modules/@theia/core/lib/common/index.js");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var tree_model_1 = __webpack_require__(/*! ./tree-model */ "../tree-editor-extension/lib/browser/tree/tree-model.js");
+var tree_schema_2 = __webpack_require__(/*! ./tree-schema */ "../tree-editor-extension/lib/browser/tree/tree-schema.js");
+var TreeModelService = /** @class */ (function () {
+    function TreeModelService(logger) {
+        this.logger = logger;
+    }
+    TreeModelService.prototype.getDataForNode = function (node) {
+        return node.jsonforms.data;
+    };
+    TreeModelService.prototype.getSchemaForNode = function (node) {
+        return __assign({ definitions: tree_schema_2.tutorialSchema.definitions }, this.getSchemaForType(node.jsonforms.type));
+    };
+    TreeModelService.prototype.getSchemaForType = function (type) {
+        if (!type) {
+            return undefined;
+        }
+        var schema = Object.entries(tree_schema_2.tutorialSchema.definitions)
+            .map(function (entry) { return entry[1]; })
+            .find(function (definition) {
+            return definition.properties && definition.properties.typeId.const === type;
+        });
+        if (schema === undefined) {
+            this.logger.warn("Can't find definition schema for type " + type);
+        }
+        return schema;
+    };
+    TreeModelService.prototype.getUiSchemaForNode = function (node) {
+        var type = node.jsonforms.type;
+        switch (type) {
+            case tree_model_1.CoffeeModel.Type.Exercise:
+                return tree_schema_2.exerciseView;
+            case tree_model_1.CoffeeModel.Type.Tutorial:
+                return tree_schema_2.tutorialView;
+            case tree_model_1.CoffeeModel.Type.FileDiff:
+                return tree_schema_1.fileDiffView;
+            case tree_model_1.CoffeeModel.Type.AutomaticImport:
+                return tree_schema_1.automaticImportView;
+            case tree_model_1.CoffeeModel.Type.CheckIfFilesExist:
+                return tree_schema_1.checkIfFilesExistView;
+            case tree_model_1.CoffeeModel.Type.CleanExerciseFolder:
+                return tree_schema_1.cleanExerciseFolderView;
+            case tree_model_1.CoffeeModel.Type.OpenFile:
+                return tree_schema_1.openFileView;
+            case tree_model_1.CoffeeModel.Type.TerminalCommands:
+                return tree_schema_1.terminalCommandsView;
+            case tree_model_1.CoffeeModel.Type.Html:
+                return tree_schema_1.htmlView;
+            case tree_model_1.CoffeeModel.Type.Image:
+                return tree_schema_1.imageView;
+            case tree_model_1.CoffeeModel.Type.CommandButton:
+                return tree_schema_1.commandButtonView;
+            case tree_model_1.CoffeeModel.Type.Hint:
+                return tree_schema_1.hintView;
+            default:
+                this.logger.warn("Can't find registered ui schema for type " + type);
+                return undefined;
+        }
+    };
+    TreeModelService.prototype.getChildrenMapping = function () {
+        return tree_model_1.CoffeeModel.childrenMapping;
+    };
+    TreeModelService.prototype.getNameForType = function (type) {
+        return tree_model_1.CoffeeModel.Type.name(type);
+    };
+    TreeModelService = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(core_1.ILogger)),
+        __metadata("design:paramtypes", [Object])
+    ], TreeModelService);
+    return TreeModelService;
+}());
+exports.TreeModelService = TreeModelService;
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/tree/tree-model.js":
+/*!***************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree/tree-model.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CoffeeModel = void 0;
+var CoffeeModel;
+(function (CoffeeModel) {
+    var Type;
+    (function (Type) {
+        Type.Exercise = '#exercise';
+        Type.Tutorial = '#tutorial';
+        Type.Command = '#command';
+        Type.FileDiff = '#fileDiff';
+        Type.AutomaticImport = '#automaticImport';
+        Type.OpenFile = '#openFile';
+        Type.CheckIfFilesExist = '#checkIfFilesExist';
+        Type.TerminalCommands = '#terminalCommands';
+        Type.CleanExerciseFolder = '#cleanExerciseFolder';
+        Type.Instruction = '#instruction';
+        Type.Html = '#html';
+        Type.Image = '#image';
+        Type.Hint = '#hint';
+        Type.CommandButton = '#commandButton';
+        Type.Content = '#content';
+        function name(type) {
+            return type;
+        }
+        Type.name = name;
+    })(Type = CoffeeModel.Type || (CoffeeModel.Type = {}));
+    var components = [
+        Type.Exercise
+    ];
+    var instructionComponents = [
+        Type.Html,
+        Type.Image,
+        Type.Hint,
+        Type.CommandButton
+    ];
+    /** Maps types to their creatable children */
+    CoffeeModel.childrenMapping = new Map([
+        [
+            Type.Tutorial, [
+                {
+                    property: 'exercises',
+                    children: components
+                }
+            ]
+        ],
+        [
+            Type.Exercise, [
+                {
+                    property: 'content',
+                    children: [Type.Content]
+                },
+            ]
+        ],
+        [
+            Type.Hint, [
+                {
+                    property: 'content',
+                    children: [Type.Content]
+                }
+            ]
+        ],
+        [
+            Type.Content, [
+                {
+                    property: 'contents',
+                    children: instructionComponents
+                }
+            ]
+        ]
+    ]);
+})(CoffeeModel = exports.CoffeeModel || (exports.CoffeeModel = {}));
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/tree/tree-node-factory.js":
+/*!**********************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree/tree-node-factory.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeNodeFactory = void 0;
+var core_1 = __webpack_require__(/*! @theia/core */ "../node_modules/@theia/core/lib/common/index.js");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var uuid_1 = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+var tree_model_1 = __webpack_require__(/*! ./tree-model */ "../tree-editor-extension/lib/browser/tree/tree-model.js");
+var tree_editor_widget_1 = __webpack_require__(/*! ./tree-editor-widget */ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js");
+var tree_label_provider_1 = __webpack_require__(/*! ./tree-label-provider */ "../tree-editor-extension/lib/browser/tree/tree-label-provider.js");
+var TreeNodeFactory = /** @class */ (function () {
+    function TreeNodeFactory(labelProvider, logger) {
+        this.labelProvider = labelProvider;
+        this.logger = logger;
+    }
+    TreeNodeFactory.prototype.mapDataToNodes = function (treeData) {
+        var node = this.mapData(treeData.data);
+        if (node) {
+            return [node];
+        }
+        return [];
+    };
+    TreeNodeFactory.prototype.mapData = function (data, parent, property, indexOrKey) {
+        if (!data) {
+            this.logger.warn('mapData called without data');
+        }
+        var node = __assign(__assign({}, this.defaultNode()), { editorId: tree_editor_widget_1.TreeEditorWidget.WIDGET_ID, name: this.labelProvider.getName(data), parent: parent, jsonforms: {
+                type: this.getTypeId(data),
+                data: data,
+                property: property,
+                index: typeof indexOrKey === 'number' ? indexOrKey.toFixed(0) : indexOrKey
+            } });
+        console.log('node', node);
+        // containments
+        if (parent) {
+            parent.children.push(node);
+            parent.expanded = true;
+        }
+        if (data.children) {
+            this.mapCustomData(data.children, node, 'children');
+        }
+        if (data.exercises) {
+            this.mapCustomData(data.exercises, node, 'exercises');
+        }
+        if (data.content) {
+            this.mapCustomData(data.content, node, 'content');
+        }
+        if (data.contents) {
+            this.mapCustomData(data.contents, node, 'contents');
+        }
+        return node;
+    };
+    TreeNodeFactory.prototype.mapCustomData = function (data, node, label) {
+        var _this = this;
+        data.forEach(function (element, idx) {
+            _this.mapData(element, node, label, idx);
+        });
+    };
+    TreeNodeFactory.prototype.hasCreatableChildren = function (node) {
+        return node ? tree_model_1.CoffeeModel.childrenMapping.get(node.jsonforms.type) !== undefined : false;
+    };
+    TreeNodeFactory.prototype.defaultNode = function () {
+        return {
+            id: uuid_1.v4(),
+            expanded: false,
+            selected: false,
+            parent: undefined,
+            children: [],
+            decorationData: {},
+            name: '',
+            jsonforms: {
+                type: '',
+                property: '',
+                data: undefined
+            }
+        };
+    };
+    /** Derives the type id from the given data. */
+    TreeNodeFactory.prototype.getTypeId = function (data) {
+        return data && data.typeId || '';
+    };
+    TreeNodeFactory = __decorate([
+        inversify_1.injectable(),
+        __param(0, inversify_1.inject(tree_label_provider_1.TreeLabelProvider)),
+        __param(1, inversify_1.inject(core_1.ILogger)),
+        __metadata("design:paramtypes", [tree_label_provider_1.TreeLabelProvider, Object])
+    ], TreeNodeFactory);
+    return TreeNodeFactory;
+}());
+exports.TreeNodeFactory = TreeNodeFactory;
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/tree/tree-schema.js":
+/*!****************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree/tree-schema.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/* See https://jsonforms.io for more information on how to configure data and ui schemas. */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.tutorialSchema = exports.exerciseView = exports.commandButtonView = exports.hintView = exports.imageView = exports.htmlView = exports.cleanExerciseFolderView = exports.terminalCommandsView = exports.checkIfFilesExistView = exports.openFileView = exports.automaticImportView = exports.fileDiffView = exports.tutorialView = void 0;
+exports.tutorialView = {
+    'type': 'Group',
+    "label": "Tutorial",
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Title',
+            'scope': '#/properties/title'
+        },
+        {
+            'type': 'Control',
+            'label': 'Description',
+            'scope': '#/properties/description'
+        },
+        {
+            'type': 'Control',
+            'label': 'Tutorial Folder',
+            'scope': '#/properties/tutorialFolder'
+        },
+    ]
+};
+exports.fileDiffView = {
+    'type': 'Group',
+    "label": "File Difference",
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'File Name',
+            'scope': '#/properties/fileDiff/properties/fileName'
+        },
+        {
+            'type': 'Control',
+            'label': 'Solution',
+            'scope': '#/properties/fileDiff/properties/solution'
+        },
+    ]
+};
+exports.automaticImportView = {
+    'type': 'Group',
+    "label": "Automatic Import",
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Imports',
+            'scope': '#/properties/automaticImport/properties/imports'
+        },
+        {
+            'type': 'Control',
+            'label': 'Path',
+            'scope': '#/properties/automaticImport/properties/path'
+        }
+    ]
+};
+exports.openFileView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Open File',
+            'scope': '#/properties/openFile'
+        }
+    ]
+};
+exports.checkIfFilesExistView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Check if file exist',
+            'scope': '#/properties/checkIfFilesExist'
+        }
+    ]
+};
+exports.terminalCommandsView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Terminal Command',
+            'scope': '#/properties/terminalCommands'
+        }
+    ]
+};
+exports.cleanExerciseFolderView = {
+    'type': 'VerticalLayout',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Clean Exercise Folder',
+            'scope': '#/properties/cleanExerciseFolder'
+        }
+    ]
+};
+exports.htmlView = {
+    'type': 'Group',
+    'label': 'Html',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Html',
+            'scope': '#/properties/html'
+        }
+    ]
+};
+exports.imageView = {
+    'type': 'Group',
+    'label': 'Image',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Src',
+            'scope': '#/properties/image/properties/src'
+        },
+        {
+            'type': 'Control',
+            'label': 'Description',
+            'scope': '#/properties/image/properties/description'
+        },
+        {
+            'type': 'Control',
+            'label': 'Width',
+            'scope': '#/properties/image/properties/width'
+        }
+    ]
+};
+exports.hintView = {
+    'type': 'Group',
+    'label': 'Hint',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Text',
+            'scope': '#/properties/hint/properties/text'
+        },
+    ]
+};
+exports.commandButtonView = {
+    'type': 'Group',
+    'label': 'Command Button',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Text',
+            'scope': '#/properties/button/properties/text'
+        },
+        {
+            'type': 'Control',
+            'label': 'Commands',
+            'scope': '#/properties/button/properties/commands'
+        }
+    ]
+};
+exports.exerciseView = {
+    'type': 'Group',
+    'label': 'Exercise',
+    'elements': [
+        {
+            'type': 'Control',
+            'label': 'Title',
+            'scope': '#/properties/title'
+        },
+        {
+            'type': 'Control',
+            'label': 'Description',
+            'scope': '#/properties/description'
+        },
+        {
+            'type': 'Control',
+            'label': 'Build Exercise',
+            'scope': '#/properties/buildExercise'
+        },
+        {
+            'type': 'Control',
+            'label': 'Clean State',
+            'scope': '#/properties/cleanState'
+        },
+        {
+            'type': 'Control',
+            'label': 'Solve',
+            'scope': '#/properties/solve'
+        },
+        {
+            'type': 'Control',
+            'label': 'Check Start State',
+            'scope': '#/properties/checkStartState'
+        },
+        {
+            'type': 'Control',
+            'label': 'Test',
+            'scope': '#/properties/test'
+        },
+    ]
+};
+exports.tutorialSchema = {
+    'definitions': {
+        'tutorial': {
+            "type": "object",
+            "required": [
+                "title",
+                "description",
+                "tutorialFolder"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                'typeId': {
+                    'const': '#tutorial'
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "tutorialFolder": {
+                    "type": "string"
+                },
+                "exercises": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/exercise"
+                    }
+                }
+            }
+        },
+        "exercise": {
+            // "$id": "#exercise",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "title",
+                "description"
+            ],
+            "properties": {
+                'typeId': {
+                    'const': '#exercise'
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "checkStartState": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "testName": {
+                                "type": "string"
+                            },
+                            "command": {
+                                "$ref": "#/definitions/command"
+                            }
+                        },
+                        "required": [
+                            "testName",
+                            "command"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "buildExercise": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "cleanState": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "test": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "testName": {
+                                "type": "string"
+                            },
+                            "command": {
+                                "$ref": "#/definitions/command"
+                            },
+                            "fileName": {
+                                "type": "string"
+                            },
+                            "solution": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "testName",
+                            "command"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "solve": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/command"
+                    }
+                },
+                "content": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/instruction"
+                    }
+                }
+            }
+        },
+        "command": {
+            // "$id": "#command",
+            "type": "object",
+            'properties': {
+                'typeId': {
+                    'const': '#command'
+                },
+            },
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/checkIfFilesExist"
+                },
+                {
+                    "$ref": "#/definitions/terminalCommands"
+                },
+                {
+                    "$ref": "#/definitions/openFile"
+                },
+                {
+                    "$ref": "#/definitions/automaticImport"
+                },
+                {
+                    "$ref": "#/definitions/fileDiff"
+                },
+                {
+                    "$ref": "#/definitions/cleanExerciseFolder"
+                }
+            ]
+        },
+        "fileDiff": {
+            // "$id": "#fileDiff",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#fileDiff'
+                },
+                "fileDiff": {
+                    "type": "object",
+                    "properties": {
+                        "fileName": {
+                            "type": "string"
+                        },
+                        "solution": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "required": [
+                "fileDiff"
+            ]
+        },
+        "automaticImport": {
+            // "$id": "#automaticImport",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#automaticImport'
+                },
+                "automaticImport": {
+                    "type": "object",
+                    "properties": {
+                        "imports": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "path": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "imports",
+                        "path"
+                    ]
+                }
+            },
+            "required": [
+                "automaticImport"
+            ]
+        },
+        "openFile": {
+            // "$id": "#openFile",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#openFile'
+                },
+                "openFile": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "openFile"
+            ]
+        },
+        "checkIfFilesExist": {
+            // "$id": "#checkIfFilesExist",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#checkIfFilesExist'
+                },
+                "checkIfFilesExist": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "checkIfFilesExist"
+            ]
+        },
+        "terminalCommands": {
+            // "$id": "#terminalCommands",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#terminalCommands'
+                },
+                "terminalCommands": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "terminalCommands"
+            ]
+        },
+        "cleanExerciseFolder": {
+            // "$id": "#cleanExerciseFolder",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#cleanExerciseFolder'
+                },
+                "cleanExerciseFolder": {
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "cleanExerciseFolder"
+            ]
+        },
+        "instruction": {
+            // "$id": "#instruction",
+            "type": "object",
+            'properties': {
+                'typeId': {
+                    'const': '#instruction'
+                },
+            },
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/html"
+                },
+                {
+                    "$ref": "#/definitions/image"
+                },
+                {
+                    "$ref": "#/definitions/hint"
+                },
+                {
+                    "$ref": "#/definitions/commandButton"
+                }
+            ]
+        },
+        "html": {
+            // "$id": "#html",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#html'
+                },
+                "html": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "html"
+            ]
+        },
+        "image": {
+            // "$id": "#image",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#image'
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "src": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "width": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "src"
+                    ]
+                }
+            },
+            "required": [
+                "image"
+            ],
+            "additionalProperties": false
+        },
+        "hint": {
+            // "$id": "#hint",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#hint'
+                },
+                "hint": {
+                    "type": "object",
+                    "properties": {
+                        "text": {
+                            "type": "string"
+                        },
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "hint"
+            ],
+            "additionalProperties": false
+        },
+        "commandButton": {
+            // "$id": "#commandButton",
+            "type": "object",
+            "properties": {
+                'typeId': {
+                    'const': '#commandButton'
+                },
+                "button": {
+                    "type": "object",
+                    "properties": {
+                        "text": {
+                            "type": "string"
+                        },
+                        "commands": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/command"
+                            }
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "button"
+            ],
+            "additionalProperties": false
+        },
+    },
+};
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/tree/tutorial-detail-form-widget.js":
+/*!********************************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree/tutorial-detail-form-widget.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TutorialDetailFormWidget = void 0;
+var material_renderers_1 = __webpack_require__(/*! @jsonforms/material-renderers */ "../node_modules/@jsonforms/material-renderers/lib/index.js");
+var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
+var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
+// import MyGroupRenderer, { myGroupTester } from "./MyGroup";
+var TutorialDetailFormWidget = /** @class */ (function (_super) {
+    __extends(TutorialDetailFormWidget, _super);
+    function TutorialDetailFormWidget() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // XXX Replace renderers in Redux store manually as they can't be customized at the current time.
+    // This is very hacky as the 'store' field is private and the Redux store is not intended to be modified like this.
+    // This should be removed once https://github.com/eclipse-emfcloud/theia-tree-editor/issues/20 is implemented
+    TutorialDetailFormWidget.prototype.customizeRenderers = function () {
+        var renderers = __spread(material_renderers_1.materialRenderers);
+        var cells = __spread(material_renderers_1.materialCells);
+        //@ts-ignore
+        this.store.getState().jsonforms.renderers = renderers;
+        //@ts-ignore
+        this.store.getState().jsonforms.cells = cells;
+    };
+    __decorate([
+        inversify_1.postConstruct(),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], TutorialDetailFormWidget.prototype, "customizeRenderers", null);
+    TutorialDetailFormWidget = __decorate([
+        inversify_1.injectable()
+    ], TutorialDetailFormWidget);
+    return TutorialDetailFormWidget;
+}(theia_tree_editor_1.DetailFormWidget));
+exports.TutorialDetailFormWidget = TutorialDetailFormWidget;
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/src/browser/style/editor.css":
+/*!*************************************************************!*\
+  !*** ../tree-editor-extension/src/browser/style/editor.css ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../css-loader!./index.css */ "../node_modules/css-loader/index.js!../node_modules/@theia/filesystem/src/browser/style/index.css");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!./editor.css */ "../node_modules/css-loader/index.js!../tree-editor-extension/src/browser/style/editor.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -1190,69 +2233,11 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(/*! ../../../../../style-loader/lib/addStyles.js */ "../node_modules/style-loader/lib/addStyles.js")(content, options);
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "../node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
-
-/***/ }),
-
-/***/ "../node_modules/css-loader/index.js!../node_modules/@theia/filesystem/src/browser/style/file-dialog.css":
-/*!******************************************************************************************************!*\
-  !*** ../node_modules/css-loader!../node_modules/@theia/filesystem/src/browser/style/file-dialog.css ***!
-  \******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/********************************************************************************\n * Copyright (C) 2017 TypeFox and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n /*\n  * Open and Save file dialogs\n  */\n\n.dialogContent .theia-FileDialog,\n.dialogContent .theia-SaveFileDialog,\n.dialogContent .theia-ResponsiveFileDialog {\n    height: 500px;\n    width: 500px;\n    border: 1px solid var(--theia-editorWidget-border);\n    background: var(--theia-dropdown-background);\n}\n\n\n@media only screen and (max-height: 700px) {\n    .dialogContent .theia-FileDialog,\n    .dialogContent .theia-SaveFileDialog,\n    .dialogContent .theia-ResponsiveFileDialog {\n        height: 300px;\n    }\n}\n\n.dialogContent .theia-NavigationPanel,\n.dialogContent .theia-FiltersPanel,\n.dialogContent .theia-FileNamePanel {\n    display: block;\n    position: relative;\n    overflow: hidden;\n}\n\n.dialogContent .theia-NavigationPanel,\n.dialogContent .theia-FiltersPanel {\n    min-height: 27px;\n}\n\n.dialogContent .theia-FileNamePanel {\n    height: 31px;\n}\n\n/*\n * Navigation panel items\n */\n\n.dialogContent .theia-NavigationBack,\n.dialogContent .theia-NavigationForward,\n.dialogContent .theia-NavigationHome {\n    position: absolute;\n    top: 0px;\n    line-height: 23px;\n    cursor: pointer;\n    outline: none;\n}\n\n.dialogContent .theia-NavigationBack:focus,\n.dialogContent .theia-NavigationForward:focus,\n.dialogContent .theia-NavigationHome:focus {\n    outline: none;\n    border: none;\n    box-shadow: none;\n}\n\n.dialogContent .theia-NavigationBack {\n    left: auto;\n}\n\n.dialogContent .theia-NavigationForward {\n    left: 21px;\n}\n\n.dialogContent .theia-NavigationHome {\n    left: 41px;\n}\n\n.dialogContent .theia-LocationListPanel {\n    position: absolute;\n    left: 72px;\n    top: 1px;\n}\n\n.dialogContent .theia-LocationList {\n    width: 427px;\n    height: 21px;\n}\n\n/*\n * Filters panel items\n */\n\n.dialogContent .theia-FiltersLabel {\n    position: absolute;\n    left: 1px;\n    top: 0px;\n    line-height: 27px;\n}\n\n.dialogContent .theia-FiltersListPanel {\n    position: absolute;\n    left: 72px;\n    top: 3px;\n}\n\n.dialogContent .theia-FileTreeFiltersList {\n    width: 427px;\n    height: 21px;\n}\n\n/*\n * File name panel items\n */\n\n.dialogContent .theia-FileNameLabel {\n    position: absolute;\n    left: 1px;\n    top: 0px;\n    line-height: 23px;\n}\n\n.dialogContent .theia-FileNameTextField {\n    position: absolute;\n    left: 72px;\n    top: 0px;\n    width: 420px;\n}\n\n/*\n * Control panel items\n */\n\n.dialogContent .theia-ControlPanel {\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-end;\n    margin-bottom: 0px;\n}\n\n.dialogContent .theia-ControlPanel > * {\n    margin-left: 4px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "../node_modules/css-loader/index.js!../node_modules/@theia/filesystem/src/browser/style/file-icons.css":
-/*!*****************************************************************************************************!*\
-  !*** ../node_modules/css-loader!../node_modules/@theia/filesystem/src/browser/style/file-icons.css ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/********************************************************************************\n * Copyright (C) 2017 TypeFox and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n .theia-file-icons-js {\n    /*\n    Here, the `line-height` ensures that FontAwesome and `file-icons-js` container has the same height.\n    Ideally, it would be 1 em, but since we set the max height above (and other places too) with 0.8\n    multiplier, we use 0.8 em here too.\n     */\n    line-height: 0.8em;\n}\n\n.theia-file-icons-js:before {\n    font-size: calc(var(--theia-content-font-size) * 0.8);\n}\n\n.theia-file-icons-js.file-icon {\n    min-width: var(--theia-icon-size);\n    height: var(--theia-icon-size);\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n.fa-file:before,\n.fa-folder:before,\n.theia-file-icons-js:before {\n    text-align: center;\n    margin-right: 4px;\n}\n\n.theia-app-sides .theia-file-icons-js {\n    max-height: none;\n    line-height: inherit;\n}\n\n.theia-app-sides .theia-file-icons-js:before {\n    font-size: var(--theia-private-sidebar-icon-size);\n    margin-right: 0px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "../node_modules/css-loader/index.js!../node_modules/@theia/filesystem/src/browser/style/index.css":
-/*!************************************************************************************************!*\
-  !*** ../node_modules/css-loader!../node_modules/@theia/filesystem/src/browser/style/index.css ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../css-loader/lib/css-base.js */ "../node_modules/css-loader/lib/css-base.js")(false);
-// imports
-exports.i(__webpack_require__(/*! -!../../../../../css-loader!./file-dialog.css */ "../node_modules/css-loader/index.js!../node_modules/@theia/filesystem/src/browser/style/file-dialog.css"), "");
-exports.i(__webpack_require__(/*! -!../../../../../css-loader!./file-icons.css */ "../node_modules/css-loader/index.js!../node_modules/@theia/filesystem/src/browser/style/file-icons.css"), "");
-
-// module
-exports.push([module.i, "/********************************************************************************\n * Copyright (C) 2017 TypeFox and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n.theia-file-tree-drag-image {\n  position: absolute;\n  /*\n    make sure you don't see it flashing\n     */\n  top: -1000px;\n  font-size: var(--theia-ui-font-size1);\n  display: inline-block;\n  padding: 1px calc(var(--theia-ui-padding)*2);\n  border-radius: 10px;\n\n  background: var(--theia-list-activeSelectionBackground);\n  color: var(--theia-list-activeSelectionForeground);\n  outline: 1px solid var(--theia-contrastActiveBorder);\n  outline-offset: -1px;\n}\n", ""]);
-
-// exports
-
 
 /***/ })
 
