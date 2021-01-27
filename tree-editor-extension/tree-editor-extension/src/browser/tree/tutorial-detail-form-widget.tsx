@@ -4,7 +4,7 @@ import {
 } from "@jsonforms/material-renderers";
 import { injectable, postConstruct } from "inversify";
 import { DetailFormWidget } from "@eclipse-emfcloud/theia-tree-editor";
-import MyGroupRenderer, { myGroupTester } from "./MyGroup";
+// import MyGroupRenderer, { myGroupTester } from "./MyGroup";
 
 @injectable()
 export class TutorialDetailFormWidget extends DetailFormWidget {
@@ -15,10 +15,10 @@ export class TutorialDetailFormWidget extends DetailFormWidget {
   customizeRenderers() {
     const renderers = [
       ...materialRenderers, // or vanillaRenderers from '@jsonforms/vanilla-renderers'
-      {
-        tester: myGroupTester,
-        renderer: MyGroupRenderer,
-      },
+      // {
+      //   tester: myGroupTester,
+      //   renderer: MyGroupRenderer,
+      // },
     ];
 
     const cells = [

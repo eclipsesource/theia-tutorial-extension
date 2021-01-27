@@ -1,9 +1,9 @@
 import { mapStateToLayoutProps, rankWith, uiTypeIs } from "@jsonforms/core";
 import { MaterialLayoutRenderer } from "@jsonforms/material-renderers";
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Hidden,
   Typography,
 } from "@material-ui/core";
@@ -27,14 +27,14 @@ const MyGroupRenderer = (props: any) => {
   };
   return (
     <Hidden xsUp={!visible}>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{uischema.label}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        </AccordionSummary>
+        <AccordionDetails>
           <MaterialLayoutRenderer {...layoutProps} />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     </Hidden>
   );
 };
