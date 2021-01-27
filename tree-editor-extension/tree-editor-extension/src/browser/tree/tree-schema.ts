@@ -1,30 +1,8 @@
 /* See https://jsonforms.io for more information on how to configure data and ui schemas. */
-export const ratingView = {
-  'type': 'Group',
-  "label": "My Group!!",
-  'elements': [
-    {
-      'type': 'Control',
-      'label': 'Title',
-      'scope': '#/properties/title'
-    },
-    {
-      'type': 'Control',
-      'label': 'Description',
-      'scope': '#/properties/description'
-    },
-    {
-      'type': 'Control',
-      'label': 'Tutorial Folder',
-      'scope': '#/properties/tutorialFolder'
-    },
-  ]
- };
-
 
 export const tutorialView = {
   'type': 'Group',
-  "label": "My Group!!",
+  "label": "Tutorial",
   'elements': [
     {
       'type': 'Control',
@@ -44,24 +22,14 @@ export const tutorialView = {
   ]
  };
 
-//  export const commandView = {
-//   'type': 'VerticalLayout',
-//   'elements': [
-//     {
-//       'type': 'Control',
-//       'label': 'Command Type',
-//       'scope': '#/oneOf'
-//     }
-//   ]
-//  };
-
  export const fileDiffView = {
-  'type': 'VerticalLayout',
+  'type': 'Group',
+  "label": "File Difference",
   'elements': [
     {
       'type': 'Control',
       'label': 'File Name',
-      'scope': '#/properties/fileDiff/properties/filename'
+      'scope': '#/properties/fileDiff/properties/fileName'
     },
     {
       'type': 'Control',
@@ -72,7 +40,8 @@ export const tutorialView = {
  };
 
  export const automaticImportView = {
-  'type': 'VerticalLayout',
+  'type': 'Group',
+  "label": "Automatic Import",
   'elements': [
     {
       'type': 'Control',
@@ -132,7 +101,8 @@ export const tutorialView = {
  };
 
  export const htmlView = {
-  'type': 'VerticalLayout',
+  'type': 'Group',
+  'label': 'Html',
   'elements': [
     {
       'type': 'Control',
@@ -143,7 +113,8 @@ export const tutorialView = {
  };
 
  export const imageView = {
-  'type': 'VerticalLayout',
+  'type': 'Group',
+  'label': 'Image',
   'elements': [
     {
       'type': 'Control',
@@ -164,23 +135,25 @@ export const tutorialView = {
  };
 
  export const hintView = {
-  'type': 'VerticalLayout',
+  'type': 'Group',
+  'label': 'Hint',
   'elements': [
     {
       'type': 'Control',
       'label': 'Text',
       'scope': '#/properties/hint/properties/text'
     },
-    {
-      'type': 'Control',
-      'label': 'Content',
-      'scope': '#/properties/hint/properties/content'
-    }
+    // {
+    //   'type': 'Control',
+    //   'label': 'Content',
+    //   'scope': '#/properties/hint/properties/content'
+    // }
   ]
  };
 
  export const commandButtonView = {
-  'type': 'VerticalLayout',
+  'type': 'Group',
+  'label': 'Command Button',
   'elements': [
     {
       'type': 'Control',
@@ -195,19 +168,9 @@ export const tutorialView = {
   ]
  };
 
-//  export const instructionView = {
-//   'type': 'VerticalLayout',
-//   'elements': [
-//     {
-//       'type': 'Control',
-//       'label': 'Instruction',
-//       'scope': '#/oneOf'
-//     }
-//   ]
-//  };
-
  export const exerciseView = {
-  'type': 'VerticalLayout',
+  'type': 'Group',
+  'label': 'Exercise',
   'elements': [
     {
       'type': 'Control',
@@ -219,31 +182,31 @@ export const tutorialView = {
       'label': 'Description',
       'scope': '#/properties/description'
     },
-    // {
-    //   'type': 'Control',
-    //   'label': 'Build Exercise',
-    //   'scope': '#/properties/buildExercise'
-    // },
-    // {
-    //   'type': 'Control',
-    //   'label': 'Clean State',
-    //   'scope': '#/properties/cleanState'
-    // },
-    // {
-    //   'type': 'Control',
-    //   'label': 'Solve',
-    //   'scope': '#/properties/solve'
-    // },
-    // {
-    //   'type': 'Control',
-    //   'label': 'checkStartState',
-    //   'scope': '#/properties/checkStartState'
-    // },
-    // {
-    //   'type': 'Control',
-    //   'label': 'Test',
-    //   'scope': '#/properties/test'
-    // },
+    {
+      'type': 'Control',
+      'label': 'Build Exercise',
+      'scope': '#/properties/buildExercise'
+    },
+    {
+      'type': 'Control',
+      'label': 'Clean State',
+      'scope': '#/properties/cleanState'
+    },
+    {
+      'type': 'Control',
+      'label': 'Solve',
+      'scope': '#/properties/solve'
+    },
+    {
+      'type': 'Control',
+      'label': 'Check Start State',
+      'scope': '#/properties/checkStartState'
+    },
+    {
+      'type': 'Control',
+      'label': 'Test',
+      'scope': '#/properties/test'
+    },
     // {
     //   'type': 'Control',
     //   'label': 'Content',
@@ -343,7 +306,7 @@ export const tutorialSchema = {
                       "command": {
                           "$ref": "#/definitions/command"
                       },
-                      "filename": {
+                      "fileName": {
                           "type": "string"
                       },
                       "solution": {
@@ -410,7 +373,7 @@ export const tutorialSchema = {
         "fileDiff": {
             "type": "object",
             "properties": {
-                "filename": {
+                "fileName": {
                     "type": "string"
                 },
                 "solution": {
@@ -605,12 +568,12 @@ export const tutorialSchema = {
               "text": {
                   "type": "string"
               },
-              "content": {
-                  "type": "array",
-                  "items": {
-                      "$ref": "#/definitions/instruction"
-                  }
-              }
+              // "content": {
+              //     "type": "array",
+              //     "items": {
+              //         "$ref": "#/definitions/instruction"
+              //     }
+              // }
           },
           "additionalProperties": false
       }
