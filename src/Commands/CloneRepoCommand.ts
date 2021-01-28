@@ -11,7 +11,7 @@
 import * as vscode from 'vscode';
 import cloneRepo from '../Functions/cloneRepo';
 
-const CLONEREPOCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.cloneRepo', () => {
+const cloneRepoCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.cloneRepo', () => {
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
     const outputChannel = vscode.window.createOutputChannel('repoCloned');
@@ -26,5 +26,5 @@ const CLONEREPOCOMMAND: vscode.Disposable = vscode.commands.registerCommand('the
 
 
 
-export default CLONEREPOCOMMAND;
+export default cloneRepoCommand;
 

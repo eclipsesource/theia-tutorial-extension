@@ -59,8 +59,5 @@ export default function App() {
         </SnackbarProvider>
       }
     </div>
-
-
-
   );
 }

@@ -37,7 +37,7 @@ interface TutorialOverviewProps {
     tutorial: Tutorial;
 }
 
-const TutorialOverview = (props: TutorialOverviewProps) => {
+const TutorialOverview = ({tutorial}: TutorialOverviewProps) => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(-1);
 
@@ -45,7 +45,7 @@ const TutorialOverview = (props: TutorialOverviewProps) => {
         activeStep < 0 ?
             <div className={classes.root}>
                 <Stepper orientation="vertical" style={{backgroundColor: "transparent"}}>
-                    {props.tutorial.exercises && props.tutorial.exercises.map((ex) => (
+                    {tutorial.exercises && tutorial.exercises.map((ex) => (
                         <Step key={ex.title} active={true}>
                             <StepLabel><Typography className={classes.text}>{ex.title}</Typography></StepLabel>
                             <StepContent>
@@ -57,8 +57,8 @@ const TutorialOverview = (props: TutorialOverviewProps) => {
                                     alignItems="center"
                                 >
                                     <IconButton size="small" onClick={() => {
-                                        if (props.tutorial.exercises) {
-                                            setActiveStep(props.tutorial.exercises.indexOf(ex));
+                                        if (tutorial.exercises) {
+                                            setActiveStep(tutorial.exercises.indexOf(ex));
                                         }
                                     }}>
                                         <ArrowForwardIosIcon fontSize="small" style={{fill: vsTheme.Button.color, backgroundColor: vsTheme.Button.backgroundColor}} />
@@ -70,7 +70,7 @@ const TutorialOverview = (props: TutorialOverviewProps) => {
                 </Stepper>
             </div > :
             <div>
-                <StepperComponent tutorial={props.tutorial} startStep={activeStep} />
+                <StepperComponent tutorial={tutorial} startStep={activeStep} />
             </div>
     );
 };

@@ -16,7 +16,7 @@ import {CheckIfFilesExist} from '../../schema/tutorial';
 const fs = require('fs');
 const path = require('path');
 
-const CHECKFILESCOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', (checkIfFilesExist: CheckIfFilesExist, id: string) => {
+const checkFilesCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkExerciseFiles', (checkIfFilesExist: CheckIfFilesExist, id: string) => {
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
   const outputChannel = vscode.window.createOutputChannel('checking files');
@@ -87,4 +87,4 @@ const getCorrectFilePathsFromConfig = (exerciseFilePath: string, fileList: strin
   return fileList.map((name) => (exerciseFilePath + name));
 };
 
-export default CHECKFILESCOMMAND;
+export default checkFilesCommand;

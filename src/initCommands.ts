@@ -9,14 +9,14 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
-import CLONEREPOCOMMAND from './Commands/CloneRepoCommand';
-import EXECUTETESTSCOMMAND from './Commands/ExecuteTests';
-import CHECKFILESCOMMAND from './Commands/CheckFilesCommand';
-import ADDIMPORTSCOMMAND from './Commands/AddImportsCommand';
-import OPENFILECOMMAND from './Commands/OpenFileCommand';
-import FILEDIFFERENCECOMMAND from './Commands/FileDifferenceCommand';
-import CHECKPROCESSCOMMAND from './Commands/CheckProcessCommand';
-import EXECUTETERMINALCOMMANDS from './Commands/ExecuteTerminalCommands';
+import cloneRepoCommand from './Commands/CloneRepoCommand';
+import executeTestsCommand from './Commands/ExecuteTests';
+import checkFilesCommand from './Commands/CheckFilesCommand';
+import addImportsCommand from './Commands/AddImportsCommand';
+import openFileCommand from './Commands/OpenFileCommand';
+import fileDifferenceCommand from './Commands/FileDifferenceCommand';
+import checkProcessCommand from './Commands/CheckProcessCommand';
+import executeTerminalCommands from './Commands/ExecuteTerminalCommands';
 
 
 
@@ -24,14 +24,14 @@ import EXECUTETERMINALCOMMANDS from './Commands/ExecuteTerminalCommands';
 const initCommands = (context: vscode.ExtensionContext) => {
 
 	const commands = [
-		CLONEREPOCOMMAND,
-		EXECUTETESTSCOMMAND,
-		EXECUTETERMINALCOMMANDS,
-		CHECKFILESCOMMAND,
-		ADDIMPORTSCOMMAND,
-		OPENFILECOMMAND,
-		FILEDIFFERENCECOMMAND,
-		CHECKPROCESSCOMMAND
+		cloneRepoCommand,
+		executeTestsCommand,
+		executeTerminalCommands,
+		checkFilesCommand,
+		addImportsCommand,
+		openFileCommand,
+		fileDifferenceCommand,
+		checkProcessCommand
 	];
 }
 

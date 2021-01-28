@@ -13,7 +13,7 @@ import {OpenFile} from '../../schema/tutorial';
 const fs = require('fs');
 const path = require('path');
 
-const OPENFILECOMMAND: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.openFile', async (openFIleCommand: OpenFile) => {
+const openFileCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.openFile', async (openFIleCommand: OpenFile) => {
 
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
@@ -32,5 +32,5 @@ const OPENFILECOMMAND: vscode.Disposable = vscode.commands.registerCommand('thei
 
 });
 
-export default OPENFILECOMMAND;
+export default openFileCommand;
 
