@@ -256,7 +256,7 @@
                 "assistance": {
                     "type": "object",
                     "properties": {
-                        "workespace": {
+                        "workspace": {
                             "type": "string"
                         },
                         "elements": {

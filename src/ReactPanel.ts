@@ -9,12 +9,13 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
-import {Command, CheckIfFilesExist, AutomaticImport, OpenFile, FileDiff, TerminalCommands} from '../schema/tutorial';
+import {Command, CheckIfFilesExist, AutomaticImport, OpenFile, FileDiff, TerminalCommands, Assistance} from '../schema/tutorial';
 import {cleanExcerciseFolder} from "./Functions/cleanExcerciseFolder";
+import {startAssistance} from './Functions/startAssistance';
 const path = require('path');
 
 class ReactPanel {
-	
+
 	public static currentPanel: ReactPanel | undefined;
 
 	private static readonly viewType = 'react';
@@ -85,6 +86,10 @@ class ReactPanel {
 					break;
 				case 'cleanExerciseFolder':
 					cleanExcerciseFolder(exerciseFolder);
+					break;
+				case 'assistance':
+					let assistance = command as Assistance;
+					startAssistance(assistance);
 					break;
 			}
 		})

@@ -80,7 +80,7 @@ export interface CleanExerciseFolder {
 }
 export interface Assistance {
   assistance: {
-    workespace?: string;
+    workspace?: string;
     elements?: string[];
     [k: string]: unknown;
   };
