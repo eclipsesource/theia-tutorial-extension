@@ -11,7 +11,8 @@ export type Command =
   | OpenFile
   | AutomaticImport
   | FileDiff
-  | CleanExerciseFolder;
+  | CleanExerciseFolder
+  | Assistance;
 export type Instruction = Html | Image | Hint | CommandButton;
 
 export interface Tutorial {
@@ -76,6 +77,14 @@ export interface CleanExerciseFolder {
   cleanExerciseFolder: {
     [k: string]: unknown;
   };
+}
+export interface Assistance {
+  assistance: {
+    workespace?: string;
+    elements?: string[];
+    [k: string]: unknown;
+  };
+  [k: string]: unknown;
 }
 export interface Html {
   html: string;

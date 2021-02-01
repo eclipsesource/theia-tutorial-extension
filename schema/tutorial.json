@@ -243,7 +243,33 @@
                 },
                 {
                     "$ref": "#/definitions/cleanExerciseFolder"
+                },
+                {
+                    "$ref": "#/definitions/assistance"
                 }
+            ]
+        },
+        "assistance": {
+            "$id": "#assistance",
+            "type": "object",
+            "properties": {
+                "assistance": {
+                    "type": "object",
+                    "properties": {
+                        "workespace": {
+                            "type": "string"
+                        },
+                        "elements": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "required": [
+                "assistance"
             ]
         },
         "fileDiff": {
