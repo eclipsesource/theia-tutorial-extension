@@ -29,6 +29,22 @@
                             }
                         ]
                     }
+                },
+                {
+                    "button": {
+                        "text": "Assistance",
+                        "commands": [
+                            {
+                                "assistance": {
+                                    "workspace": ".test",
+                                    "elements": [
+                                        "shell-tab-explorer-view-container",
+                                        ".tutorial"
+                                    ]
+                                }
+                            }
+                        ]
+                    }
                 }
             ],
             "cleanState": [
