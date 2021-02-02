@@ -55,13 +55,13 @@ export class TreeNodeFactory implements TreeEditor.NodeFactory {
             this.mapCustomData(data.exercises, node, 'exercises');
         }
 
-        if (data.content) {
-            this.mapCustomData(data.content, node, 'content');
-        }
+        // if (data.content) {
+        //     this.mapCustomData(data.content, node, 'content');
+        // }
 
-        if (data.contents) {
-            this.mapCustomData(data.contents, node, 'contents');
-        }
+        // if (data.contents) {
+        //     this.mapCustomData(data.contents, node, 'contents');
+        // }
 
         return node;
     }

@@ -107,6 +107,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -117,6 +125,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -229,6 +238,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -282,6 +292,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -442,6 +467,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -452,6 +485,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -564,6 +598,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -617,6 +652,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -727,6 +777,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     $ref: string;
                 };
             };
+            tabs: {
+                type: string;
+                properties: {
+                    typeId: {
+                        const: string;
+                    };
+                };
+            };
         };
         definitions: {
             tutorial: {
@@ -830,6 +888,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -840,6 +906,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -952,6 +1019,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -1006,6 +1074,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             text: {
                                 type: string;
                             };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
+                            };
                         };
                         additionalProperties: boolean;
                     };
@@ -1047,6 +1130,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
             };
         };
         oneOf: {
+            title: string;
             $ref: string;
         }[];
         definitions: {
@@ -1151,6 +1235,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -1161,6 +1253,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -1273,6 +1366,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -1326,6 +1420,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -1481,6 +1590,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -1491,6 +1608,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -1603,6 +1721,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -1656,6 +1775,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -1815,6 +1949,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -1825,6 +1967,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -1937,6 +2080,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -1990,6 +2134,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -2137,6 +2296,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -2147,6 +2314,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -2259,6 +2427,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -2312,6 +2481,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -2463,6 +2647,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -2473,6 +2665,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -2585,6 +2778,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -2638,6 +2832,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -2789,6 +2998,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -2799,6 +3016,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -2911,6 +3129,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -2964,6 +3183,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -3112,6 +3346,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -3122,6 +3364,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -3234,6 +3477,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -3287,6 +3531,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -3435,6 +3694,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -3445,6 +3712,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -3557,6 +3825,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -3610,6 +3879,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -3771,6 +4055,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -3781,6 +4073,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -3893,6 +4186,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -3947,6 +4241,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             text: {
                                 type: string;
                             };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
+                            };
                         };
                         additionalProperties: boolean;
                     };
@@ -3991,6 +4300,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                 properties: {
                     text: {
                         type: string;
+                    };
+                    content: {
+                        type: string;
+                        items: {
+                            type: string;
+                            properties: {
+                                typeId: {
+                                    const: string;
+                                };
+                            };
+                            oneOf: {
+                                title: string;
+                                $ref: string;
+                            }[];
+                        };
                     };
                 };
                 additionalProperties: boolean;
@@ -4100,6 +4424,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -4110,6 +4442,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -4222,6 +4555,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -4275,6 +4609,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;
@@ -4435,6 +4784,14 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                             $ref: string;
                         };
                     };
+                    tabs: {
+                        type: string;
+                        properties: {
+                            typeId: {
+                                const: string;
+                            };
+                        };
+                    };
                 };
             };
             command: {
@@ -4445,6 +4802,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -4557,6 +4915,7 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                     };
                 };
                 oneOf: {
+                    title: string;
                     $ref: string;
                 }[];
             };
@@ -4610,6 +4969,21 @@ export declare class TreeModelService implements TreeEditor.ModelService {
                         properties: {
                             text: {
                                 type: string;
+                            };
+                            content: {
+                                type: string;
+                                items: {
+                                    type: string;
+                                    properties: {
+                                        typeId: {
+                                            const: string;
+                                        };
+                                    };
+                                    oneOf: {
+                                        title: string;
+                                        $ref: string;
+                                    }[];
+                                };
                             };
                         };
                         additionalProperties: boolean;

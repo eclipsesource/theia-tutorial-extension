@@ -28,12 +28,12 @@ var CoffeeModel;
     var components = [
         Type.Exercise
     ];
-    var instructionComponents = [
-        Type.Html,
-        Type.Image,
-        Type.Hint,
-        Type.CommandButton
-    ];
+    // const instructionComponents = [
+    //     Type.Html,
+    //     Type.Image,
+    //     Type.Hint,
+    //     Type.CommandButton
+    // ];
     /** Maps types to their creatable children */
     CoffeeModel.childrenMapping = new Map([
         [
@@ -44,30 +44,6 @@ var CoffeeModel;
                 }
             ]
         ],
-        [
-            Type.Exercise, [
-                {
-                    property: 'content',
-                    children: [Type.Content]
-                },
-            ]
-        ],
-        [
-            Type.Hint, [
-                {
-                    property: 'content',
-                    children: [Type.Content]
-                }
-            ]
-        ],
-        [
-            Type.Content, [
-                {
-                    property: 'contents',
-                    children: instructionComponents
-                }
-            ]
-        ]
     ]);
 })(CoffeeModel = exports.CoffeeModel || (exports.CoffeeModel = {}));
 //# sourceMappingURL=tree-model.js.map

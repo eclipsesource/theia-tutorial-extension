@@ -298,7 +298,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".theia-tree-editor-form {\n  display: flex;\n}\n\n.theia-tree-editor-form > .jsonforms-container {\n  flex-grow: 1;\n  max-width: 960px; /* Half the width of a full hd display. */\n}\n", ""]);
+exports.push([module.i, ".theia-tree-editor-form {\n  display: flex;\n}\n\n.theia-tree-editor-form > .jsonforms-container {\n  flex-grow: 1;\n  max-width: 100%; /* Half the width of a full hd display. */\n}\n\n\n.MuiButtonBase-root.MuiTab-root {\n  width: 300px;\n}", ""]);
 
 // exports
 
@@ -1040,6 +1040,129 @@ exports.TreeLabelProviderContribution = TreeLabelProviderContribution;
 
 /***/ }),
 
+/***/ "../tree-editor-extension/lib/browser/tree/Tabs.js":
+/*!*********************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree/Tabs.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TabsComp = void 0;
+var React = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+var styles_1 = __webpack_require__(/*! @material-ui/core/styles */ "../node_modules/@material-ui/core/esm/styles/index.js");
+var AppBar_1 = __webpack_require__(/*! @material-ui/core/AppBar */ "../node_modules/@material-ui/core/esm/AppBar/index.js");
+var Tabs_1 = __webpack_require__(/*! @material-ui/core/Tabs */ "../node_modules/@material-ui/core/esm/Tabs/index.js");
+var Tab_1 = __webpack_require__(/*! @material-ui/core/Tab */ "../node_modules/@material-ui/core/esm/Tab/index.js");
+var Typography_1 = __webpack_require__(/*! @material-ui/core/Typography */ "../node_modules/@material-ui/core/esm/Typography/index.js");
+var Box_1 = __webpack_require__(/*! @material-ui/core/Box */ "../node_modules/@material-ui/core/esm/Box/index.js");
+function TabPanel(props) {
+    var children = props.children, value = props.value, index = props.index, other = __rest(props, ["children", "value", "index"]);
+    return (React.createElement("div", __assign({ role: "tabpanel", hidden: value !== index, id: "simple-tabpanel-" + index, "aria-labelledby": "simple-tab-" + index }, other), value === index && (React.createElement(Box_1.default, { p: 3 },
+        React.createElement(Typography_1.default, null, children)))));
+}
+function a11yProps(index) {
+    return {
+        id: "simple-tab-" + index,
+        "aria-controls": "simple-tabpanel-" + index,
+    };
+}
+var useStyles = styles_1.makeStyles(function (theme) { return ({
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
+    },
+}); });
+var TabsComp = function (_a) {
+    var id = _a.id, val = _a.val, updateValue = _a.updateValue;
+    var classes = useStyles();
+    var _b = __read(React.useState(0), 2), value = _b[0], setValue = _b[1];
+    var handleChange = function (event, newValue) {
+        setValue(newValue);
+        updateValue(value);
+    };
+    return (React.createElement("div", { id: "#/properties/tabs", className: classes.root },
+        React.createElement(AppBar_1.default, { position: "static" },
+            React.createElement(Tabs_1.default, { value: value, onChange: handleChange, "aria-label": "simple tabs example" },
+                React.createElement(Tab_1.default, __assign({ label: "Item One" }, a11yProps(0))),
+                React.createElement(Tab_1.default, __assign({ label: "Item Two" }, a11yProps(1))),
+                React.createElement(Tab_1.default, __assign({ label: "Item Three" }, a11yProps(2))))),
+        React.createElement(TabPanel, { value: value, index: 0 }, "Item One"),
+        React.createElement(TabPanel, { value: value, index: 1 }, "Item Two"),
+        React.createElement(TabPanel, { value: value, index: 2 }, "Item Three")));
+};
+exports.TabsComp = TabsComp;
+
+
+/***/ }),
+
+/***/ "../tree-editor-extension/lib/browser/tree/TabsControl.js":
+/*!****************************************************************!*\
+  !*** ../tree-editor-extension/lib/browser/tree/TabsControl.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.tabsControlTester = void 0;
+var React = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+var react_1 = __webpack_require__(/*! @jsonforms/react */ "../node_modules/@jsonforms/react/lib/index.js");
+var Tabs_1 = __webpack_require__(/*! ./Tabs */ "../tree-editor-extension/lib/browser/tree/Tabs.js");
+var core_1 = __webpack_require__(/*! @jsonforms/core */ "../node_modules/@jsonforms/core/lib/index.js");
+exports.tabsControlTester = core_1.rankWith(1000, //increase rank as needed
+core_1.scopeEndsWith("tabs"));
+var TabsControl = function (_a) {
+    var data = _a.data, handleChange = _a.handleChange, path = _a.path;
+    console.log("data: ", data);
+    return (React.createElement(Tabs_1.TabsComp, { val: data, updateValue: function (ev) { return handleChange(path, Number(ev.value)); } }));
+};
+exports.default = react_1.withJsonFormsControlProps(TabsControl);
+
+
+/***/ }),
+
 /***/ "../tree-editor-extension/lib/browser/tree/tree-editor-widget.js":
 /*!***********************************************************************!*\
   !*** ../tree-editor-extension/lib/browser/tree/tree-editor-widget.js ***!
@@ -1351,12 +1474,12 @@ var CoffeeModel;
     var components = [
         Type.Exercise
     ];
-    var instructionComponents = [
-        Type.Html,
-        Type.Image,
-        Type.Hint,
-        Type.CommandButton
-    ];
+    // const instructionComponents = [
+    //     Type.Html,
+    //     Type.Image,
+    //     Type.Hint,
+    //     Type.CommandButton
+    // ];
     /** Maps types to their creatable children */
     CoffeeModel.childrenMapping = new Map([
         [
@@ -1367,30 +1490,6 @@ var CoffeeModel;
                 }
             ]
         ],
-        [
-            Type.Exercise, [
-                {
-                    property: 'content',
-                    children: [Type.Content]
-                },
-            ]
-        ],
-        [
-            Type.Hint, [
-                {
-                    property: 'content',
-                    children: [Type.Content]
-                }
-            ]
-        ],
-        [
-            Type.Content, [
-                {
-                    property: 'contents',
-                    children: instructionComponents
-                }
-            ]
-        ]
     ]);
 })(CoffeeModel = exports.CoffeeModel || (exports.CoffeeModel = {}));
 
@@ -1471,12 +1570,12 @@ var TreeNodeFactory = /** @class */ (function () {
         if (data.exercises) {
             this.mapCustomData(data.exercises, node, 'exercises');
         }
-        if (data.content) {
-            this.mapCustomData(data.content, node, 'content');
-        }
-        if (data.contents) {
-            this.mapCustomData(data.contents, node, 'contents');
-        }
+        // if (data.content) {
+        //     this.mapCustomData(data.content, node, 'content');
+        // }
+        // if (data.contents) {
+        //     this.mapCustomData(data.contents, node, 'contents');
+        // }
         return node;
     };
     TreeNodeFactory.prototype.mapCustomData = function (data, node, label) {
@@ -1717,12 +1816,43 @@ exports.exerciseView = {
         {
             'type': 'Control',
             'label': 'Check Start State',
-            'scope': '#/properties/checkStartState'
+            'scope': '#/properties/checkStartState',
+            "options": {
+                "detail": {
+                    "type": "VerticalLayout",
+                    "elements": [
+                        {
+                            "type": "Control",
+                            'label': 'Test Name',
+                            "scope": "#/properties/testName"
+                        },
+                        {
+                            "type": "Label",
+                            "text": "Commands"
+                        },
+                        {
+                            "type": "Control",
+                            'label': 'Commands',
+                            "scope": "#/properties/command"
+                        }
+                    ]
+                }
+            }
         },
         {
             'type': 'Control',
             'label': 'Test',
             'scope': '#/properties/test'
+        },
+        {
+            'type': 'Control',
+            'label': 'Content',
+            'scope': '#/properties/content'
+        },
+        {
+            'type': 'Control',
+            'label': 'Tabs',
+            'scope': '#/properties/tabs'
         },
     ]
 };
@@ -1842,6 +1972,14 @@ exports.tutorialSchema = {
                     "items": {
                         "$ref": "#/definitions/instruction"
                     }
+                },
+                'tabs': {
+                    "type": "object",
+                    'properties': {
+                        'typeId': {
+                            'const': '#tabs'
+                        },
+                    },
                 }
             }
         },
@@ -1855,21 +1993,27 @@ exports.tutorialSchema = {
             },
             "oneOf": [
                 {
+                    'title': 'Check If Files Exist',
                     "$ref": "#/definitions/checkIfFilesExist"
                 },
                 {
+                    'title': 'Terminal Commands',
                     "$ref": "#/definitions/terminalCommands"
                 },
                 {
+                    'title': 'Open File',
                     "$ref": "#/definitions/openFile"
                 },
                 {
+                    'title': 'Automatic Import',
                     "$ref": "#/definitions/automaticImport"
                 },
                 {
+                    'title': 'File Difference',
                     "$ref": "#/definitions/fileDiff"
                 },
                 {
+                    'title': 'Clean Exercise Folder',
                     "$ref": "#/definitions/cleanExerciseFolder"
                 }
             ]
@@ -2006,15 +2150,19 @@ exports.tutorialSchema = {
             },
             "oneOf": [
                 {
+                    'title': 'Html',
                     "$ref": "#/definitions/html"
                 },
                 {
+                    'title': 'Image',
                     "$ref": "#/definitions/image"
                 },
                 {
+                    'title': 'Hint',
                     "$ref": "#/definitions/hint"
                 },
                 {
+                    'title': 'Command Button',
                     "$ref": "#/definitions/commandButton"
                 }
             ]
@@ -2079,6 +2227,31 @@ exports.tutorialSchema = {
                         "text": {
                             "type": "string"
                         },
+                        "content": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    'typeId': {
+                                        'const': '#content'
+                                    },
+                                },
+                                "oneOf": [
+                                    {
+                                        'title': 'Html',
+                                        "$ref": "#/definitions/html"
+                                    },
+                                    {
+                                        'title': 'Image',
+                                        "$ref": "#/definitions/image"
+                                    },
+                                    {
+                                        'title': 'Command Button',
+                                        "$ref": "#/definitions/commandButton"
+                                    }
+                                ]
+                            }
+                        }
                     },
                     "additionalProperties": false
                 }
@@ -2178,7 +2351,7 @@ exports.TutorialDetailFormWidget = void 0;
 var material_renderers_1 = __webpack_require__(/*! @jsonforms/material-renderers */ "../node_modules/@jsonforms/material-renderers/lib/index.js");
 var inversify_1 = __webpack_require__(/*! inversify */ "../node_modules/inversify/lib/inversify.js");
 var theia_tree_editor_1 = __webpack_require__(/*! @eclipse-emfcloud/theia-tree-editor */ "../node_modules/@eclipse-emfcloud/theia-tree-editor/lib/browser/index.js");
-// import MyGroupRenderer, { myGroupTester } from "./MyGroup";
+var TabsControl_1 = __webpack_require__(/*! ./TabsControl */ "../tree-editor-extension/lib/browser/tree/TabsControl.js");
 var TutorialDetailFormWidget = /** @class */ (function (_super) {
     __extends(TutorialDetailFormWidget, _super);
     function TutorialDetailFormWidget() {
@@ -2188,7 +2361,9 @@ var TutorialDetailFormWidget = /** @class */ (function (_super) {
     // This is very hacky as the 'store' field is private and the Redux store is not intended to be modified like this.
     // This should be removed once https://github.com/eclipse-emfcloud/theia-tree-editor/issues/20 is implemented
     TutorialDetailFormWidget.prototype.customizeRenderers = function () {
-        var renderers = __spread(material_renderers_1.materialRenderers);
+        var renderers = __spread(material_renderers_1.materialRenderers, [
+            { tester: TabsControl_1.tabsControlTester, renderer: TabsControl_1.default },
+        ]);
         var cells = __spread(material_renderers_1.materialCells);
         //@ts-ignore
         this.store.getState().jsonforms.renderers = renderers;

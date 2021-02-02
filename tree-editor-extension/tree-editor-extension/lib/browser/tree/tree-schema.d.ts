@@ -96,11 +96,32 @@ export declare const commandButtonView: {
 export declare const exerciseView: {
     type: string;
     label: string;
-    elements: {
+    elements: ({
         type: string;
         label: string;
         scope: string;
-    }[];
+        options?: undefined;
+    } | {
+        type: string;
+        label: string;
+        scope: string;
+        options: {
+            detail: {
+                type: string;
+                elements: ({
+                    type: string;
+                    label: string;
+                    scope: string;
+                    text?: undefined;
+                } | {
+                    type: string;
+                    text: string;
+                    label?: undefined;
+                    scope?: undefined;
+                })[];
+            };
+        };
+    })[];
 };
 export declare const tutorialSchema: {
     definitions: {
@@ -205,6 +226,14 @@ export declare const tutorialSchema: {
                         $ref: string;
                     };
                 };
+                tabs: {
+                    type: string;
+                    properties: {
+                        typeId: {
+                            const: string;
+                        };
+                    };
+                };
             };
         };
         command: {
@@ -215,6 +244,7 @@ export declare const tutorialSchema: {
                 };
             };
             oneOf: {
+                title: string;
                 $ref: string;
             }[];
         };
@@ -327,6 +357,7 @@ export declare const tutorialSchema: {
                 };
             };
             oneOf: {
+                title: string;
                 $ref: string;
             }[];
         };
@@ -380,6 +411,21 @@ export declare const tutorialSchema: {
                     properties: {
                         text: {
                             type: string;
+                        };
+                        content: {
+                            type: string;
+                            items: {
+                                type: string;
+                                properties: {
+                                    typeId: {
+                                        const: string;
+                                    };
+                                };
+                                oneOf: {
+                                    title: string;
+                                    $ref: string;
+                                }[];
+                            };
                         };
                     };
                     additionalProperties: boolean;
