@@ -24,7 +24,6 @@ const checkProcessCommand: vscode.Disposable = vscode.commands.registerCommand('
             vscode.window.showInformationMessage(`Process is running at port ${EXERCISE_PORT_NUMBER} with PID: ${response}`);
         }
 
-
         if (isProcessKilled) {
             await execShellCommand(`kill -9 $(lsof -t -i:${EXERCISE_PORT_NUMBER})`).then(async () => {
 
@@ -33,7 +32,6 @@ const checkProcessCommand: vscode.Disposable = vscode.commands.registerCommand('
 
             });
         }
-
     });
 });
 

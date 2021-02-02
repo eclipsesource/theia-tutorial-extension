@@ -8,7 +8,6 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import {exerciseFileName, extensionFileName} from './../utils/constant';
 import * as vscode from 'vscode';
 import ReactPanel from '../ReactPanel';
 import {CheckIfFilesExist} from '../../schema/tutorial';
@@ -23,15 +22,14 @@ const checkFilesCommand: vscode.Disposable = vscode.commands.registerCommand('th
   outputChannel.show();
 
   if (checkExerciseFile(workspaceFolder)) {
-    const files = getAllFiles(workspaceFolder + '/' + exerciseFileName, outputChannel);
+    const files = getAllFiles(workspaceFolder + '/', outputChannel);
     outputChannel.appendLine(`all files`);
     outputChannel.appendLine(`${files}`);
 
     outputChannel.appendLine(`fileList from config`);
     outputChannel.appendLine(`${checkIfFilesExist.checkIfFilesExist}`);
 
-
-    const correctFilesFromConfig = getCorrectFilePathsFromConfig(workspaceFolder + '/' + exerciseFileName, checkIfFilesExist.checkIfFilesExist!);
+    const correctFilesFromConfig = getCorrectFilePathsFromConfig(workspaceFolder + '/', checkIfFilesExist.checkIfFilesExist!);
     outputChannel.appendLine(`${correctFilesFromConfig}`);
     const isFileListCorrect = compareFileLists(correctFilesFromConfig, files);
 
@@ -50,8 +48,6 @@ const checkFilesCommand: vscode.Disposable = vscode.commands.registerCommand('th
     vscode.window.showInformationMessage(`You don't have theia-extension folder. You should execute Init Exercise 0.`);
     ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
   }
-
-
 });
 
 const compareFileLists = (correctFileList: string[], fileList: string[]) => {
@@ -64,7 +60,7 @@ const compareFileLists = (correctFileList: string[], fileList: string[]) => {
 };
 
 const checkExerciseFile = (workspaceFolder: string) => {
-  return fs.existsSync(path.join(workspaceFolder, exerciseFileName));
+  return fs.existsSync(workspaceFolder);
 };
 
 const getAllFiles = (dir: string, outputChannel: vscode.OutputChannel) => (

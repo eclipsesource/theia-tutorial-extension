@@ -23,8 +23,4 @@ const cloneRepoCommand: vscode.Disposable = vscode.commands.registerCommand('the
     vscode.window.showInformationMessage('Cloning!');
 });
 
-
-
-
 export default cloneRepoCommand;
-

@@ -23,13 +23,11 @@ const addImportsCommand: vscode.Disposable = vscode.commands.registerCommand('th
 
     autoImportData.automaticImport.imports.forEach((element) => {
         if (!content.includes(element)) {
-            content = element + "\n" + content
+            content = element + "\n" + content;
         }
     });
 
     fs.writeFileSync(filepath, content);
-    // Display a message box to the user
-
 });
 
 export default addImportsCommand;

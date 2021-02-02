@@ -8,17 +8,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import {createStyles, makeStyles, IconButton, Theme, Typography, Grid} from '@material-ui/core';
+import { createStyles, makeStyles, IconButton, Theme, Typography, Grid } from '@material-ui/core';
 import React from 'react';
-import {Command} from '../../../schema/tutorial';
-import {Test} from './Test';
+import { Command } from '../../../schema/tutorial';
+import { Test } from './Test';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
-import {vsTheme} from '../VsTheme';
+import { vsTheme } from '../VsTheme';
 import CompareIcon from '@material-ui/icons/Compare';
-import {VSCodeAPI} from '../VSCodeAPI';
+import { VSCodeAPI } from '../VSCodeAPI';
 
 const styles = makeStyles((theme: Theme) =>
     createStyles({
@@ -55,17 +55,17 @@ export const TestFeedbackDialog = (props: TestFeedbackDialog) => {
     const classes = styles();
 
     return <div><Dialog PaperProps={{
-        style: {backgroundColor: vsTheme.Background.backgroundColor},
+        style: { backgroundColor: vsTheme.Background.backgroundColor },
     }} onClose={props.closeModal} aria-labelledby="customized-dialog-title" open={true} maxWidth={"lg"} fullWidth={true}>
 
         <MuiDialogTitle disableTypography className={classes.root}>
-            <Typography style={{color: vsTheme.text.color}} variant="h5">{"Test Results"}</Typography>
-            <IconButton aria-label="close" style={{color: vsTheme.icons.color}} className={classes.closeButton} onClick={props.closeModal}>
+            <Typography className="text" variant="h5">{"Test Results"}</Typography>
+            <IconButton aria-label="close" style={{ color: vsTheme.icons.color }} className={classes.closeButton} onClick={props.closeModal}>
                 <CloseIcon />
             </IconButton>
         </MuiDialogTitle>
         <MuiDialogContent dividers>
-            {props.test != null && createTestParagraph(props.test, props.exerciseFolder)}
+            {props.test !== undefined && createTestParagraph(props.test, props.exerciseFolder)}
         </MuiDialogContent>
     </Dialog></div >;
 };
@@ -78,23 +78,23 @@ const createTestParagraph = (tests: Array<TestParagraph>, exerciseFolder: String
             justify="flex-start"
             alignItems="center"
         >
-            <Typography style={{color: vsTheme.text.color}} variant="h6">{testParagraph.fileName ? testParagraph.fileName.split("/")[testParagraph.fileName.split("/").length - 1] : "General"}</Typography>
-            {testParagraph.solution != null && testParagraph.fileName != null &&
-                <IconButton aria-label="compare to Solution" style={{color: vsTheme.icons.color}}
+            <Typography className="text" variant="h6">{testParagraph.fileName ? testParagraph.fileName.split("/")[testParagraph.fileName.split("/").length - 1] : "General"}</Typography>
+            {testParagraph.solution !== undefined && testParagraph.fileName !== undefined &&
+                <IconButton aria-label="compare to Solution" style={{ color: vsTheme.icons.color }}
                     onClick={() => {
-                        VSCodeAPI.postMessage({commands: [{fileDiff: {fileName: testParagraph.fileName, solution: testParagraph.solution}}], ids: [], exerciseFolder: exerciseFolder});
+                        VSCodeAPI.postMessage({ commands: [{ fileDiff: { fileName: testParagraph.fileName, solution: testParagraph.solution } }], ids: [], exerciseFolder: exerciseFolder });
                     }}
                 >
                     <CompareIcon />
                 </IconButton>}
         </Grid>
             {createTests(testParagraph.tests, exerciseFolder)}
-        </div>
+        </div>;
     });
-}
+};
 
 const createTests = (tests: Array<Test>, exerciseFolder: String) => {
     return tests.map((test) => {
-        return <Test test={test} exerciseFolder={exerciseFolder} />
+        return <Test test={test} exerciseFolder={exerciseFolder} />;
     });
-}
+};

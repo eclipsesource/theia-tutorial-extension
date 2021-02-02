@@ -10,22 +10,20 @@
  ********************************************************************************/
 import React from 'react';
 import { Button } from '@material-ui/core';
-import { VSCodeAPI } from '../VSCodeAPI';
-import { CommandButton } from '../../../schema/tutorial';
+import { Tutorial } from '../../../schema/tutorial';
 
-interface CommandProps {
-  button: CommandButton,
-  exerciseFolder: String
+interface TutorialProps {
+  tutorial: Tutorial,
+  index: number,
+  selectTutorial(num: number): void
 }
 
-export const Command = (props: CommandProps) => {
+export const TutorialList = ({ tutorial, index, selectTutorial }: TutorialProps) => {
 
   return (
     <div className="Box-margin">
-      <Button onClick={() => {
-        VSCodeAPI.postMessage({ commands: props.button.button.commands, ids: [], exerciseFolder: props.exerciseFolder });
-      }} variant="contained" className="Button">
-        {props.button.button.text}
+      <Button onClick={() => selectTutorial(index)} variant="contained" color="primary">
+        {tutorial.title}
       </Button>
     </div>
   );
