@@ -232,12 +232,7 @@ export const tutorialView = {
       'type': 'Control',
       'label': 'Content',
       'scope': '#/properties/content'
-    },
-    {
-      'type': 'Control',
-      'label': 'Tabs',
-      'scope': '#/properties/tabs'
-    },
+    }
   ]
  };
 
@@ -357,14 +352,6 @@ export const tutorialSchema = {
               "items": {
                   "$ref": "#/definitions/instruction"
               }
-          },
-          'tabs': {
-            "type": "object",
-            'properties': {
-              'typeId': {
-                'const': '#tabs'
-              },
-            },
           }
       }
   },
