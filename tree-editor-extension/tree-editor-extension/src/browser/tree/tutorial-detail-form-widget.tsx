@@ -10,8 +10,8 @@ import {
   HtmlPickerControl,
   imageTester,
   htmlTester,
+  filePickerControlTester,
 } from "./FilePickerControl";
-import filePickerControlTester from "./filePickerControlTester";
 @injectable()
 export class TutorialDetailFormWidget extends DetailFormWidget {
   // XXX Replace renderers in Redux store manually as they can't be customized at the current time.

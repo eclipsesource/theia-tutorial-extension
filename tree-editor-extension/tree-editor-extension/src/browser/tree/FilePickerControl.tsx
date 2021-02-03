@@ -19,6 +19,11 @@ export const htmlTester = rankWith(
   scopeEndsWith("html")
 );
 
+export const filePickerControlTester = rankWith(
+  1000, //increase rank as needed
+  scopeEndsWith("openFile")
+);
+
 export const FilePickerControl = withJsonFormsControlProps(
   ({ data, handleChange, path }: FilePickerControlProps) => (
     <FilePicker
