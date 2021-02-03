@@ -140,7 +140,7 @@ export const tutorialView = {
   'elements': [
     {
       'type': 'Control',
-      'label': 'Text',
+      'label': 'Hint Text',
       'scope': '#/properties/hint/properties/text'
     },
     // {
@@ -157,7 +157,7 @@ export const tutorialView = {
   'elements': [
     {
       'type': 'Control',
-      'label': 'Text',
+      'label': 'Button Text',
       'scope': '#/properties/button/properties/text'
     },
     {
@@ -358,6 +358,7 @@ export const tutorialSchema = {
   "command": {
     // "$id": "#command",
     "type": "object",
+    'label': 'Command',
     'properties': {
       'typeId': {
         'const': '#command'
@@ -401,9 +402,11 @@ export const tutorialSchema = {
             "type": "object",
             "properties": {
                 "fileName": {
+                  'title': 'File Path',
                     "type": "string"
                 },
                 "solution": {
+                  'title': 'Solution File Path',
                     "type": "string"
                 }
             }
@@ -487,6 +490,7 @@ export const tutorialSchema = {
         "terminalCommands": {
             "type": "array",
             "items": {
+                'label': 'Command',
                 "type": "string"
             }
         }
@@ -572,7 +576,19 @@ export const tutorialSchema = {
                   "type": "string"
               },
               "width": {
-                  "type": "string"
+                  "type": "string",
+                  "enum": [
+                    "10%",
+                    "20%",
+                    "30%",
+                    "40%",
+                    "50%",
+                    "60%",
+                    "70%",
+                    "80%",
+                    "90%",
+                    "100%"
+                  ]
               }
           },
           "additionalProperties": false,
@@ -597,7 +613,8 @@ export const tutorialSchema = {
           "type": "object",
           "properties": {
               "text": {
-                  "type": "string"
+                  "type": "string",
+                  'title': 'Hint Text',
               },
               "content": {
                   "type": "array",
@@ -645,7 +662,8 @@ export const tutorialSchema = {
           "type": "object",
           "properties": {
               "text": {
-                  "type": "string"
+                  "type": "string",
+                  'title': 'Button Text',
               },
               "commands": {
                   "type": "array",

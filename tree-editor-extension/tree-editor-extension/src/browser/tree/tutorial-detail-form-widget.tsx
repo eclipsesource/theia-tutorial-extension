@@ -4,11 +4,14 @@ import {
 } from "@jsonforms/material-renderers";
 import { injectable, postConstruct } from "inversify";
 import { DetailFormWidget } from "@eclipse-emfcloud/theia-tree-editor";
-// import MyGroupRenderer, { myGroupTester } from "./MyGroup";
-import FilePickerControl from "./FilePickerControl";
+import {
+  FilePickerControl,
+  ImagePickerControl,
+  HtmlPickerControl,
+  imageTester,
+  htmlTester,
+} from "./FilePickerControl";
 import filePickerControlTester from "./filePickerControlTester";
-
-import TabsControl, { tabsControlTester } from "./TabsControl";
 @injectable()
 export class TutorialDetailFormWidget extends DetailFormWidget {
   // XXX Replace renderers in Redux store manually as they can't be customized at the current time.
@@ -18,12 +21,9 @@ export class TutorialDetailFormWidget extends DetailFormWidget {
   customizeRenderers() {
     const renderers = [
       ...materialRenderers, // or vanillaRenderers from '@jsonforms/vanilla-renderers'
-      // {
-      //   tester: myGroupTester,
-      //   renderer: MyGroupRenderer,
-      // },
       { tester: filePickerControlTester, renderer: FilePickerControl },
-      { tester: tabsControlTester, renderer: TabsControl },
+      { tester: imageTester, renderer: ImagePickerControl },
+      { tester: htmlTester, renderer: HtmlPickerControl },
     ];
 
     const cells = [
