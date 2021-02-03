@@ -1,6 +1,8 @@
 import * as React from "react";
 import { withJsonFormsControlProps } from "@jsonforms/react";
 import { FilePicker } from "./FilePicker";
+import { rankWith, scopeEndsWith } from '@jsonforms/core';
+
 
 interface FilePickerControlProps {
   data: any;
@@ -17,3 +19,8 @@ const FilePickerControl = ({ data, handleChange, path }: FilePickerControlProps)
 
 export default withJsonFormsControlProps(FilePickerControl);
 
+
+export const filePickerControlTester = rankWith(
+    31234123, //increase rank as needed
+    scopeEndsWith('openFile')
+);

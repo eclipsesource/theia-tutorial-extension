@@ -5,8 +5,7 @@ import {
 import { injectable, postConstruct } from "inversify";
 import { DetailFormWidget } from "@eclipse-emfcloud/theia-tree-editor";
 // import MyGroupRenderer, { myGroupTester } from "./MyGroup";
-import FilePickerControl from "./FilePickerControl";
-import filePickerControlTester from "./filePickerControlTester";
+import FilePickerControl, { filePickerControlTester } from "./FilePickerControl";
 
 import TabsControl, { tabsControlTester } from "./TabsControl";
 @injectable()

@@ -20,7 +20,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({ id, value, updateValue }
             manageUploadedFile(binary, file);
         }).catch(function (reason: any) {
             console.log(`Error during upload ${reason}`);
-            event.target.value = ''; // to allow upload of same file if error occurs
+            event.target.value = '';
         });
         console.log(file.name)
         updateValue(file.name)
@@ -34,12 +34,11 @@ export const FilePicker: React.FC<FilePickerProps> = ({ id, value, updateValue }
         const reader = new FileReader();
         reader.onerror = reject;
         reader.onload = function () { resolve(reader.result); };
-        reader.readAsBinaryString(file); // here the file can be read in different way Text, DataUrl, ArrayBuffer
+        reader.readAsBinaryString(file);
     });
   }
   
   const manageUploadedFile = (binary: String, file: File) => {
-    // do what you need with your file (fetch POST, ect ....)
     console.log(`The file size is ${binary.length}`);
     console.log(`The file name is ${file.name}`);
 
