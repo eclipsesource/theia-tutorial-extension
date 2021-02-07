@@ -50,7 +50,7 @@ export const HtmlPickerControl = withJsonFormsControlProps(
   ({ data, handleChange, path }: FilePickerControlProps) => (
     <FilePicker
       value={data}
-      updateValue={(newValue: string) => handleChange(path, newValue)}
+      updateValue={(newValue: string) => handleChange(path, ".tutorial/html/"+newValue)}
       inputAcceptType=".html"
       label="Upload Html File"
     />
