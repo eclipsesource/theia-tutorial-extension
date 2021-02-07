@@ -39,7 +39,7 @@ export const ImagePickerControl = withJsonFormsControlProps(
   ({ data, handleChange, path }: FilePickerControlProps) => (
     <FilePicker
       value={data}
-      updateValue={(newValue: string) => handleChange(path, newValue)}
+      updateValue={(newValue: string) => handleChange(path, ".tutorial/images/"+newValue)}
       inputAcceptType="image/*"
       label="Upload Image File"
     />
