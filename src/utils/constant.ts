@@ -8,6 +8,6 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-export const exerciseFileName = 'theia-extension';
+export const exerciseFileName = 'glsp-examples';
 export const extensionFileName = 'tutorial';
 export const EXERCISE_PORT_NUMBER = 3000;

@@ -9,7 +9,6 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
-import cloneRepoCommand from './Commands/CloneRepoCommand';
 import executeTestsCommand from './Commands/ExecuteTests';
 import checkFilesCommand from './Commands/CheckFilesCommand';
 import addImportsCommand from './Commands/AddImportsCommand';
@@ -18,13 +17,8 @@ import fileDifferenceCommand from './Commands/FileDifferenceCommand';
 import checkProcessCommand from './Commands/CheckProcessCommand';
 import executeTerminalCommands from './Commands/ExecuteTerminalCommands';
 
-
-
-
 const initCommands = (context: vscode.ExtensionContext) => {
-
 	const commands = [
-		cloneRepoCommand,
 		executeTestsCommand,
 		executeTerminalCommands,
 		checkFilesCommand,
@@ -33,6 +27,6 @@ const initCommands = (context: vscode.ExtensionContext) => {
 		fileDifferenceCommand,
 		checkProcessCommand
 	];
-}
+};
 
 export default initCommands;

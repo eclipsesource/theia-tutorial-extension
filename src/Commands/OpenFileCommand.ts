@@ -15,12 +15,8 @@ const path = require('path');
 
 const openFileCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.openFile', async (openFIleCommand: OpenFile) => {
 
-
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
-
     const filepath = path.join(workspaceFolder, openFIleCommand.openFile);
-
-
 
     try {
         const uri = vscode.Uri.file(filepath);
@@ -29,8 +25,6 @@ const openFileCommand: vscode.Disposable = vscode.commands.registerCommand('thei
     } catch {
         vscode.window.showInformationMessage("The given filename was not found in your workspace.");
     }
-
 });
 
 export default openFileCommand;
-
