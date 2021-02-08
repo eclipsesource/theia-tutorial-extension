@@ -30,7 +30,7 @@ export const FilePickerControl = withJsonFormsControlProps(
       value={data}
       updateValue={(newValue: string) => handleChange(path, newValue)}
       inputAcceptType=".ts,.js"
-      label="Upload Code"
+      label="Upload Code (.js or .ts)"
     />
   )
 );

@@ -7,9 +7,7 @@ import { DetailFormWidget } from "@eclipse-emfcloud/theia-tree-editor";
 import {
   FilePickerControl,
   ImagePickerControl,
-  HtmlPickerControl,
   imageTester,
-  htmlTester,
   filePickerControlTester,
 } from "./FilePickerControl";
 @injectable()
@@ -23,7 +21,6 @@ export class TutorialDetailFormWidget extends DetailFormWidget {
       ...materialRenderers, // or vanillaRenderers from '@jsonforms/vanilla-renderers'
       { tester: filePickerControlTester, renderer: FilePickerControl },
       { tester: imageTester, renderer: ImagePickerControl },
-      { tester: htmlTester, renderer: HtmlPickerControl },
     ];
 
     const cells = [
