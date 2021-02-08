@@ -1,10 +1,20 @@
+/********************************************************************************
+ * Copyright (c) 2020-2021 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0, or the MIT License which is
+ * available at https://opensource.org/licenses/MIT.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR MIT
+ ********************************************************************************/
 import * as vscode from 'vscode';
+import {Command, CheckIfFilesExist, AutomaticImport, OpenFile, FileDiff, TerminalCommands} from '../schema/tutorial';
+import {cleanExcerciseFolder} from "./Functions/cleanExcerciseFolder";
 const path = require('path');
 
 class ReactPanel {
-	/**
-	 * Track the currently panel. Only allow a single panel to exist at a time.
-	 */
+	
 	public static currentPanel: ReactPanel | undefined;
 
 	private static readonly viewType = 'react';
@@ -16,8 +26,6 @@ class ReactPanel {
 	public static createOrShow(extensionPath: string) {
 		const column = vscode.ViewColumn.Two;
 
-		// If we already have a panel, show it.
-		// Otherwise, create a new panel.
 		if (ReactPanel.currentPanel) {
 			ReactPanel.currentPanel._panel.reveal(column);
 		} else {
@@ -28,9 +36,8 @@ class ReactPanel {
 	private constructor(extensionPath: string, column: vscode.ViewColumn) {
 		this._extensionPath = extensionPath;
 
-		// Create and show a new webview panel
 		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "Theia Tutorial", column, {
-			// Enable javascript in the webview
+
 			enableScripts: true,
 			retainContextWhenHidden: true
 
@@ -41,54 +48,46 @@ class ReactPanel {
 			groups: [{size: 0.5}, {size: 0.5}],
 		});
 
-		// Set the webview's initial html content 
 		this._panel.webview.html = this._getHtmlForWebview();
 
-		// Listen for when the panel is disposed
-		// This happens when the user closes the panel or when the panel is closed programatically
 		this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
-		// Handle messages from the webview
-		this._panel.webview.onDidReceiveMessage(message => {
-			switch (message.command) {
-				case 'showInformationMessage':
-					vscode.window.showInformationMessage(message.text);
-					break;
-				case 'initExerciseZero':
-					vscode.commands.executeCommand('theiatutorialextension.initExerciseZero');
-					break;
-				case 'checkExerciseFiles':
-					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', message.fileList, message.openModal);
-					break;
-				case 'checkState':
-					vscode.commands.executeCommand('theiatutorialextension.checkProcess');
-					vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', message.fileList, message.openModal);
-					break;
-				case 'addImports':
-					vscode.commands.executeCommand('theiatutorialextension.addImports', message.autoImportData);
-					break;
-				case 'openFile':
-					vscode.commands.executeCommand('theiatutorialextension.openFile', message.filename);
-					break;
-				case 'fileDiff':
-					vscode.commands.executeCommand('theiatutorialextension.fileDiff', message.filename, message.solution);
-					break;
-				case 'resetExerciseZero':
-					vscode.window.showInformationMessage("Resetting Exercise 0. Please wait....");
-					vscode.commands.executeCommand('theiatutorialextension.checkProcess', true);
-					vscode.commands.executeCommand('theiatutorialextension.resetExerciseZero');
-					break;
-				case 'executeTests':
-					vscode.commands.executeCommand('theiatutorialextension.executeTests', message.tests);
-					break;
-				case 'buildAndStartExerciseZero':
-					vscode.window.showInformationMessage("Building and Starting Exercise 0. Please wait....");
-					vscode.commands.executeCommand('theiatutorialextension.buildAndStartExerciseZero');
-					break;
-			}
+		this._panel.webview.onDidReceiveMessage((message: {commands: Array<Command>, ids: Array<number>, exerciseFolder: String}) => {
+			this.processCommands(message.commands, message.ids, message.exerciseFolder);
 		}, null, this._disposables);
 
-		//setTimeout(() => this._panel.webview.postMessage({text: 'Hello from Ext'}),5000);
+	}
+
+
+	private async processCommands(commands: Array<Command>, ids: Array<number>, exerciseFolder: String) {
+
+		commands.forEach(async (command) => {
+			switch (Object.keys(command)[0]) {
+				case 'checkIfFilesExist':
+					let checkFilesCommand = command as CheckIfFilesExist;
+					await vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', checkFilesCommand, ids[commands.indexOf(command)]);
+					break;
+				case 'automaticImport':
+					let automaticImport = command as AutomaticImport;
+					await vscode.commands.executeCommand('theiatutorialextension.addImports', automaticImport);
+					break;
+				case 'openFile':
+					let openFile = command as OpenFile;
+					await vscode.commands.executeCommand('theiatutorialextension.openFile', openFile);
+					break;
+				case 'fileDiff':
+					let fileDiff = command as FileDiff;
+					await vscode.commands.executeCommand('theiatutorialextension.fileDiff', fileDiff);
+					break;
+				case 'terminalCommands':
+					let terminalCommands = command as TerminalCommands;
+					await vscode.commands.executeCommand('theiatutorialextension.executeTerminalCommands', terminalCommands, ids[commands.indexOf(command)]);
+					break;
+				case 'cleanExerciseFolder':
+					cleanExcerciseFolder(exerciseFolder);
+					break;
+			}
+		})
 	}
 
 	public sendToView(data: any) {
@@ -98,7 +97,6 @@ class ReactPanel {
 	public dispose() {
 		ReactPanel.currentPanel = undefined;
 
-		// Clean up our resources
 		this._panel.dispose();
 
 		while (this._disposables.length) {
@@ -119,7 +117,6 @@ class ReactPanel {
 		const stylePathOnDisk = vscode.Uri.file(path.join(this._extensionPath, 'out', mainStyle));
 		const styleUri = stylePathOnDisk.with({scheme: 'vscode-resource'});
 
-		// Use a nonce to whitelist which scripts can be run
 		const nonce = getNonce();
 
 		return `<!DOCTYPE html>
@@ -144,7 +141,7 @@ class ReactPanel {
 	}
 }
 
-function getNonce() {
+const getNonce = () => {
 	let text = "";
 	const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	for (let i = 0; i < 32; i++) {

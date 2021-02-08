@@ -1,3 +1,13 @@
+/********************************************************************************
+ * Copyright (c) 2020-2021 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0, or the MIT License which is
+ * available at https://opensource.org/licenses/MIT.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR MIT
+ ********************************************************************************/
 import * as vscode from 'vscode';
 import initCommands from './initCommands';
 import ReactPanel from './ReactPanel';
@@ -6,17 +16,15 @@ import {loadConfig} from './Commands/LoadConfigCommand';
 const fs = require('fs');
 const path = require('path');
 
-export function activate(context: vscode.ExtensionContext) {
+export const activate = (context: vscode.ExtensionContext) => {
+	ReactPanel.createOrShow(context.extensionPath);
+
+	initCommands(context);
 
 	loadConfig().then(config => {
-		context.subscriptions.push(vscode.commands.registerCommand('theiatutorialextension.displayContent', () => {
-			ReactPanel.createOrShow(context.extensionPath);
-		}));
 
-		vscode.commands.executeCommand('theiatutorialextension.displayContent');
-		initCommands(context, config);
 		ReactPanel.currentPanel?.sendToView({command: 'setTutorials', tutorials: config});
 	});
-}
+};
 
-export function deactivate() { }
+export const deactivate = () => { };

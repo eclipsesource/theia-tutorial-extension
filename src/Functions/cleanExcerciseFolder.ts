@@ -9,22 +9,13 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
-import cloneRepo from '../Functions/cloneRepo';
+var cmd = require('node-cmd');
 
-const cloneRepoCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.cloneRepo', () => {
-
+export const cleanExcerciseFolder = (exerciseFolder: String): void => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
-    const outputChannel = vscode.window.createOutputChannel('repoCloned');
-    const repo = "https://github.com/LukasBoll/tutorial1.git";
-
-    cloneRepo(workspaceFolder, repo, outputChannel);
-
-    // Display a message box to the user
-    vscode.window.showInformationMessage('Cloning!');
-});
-
-
-
-
-export default cloneRepoCommand;
-
+    let today = new Date();
+    let currentTimeStamp: string = today.getFullYear() + '_' + (today.getMonth() + 1) + '_' + today.getDate() + '_' + today.getHours() + "_" + today.getMinutes() + "_" + today.getSeconds();;
+    cmd.runSync("mkdir -p " + workspaceFolder + "/.tutorial/tmp/" + currentTimeStamp);
+    let moveCommand = "mv " + workspaceFolder + "/" + exerciseFolder + " " + workspaceFolder + "/.tutorial/tmp/" + currentTimeStamp;
+    cmd.runSync(moveCommand);
+}
