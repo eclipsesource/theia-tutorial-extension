@@ -8,14 +8,14 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import { Button } from '@material-ui/core';
-import { SnackbarProvider } from 'notistack';
+import {Button} from '@material-ui/core';
+import {SnackbarProvider} from 'notistack';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import './App.css';
 import TutorialOverview from './components/TutorialOverview';
-import { VSCodeAPI } from './VSCodeAPI';
-import { Tutorial } from '../../schema/tutorial';
+import {VSCodeAPI} from './VSCodeAPI';
+import {Tutorial} from '../../schema/tutorial';
 
 export default function App() {
   const [tutorials, setTutorials] = useState<Array<Tutorial>>([]);
@@ -40,9 +40,14 @@ export default function App() {
     });
   };
 
+  if (!tutorials || selectedTutorial >= tutorials.length) {
+    if (selectedTutorial > 0) {
+      selectTutorial(-1);
+    }
+  }
   return (
     <div className="App">
-      {(selectedTutorial < 0)
+      {(!tutorials || selectedTutorial < 0 || selectedTutorial >= tutorials.length)
         ? <>
           <header className="App-header">
             <h1 className="App-title">Overview</h1>
