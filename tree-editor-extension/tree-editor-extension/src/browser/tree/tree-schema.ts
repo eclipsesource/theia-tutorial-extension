@@ -202,7 +202,6 @@ export const exerciseView = {
       label: "Add Checking Start State Commands",
       scope: "#/properties/checkStartState",
       options: {
-        // 'elementLabelProp': "command",
         detail: {
           type: "VerticalLayout",
           elements: [
@@ -231,6 +230,7 @@ export const exerciseView = {
       options: {
         detail: {
           type: "VerticalLayout",
+          label: "Tests",
           elements: [
             {
               type: "Control",
@@ -296,7 +296,6 @@ export const tutorialSchema = {
       },
     },
     exercise: {
-      // "$id": "#exercise",
       type: "object",
       additionalProperties: false,
       required: ["title", "description"],
@@ -414,23 +413,6 @@ export const tutorialSchema = {
           items: {
               title: "Terminal Commands",
               $ref: "#/definitions/terminalCommands",
-            // type: "object",
-            // label: "Command",
-            // properties: {
-            //   typeId: {
-            //     const: "#command",
-            //   },
-            // },
-            // oneOf: [
-            //   {
-            //     title: "Check If Files Exist",
-            //     $ref: "#/definitions/checkIfFilesExist",
-            //   },
-            //   {
-            //     title: "Terminal Commands",
-            //     $ref: "#/definitions/terminalCommands",
-            //   },
-            // ],
           },
         },
         content: {
@@ -442,7 +424,6 @@ export const tutorialSchema = {
       },
     },
     command: {
-      // "$id": "#command",
       type: "object",
       label: "Command",
       properties: {
@@ -478,7 +459,6 @@ export const tutorialSchema = {
       ],
     },
     fileDiff: {
-      // "$id": "#fileDiff",
       type: "object",
       properties: {
         typeId: {
@@ -501,7 +481,6 @@ export const tutorialSchema = {
       required: ["fileDiff"],
     },
     automaticImport: {
-      // "$id": "#automaticImport",
       type: "object",
       properties: {
         typeId: {
@@ -526,7 +505,6 @@ export const tutorialSchema = {
       required: ["automaticImport"],
     },
     openFile: {
-      // "$id": "#openFile",
       type: "object",
       properties: {
         typeId: {
@@ -539,7 +517,6 @@ export const tutorialSchema = {
       required: ["openFile"],
     },
     checkIfFilesExist: {
-      // "$id": "#checkIfFilesExist",
       type: "object",
       properties: {
         typeId: {
@@ -556,7 +533,6 @@ export const tutorialSchema = {
       required: ["checkIfFilesExist"],
     },
     terminalCommands: {
-      // "$id": "#terminalCommands",
       type: "object",
       properties: {
         typeId: {
@@ -574,7 +550,6 @@ export const tutorialSchema = {
       required: ["terminalCommands"],
     },
     cleanExerciseFolder: {
-      // "$id": "#cleanExerciseFolder",
       type: "object",
       properties: {
         typeId: {
@@ -588,7 +563,6 @@ export const tutorialSchema = {
       required: ["cleanExerciseFolder"],
     },
     instruction: {
-      // "$id": "#instruction",
       type: "object",
       properties: {
         typeId: {
@@ -615,7 +589,6 @@ export const tutorialSchema = {
       ],
     },
     html: {
-      // "$id": "#html",
       type: "object",
       properties: {
         typeId: {
@@ -629,7 +602,6 @@ export const tutorialSchema = {
       required: ["html"],
     },
     image: {
-      // "$id": "#image",
       type: "object",
       properties: {
         typeId: {
@@ -668,7 +640,6 @@ export const tutorialSchema = {
       additionalProperties: false,
     },
     hint: {
-      // "$id": "#hint",
       type: "object",
       properties: {
         typeId: {
@@ -714,7 +685,6 @@ export const tutorialSchema = {
       additionalProperties: false,
     },
     commandButton: {
-      // "$id": "#commandButton",
       type: "object",
       properties: {
         typeId: {
@@ -749,6 +719,10 @@ export const tutorialSchema = {
                   {
                     title: "File Difference",
                     $ref: "#/definitions/fileDiff",
+                  },
+                  {
+                    title: "Terminal Commands",
+                    $ref: "#/definitions/terminalCommands",
                   },
                 ],
               },
