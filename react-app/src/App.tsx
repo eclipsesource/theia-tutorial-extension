@@ -50,8 +50,9 @@ export default function App() {
       {(!tutorials || selectedTutorial < 0 || selectedTutorial >= tutorials.length)
         ? <>
           <header className="App-header">
-            <h1 className="App-title">Overview</h1>
+            <h1 className="App-title">EduCode</h1>
           </header>
+          <h3>Let's get EduCoded</h3>
           <p>
             Current Tutorials in the workspace:
           {createTutorialList()}

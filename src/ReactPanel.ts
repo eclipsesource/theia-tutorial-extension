@@ -34,7 +34,7 @@ class ReactPanel {
 
 	private constructor(extensionPath: string, column: vscode.ViewColumn) {
 		this._extensionPath = extensionPath;
-		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "Theia Tutorial", column, {
+		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "Tutorial", column, {
 			enableScripts: true,
 			retainContextWhenHidden: true
 		});
