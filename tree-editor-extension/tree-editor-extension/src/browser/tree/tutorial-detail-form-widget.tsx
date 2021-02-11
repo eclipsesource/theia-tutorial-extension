@@ -6,8 +6,8 @@ import { injectable, postConstruct } from "inversify";
 import { DetailFormWidget } from "@eclipse-emfcloud/theia-tree-editor";
 import {
   FilePickerControl,
-  ImagePickerControl,
-  imageTester,
+  // ImagePickerControl,
+  // imageTester,
   filePickerControlTester,
 } from "./FilePickerControl";
 @injectable()
@@ -20,7 +20,7 @@ export class TutorialDetailFormWidget extends DetailFormWidget {
     const renderers = [
       ...materialRenderers, // or vanillaRenderers from '@jsonforms/vanilla-renderers'
       { tester: filePickerControlTester, renderer: FilePickerControl },
-      { tester: imageTester, renderer: ImagePickerControl },
+      // { tester: imageTester, renderer: ImagePickerControl },
     ];
 
     const cells = [
