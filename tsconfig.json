@@ -18,6 +18,7 @@
 		"node_modules",
 		".vscode-test",
 		"react-app",
-		"schema"
+		"schema",
+		"tree-editor-extension"
 	]
 }
