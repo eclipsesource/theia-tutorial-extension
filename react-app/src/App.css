@@ -1,14 +1,18 @@
 .App {
   text-align: center;
-  background-color: 'var(--vscode-editor-background)';
+  background-color: var(--vscode-editor-background);
+  color: var(--vscode-editor-foreground);
 }
 
 .App-header {
-  background-color: #222;
+  background-color: rgba(34, 34, 34, 0.5);
   padding: 20px;
-  color: white;
+  color: var(--vscode-editor-foreground);
 }
 
+.root {
+  width: 100%;
+}
 .Box-margin {
   margin: 20px;
 }
@@ -18,18 +22,49 @@
   font-size: 0.9em;
 }
 
-.exercise p, .exercise ul {
+.exercise p,
+.exercise ul {
   text-align: left;
   padding-top: 0;
   padding-bottom: 0;
 }
-.exercise code {padding:0}
+.exercise code {
+  padding: 0;
+}
 
 .exercise a {
   cursor: pointer;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0;
   padding-top: 0;
+}
+
+.text {
+  color: var(--vscode-editor-foreground);
+  text-align: left;
+}
+.MuiButtonBase-root.Button {
+  color: var(--vscode-button-foreground);
+  background-color: var(--vscode-button-background);
+  margin: 20px;
+}
+.Background {
+  background-color: var(--vscode-editor-background);
+}
+.contrast {
+  color: var(--vscode-contrastActiveBorder);
+}
+.icons {
+  color: var(--vscode-icon-foreground);
+}
+.dropDown {
+  background: var(--vscode-dropdown-background);
+  border: var(--vscode-dropdown-border);
 }

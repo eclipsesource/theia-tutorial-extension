@@ -19,6 +19,7 @@
 		".vscode-test",
 		"react-app",
 		"schema",
-		"tree-editor-extension"
+		"tree-editor-extension",
+		"assistance"
 	]
 }

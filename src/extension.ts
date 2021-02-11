@@ -21,10 +21,25 @@ export const activate = (context: vscode.ExtensionContext) => {
 
 	initCommands(context);
 
-	loadConfig().then(config => {
+	setConfig();
 
-		ReactPanel.currentPanel?.sendToView({command: 'setTutorials', tutorials: config});
+	//watch for changes in tutorial Files
+	let watcher = vscode.workspace.createFileSystemWatcher("**/*.tut.json");
+	watcher.onDidChange(() => {
+		setConfig();
+	});
+	watcher.onDidCreate(() => {
+		setConfig();
+	});
+	watcher.onDidDelete(() => {
+		setConfig();
 	});
 };
+
+const setConfig = () => {
+	loadConfig().then(config => {
+		ReactPanel.currentPanel?.sendToView({command: 'setTutorials', tutorials: config});
+	});
+}
 
 export const deactivate = () => { };

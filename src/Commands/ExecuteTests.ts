@@ -14,12 +14,8 @@ const {exec} = require("child_process");
 const fs = require('fs');
 const path = require('path');
 
-
 const executeTestsCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.executeTests', (tests: [any]) => {
-
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
-
-
 
     tests.map((test) => {
         switch (test.type) {
@@ -46,12 +42,8 @@ const executeTestsCommand: vscode.Disposable = vscode.commands.registerCommand('
                         (test.contains.every((testString: string) => data.includes(testString))) ? ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `"${test.text}" was run successfully`, variant: 'success', preventDuplicate: true}}) : ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `${test.text} failed`, variant: 'error'}});;
                     });
                 }, 2000);
-
                 break;
-
         }
-
-
     });
 });
 

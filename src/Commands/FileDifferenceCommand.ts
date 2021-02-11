@@ -20,7 +20,6 @@ const fileDifferenceCommand: vscode.Disposable = vscode.commands.registerCommand
     const filepath = path.join(workspaceFolder, command.fileDiff.fileName);
     const solpath = path.join(workspaceFolder, command.fileDiff.solution);
 
-
     try {
         const fileUri = vscode.Uri.file(filepath);
         const solUri = vscode.Uri.file(solpath);
@@ -30,11 +29,6 @@ const fileDifferenceCommand: vscode.Disposable = vscode.commands.registerCommand
     } catch {
         vscode.window.showInformationMessage("The given filename was not found in your workspace.");
     }
-
 });
 
-
-
-
 export default fileDifferenceCommand;
-

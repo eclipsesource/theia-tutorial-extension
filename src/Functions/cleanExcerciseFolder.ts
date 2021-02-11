@@ -18,4 +18,4 @@ export const cleanExcerciseFolder = (exerciseFolder: String): void => {
     cmd.runSync("mkdir -p " + workspaceFolder + "/.tutorial/tmp/" + currentTimeStamp);
     let moveCommand = "mv " + workspaceFolder + "/" + exerciseFolder + " " + workspaceFolder + "/.tutorial/tmp/" + currentTimeStamp;
     cmd.runSync(moveCommand);
-}
+};
