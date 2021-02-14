@@ -228,6 +228,7 @@ export const exerciseView = {
       label: "Add Tests",
       scope: "#/properties/test",
       options: {
+        elementLabelProp: "testName",
         detail: {
           type: "VerticalLayout",
           label: "Tests",
@@ -489,15 +490,15 @@ export const tutorialSchema = {
         automaticImport: {
           type: "object",
           properties: {
+            path: {
+              type: "string",
+            },
             imports: {
               type: "array",
               items: {
                 type: "string",
               },
-            },
-            path: {
-              type: "string",
-            },
+            }
           },
           required: ["imports", "path"],
         },
@@ -571,20 +572,20 @@ export const tutorialSchema = {
       },
       oneOf: [
         {
-          title: "Html",
-          $ref: "#/definitions/html",
-        },
-        {
           title: "Image",
           $ref: "#/definitions/image",
         },
         {
-          title: "Hint",
-          $ref: "#/definitions/hint",
+          title: "Html",
+          $ref: "#/definitions/html",
         },
         {
           title: "Command Button",
           $ref: "#/definitions/commandButton",
+        },
+        {
+          title: "Hint",
+          $ref: "#/definitions/hint",
         },
       ],
     },
