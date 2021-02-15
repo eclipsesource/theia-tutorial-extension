@@ -10,6 +10,7 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import {TerminalCommands} from '../../schema/tutorial';
+import ReactPanel from '../ReactPanel';
 const exec = require('child_process').exec;
 
 const executeTerminalCommands: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.executeTerminalCommands', async (commands: TerminalCommands, id: string) => {
@@ -23,10 +24,14 @@ const executeTerminalCommands: vscode.Disposable = vscode.commands.registerComma
     const next = () => {
         if (index < commands.terminalCommands.length) {
             outputChannel.appendLine(commands.terminalCommands[index]);
-            exec(`cd ` + workspaceFolder + ` && ` + commands.terminalCommands[index++], (error: any, stdout: any, stderr: any) => {
-                if (error) {
-                    outputChannel.appendLine(error);
+            exec(`cd ` + workspaceFolder + ` && ` + commands.terminalCommands[index++], (error: Error, stdout: string, stderr: string) => {
+                if (error !== null) {
+                    outputChannel.appendLine(error.message);
+                    ReactPanel.currentPanel?.sendToView({id: id, result: false});
+                } else {
+                    ReactPanel.currentPanel?.sendToView({id: id, result: true});
                 }
+                outputChannel.appendLine(stdout);
                 next();
             });
         } else {
