@@ -29,7 +29,7 @@ export const ExercisePage = (props: ExerciseProps) => {
 
 const createContent = (content: Array<Instruction>, exerciseFolder: String) => {
   return content.map((instruction: Instruction) => {
-    switch (Object.keys(instruction)[0]) {
+    switch (Object.keys(instruction)[1]) {
       case "html":
         var html = instruction as Html;
         return <div>{ReactHtmlParser(html.html)}</div>;
