@@ -1,8 +1,8 @@
 {
-	"name": "theiatutorialextension",
-	"displayName": "TheiaTutorialExtension",
+	"name": "educode",
+	"displayName": "EduCode",
 	"description": "",
-	"publisher": "theiaextension",
+	"publisher": "educode",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.51.0"
@@ -16,10 +16,6 @@
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
-			{
-				"command": "theiatutorialextension.cloneRepo",
-				"title": "Clone Repo"
-			},
 			{
 				"command": "theiatutorialextension.displayContent",
 				"title": "Display Content"

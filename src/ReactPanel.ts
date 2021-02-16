@@ -17,9 +17,7 @@ const path = require('path');
 class ReactPanel {
 
 	public static currentPanel: ReactPanel | undefined;
-
 	private static readonly viewType = 'react';
-
 	private readonly _panel: vscode.WebviewPanel;
 	private readonly _extensionPath: string;
 	private _disposables: vscode.Disposable[] = [];
@@ -36,32 +34,22 @@ class ReactPanel {
 
 	private constructor(extensionPath: string, column: vscode.ViewColumn) {
 		this._extensionPath = extensionPath;
-
-		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "Theia Tutorial", column, {
-
+		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "Tutorial", column, {
 			enableScripts: true,
 			retainContextWhenHidden: true
-
 		});
-
 		vscode.commands.executeCommand('vscode.setEditorLayout', {
 			orientation: 0,
 			groups: [{size: 0.5}, {size: 0.5}],
 		});
-
 		this._panel.webview.html = this._getHtmlForWebview();
-
 		this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
-
 		this._panel.webview.onDidReceiveMessage((message: {commands: Array<Command>, ids: Array<number>, exerciseFolder: String}) => {
 			this.processCommands(message.commands, message.ids, message.exerciseFolder);
 		}, null, this._disposables);
-
 	}
 
-
 	private async processCommands(commands: Array<Command>, ids: Array<number>, exerciseFolder: String) {
-
 		commands.forEach(async (command) => {
 			switch (Object.keys(command)[0]) {
 				case 'checkIfFilesExist':
@@ -92,7 +80,7 @@ class ReactPanel {
 					startAssistance(assistance);
 					break;
 			}
-		})
+		});
 	}
 
 	public sendToView(data: any) {
@@ -101,9 +89,7 @@ class ReactPanel {
 
 	public dispose() {
 		ReactPanel.currentPanel = undefined;
-
 		this._panel.dispose();
-
 		while (this._disposables.length) {
 			const x = this._disposables.pop();
 			if (x) {
@@ -153,6 +139,6 @@ const getNonce = () => {
 		text += possible.charAt(Math.floor(Math.random() * possible.length));
 	}
 	return text;
-}
+};
 
 export default ReactPanel;

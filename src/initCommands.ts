@@ -17,11 +17,7 @@ import fileDifferenceCommand from './Commands/FileDifferenceCommand';
 import checkProcessCommand from './Commands/CheckProcessCommand';
 import executeTerminalCommands from './Commands/ExecuteTerminalCommands';
 
-
-
-
 const initCommands = (context: vscode.ExtensionContext) => {
-
 	const commands = [
 		executeTestsCommand,
 		executeTerminalCommands,
@@ -31,6 +27,6 @@ const initCommands = (context: vscode.ExtensionContext) => {
 		fileDifferenceCommand,
 		checkProcessCommand
 	];
-}
+};
 
 export default initCommands;

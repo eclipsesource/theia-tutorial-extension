@@ -10,8 +10,8 @@
  ********************************************************************************/
 import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import {Command} from './Command';
-import {Exercise, Instruction, Html, Image, Hint, CommandButton} from '../../../schema/tutorial';
+import { Command } from './Command';
+import { Exercise, Instruction, Html, Image, Hint, CommandButton } from '../../../schema/tutorial';
 
 interface ExerciseProps {
   exercise: Exercise
@@ -44,7 +44,7 @@ const createContent = (content: Array<Instruction>, exerciseFolder: String) => {
         return <Command button={button} exerciseFolder={exerciseFolder}></ Command>;
     }
   });
-}
+};
 
 
 interface HintProps {

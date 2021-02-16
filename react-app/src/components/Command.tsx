@@ -9,10 +9,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import React from 'react';
-import {Button} from '@material-ui/core';
-import {VSCodeAPI} from '../VSCodeAPI';
-import {CommandButton} from '../../../schema/tutorial';
-import {vsTheme} from '../VsTheme';
+import { Button } from '@material-ui/core';
+import { VSCodeAPI } from '../VSCodeAPI';
+import { CommandButton } from '../../../schema/tutorial';
 
 interface CommandProps {
   button: CommandButton,
@@ -24,12 +23,8 @@ export const Command = (props: CommandProps) => {
   return (
     <div className="Box-margin">
       <Button onClick={() => {
-        VSCodeAPI.postMessage({commands: props.button.button.commands, ids: [], exerciseFolder: props.exerciseFolder});
-      }} variant="contained" style={{
-        margin: "10px 10px 10px 10px",
-        backgroundColor: vsTheme.Button.backgroundColor,
-        color: vsTheme.Button.color
-      }}>
+        VSCodeAPI.postMessage({ commands: props.button.button.commands, ids: [], exerciseFolder: props.exerciseFolder });
+      }} variant="contained" className="Button">
         {props.button.button.text}
       </Button>
     </div>

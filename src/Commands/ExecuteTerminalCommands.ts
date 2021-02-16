@@ -11,18 +11,34 @@
 import * as vscode from 'vscode';
 import {TerminalCommands} from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
-import {execShellCommand} from '../utils/commandUtil';
+const exec = require('child_process').exec;
 
 const executeTerminalCommands: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.executeTerminalCommands', async (commands: TerminalCommands, id: string) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
+    
+    const outputChannel = vscode.window.createOutputChannel('Execute Commands');
+    outputChannel.show();
+    outputChannel.appendLine('Executing Terminal Commands:');
 
-    let output;
-    for (let command of commands.terminalCommands) {
-        output = await execShellCommand(`cd ` + workspaceFolder + ` && ` + command);
-    }
-    if (output != null) {
-        ReactPanel.currentPanel?.sendToView({id: id, result: output});
-    }
+    let index = 0;
+    const next = () => {
+        if (index < commands.terminalCommands.length) {
+            outputChannel.appendLine(commands.terminalCommands[index]);
+            exec(`cd ` + workspaceFolder + ` && ` + commands.terminalCommands[index++], (error: Error, stdout: string, stderr: string) => {
+                if (error !== null) {
+                    outputChannel.appendLine(error.message);
+                    ReactPanel.currentPanel?.sendToView({id: id, result: false});
+                } else {
+                    ReactPanel.currentPanel?.sendToView({id: id, result: true});
+                }
+                outputChannel.appendLine(stdout);
+                next();
+            });
+        } else {
+            outputChannel.appendLine('All commands completed');
+        }
+    };
+    next();
 });
 
 export default executeTerminalCommands;
