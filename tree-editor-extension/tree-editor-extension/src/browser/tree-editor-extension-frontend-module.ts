@@ -7,7 +7,7 @@ import { LabelProviderContribution, NavigatableWidgetOptions, OpenHandler, Widge
 import URI from '@theia/core/lib/common/uri';
 import { ContainerModule } from 'inversify';
 import { 
-    createBasicTreeContainter,
+    createBasicTreeContainer,
      DetailFormWidget, 
      NavigatableTreeEditorOptions } from '@eclipse-emfcloud/theia-tree-editor';
 
@@ -42,7 +42,7 @@ export default new ContainerModule(bind => {
         id: TreeEditorWidget.WIDGET_ID,
         createWidget: (options: NavigatableWidgetOptions) => {
 
-            const treeContainer = createBasicTreeContainter(
+            const treeContainer = createBasicTreeContainer(
                 context.container,
                 TreeEditorWidget,
                 TreeModelService,
