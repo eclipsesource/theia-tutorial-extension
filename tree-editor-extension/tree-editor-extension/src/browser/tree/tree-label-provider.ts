@@ -8,7 +8,8 @@ import { TreeEditorWidget } from './tree-editor-widget';
 const DEFAULT_COLOR = 'black';
 
 const ICON_CLASSES: Map<string, string> = new Map([
-     [CoffeeModel.Type.Exercise, 'fa-tint ' + DEFAULT_COLOR],
+    [CoffeeModel.Type.Tutorial, ' fa-book ' + DEFAULT_COLOR],
+     [CoffeeModel.Type.Exercise, 'fa-file-text ' + DEFAULT_COLOR],
 ]);
 
 /* Icon for unknown types */
@@ -38,8 +39,9 @@ export class TreeLabelProvider implements LabelProviderContribution {
 
     public getName(element: object): string | undefined {
         const data = TreeEditor.Node.is(element) ? element.jsonforms.data : element;
-        if (data.name) {
-            return data.name;
+        console.log('data: ', data);
+        if (data.title) {
+            return data.title;
         } else if (data.typeId) {
             return this.getTypeName(data.typeId);
         }
