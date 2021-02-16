@@ -8,20 +8,20 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import React, { useState } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { ExercisePage } from './Exercise';
-import { ClickAwayListener, Dialog, Grid, Grow, IconButton, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
-import { VSCodeAPI } from '../VSCodeAPI';
+import {ExercisePage} from './Exercise';
+import {ClickAwayListener, Dialog, Grid, Grow, IconButton, MenuItem, MenuList, Paper, Popper} from '@material-ui/core';
+import {VSCodeAPI} from '../VSCodeAPI';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { TestFeedbackDialog } from './TestFeedbackDialog';
-import { Exercise, Tutorial } from '../../../schema/tutorial';
-import { vsTheme } from '../VsTheme';
+import {TestFeedbackDialog} from './TestFeedbackDialog';
+import {Exercise, Tutorial} from '../../../schema/tutorial';
+import {vsTheme} from '../VsTheme';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -106,7 +106,7 @@ const StepperComponent = (props: StepperComponentProps) => {
 
   const handlesolve = () => {
     if (props.tutorial.exercises !== undefined) {
-      VSCodeAPI.postMessage({ commands: props.tutorial.exercises[activeStep].solve, ids: [], exerciseFolder: props.tutorial.tutorialFolder });
+      VSCodeAPI.postMessage({commands: props.tutorial.exercises[activeStep].solve, ids: [], exerciseFolder: props.tutorial.tutorialFolder});
     }
   };
 
@@ -145,13 +145,13 @@ const StepperComponent = (props: StepperComponentProps) => {
 
   const createTestfeedback = () => {
     if (props.tutorial.exercises !== undefined) {
-      return <TestFeedbackDialog test={props.tutorial.exercises[activeStep].test} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => { setTestModal(false); }} />;
+      return <TestFeedbackDialog test={props.tutorial.exercises[activeStep].test} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => {setTestModal(false);}} />;
     }
   };
 
   const createCheckStarStatefeedback = () => {
     if (props.tutorial.exercises !== undefined) {
-      return <TestFeedbackDialog test={props.tutorial.exercises[activeStep].checkStartState} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => { setCheckModal(false); }} />;
+      return <TestFeedbackDialog test={props.tutorial.exercises[activeStep].checkStartState} exerciseFolder={props.tutorial.tutorialFolder} closeModal={() => {setCheckModal(false);}} />;
     }
   };
 
@@ -162,17 +162,17 @@ const StepperComponent = (props: StepperComponentProps) => {
         borderRadius: "1",
         borderColor: vsTheme.contrast.color
       },
-    }} onClose={() => { setBuildWarning(false); }} aria-labelledby="customized-dialog-title" open={true} maxWidth={"sm"}>
+    }} onClose={() => {setBuildWarning(false);}} aria-labelledby="customized-dialog-title" open={true} maxWidth={"sm"}>
 
       <MuiDialogTitle disableTypography>
-        <Typography className="text" variant="h5">{"Build Exercise"}</Typography>
-        <IconButton aria-label="close" style={{ color: vsTheme.icons.color }} className={classes.closeButton} onClick={() => { setBuildWarning(false); }}>
+        <Typography className="text" variant="h5">{"Reset Exercise"}</Typography>
+        <IconButton aria-label="close" style={{color: vsTheme.icons.color}} className={classes.closeButton} onClick={() => {setBuildWarning(false);}}>
           <CloseIcon />
         </IconButton>
       </MuiDialogTitle>
       <MuiDialogContent dividers>
-        <div style={{ color: vsTheme.text.color, width: "80%" }}>
-          Building this exercice will store the current state in a new directory and build the exercise from scratch
+        <div style={{color: vsTheme.text.color, width: "80%"}}>
+          This action will reset the current exercise, this might transfer your current files to a new directory.
         </div>
         <Grid
           container
@@ -185,8 +185,8 @@ const StepperComponent = (props: StepperComponentProps) => {
             Cancle
         </Button>
           <Button className={classes.buttonBigMargin} onClick={() => {
-            if (props.tutorial.exercises !== undefined) {
-              VSCodeAPI.postMessage({ commands: props.tutorial.exercises[activeStep].buildExercise, ids: [], exerciseFolder: props.tutorial.tutorialFolder });
+            if (props.tutorial.exercises !== undefined && props.tutorial.exercises[activeStep] !== undefined) {
+              VSCodeAPI.postMessage({commands: props.tutorial.exercises[activeStep].buildExercise, ids: [], exerciseFolder: props.tutorial.tutorialFolder});
               setBuildWarning(false);
             }
           }} variant="contained" color="primary">
@@ -203,7 +203,7 @@ const StepperComponent = (props: StepperComponentProps) => {
         direction="row"
         justify="space-between"
         alignItems="flex-start"
-      ><div style={{ width: 40 }}></div>
+      ><div style={{width: 40}}></div>
         <Stepper activeStep={activeStep} alternativeLabel className={classes.stepper}>
           {steps && steps.map((label) => (
             <Step key={label}>
@@ -218,7 +218,7 @@ const StepperComponent = (props: StepperComponentProps) => {
             </Step>
           ))}
         </Stepper>
-        {(props.tutorial.exercises !== undefined && (
+        {(props.tutorial.exercises !== undefined && props.tutorial.exercises[activeStep] !== undefined && (
           props.tutorial.exercises[activeStep].buildExercise !== undefined ||
           props.tutorial.exercises[activeStep].checkStartState !== undefined)) ?
           <IconButton
@@ -229,28 +229,22 @@ const StepperComponent = (props: StepperComponentProps) => {
             <SettingsIcon style={{
               color: vsTheme.text.color,
             }} />
-          </IconButton> : <div style={{ width: 40 }}></div>}
+          </IconButton> : <div style={{width: 40}}></div>}
         <Popper style={{
           backgroundColor: vsTheme.dropDown.background,
           borderWidth: "1",
           borderRadius: "1",
           borderColor: vsTheme.dropDown.border
         }} open={isDropdownActive} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-          {({ TransitionProps, placement }) => (
+          {({TransitionProps, placement}) => (
             <Grow
               {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom', backgroundColor: vsTheme.dropDown.background }}
+              style={{transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom', backgroundColor: vsTheme.dropDown.background}}
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={isDropdownActive} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    {props.tutorial.exercises !== undefined && props.tutorial.exercises[activeStep].buildExercise !== undefined && <MenuItem style={{
-                      backgroundColor: vsTheme.dropDown.background,
-                    }} onClick={(event: React.MouseEvent<EventTarget>) => {
-                      handleClose(event);
-                      setBuildWarning(true);
-                    }}><div className={classes.text} >Build Exercise</div></MenuItem>}
-                    {props.tutorial.exercises !== undefined && props.tutorial.exercises[activeStep].buildExercise !== undefined && <MenuItem style={{
+                    {props.tutorial.exercises !== undefined && props.tutorial.exercises[activeStep] !== undefined && props.tutorial.exercises[activeStep].buildExercise !== undefined && <MenuItem style={{
                       backgroundColor: vsTheme.dropDown.background,
                     }} onClick={(event: React.MouseEvent<EventTarget>) => {
                       handleClose(event);
@@ -269,8 +263,8 @@ const StepperComponent = (props: StepperComponentProps) => {
           )}
         </Popper>
       </Grid>
-      <div style={{ marginBottom: 20 }}>
-        {steps !== undefined && activeStep === steps.length - 1 ? (
+      <div style={{marginBottom: 20}}>
+        {steps !== undefined && activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>Congratulations! You finished the tutorial.</Typography>
             <Button className={classes.button} onClick={handleReset}>Reset</Button>
@@ -293,7 +287,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                       variant="contained"
                       disabled={
                         props.tutorial.exercises === undefined || props.tutorial.exercises[activeStep].test === undefined}
-                      onClick={() => { setTestModal(true); }}
+                      onClick={() => {setTestModal(true);}}
                       className={classes.button}
                     >Test</Button>
                     <Button
