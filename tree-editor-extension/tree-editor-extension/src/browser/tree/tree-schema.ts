@@ -328,12 +328,12 @@ export const tutorialSchema = {
                 },
                 oneOf: [
                   {
-                    title: "Check If Files Exist",
-                    $ref: "#/definitions/checkIfFilesExist",
-                  },
-                  {
                     title: "Terminal Commands",
                     $ref: "#/definitions/terminalCommands",
+                  },
+                  {
+                    title: "Check If Files Exist",
+                    $ref: "#/definitions/checkIfFilesExist",
                   },
                 ],
               },
@@ -395,12 +395,12 @@ export const tutorialSchema = {
                 },
                 oneOf: [
                   {
-                    title: "Check If Files Exist",
-                    $ref: "#/definitions/checkIfFilesExist",
-                  },
-                  {
                     title: "Terminal Commands",
                     $ref: "#/definitions/terminalCommands",
+                  },
+                  {
+                    title: "Check If Files Exist",
+                    $ref: "#/definitions/checkIfFilesExist",
                   },
                 ],
               },
@@ -434,12 +434,12 @@ export const tutorialSchema = {
       },
       oneOf: [
         {
-          title: "Check If Files Exist",
-          $ref: "#/definitions/checkIfFilesExist",
-        },
-        {
           title: "Terminal Commands",
           $ref: "#/definitions/terminalCommands",
+        },
+        {
+          title: "Check If Files Exist",
+          $ref: "#/definitions/checkIfFilesExist",
         },
         {
           title: "Open File",
@@ -572,16 +572,16 @@ export const tutorialSchema = {
       },
       oneOf: [
         {
-          title: "Image",
-          $ref: "#/definitions/image",
-        },
-        {
           title: "Html",
           $ref: "#/definitions/html",
         },
         {
           title: "Command Button",
           $ref: "#/definitions/commandButton",
+        },
+        {
+          title: "Image",
+          $ref: "#/definitions/image",
         },
         {
           title: "Hint",
@@ -668,12 +668,12 @@ export const tutorialSchema = {
                     $ref: "#/definitions/html",
                   },
                   {
-                    title: "Image",
-                    $ref: "#/definitions/image",
-                  },
-                  {
                     title: "Command Button",
                     $ref: "#/definitions/commandButton",
+                  },
+                  {
+                    title: "Image",
+                    $ref: "#/definitions/image",
                   },
                 ],
               },
@@ -710,20 +710,20 @@ export const tutorialSchema = {
                 },
                 oneOf: [
                   {
-                    title: "Open File",
-                    $ref: "#/definitions/openFile",
-                  },
-                  {
-                    title: "Automatic Import",
-                    $ref: "#/definitions/automaticImport",
+                    title: "Terminal Commands",
+                    $ref: "#/definitions/terminalCommands",
                   },
                   {
                     title: "File Difference",
                     $ref: "#/definitions/fileDiff",
                   },
                   {
-                    title: "Terminal Commands",
-                    $ref: "#/definitions/terminalCommands",
+                    title: "Open File",
+                    $ref: "#/definitions/openFile",
+                  },
+                  {
+                    title: "Automatic Import",
+                    $ref: "#/definitions/automaticImport",
                   },
                 ],
               },
