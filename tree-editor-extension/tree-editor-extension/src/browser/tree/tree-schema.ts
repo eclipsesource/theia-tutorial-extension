@@ -186,6 +186,9 @@ export const exerciseView = {
       type: "Control",
       label: "Add Contents",
       scope: "#/properties/content",
+      options: {
+        elementLabelProp: 'typeId'
+      }
     },
     {
       type: "Control",
@@ -419,45 +422,32 @@ export const tutorialSchema = {
         content: {
           type: "array",
           items: {
-            $ref: "#/definitions/instruction",
-          },
+            type: "object",
+            properties: {
+              typeId: {
+                const: "#content",
+              },
+            },
+            oneOf: [
+              {
+                title: "Html",
+                $ref: "#/definitions/html",
+              },
+              {
+                title: "Command Button",
+                $ref: "#/definitions/commandButton",
+              },
+              {
+                title: "Image",
+                $ref: "#/definitions/image",
+              },
+              {
+                title: "Hint",
+                $ref: "#/definitions/hint",
+              },
+            ],          },
         },
       },
-    },
-    command: {
-      type: "object",
-      label: "Command",
-      properties: {
-        typeId: {
-          const: "#command",
-        },
-      },
-      oneOf: [
-        {
-          title: "Terminal Commands",
-          $ref: "#/definitions/terminalCommands",
-        },
-        {
-          title: "Check If Files Exist",
-          $ref: "#/definitions/checkIfFilesExist",
-        },
-        {
-          title: "Open File",
-          $ref: "#/definitions/openFile",
-        },
-        {
-          title: "Automatic Import",
-          $ref: "#/definitions/automaticImport",
-        },
-        {
-          title: "File Difference",
-          $ref: "#/definitions/fileDiff",
-        },
-        {
-          title: "Clean Exercise Folder",
-          $ref: "#/definitions/cleanExerciseFolder",
-        },
-      ],
     },
     fileDiff: {
       type: "object",
@@ -593,7 +583,7 @@ export const tutorialSchema = {
       type: "object",
       properties: {
         typeId: {
-          const: "#html",
+          const: "Html",
         },
         html: {
           type: "string",
@@ -606,7 +596,7 @@ export const tutorialSchema = {
       type: "object",
       properties: {
         typeId: {
-          const: "#image",
+          const: "Image",
         },
         image: {
           type: "object",
@@ -644,7 +634,7 @@ export const tutorialSchema = {
       type: "object",
       properties: {
         typeId: {
-          const: "#hint",
+          const: "Hint",
         },
         hint: {
           type: "object",
@@ -689,7 +679,7 @@ export const tutorialSchema = {
       type: "object",
       properties: {
         typeId: {
-          const: "#commandButton",
+          const: "Command Button",
         },
         button: {
           type: "object",
