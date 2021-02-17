@@ -8,10 +8,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import {Command} from './Command';
-import {Exercise, Instruction, Html, Image, Hint, CommandButton} from '../../../schema/tutorial';
+import { Command } from './Command';
+import { Exercise, Instruction, Html, Image, Hint, CommandButton } from '../../../schema/tutorial';
 
 interface ExerciseProps {
   exercise: Exercise
@@ -29,7 +29,7 @@ export const ExercisePage = (props: ExerciseProps) => {
 
 const createContent = (content: Array<Instruction>, exerciseFolder: String) => {
   return content.map((instruction: Instruction) => {
-    switch (Object.keys(instruction)[1]) {
+    switch (Object.keys(instruction)[0]) {
       case "html":
         var html = instruction as Html;
         return <div>{ReactHtmlParser(html.html)}</div>;
@@ -55,7 +55,7 @@ interface HintProps {
 const HintComponent = (props: HintProps) => {
   const [showHint, setShowHint] = React.useState(false);
   useEffect(() => {
-    if (props.hint) {
+    if (props.hint && showHint) {
       setShowHint(false);
     }
   }, [props]);
