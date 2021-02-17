@@ -1,10 +1,27 @@
+/********************************************************************************
+ * 
+ * Copyright (c) 2020 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
 import {injectable, inject} from "inversify";
 import {FrontendApplicationContribution} from "@theia/core/lib/browser";
 import * as $ from "jquery";
 
-import {FileService} from '@theia/filesystem/lib/browser/file-service';
+import {FileSystemWatcher} from '@theia/filesystem/lib/browser/filesystem-watcher';
+import {FileSystem} from '@theia/filesystem/lib/common/filesystem';
+
 import URI from "@theia/core/lib/common/uri";
-import {WorkspaceService} from '@theia/workspace/lib/browser';
 
 
 export const AssistanceCommand = {
@@ -24,8 +41,8 @@ export class markingElements implements FrontendApplicationContribution {
 
     constructor(
 
-        @inject(FileService) private readonly fileService: FileService,
-        @inject(WorkspaceService) private readonly workspaceService: WorkspaceService
+        @inject(FileSystemWatcher) private readonly fileSystemWatcher: FileSystemWatcher,
+        @inject(FileSystem) private readonly fileSystem: FileSystem
     ) { }
 
     findNewCurrent = () => {
@@ -47,7 +64,7 @@ export class markingElements implements FrontendApplicationContribution {
     }
 
     asContent = (content: string) => {
-        return 'div:contains(' + content + ')'
+        return 'div:contains(' + content + ')';
     }
 
     markCurrent = () => {
@@ -57,12 +74,12 @@ export class markingElements implements FrontendApplicationContribution {
 
     currentLeftPosition = () => {
         if ($(this.asId(this.idList[this.currentHint])).length) {
-            this.leftPostion = $(this.asId(this.idList[this.currentHint]))[0].getBoundingClientRect().right + $(window)['scrollLeft']()!
+            this.leftPostion = $(this.asId(this.idList[this.currentHint]))[0].getBoundingClientRect().right + $(window)['scrollLeft']()!;
         } else {
             let tmp = this.idList[this.currentHint];
             this.leftPostion = $("div" + ":visible")
                 .filter(function () {return $(this).children().length === 0 && $(this).text() === tmp;})
-                .parent()[0].getBoundingClientRect().right + $(window)['scrollLeft']()!
+                .parent()[0].getBoundingClientRect().right + $(window)['scrollLeft']()!;
         }
         return this.leftPostion;
     }
@@ -73,10 +90,9 @@ export class markingElements implements FrontendApplicationContribution {
         } else {
             let tmp = this.idList[this.currentHint];
             this.topPosition = $("div" + ":visible")
-                .filter(function () {return $(this).children().length === 0 && $(this).text() === tmp;})
-                .parent()[0].getBoundingClientRect().top + $(window)['scrollTop']()!;
+                .filter(function () {return $(this).children().length === 0 && $(this).text() === tmp;}).offset()!.top + $(window)['scrollTop']()!;
         }
-        return this.topPosition
+        return this.topPosition;
     }
 
     finishAssistance = () => {
@@ -152,19 +168,21 @@ export class markingElements implements FrontendApplicationContribution {
 
     initialize() {
 
-        this.workspaceService.recentWorkspaces().then(res => {
-            let uri = new URI(res[0] + "/.tutorial/assistance.json");
-            this.fileService.onDidFilesChange(event => {
-                if (event.contains(uri)) {
-                    this.fileService.read(uri).then((fileText) => {
-
-                        this.idList = JSON.parse(fileText.value)
-
-                        this.observe();
-                    })
+        this.fileSystemWatcher.onFilesChanged(event => {
+            let relevantURI: URI | undefined;
+            event.forEach(e => {
+                if (e.uri.toString().endsWith(".tutorial/assistance.json")) {
+                    relevantURI = e.uri;
                 }
             });
-            this.fileService.watch(uri);
-        })
+            if (relevantURI != undefined) {
+                this.fileSystem.resolveContent(relevantURI.toString(), {encoding: "utf8"}).then((result) => {
+
+                    this.idList = JSON.parse(result.content);
+
+                    this.observe();
+                });
+            }
+        });
     }
 }

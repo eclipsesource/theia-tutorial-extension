@@ -8,10 +8,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import { Command } from './Command';
-import { Exercise, Instruction, Html, Image, Hint, CommandButton } from '../../../schema/tutorial';
+import {Command} from './Command';
+import {Exercise, Instruction, Html, Image, Hint, CommandButton} from '../../../schema/tutorial';
 
 interface ExerciseProps {
   exercise: Exercise
@@ -54,6 +54,12 @@ interface HintProps {
 
 const HintComponent = (props: HintProps) => {
   const [showHint, setShowHint] = React.useState(false);
+  useEffect(() => {
+    if (props.hint) {
+      setShowHint(false);
+    }
+  }, [props]);
+
   return (
     <div>
       <a onClick={() => (showHint) ? setShowHint(false) : setShowHint(true)}>{props.hint.hint.text}</a>
