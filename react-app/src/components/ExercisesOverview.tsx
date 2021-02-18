@@ -12,23 +12,23 @@ import React from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import { Grid, IconButton, StepContent } from '@material-ui/core';
+import {Grid, IconButton, StepContent} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { Tutorial } from '../../../schema/tutorial';
-import { vsTheme } from '../VsTheme';
+import {Tutorial} from '../../../schema/tutorial';
+import {vsTheme} from '../VsTheme';
 
 interface ExercisesOverviewProps {
   tutorial: Tutorial;
   setActiveStep(num: number): void;
 }
 
-const ExercisesOverview = ({ tutorial, setActiveStep }: ExercisesOverviewProps) => {
+const ExercisesOverview = ({tutorial, setActiveStep}: ExercisesOverviewProps) => {
 
   return (
     <div className="root">
-      <Stepper orientation="vertical" style={{ backgroundColor: "transparent" }}>
-        {tutorial.exercises && tutorial.exercises.map((ex) => (
+      <Stepper orientation="vertical" style={{backgroundColor: "transparent"}}>
+        {tutorial && tutorial.exercises && tutorial.exercises.map((ex) => (
           <Step key={ex.title} active={true}>
             <StepLabel><Typography className="text">{ex.title}</Typography></StepLabel>
             <StepContent>
@@ -44,7 +44,7 @@ const ExercisesOverview = ({ tutorial, setActiveStep }: ExercisesOverviewProps) 
                     setActiveStep(tutorial.exercises.indexOf(ex));
                   }
                 }}>
-                  <ArrowForwardIosIcon fontSize="small" style={{ fill: vsTheme.Button.color, backgroundColor: vsTheme.Button.backgroundColor }} />
+                  <ArrowForwardIosIcon fontSize="small" style={{fill: vsTheme.Button.color, backgroundColor: vsTheme.Button.backgroundColor}} />
                 </IconButton>
               </Grid>
             </StepContent>

@@ -165,14 +165,14 @@ const StepperComponent = (props: StepperComponentProps) => {
     }} onClose={() => { setBuildWarning(false); }} aria-labelledby="customized-dialog-title" open={true} maxWidth={"sm"}>
 
       <MuiDialogTitle disableTypography>
-        <Typography className="text" variant="h5">{"Build Exercise"}</Typography>
+        <Typography className="text" variant="h5">{"Reset Exercise"}</Typography>
         <IconButton aria-label="close" style={{ color: vsTheme.icons.color }} className={classes.closeButton} onClick={() => { setBuildWarning(false); }}>
           <CloseIcon />
         </IconButton>
       </MuiDialogTitle>
       <MuiDialogContent dividers>
         <div style={{ color: vsTheme.text.color, width: "80%" }}>
-          Building this exercice will store the current state in a new directory and build the exercise from scratch
+          This action will reset the current exercise, this might transfer your current files to a new directory.
         </div>
         <Grid
           container
@@ -182,10 +182,10 @@ const StepperComponent = (props: StepperComponentProps) => {
         ><Button className={classes.buttonBigMargin} onClick={() => {
           setBuildWarning(false);
         }} variant="contained" color="primary">
-            Cancle
+            Cancel
         </Button>
           <Button className={classes.buttonBigMargin} onClick={() => {
-            if (props.tutorial.exercises !== undefined) {
+            if (props.tutorial.exercises !== undefined && props.tutorial.exercises[activeStep] !== undefined) {
               VSCodeAPI.postMessage({ commands: props.tutorial.exercises[activeStep].buildExercise, ids: [], exerciseFolder: props.tutorial.tutorialFolder });
               setBuildWarning(false);
             }
@@ -218,7 +218,7 @@ const StepperComponent = (props: StepperComponentProps) => {
             </Step>
           ))}
         </Stepper>
-        {(props.tutorial.exercises !== undefined && (
+        {(props.tutorial.exercises !== undefined && props.tutorial.exercises[activeStep] !== undefined && (
           props.tutorial.exercises[activeStep].buildExercise !== undefined ||
           props.tutorial.exercises[activeStep].checkStartState !== undefined)) ?
           <IconButton
@@ -244,13 +244,7 @@ const StepperComponent = (props: StepperComponentProps) => {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={isDropdownActive} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    {props.tutorial.exercises !== undefined && props.tutorial.exercises[activeStep].buildExercise !== undefined && <MenuItem style={{
-                      backgroundColor: vsTheme.dropDown.background,
-                    }} onClick={(event: React.MouseEvent<EventTarget>) => {
-                      handleClose(event);
-                      setBuildWarning(true);
-                    }}><div className={classes.text} >Build Exercise</div></MenuItem>}
-                    {props.tutorial.exercises !== undefined && props.tutorial.exercises[activeStep].buildExercise !== undefined && <MenuItem style={{
+                    {props.tutorial.exercises !== undefined && props.tutorial.exercises[activeStep] !== undefined && props.tutorial.exercises[activeStep].buildExercise !== undefined && <MenuItem style={{
                       backgroundColor: vsTheme.dropDown.background,
                     }} onClick={(event: React.MouseEvent<EventTarget>) => {
                       handleClose(event);
@@ -270,7 +264,7 @@ const StepperComponent = (props: StepperComponentProps) => {
         </Popper>
       </Grid>
       <div style={{ marginBottom: 20 }}>
-        {steps !== undefined && activeStep === steps.length - 1 ? (
+        {steps !== undefined && activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>Congratulations! You finished the tutorial.</Typography>
             <Button className={classes.button} onClick={handleReset}>Reset</Button>
