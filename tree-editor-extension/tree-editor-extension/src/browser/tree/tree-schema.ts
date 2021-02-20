@@ -422,12 +422,6 @@ export const tutorialSchema = {
         content: {
           type: "array",
           items: {
-            type: "object",
-            properties: {
-              typeId: {
-                const: "#content",
-              },
-            },
             oneOf: [
               {
                 title: "Html",
