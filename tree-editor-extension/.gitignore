@@ -1,6 +1,8 @@
 node_modules
 .browser_modules
-lib
+tree-editor-extension/lib
+electron-app/lib
+browser-app/lib
 *.log
 *-app/*
 !*-app/package.json
