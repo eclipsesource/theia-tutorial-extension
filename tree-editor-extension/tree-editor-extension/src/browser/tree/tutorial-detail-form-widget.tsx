@@ -15,6 +15,9 @@ import { Provider } from 'react-redux';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import { materialArrayLayoutTester } from './MaterialArrayLayoutRenderer';
+
+import MaterialArrayLayoutRenderer from './MaterialArrayLayoutRenderer';
 @injectable()
 export class TutorialDetailFormWidget extends DetailFormWidget {
   // XXX Replace renderers in Redux store manually as they can't be customized at the current time.
@@ -46,7 +49,11 @@ export class TutorialDetailFormWidget extends DetailFormWidget {
   customizeRenderers() {
     const renderers = [
       ...materialRenderers, // or vanillaRenderers from '@jsonforms/vanilla-renderers'
-      { tester: filePickerControlTester, renderer: FilePickerControl }
+      { tester: filePickerControlTester, renderer: FilePickerControl },
+      {
+        tester: materialArrayLayoutTester,
+        renderer: MaterialArrayLayoutRenderer
+      }
       // { tester: imageTester, renderer: ImagePickerControl },
     ];
 

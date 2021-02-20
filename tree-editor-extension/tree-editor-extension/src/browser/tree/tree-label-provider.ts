@@ -39,7 +39,6 @@ export class TreeLabelProvider implements LabelProviderContribution {
 
     public getName(element: object): string | undefined {
         const data = TreeEditor.Node.is(element) ? element.jsonforms.data : element;
-        console.log('data: ', data);
         if (data.title) {
             return data.title;
         } else if (data.typeId) {

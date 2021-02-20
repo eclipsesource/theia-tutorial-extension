@@ -238,11 +238,6 @@ export const exerciseView = {
           elements: [
             {
               type: "Control",
-              label: "Test Name",
-              scope: "#/properties/testName",
-            },
-            {
-              type: "Control",
               label: "File Name",
               scope: "#/properties/fileName",
             },
@@ -252,13 +247,31 @@ export const exerciseView = {
               scope: "#/properties/solution",
             },
             {
-              type: "Label",
-              text: "Commands",
-            },
-            {
-              type: "Control",
-              label: "Commands",
-              scope: "#/properties/command",
+            type: "Control",
+            label: "Add Test Commands",
+            scope: "#/properties/tests",
+            options: {
+              detail: {
+                type: "VerticalLayout",
+                label: "Add Test Commands",
+                elements: [
+                {
+                  type: "Control",
+                  label: "Test Name",
+                  scope: "#/properties/testName",
+                },
+                {
+                  type: "Label",
+                  text: "Commands",
+                },
+                {
+                  type: "Control",
+                  label: "Commands",
+                  scope: "#/properties/command",
+                },
+              ]
+            }
+            }
             },
           ],
         },
@@ -377,41 +390,54 @@ export const tutorialSchema = {
         test: {
           type: "array",
           items: {
-            type: "object",
-            properties: {
-              testName: {
-                type: "string",
-              },
-              fileName: {
-                type: "string",
-              },
-              solution: {
-                type: "string",
-              },
-              command: {
-                type: "object",
-                label: "Command",
-                properties: {
-                  typeId: {
-                    const: "#command",
+              type: "object",
+              properties: {
+                  fileName: {
+                      type: "string"
                   },
-                },
-                oneOf: [
-                  {
-                    title: "Terminal Commands",
-                    $ref: "#/definitions/terminalCommands",
+                  solution: {
+                      type: "string"
                   },
-                  {
-                    title: "Check If Files Exist",
-                    $ref: "#/definitions/checkIfFilesExist",
-                  },
-                ],
+                  tests: {
+                      type: "array",
+                      items: {
+                          type: "object",
+                          properties: {
+                              testName: {
+                                  type: "string"
+                              },
+                              command: {
+                                type: "object",
+                                label: "Command",
+                                properties: {
+                                  typeId: {
+                                    const: "#command",
+                                  },
+                                },
+                                oneOf: [
+                                  {
+                                    title: "Terminal Commands",
+                                    $ref: "#/definitions/terminalCommands",
+                                  },
+                                  {
+                                    title: "Check If Files Exist",
+                                    $ref: "#/definitions/checkIfFilesExist",
+                                  },
+                                ],                              }
+                          },
+                          required: [
+                              "testName",
+                              "command"
+                          ]
+                      }
+                  }
               },
-            },
-            required: ["testName", "command"],
-            additionalProperties: false,
-          },
-        },
+              additionalProperties: false,
+              required: [
+                  "tests"
+              ]
+          }
+      },
         solve: {
           type: "array",
           items: {
@@ -422,12 +448,6 @@ export const tutorialSchema = {
         content: {
           type: "array",
           items: {
-            type: "object",
-            properties: {
-              typeId: {
-                const: "#content",
-              },
-            },
             oneOf: [
               {
                 title: "Html",

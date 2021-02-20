@@ -41,7 +41,6 @@ export class TreeNodeFactory implements TreeEditor.NodeFactory {
             }
         };
 
-        console.log('node', node);
         // containments
         if (parent) {
             parent.children.push(node);
@@ -54,14 +53,6 @@ export class TreeNodeFactory implements TreeEditor.NodeFactory {
         if (data.exercises) {
             this.mapCustomData(data.exercises, node, 'exercises');
         }
-
-        // if (data.content) {
-        //     this.mapCustomData(data.content, node, 'content');
-        // }
-
-        // if (data.contents) {
-        //     this.mapCustomData(data.contents, node, 'contents');
-        // }
 
         return node;
     }
