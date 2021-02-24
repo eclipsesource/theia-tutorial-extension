@@ -35,6 +35,7 @@
             "windows": {
                 "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
             },
+            "program": "${workspaceRoot}/electron-app/src-gen/frontend/electron-main.js",
             "protocol": "inspector",
             "args": [
                 "--loglevel=debug",
@@ -46,6 +47,9 @@
             },
             "sourceMaps": true,
             "outFiles": [
+                "${workspaceRoot}/electron-app/src-gen/frontend/electron-main.js",
+                "${workspaceRoot}/electron-app/src-gen/backend/main.js",
+                "${workspaceRoot}/electron-app/lib/**/*.js",
                 "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js"
             ],
             "smartStep": true,

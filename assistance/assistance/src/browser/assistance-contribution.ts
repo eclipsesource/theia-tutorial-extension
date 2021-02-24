@@ -17,10 +17,7 @@
 import {injectable, inject} from "inversify";
 import {FrontendApplicationContribution} from "@theia/core/lib/browser";
 import * as $ from "jquery";
-
-import {FileSystemWatcher} from '@theia/filesystem/lib/browser/filesystem-watcher';
-import {FileSystem} from '@theia/filesystem/lib/common/filesystem';
-
+import {FileService} from '@theia/filesystem/lib/browser/file-service';
 import URI from "@theia/core/lib/common/uri";
 
 
@@ -41,8 +38,7 @@ export class markingElements implements FrontendApplicationContribution {
 
     constructor(
 
-        @inject(FileSystemWatcher) private readonly fileSystemWatcher: FileSystemWatcher,
-        @inject(FileSystem) private readonly fileSystem: FileSystem
+        @inject(FileService) private readonly fileService: FileService,
     ) { }
 
     findNewCurrent = () => {
@@ -168,6 +164,25 @@ export class markingElements implements FrontendApplicationContribution {
 
     initialize() {
 
+        this.fileService.onDidFilesChange(event => {
+            let relevantURI: URI | undefined;
+            event.changes.forEach((change) => {
+                if (change.resource.toString().endsWith("/.tutorial/assistance.json")) {
+                    relevantURI = change.resource
+                }
+            });
+            if (relevantURI != undefined) {
+                this.fileService.read(relevantURI).then((fileText) => {
+
+                    this.idList = JSON.parse(fileText.value)
+
+                    this.observe();
+                })
+            }
+        });
+
+        /*
+        theia version 1.4
         this.fileSystemWatcher.onFilesChanged(event => {
             let relevantURI: URI | undefined;
             event.forEach(e => {
@@ -184,5 +199,6 @@ export class markingElements implements FrontendApplicationContribution {
                 });
             }
         });
+        */
     }
 }

@@ -9,22 +9,13 @@
     "src"
   ],
   "dependencies": {
-    "@theia/core": "latest",
-    "@theia/editor": "latest",
-    "@theia/filesystem": "latest",
-    "@theia/markers": "latest",
-    "@theia/messages": "latest",
-    "@theia/monaco": "latest",
-    "@theia/navigator": "latest",
-    "@theia/preferences": "latest",
-    "@theia/process": "latest",
-    "@theia/terminal": "latest",
-    "@theia/workspace": "latest"
+    "@theia/core": "latest"
   },
   "devDependencies": {
-    "@types/jquery": "^3.5.5",
     "rimraf": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "@types/jquery": "^3.5.5",
+    "jquery": "^3.5.1"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",

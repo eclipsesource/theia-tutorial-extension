@@ -9,7 +9,6 @@
     "lerna": "2.4.0"
   },
   "workspaces": [
-    "assistance",
-    "browser-app"
+    "assistance", "browser-app", "electron-app"
   ]
 }
