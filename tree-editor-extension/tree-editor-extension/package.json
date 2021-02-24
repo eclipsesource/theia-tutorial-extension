@@ -1,0 +1,42 @@
+{
+  "name": "tree-editor-extension",
+  "keywords": [
+    "theia-extension"
+  ],
+  "version": "0.0.0",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@eclipse-emfcloud/theia-tree-editor": "latest",
+    "@jsonforms/material-renderers": "2.4.0",
+    "@material-ui/core": "4.11.2",
+    "@material-ui/icons": "4.11.2",
+    "@theia/core": "latest",
+    "@theia/editor": "latest",
+    "@theia/filesystem": "latest",
+    "@theia/workspace": "latest",
+    "@types/lodash": "^4.14.168",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "lodash": "^4.17.20",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.10.8",
+    "rimraf": "latest",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "theiaExtensions": [
+    {
+      "frontend": "lib/browser/tree-editor-extension-frontend-module"
+    }
+  ]
+}
