@@ -10,10 +10,9 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import {OpenFile} from '../../schema/tutorial';
-const fs = require('fs');
 const path = require('path');
 
-const openFileCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.openFile', async (openFIleCommand: OpenFile) => {
+export const openFile = async (openFIleCommand: OpenFile) => {
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
     const filepath = path.join(workspaceFolder, openFIleCommand.openFile);
@@ -25,6 +24,4 @@ const openFileCommand: vscode.Disposable = vscode.commands.registerCommand('thei
     } catch {
         vscode.window.showInformationMessage("The given filename was not found in your workspace.");
     }
-});
-
-export default openFileCommand;
+};

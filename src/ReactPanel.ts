@@ -10,8 +10,13 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import {Command, CheckIfFilesExist, AutomaticImport, OpenFile, FileDiff, TerminalCommands, Assistance} from '../schema/tutorial';
+import {checkFiles, } from './Functions/checkFiles';
+import {addImports} from './Functions/addImports';
+import {openFile} from './Functions/openFile';
 import {cleanExcerciseFolder} from "./Functions/cleanExcerciseFolder";
 import {startAssistance} from './Functions/startAssistance';
+import {fileDifference} from './Functions/fileDifference';
+import {executeTerminalCommands} from './Functions/executeTerminalCommands';
 const path = require('path');
 
 class ReactPanel {
@@ -44,33 +49,33 @@ class ReactPanel {
 		});
 		this._panel.webview.html = this._getHtmlForWebview();
 		this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
-		this._panel.webview.onDidReceiveMessage((message: {commands: Array<Command>, ids: Array<number>, exerciseFolder: String}) => {
+		this._panel.webview.onDidReceiveMessage((message: {commands: Array<Command>, ids: Array<String>, exerciseFolder: String}) => {
 			this.processCommands(message.commands, message.ids, message.exerciseFolder);
 		}, null, this._disposables);
 	}
 
-	private async processCommands(commands: Array<Command>, ids: Array<number>, exerciseFolder: String) {
+	private async processCommands(commands: Array<Command>, ids: Array<String>, exerciseFolder: String) {
 		commands.forEach(async (command) => {
 			switch (Object.keys(command)[0]) {
 				case 'checkIfFilesExist':
 					let checkFilesCommand = command as CheckIfFilesExist;
-					await vscode.commands.executeCommand('theiatutorialextension.checkExerciseFiles', checkFilesCommand, ids[commands.indexOf(command)]);
+					checkFiles(checkFilesCommand, ids[commands.indexOf(command)]);
 					break;
 				case 'automaticImport':
 					let automaticImport = command as AutomaticImport;
-					await vscode.commands.executeCommand('theiatutorialextension.addImports', automaticImport);
+					addImports(automaticImport);
 					break;
 				case 'openFile':
-					let openFile = command as OpenFile;
-					await vscode.commands.executeCommand('theiatutorialextension.openFile', openFile);
+					let openFileInput = command as OpenFile;
+					await openFile(openFileInput);
 					break;
 				case 'fileDiff':
 					let fileDiff = command as FileDiff;
-					await vscode.commands.executeCommand('theiatutorialextension.fileDiff', fileDiff);
+					await fileDifference(fileDiff);
 					break;
 				case 'terminalCommands':
 					let terminalCommands = command as TerminalCommands;
-					await vscode.commands.executeCommand('theiatutorialextension.executeTerminalCommands', terminalCommands, ids[commands.indexOf(command)]);
+					await executeTerminalCommands(terminalCommands, ids[commands.indexOf(command)]);
 					break;
 				case 'cleanExerciseFolder':
 					cleanExcerciseFolder(exerciseFolder);

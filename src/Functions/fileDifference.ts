@@ -10,10 +10,9 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import {FileDiff} from '../../schema/tutorial';
-const fs = require('fs');
 const path = require('path');
 
-const fileDifferenceCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.fileDiff', async (command: FileDiff) => {
+export const fileDifference = async (command: FileDiff) => {
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
@@ -29,6 +28,4 @@ const fileDifferenceCommand: vscode.Disposable = vscode.commands.registerCommand
     } catch {
         vscode.window.showInformationMessage("The given filename was not found in your workspace.");
     }
-});
-
-export default fileDifferenceCommand;
+};

@@ -13,9 +13,9 @@ import {TerminalCommands} from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
 const exec = require('child_process').exec;
 
-const executeTerminalCommands: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.executeTerminalCommands', async (commands: TerminalCommands, id: string) => {
+export const executeTerminalCommands = async (commands: TerminalCommands, id: String) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
-    
+
     const outputChannel = vscode.window.createOutputChannel('Execute Commands');
     outputChannel.show();
     outputChannel.appendLine('Executing Terminal Commands:');
@@ -39,6 +39,4 @@ const executeTerminalCommands: vscode.Disposable = vscode.commands.registerComma
         }
     };
     next();
-});
-
-export default executeTerminalCommands;
+};

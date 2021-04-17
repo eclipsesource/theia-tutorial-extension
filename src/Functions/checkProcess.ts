@@ -12,7 +12,7 @@ import * as vscode from 'vscode';
 import {EXERCISE_PORT_NUMBER} from '../utils/constant';
 import {execShellCommand} from '../utils/commandUtil';
 
-const checkProcessCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.checkProcess', async (isProcessKilled?: boolean) => {
+export const checkProcess = async (isProcessKilled?: boolean) => {
     const outputChannel = vscode.window.createOutputChannel('Checking Processes');
     outputChannel.show();
 
@@ -33,6 +33,4 @@ const checkProcessCommand: vscode.Disposable = vscode.commands.registerCommand('
             });
         }
     });
-});
-
-export default checkProcessCommand;
+};

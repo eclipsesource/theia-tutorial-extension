@@ -10,8 +10,6 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import {Tutorial} from '../../schema/tutorial';
-const fs = require('fs');
-const path = require('path');
 
 export const loadConfig = (): Thenable<Array<Tutorial>> => {
     return vscode.workspace.findFiles("**/*.tut.json").then(tutorialsURI => {

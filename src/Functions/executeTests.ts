@@ -14,7 +14,7 @@ const {exec} = require("child_process");
 const fs = require('fs');
 const path = require('path');
 
-const executeTestsCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.executeTests', (tests: [any]) => {
+export const executeTests = (tests: [any]) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
     tests.map((test) => {
@@ -45,6 +45,4 @@ const executeTestsCommand: vscode.Disposable = vscode.commands.registerCommand('
                 break;
         }
     });
-});
-
-export default executeTestsCommand;
+};

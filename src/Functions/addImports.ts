@@ -13,7 +13,7 @@ import {AutomaticImport} from '../../schema/tutorial';
 const fs = require('fs');
 const path = require('path');
 
-const addImportsCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.addImports', (autoImportData: AutomaticImport) => {
+export const addImports = (autoImportData: AutomaticImport) => {
 
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
@@ -28,6 +28,4 @@ const addImportsCommand: vscode.Disposable = vscode.commands.registerCommand('th
     });
 
     fs.writeFileSync(filepath, content);
-});
-
-export default addImportsCommand;
+};
