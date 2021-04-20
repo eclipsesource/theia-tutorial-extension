@@ -9,36 +9,42 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
-import {TerminalCommands} from '../../schema/tutorial';
+import { TerminalCommands } from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
 const exec = require('child_process').exec;
 
-const executeTerminalCommands: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.executeTerminalCommands', async (commands: TerminalCommands, id: string) => {
+const executeTerminalCommands: vscode.Disposable = vscode.commands.registerCommand(
+  'theiatutorialextension.executeTerminalCommands',
+  async (commands: TerminalCommands, id: string) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
-    
+
     const outputChannel = vscode.window.createOutputChannel('Execute Commands');
     outputChannel.show();
     outputChannel.appendLine('Executing Terminal Commands:');
 
     let index = 0;
     const next = () => {
-        if (index < commands.terminalCommands.length) {
-            outputChannel.appendLine(commands.terminalCommands[index]);
-            exec(`cd ` + workspaceFolder + ` && ` + commands.terminalCommands[index++], (error: Error, stdout: string, stderr: string) => {
-                if (error !== null) {
-                    outputChannel.appendLine(error.message);
-                    ReactPanel.currentPanel?.sendToView({id: id, result: false});
-                } else {
-                    ReactPanel.currentPanel?.sendToView({id: id, result: true});
-                }
-                outputChannel.appendLine(stdout);
-                next();
-            });
-        } else {
-            outputChannel.appendLine('All commands completed');
-        }
+      if (index < commands.terminalCommands.length) {
+        outputChannel.appendLine(commands.terminalCommands[index]);
+        exec(
+          `cd ` + workspaceFolder + ` && ` + commands.terminalCommands[index++],
+          (error: Error, stdout: string, stderr: string) => {
+            if (error !== null) {
+              outputChannel.appendLine(error.message);
+              ReactPanel.currentPanel?.sendToView({ id: id, result: false });
+            } else {
+              ReactPanel.currentPanel?.sendToView({ id: id, result: true });
+            }
+            outputChannel.appendLine(stdout);
+            next();
+          }
+        );
+      } else {
+        outputChannel.appendLine('All commands completed');
+      }
     };
     next();
-});
+  }
+);
 
 export default executeTerminalCommands;
