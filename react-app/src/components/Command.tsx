@@ -14,17 +14,24 @@ import { VSCodeAPI } from '../VSCodeAPI';
 import { CommandButton } from '../../../schema/tutorial';
 
 interface CommandProps {
-  button: CommandButton,
-  exerciseFolder: String
+  button: CommandButton;
+  exerciseFolder: string;
 }
 
 export const Command = (props: CommandProps) => {
-
   return (
-    <div className="Box-margin">
-      <Button onClick={() => {
-        VSCodeAPI.postMessage({ commands: props.button.button.commands, ids: [], exerciseFolder: props.exerciseFolder });
-      }} variant="contained" className="Button">
+    <div className='Box-margin'>
+      <Button
+        onClick={() => {
+          VSCodeAPI.postMessage({
+            commands: props.button.button.commands,
+            ids: [],
+            exerciseFolder: props.exerciseFolder,
+          });
+        }}
+        variant='contained'
+        className='Button'
+      >
         {props.button.button.text}
       </Button>
     </div>

@@ -8,7 +8,14 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import { createStyles, makeStyles, IconButton, Theme, Typography, Grid } from '@material-ui/core';
+import {
+  createStyles,
+  makeStyles,
+  IconButton,
+  Theme,
+  Typography,
+  Grid,
+} from '@material-ui/core';
 import React from 'react';
 import { Command } from '../../../schema/tutorial';
 import { Test } from './Test';
@@ -21,80 +28,126 @@ import CompareIcon from '@material-ui/icons/Compare';
 import { VSCodeAPI } from '../VSCodeAPI';
 
 const styles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            margin: 0,
-            padding: theme.spacing(2),
-        },
-        closeButton: {
-            position: 'absolute',
-            right: theme.spacing(1),
-            top: theme.spacing(1),
-            color: vsTheme.text.color,
-        },
-    }));
+  createStyles({
+    root: {
+      margin: 0,
+      padding: theme.spacing(2),
+    },
+    closeButton: {
+      position: 'absolute',
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+      color: vsTheme.text.color,
+    },
+  })
+);
 
 interface Test {
-    testName: string,
-    command: Command
+  testName: string;
+  command: Command;
 }
 
 interface TestParagraph {
-    tests: Array<Test>,
-    fileName?: string | undefined,
-    solution?: string | undefined
+  tests: Test[];
+  fileName?: string | undefined;
+  solution?: string | undefined;
 }
 
 interface TestFeedbackDialog {
-    test: Array<TestParagraph> | undefined,
-    exerciseFolder: String
-    closeModal: () => void
+  test: TestParagraph[] | undefined;
+  exerciseFolder: string;
+  closeModal: () => void;
 }
 
 export const TestFeedbackDialog = (props: TestFeedbackDialog) => {
-    const classes = styles();
+  const classes = styles();
 
-    return <div><Dialog PaperProps={{
-        style: { backgroundColor: vsTheme.Background.backgroundColor },
-    }} onClose={props.closeModal} aria-labelledby="customized-dialog-title" open={true} maxWidth={"lg"} fullWidth={true}>
-
-        <MuiDialogTitle disableTypography className={classes.root}>
-            <Typography className="text" variant="h5">{"Test Results"}</Typography>
-            <IconButton aria-label="close" style={{ color: vsTheme.icons.color }} className={classes.closeButton} onClick={props.closeModal}>
-                <CloseIcon />
-            </IconButton>
+  return (
+    <div>
+      <Dialog
+        PaperProps={{
+          style: { backgroundColor: vsTheme.Background.backgroundColor },
+        }}
+        onClose={props.closeModal}
+        aria-labelledby='customized-dialog-title'
+        open={true}
+        maxWidth={'lg'}
+        fullWidth={true}
+      >
+        <MuiDialogTitle disableTypography={true} className={classes.root}>
+          <Typography className='text' variant='h5'>
+            {'Test Results'}
+          </Typography>
+          <IconButton
+            aria-label='close'
+            style={{ color: vsTheme.icons.color }}
+            className={classes.closeButton}
+            onClick={props.closeModal}
+          >
+            <CloseIcon />
+          </IconButton>
         </MuiDialogTitle>
-        <MuiDialogContent dividers>
-            {props.test !== undefined && createTestParagraph(props.test, props.exerciseFolder)}
+        <MuiDialogContent dividers={true}>
+          {props.test !== undefined &&
+            createTestParagraph(props.test, props.exerciseFolder)}
         </MuiDialogContent>
-    </Dialog></div >;
+      </Dialog>
+    </div>
+  );
 };
 
-const createTestParagraph = (tests: Array<TestParagraph>, exerciseFolder: String) => {
-    return tests.map((testParagraph) => {
-        return <div><Grid
-            container
-            direction="row"
-            justify="flex-start"
-            alignItems="center"
+const createTestParagraph = (
+  tests: TestParagraph[],
+  exerciseFolder: string
+) => {
+  return tests.map((testParagraph, index) => {
+    return (
+      <div key={index}>
+        <Grid
+          container={true}
+          direction='row'
+          justify='flex-start'
+          alignItems='center'
         >
-            <Typography className="text" variant="h6">{testParagraph.fileName ? testParagraph.fileName.split("/")[testParagraph.fileName.split("/").length - 1] : "General"}</Typography>
-            {testParagraph.solution !== undefined && testParagraph.fileName !== undefined &&
-                <IconButton aria-label="compare to Solution" style={{ color: vsTheme.icons.color }}
-                    onClick={() => {
-                        VSCodeAPI.postMessage({ commands: [{ fileDiff: { fileName: testParagraph.fileName, solution: testParagraph.solution } }], ids: [], exerciseFolder: exerciseFolder });
-                    }}
-                >
-                    <CompareIcon />
-                </IconButton>}
+          <Typography className='text' variant='h6'>
+            {testParagraph.fileName
+              ? testParagraph.fileName.split('/')[
+              testParagraph.fileName.split('/').length - 1
+              ]
+              : 'General'}
+          </Typography>
+          {testParagraph.solution !== undefined &&
+            testParagraph.fileName !== undefined && (
+              <IconButton
+                aria-label='compare to Solution'
+                style={{ color: vsTheme.icons.color }}
+                onClick={() => {
+                  VSCodeAPI.postMessage({
+                    commands: [
+                      {
+                        fileDiff: {
+                          fileName: testParagraph.fileName,
+                          solution: testParagraph.solution,
+                        },
+                      },
+                    ],
+                    ids: [],
+                    exerciseFolder,
+                  });
+                }}
+              >
+                <CompareIcon />
+              </IconButton>
+            )}
         </Grid>
-            {createTests(testParagraph.tests, exerciseFolder)}
-        </div>;
-    });
+        {createTests(testParagraph.tests, exerciseFolder)}
+      </div>
+    );
+  });
 };
 
-const createTests = (tests: Array<Test>, exerciseFolder: String) => {
-    return tests.map((test) => {
-        return <Test test={test} exerciseFolder={exerciseFolder} />;
-    });
+const createTests = (tests: Test[], exerciseFolder: string) => {
+  return tests.map((test, index) => {
+    return <Test test={test} exerciseFolder={exerciseFolder} key={index} />;
+  });
 };

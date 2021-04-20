@@ -18,15 +18,15 @@ import checkProcessCommand from './Commands/CheckProcessCommand';
 import executeTerminalCommands from './Commands/ExecuteTerminalCommands';
 
 const initCommands = (context: vscode.ExtensionContext) => {
-	const commands = [
-		executeTestsCommand,
-		executeTerminalCommands,
-		checkFilesCommand,
-		addImportsCommand,
-		openFileCommand,
-		fileDifferenceCommand,
-		checkProcessCommand
-	];
+  const commands = [
+    executeTestsCommand,
+    executeTerminalCommands,
+    checkFilesCommand,
+    addImportsCommand,
+    openFileCommand,
+    fileDifferenceCommand,
+    checkProcessCommand,
+  ];
 };
 
 export default initCommands;

@@ -5,9 +5,14 @@
 }
 
 .App-header {
-  background-color: rgba(34, 34, 34, 0.5);
+  background-color: var(--vscode-dropdown-background);
   padding: 20px;
   color: var(--vscode-editor-foreground);
+  margin-bottom: 15px;
+}
+
+.App-title {
+  margin: 0;
 }
 
 .root {

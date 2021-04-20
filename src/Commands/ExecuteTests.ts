@@ -10,41 +10,76 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import ReactPanel from '../ReactPanel';
-const {exec} = require("child_process");
+const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const executeTestsCommand: vscode.Disposable = vscode.commands.registerCommand('theiatutorialextension.executeTests', (tests: [any]) => {
+const executeTestsCommand: vscode.Disposable = vscode.commands.registerCommand(
+  'theiatutorialextension.executeTests',
+  (tests: [any]) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
     tests.map((test) => {
-        switch (test.type) {
-            case "testExecution":
-                test.tasks.map((task: string) => {
-                    exec(task, (error: Error, stdout: string, stderr: string) => {
-                        if (error) {
-                            ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `${test.text} failed: ${error.message}`, variant: 'error'}});
-                            return;
-                        }
-                        if (stderr) {
-                            ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `${stderr}`, variant: 'warning'}});
-                            return;
-                        }
-                        ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `${test.text} was run successfully`, variant: 'success'}});
-                    });
+      switch (test.type) {
+        case 'testExecution':
+          test.tasks.map((task: string) => {
+            exec(task, (error: Error, stdout: string, stderr: string) => {
+              if (error) {
+                ReactPanel.currentPanel?.sendToView({
+                  command: 'testResult',
+                  result: {
+                    text: `${test.text} failed: ${error.message}`,
+                    variant: 'error',
+                  },
                 });
-                break;
-            case "contentCheck":
-                const filepath = path.join(workspaceFolder, test.fileName);
-                ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `Testing: "${test.text}"`, variant: 'default'}});
-                setTimeout(() => {
-                    fs.readFile(filepath, (err: Error, data: string) => {
-                        (test.contains.every((testString: string) => data.includes(testString))) ? ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `"${test.text}" was run successfully`, variant: 'success', preventDuplicate: true}}) : ReactPanel.currentPanel?.sendToView({command: 'testResult', result: {text: `${test.text} failed`, variant: 'error'}});;
-                    });
-                }, 2000);
-                break;
-        }
+                return;
+              }
+              if (stderr) {
+                ReactPanel.currentPanel?.sendToView({
+                  command: 'testResult',
+                  result: { text: `${stderr}`, variant: 'warning' },
+                });
+                return;
+              }
+              ReactPanel.currentPanel?.sendToView({
+                command: 'testResult',
+                result: {
+                  text: `${test.text} was run successfully`,
+                  variant: 'success',
+                },
+              });
+            });
+          });
+          break;
+        case 'contentCheck':
+          const filepath = path.join(workspaceFolder, test.fileName);
+          ReactPanel.currentPanel?.sendToView({
+            command: 'testResult',
+            result: { text: `Testing: "${test.text}"`, variant: 'default' },
+          });
+          setTimeout(() => {
+            fs.readFile(filepath, (err: Error, data: string) => {
+              test.contains.every((testString: string) =>
+                data.includes(testString)
+              )
+                ? ReactPanel.currentPanel?.sendToView({
+                    command: 'testResult',
+                    result: {
+                      text: `"${test.text}" was run successfully`,
+                      variant: 'success',
+                      preventDuplicate: true,
+                    },
+                  })
+                : ReactPanel.currentPanel?.sendToView({
+                    command: 'testResult',
+                    result: { text: `${test.text} failed`, variant: 'error' },
+                  });
+            });
+          }, 2000);
+          break;
+      }
     });
-});
+  }
+);
 
 export default executeTestsCommand;

@@ -13,16 +13,23 @@ import { Button } from '@material-ui/core';
 import { Tutorial } from '../../../schema/tutorial';
 
 interface TutorialProps {
-  tutorial: Tutorial,
-  index: number,
-  selectTutorial(num: number): void
+  tutorial: Tutorial;
+  index: number;
+  selectTutorial(num: number): void;
 }
 
-export const TutorialList = ({ tutorial, index, selectTutorial }: TutorialProps) => {
-
+export const TutorialList = ({
+  tutorial,
+  index,
+  selectTutorial,
+}: TutorialProps) => {
   return (
-    <div className="Box-margin">
-      <Button onClick={() => selectTutorial(index)} variant="contained" color="primary">
+    <div className='Box-margin'>
+      <Button
+        onClick={() => selectTutorial(index)}
+        variant='contained'
+        color='primary'
+      >
         {tutorial.title}
       </Button>
     </div>

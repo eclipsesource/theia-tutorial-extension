@@ -8,29 +8,34 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import StepperComponent from './StepperComponent';
-import {Tutorial} from '../../../schema/tutorial';
+import { Tutorial } from '../../../schema/tutorial';
 import ExercisesOverview from './ExercisesOverview';
 
 interface TutorialOverviewProps {
-    tutorial: Tutorial;
+  tutorial: Tutorial;
 }
 
-const TutorialOverview = ({tutorial}: TutorialOverviewProps) => {
-
-    const [activeStep, setActiveStep] = useState(-1);
-    if (!tutorial || !tutorial.exercises || activeStep >= tutorial.exercises.length) {
-        if (activeStep > 0) {
-            setActiveStep(-1);
-        }
+const TutorialOverview = ({ tutorial }: TutorialOverviewProps) => {
+  const [activeStep, setActiveStep] = useState(-1);
+  if (
+    !tutorial ||
+    !tutorial.exercises ||
+    activeStep >= tutorial.exercises.length
+  ) {
+    if (activeStep > 0) {
+      setActiveStep(-1);
     }
-    return (
-        activeStep < 0 ?
-            <ExercisesOverview tutorial={tutorial} setActiveStep={setActiveStep}></ExercisesOverview>
-            :
-            <StepperComponent tutorial={tutorial} startStep={activeStep} />
-    );
+  }
+  return activeStep < 0 ? (
+    <ExercisesOverview
+      tutorial={tutorial}
+      setActiveStep={setActiveStep}
+    />
+  ) : (
+    <StepperComponent tutorial={tutorial} startStep={activeStep} />
+  );
 };
 
 export default TutorialOverview;
