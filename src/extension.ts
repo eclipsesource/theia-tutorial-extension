@@ -11,13 +11,14 @@
 import * as vscode from 'vscode';
 import ReactPanel from './ReactPanel';
 import {loadConfig} from './Functions/loadConfig';
+import initCommands from './Commands/initCommands';
 
 const fs = require('fs');
 const path = require('path');
 
 export const activate = (context: vscode.ExtensionContext) => {
 	ReactPanel.createOrShow(context.extensionPath);
-
+	initCommands(context);
 	setConfig();
 
 	//watch for changes in tutorial Files

@@ -24,21 +24,23 @@ class ReactPanel {
 	public static currentPanel: ReactPanel | undefined;
 	private static readonly viewType = 'react';
 	private readonly _panel: vscode.WebviewPanel;
-	private readonly _extensionPath: string;
+	private static _extensionPath: string;
 	private _disposables: vscode.Disposable[] = [];
 
-	public static createOrShow(extensionPath: string) {
+	public static createOrShow(extensionPath?: string) {
 		const column = vscode.ViewColumn.Two;
 
 		if (ReactPanel.currentPanel) {
 			ReactPanel.currentPanel._panel.reveal(column);
-		} else {
+		} else if (extensionPath) {
 			ReactPanel.currentPanel = new ReactPanel(extensionPath, column || vscode.ViewColumn.Two);
+		} else {
+			ReactPanel.currentPanel = new ReactPanel(ReactPanel._extensionPath, column || vscode.ViewColumn.Two);
 		}
 	}
 
 	private constructor(extensionPath: string, column: vscode.ViewColumn) {
-		this._extensionPath = extensionPath;
+		ReactPanel._extensionPath = extensionPath;
 		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "Tutorial", column, {
 			enableScripts: true,
 			retainContextWhenHidden: true
@@ -104,13 +106,13 @@ class ReactPanel {
 	}
 
 	private _getHtmlForWebview() {
-		const manifest = require(path.join(this._extensionPath, 'out', 'asset-manifest.json'));
+		const manifest = require(path.join(ReactPanel._extensionPath, 'out', 'asset-manifest.json'));
 		const mainScript = manifest['main.js'];
 		const mainStyle = manifest['main.css'];
 
-		const scriptPathOnDisk = vscode.Uri.file(path.join(this._extensionPath, 'out', mainScript));
+		const scriptPathOnDisk = vscode.Uri.file(path.join(ReactPanel._extensionPath, 'out', mainScript));
 		const scriptUri = scriptPathOnDisk.with({scheme: 'vscode-resource'});
-		const stylePathOnDisk = vscode.Uri.file(path.join(this._extensionPath, 'out', mainStyle));
+		const stylePathOnDisk = vscode.Uri.file(path.join(ReactPanel._extensionPath, 'out', mainStyle));
 		const styleUri = stylePathOnDisk.with({scheme: 'vscode-resource'});
 
 		const nonce = getNonce();
@@ -124,7 +126,7 @@ class ReactPanel {
 				<title>React App</title>
 				<link rel="stylesheet" type="text/css" href="${styleUri}">
 				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src vscode-resource: https:; script-src 'nonce-${nonce}';style-src vscode-resource: 'unsafe-inline' http: https: data:;">
-				<base href="${vscode.Uri.file(path.join(this._extensionPath, 'out')).with({scheme: 'vscode-resource'})}/">
+				<base href="${vscode.Uri.file(path.join(ReactPanel._extensionPath, 'out')).with({scheme: 'vscode-resource'})}/">
 			</head>
 
 			<body>
