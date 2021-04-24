@@ -9,9 +9,10 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
-import initCommands from './initCommands';
 import ReactPanel from './ReactPanel';
-import { loadConfig } from './Commands/LoadConfigCommand';
+
+import {loadConfig} from './Functions/loadConfig';
+import initCommands from './Commands/initCommands';
 
 const fs = require('fs');
 const path = require('path');
@@ -45,4 +46,4 @@ const setConfig = () => {
   });
 };
 
-export const deactivate = () => {};
+export const deactivate = () => { };

@@ -9,36 +9,23 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
-import { FileDiff } from '../../schema/tutorial';
-const fs = require('fs');
+import {FileDiff} from '../../schema/tutorial';
 const path = require('path');
 
-const fileDifferenceCommand: vscode.Disposable = vscode.commands.registerCommand(
-  'theiatutorialextension.fileDiff',
-  async (command: FileDiff) => {
+export const fileDifference = async (command: FileDiff) => {
+
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
     const filepath = path.join(workspaceFolder, command.fileDiff.fileName);
     const solpath = path.join(workspaceFolder, command.fileDiff.solution);
 
     try {
-      const fileUri = vscode.Uri.file(filepath);
-      const solUri = vscode.Uri.file(solpath);
-      await vscode.workspace.fs.stat(fileUri);
-      await vscode.workspace.fs.stat(solUri);
-      vscode.commands.executeCommand(
-        'vscode.diff',
-        fileUri,
-        solUri,
-        'Compare with solution',
-        { viewColumn: vscode.ViewColumn.One }
-      );
+        const fileUri = vscode.Uri.file(filepath);
+        const solUri = vscode.Uri.file(solpath);
+        await vscode.workspace.fs.stat(fileUri);
+        await vscode.workspace.fs.stat(solUri);
+        vscode.commands.executeCommand('vscode.diff', fileUri, solUri, "Compare with solution", {viewColumn: vscode.ViewColumn.One});
     } catch {
-      vscode.window.showInformationMessage(
-        'The given filename was not found in your workspace.'
-      );
+        vscode.window.showInformationMessage("The given filename was not found in your workspace.");
     }
-  }
-);
-
-export default fileDifferenceCommand;
+};

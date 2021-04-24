@@ -17,36 +17,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "theiatutorialextension.displayContent",
+        "command": "theiatutorialextension.displayTutorial",
         "title": "Display Content"
-      },
-      {
-        "command": "theiatutorialextension.executeTests",
-        "title": "Execute Tests"
-      },
-      {
-        "command": "theiatutorialextension.addImports",
-        "title": "Add Imports"
-      },
-      {
-        "command": "theiatutorialextension.executeTerminalCommands",
-        "title": "Execute Terminal Commands"
-      },
-      {
-        "command": "theiatutorialextension.openFile",
-        "title": "Open File"
-      },
-      {
-        "command": "theiatutorialextension.fileDiff",
-        "title": "Compare difference with solution"
-      },
-      {
-        "command": "theiatutorialextension.checkExerciseFiles",
-        "title": "Check Exercise 0 Files"
-      },
-      {
-        "command": "theiatutorialextension.checkProcess",
-        "title": "Check Process"
       }
     ],
     "viewsContainers": {
@@ -71,7 +43,7 @@
     "viewsWelcome": [
       {
         "view": "theiaTutorial",
-        "contents": "Such Emptines, Much Wow... \n[Clone Repo](command:theiatutorialextension.cloneRepo) \n[Execute Tests](command:theiatutorialextension.executeTests)\n[Display Content](command:theiatutorialextension.displayContent)\n[Check Exercise 0 Files](command:theiatutorialextension.checkExerciseFiles)\n[Add Imports](command:theiatutorialextension.addImports)"
+        "contents": "[Display Tutorial](command:theiatutorialextension.displayTutorial)"
       }
     ]
   },
