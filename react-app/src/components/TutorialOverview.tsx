@@ -34,7 +34,7 @@ const TutorialOverview = ({ tutorial }: TutorialOverviewProps) => {
       setActiveStep={setActiveStep}
     />
   ) : (
-    <StepperComponent tutorial={tutorial} startStep={activeStep} />
+    <StepperComponent tutorial={tutorial} startStep={activeStep} backToOverview={setActiveStep} />
   );
 };
 
