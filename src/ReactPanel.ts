@@ -85,7 +85,8 @@ class ReactPanel {
     ids: Array<String>,
     exerciseFolder: String
   ) {
-    commands.forEach(async (command) => {
+    for (let i = 0; i < commands.length; i++) {
+      let command = commands[i];
       switch (Object.keys(command)[0]) {
         case 'checkIfFilesExist':
           let checkFilesCommand = command as CheckIfFilesExist;
@@ -93,29 +94,29 @@ class ReactPanel {
           break;
         case 'automaticImport':
           let automaticImport = command as AutomaticImport;
-          addImports(automaticImport);
+          addImports(automaticImport, ids[commands.indexOf(command)]);
           break;
         case 'openFile':
           let openFileInput = command as OpenFile;
-          await openFile(openFileInput);
+          await openFile(openFileInput, ids[commands.indexOf(command)]);
           break;
         case 'fileDiff':
           let fileDiff = command as FileDiff;
-          await fileDifference(fileDiff);
+          await fileDifference(fileDiff, ids[commands.indexOf(command)]);
           break;
         case 'terminalCommands':
           let terminalCommands = command as TerminalCommands;
           await executeTerminalCommands(terminalCommands, ids[commands.indexOf(command)]);
           break;
         case 'cleanExerciseFolder':
-          cleanExcerciseFolder(exerciseFolder);
+          cleanExcerciseFolder(exerciseFolder, ids[commands.indexOf(command)]);
           break;
         case 'assistance':
           let assistance = command as Assistance;
-          startAssistance(assistance);
+          startAssistance(assistance, ids[commands.indexOf(command)]);
           break;
       }
-    });
+    }
   }
 
   public sendToView(data: any) {

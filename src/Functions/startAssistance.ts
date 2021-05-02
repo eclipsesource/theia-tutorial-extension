@@ -8,12 +8,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import { execShellCommand } from '../utils/commandUtil';
+import {execShellCommand} from '../utils/commandUtil';
 import * as vscode from 'vscode';
-import { Assistance } from '../../schema/tutorial';
+import {Assistance} from '../../schema/tutorial';
+import ReactPanel from '../ReactPanel';
 const fs = require('fs');
 
-export const startAssistance = async (assistance: Assistance) => {
+export const startAssistance = async (assistance: Assistance, id: String) => {
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
   if (
     assistance.assistance.workspace === '' ||
@@ -34,10 +35,10 @@ export const startAssistance = async (assistance: Assistance) => {
   } else {
     await execShellCommand(
       `cd ` +
-        workspaceFolder +
-        '/' +
-        assistance.assistance.workspace +
-        '&& mkdir .tutorial'
+      workspaceFolder +
+      '/' +
+      assistance.assistance.workspace +
+      '&& mkdir .tutorial'
     );
     let path =
       workspaceFolder +
@@ -55,4 +56,5 @@ export const startAssistance = async (assistance: Assistance) => {
       }
     );
   }
+  ReactPanel.currentPanel?.sendToView({id: id, result: true});
 };

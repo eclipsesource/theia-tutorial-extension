@@ -18,19 +18,11 @@ const path = require('path');
 export const checkFiles = (checkIfFilesExist: CheckIfFilesExist, id: String) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
-    const outputChannel = vscode.window.createOutputChannel('checking files');
-    outputChannel.show();
 
     if (checkExerciseFile(workspaceFolder)) {
-        const files = getAllFiles(workspaceFolder + '/', outputChannel);
-        outputChannel.appendLine(`all files`);
-        outputChannel.appendLine(`${files}`);
-
-        outputChannel.appendLine(`fileList from config`);
-        outputChannel.appendLine(`${checkIfFilesExist.checkIfFilesExist}`);
+        const files = getAllFiles(workspaceFolder + '/');
 
         const correctFilesFromConfig = getCorrectFilePathsFromConfig(workspaceFolder + '/', checkIfFilesExist.checkIfFilesExist!);
-        outputChannel.appendLine(`${correctFilesFromConfig}`);
         const isFileListCorrect = compareFileLists(correctFilesFromConfig, files);
 
         if (isFileListCorrect) {
@@ -48,6 +40,7 @@ export const checkFiles = (checkIfFilesExist: CheckIfFilesExist, id: String) => 
         vscode.window.showInformationMessage(`You don't have theia-extension folder. You should execute Init Exercise 0.`);
         ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
     }
+    ReactPanel.currentPanel?.sendToView({id: id, result: false});
 };
 
 const compareFileLists = (correctFileList: string[], fileList: string[]) => {
@@ -63,19 +56,17 @@ const checkExerciseFile = (workspaceFolder: string) => {
     return fs.existsSync(workspaceFolder);
 };
 
-const getAllFiles = (dir: string, outputChannel: vscode.OutputChannel) => (
+const getAllFiles = (dir: string) => (
     fs.readdirSync(dir).reduce((files: string[], file: string) => {
 
-        outputChannel.appendLine(`file ${file}`);
 
         const name = path.join(dir, file);
 
-        outputChannel.appendLine(`name ${name}`);
 
         const isDirectory = fs.statSync(name).isDirectory();
 
         return isDirectory && (file !== 'node_modules' && file !== 'lib') ?
-            [...files, ...getAllFiles(name, outputChannel)] : [...files, name];
+            [...files, ...getAllFiles(name)] : [...files, name];
     }, [])
 );
 

@@ -27,9 +27,13 @@ export const executeTerminalCommands = async (commands: TerminalCommands, id: St
             exec(`cd ` + workspaceFolder + ` && ` + commands.terminalCommands[index++], (error: Error, stdout: string, stderr: string) => {
                 if (error !== null) {
                     outputChannel.appendLine(error.message);
-                    ReactPanel.currentPanel?.sendToView({id: id, result: false});
+                    if (index == commands.terminalCommands.length) {
+                        ReactPanel.currentPanel?.sendToView({id: id, result: false});
+                    }
                 } else {
-                    ReactPanel.currentPanel?.sendToView({id: id, result: true});
+                    if (index == commands.terminalCommands.length) {
+                        ReactPanel.currentPanel?.sendToView({id: id, result: true});
+                    }
                 }
                 outputChannel.appendLine(stdout);
                 next();

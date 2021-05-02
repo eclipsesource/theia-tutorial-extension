@@ -10,22 +10,24 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import {FileDiff} from '../../schema/tutorial';
+import ReactPanel from '../ReactPanel';
 const path = require('path');
 
-export const fileDifference = async (command: FileDiff) => {
+export const fileDifference = async (command: FileDiff, id: String) => {
 
-    const workspaceFolder: string = vscode.workspace.rootPath || '~';
+  const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
-    const filepath = path.join(workspaceFolder, command.fileDiff.fileName);
-    const solpath = path.join(workspaceFolder, command.fileDiff.solution);
+  const filepath = path.join(workspaceFolder, command.fileDiff.fileName);
+  const solpath = path.join(workspaceFolder, command.fileDiff.solution);
 
-    try {
-        const fileUri = vscode.Uri.file(filepath);
-        const solUri = vscode.Uri.file(solpath);
-        await vscode.workspace.fs.stat(fileUri);
-        await vscode.workspace.fs.stat(solUri);
-        vscode.commands.executeCommand('vscode.diff', fileUri, solUri, "Compare with solution", {viewColumn: vscode.ViewColumn.One});
-    } catch {
-        vscode.window.showInformationMessage("The given filename was not found in your workspace.");
-    }
+  try {
+    const fileUri = vscode.Uri.file(filepath);
+    const solUri = vscode.Uri.file(solpath);
+    await vscode.workspace.fs.stat(fileUri);
+    await vscode.workspace.fs.stat(solUri);
+    vscode.commands.executeCommand('vscode.diff', fileUri, solUri, "Compare with solution", {viewColumn: vscode.ViewColumn.One});
+  } catch {
+    vscode.window.showInformationMessage("The given filename was not found in your workspace.");
+  }
+  ReactPanel.currentPanel?.sendToView({id: id, result: true});
 };
