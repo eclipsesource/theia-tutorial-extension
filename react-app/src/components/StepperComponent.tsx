@@ -14,6 +14,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepButton from '@material-ui/core/StepButton';
 import Button from '@material-ui/core/Button';
+import { CircularProgress } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { ExercisePage } from './ExercisePage';
 import {
@@ -35,6 +36,7 @@ import { vsTheme } from '../VsTheme';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
 import MuiDialogContent from '@material-ui/core/DialogContent';
+import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -66,12 +68,12 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 35,
       padding: '5px 0 20px',
       backgroundColor: 'transparent',
-      margin: 'auto'
+      margin: 'auto',
     },
     iconButton: {
       position: 'absolute',
       top: 0,
-      right: 0
+      right: 0,
     },
     textSmall: {
       color: vsTheme.text.color,
@@ -81,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     text: {
       color: vsTheme.text.color,
-    }
+    },
   })
 );
 
@@ -106,6 +108,7 @@ const StepperComponent = (props: StepperComponentProps) => {
   const [isTestModalOpen, setTestModal] = React.useState(false);
   const [isCheckModalOpen, setCheckModal] = React.useState(false);
   const [isBuildWarningOpen, setBuildWarning] = React.useState(false);
+  const [isScreenLocked, setLockScreen] = React.useState(false);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -122,14 +125,19 @@ const StepperComponent = (props: StepperComponentProps) => {
     window.scrollTo(0, 0);
   };
 
-
   const handlesolve = () => {
     if (props.tutorial.exercises !== undefined) {
+      let ids: Array<String> = [];
+      props.tutorial.exercises[activeStep].solve!.forEach(() => {
+        ids.push(uuidv4());
+      });
       VSCodeAPI.postMessage({
         commands: props.tutorial.exercises[activeStep].solve,
-        ids: [],
+
+        ids: ids,
         exerciseFolder: props.tutorial.tutorialFolder,
       });
+      lockScreen(ids[ids.length - 1]);
     }
   };
 
@@ -191,6 +199,39 @@ const StepperComponent = (props: StepperComponentProps) => {
         />
       );
     }
+  };
+
+  const lockScreen = (id: String) => {
+    setLockScreen(true);
+    VSCodeAPI.onMessage((message) => {
+      if (message.data.id === id) {
+        console.log('Recived Message');
+        setLockScreen(false);
+      }
+    });
+  };
+
+  const creatScreenLock = () => {
+    return (
+      <div>
+        <Dialog
+          PaperProps={{
+            style: {
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+              overflow: 'visible',
+            },
+          }}
+          open={true}
+          maxWidth={false}
+        >
+          <CircularProgress 
+            style={{ color: vsTheme.Button.backgroundColor }}
+            size={50}
+          />
+        </Dialog>
+      </div>
+    );
   };
 
   const createBuildWarning = () => {
@@ -255,12 +296,19 @@ const StepperComponent = (props: StepperComponentProps) => {
                     props.tutorial.exercises !== undefined &&
                     props.tutorial.exercises[activeStep] !== undefined
                   ) {
+                    let ids: Array<String> = [];
+                    props.tutorial.exercises[activeStep].buildExercise!.forEach(
+                      () => {
+                        ids.push(uuidv4());
+                      }
+                    );
                     VSCodeAPI.postMessage({
                       commands:
                         props.tutorial.exercises[activeStep].buildExercise,
-                      ids: [],
+                      ids: ids,
                       exerciseFolder: props.tutorial.tutorialFolder,
                     });
+                    lockScreen(ids[ids.length - 1]);
                     setBuildWarning(false);
                   }
                 }}
@@ -289,30 +337,29 @@ const StepperComponent = (props: StepperComponentProps) => {
             <Step key={label}>
               <StepButton
                 onClick={() => handleStep(index)}
-                completed={(activeStep > index)}
+                completed={activeStep > index}
               >
                 <Typography className={classes.textSmall}>{label}</Typography>
               </StepButton>
             </Step>
           ))}
       </Stepper>
-      {(
-        (props.tutorial.exercises !== undefined &&
-          props.tutorial.exercises[activeStep] !== undefined) &&
-        <IconButton
-          ref={anchorRef}
-          aria-controls={isDropdownActive ? 'menu-list-grow' : undefined}
-          aria-haspopup='true'
-          onClick={handleToggle}
-          className={classes.iconButton}
-        >
-          <SettingsIcon
-            style={{
-              color: vsTheme.text.color,
-            }}
-          />
-        </IconButton>
-      )}
+      {props.tutorial.exercises !== undefined &&
+        props.tutorial.exercises[activeStep] !== undefined && (
+          <IconButton
+            ref={anchorRef}
+            aria-controls={isDropdownActive ? 'menu-list-grow' : undefined}
+            aria-haspopup='true'
+            onClick={handleToggle}
+            className={classes.iconButton}
+          >
+            <SettingsIcon
+              style={{
+                color: vsTheme.text.color,
+              }}
+            />
+          </IconButton>
+        )}
       <Popper
         style={{
           backgroundColor: vsTheme.dropDown.background,
@@ -354,7 +401,8 @@ const StepperComponent = (props: StepperComponentProps) => {
                   </MenuItem>
                   {props.tutorial.exercises !== undefined &&
                     props.tutorial.exercises[activeStep] !== undefined &&
-                    props.tutorial.exercises[activeStep].buildExercise !== undefined && (
+                    props.tutorial.exercises[activeStep].buildExercise !==
+                      undefined && (
                       <MenuItem
                         style={{
                           backgroundColor: vsTheme.dropDown.background,
@@ -369,7 +417,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                     )}
                   {props.tutorial.exercises !== undefined &&
                     props.tutorial.exercises[activeStep].checkStartState !==
-                    undefined && (
+                      undefined && (
                       <MenuItem
                         style={{
                           backgroundColor: vsTheme.dropDown.background,
@@ -418,7 +466,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                 className={classes.button}
               >
                 Test
-                  </Button>
+              </Button>
               <Button
                 variant='contained'
                 disabled={
@@ -429,7 +477,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                 className={classes.button}
               >
                 Solve
-                  </Button>
+              </Button>
             </div>
             <div>
               <Button
@@ -439,16 +487,16 @@ const StepperComponent = (props: StepperComponentProps) => {
                 className={classes.button}
               >
                 Back
-                  </Button>
-              {steps !== undefined && activeStep !== steps.length - 1 &&
+              </Button>
+              {steps !== undefined && activeStep !== steps.length - 1 && (
                 <Button
                   variant='contained'
                   className={classes.button}
                   onClick={handleNext}
                 >
                   Next
-                    </Button>
-              }
+                </Button>
+              )}
             </div>
           </Grid>
         </div>
@@ -456,6 +504,7 @@ const StepperComponent = (props: StepperComponentProps) => {
       <div>{isTestModalOpen && createTestfeedback()}</div>
       <div>{isCheckModalOpen && createCheckStarStatefeedback()}</div>
       <div>{isBuildWarningOpen && createBuildWarning()}</div>
+      <div>{isScreenLocked && creatScreenLock()}</div>
     </div>
   );
 };

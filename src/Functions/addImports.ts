@@ -10,22 +10,24 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import {AutomaticImport} from '../../schema/tutorial';
+import ReactPanel from '../ReactPanel';
 const fs = require('fs');
 const path = require('path');
 
-export const addImports = (autoImportData: AutomaticImport) => {
+export const addImports = (autoImportData: AutomaticImport, id: String) => {
 
-    const workspaceFolder: string = vscode.workspace.rootPath || '~';
+  const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
-    const filepath = path.join(workspaceFolder, autoImportData.automaticImport.path);
+  const filepath = path.join(workspaceFolder, autoImportData.automaticImport.path);
 
-    let content = fs.readFileSync(filepath);
+  let content = fs.readFileSync(filepath);
 
-    autoImportData.automaticImport.imports.forEach((element) => {
-        if (!content.includes(element)) {
-            content = element + "\n" + content;
-        }
-    });
+  autoImportData.automaticImport.imports.forEach((element) => {
+    if (!content.includes(element)) {
+      content = element + "\n" + content;
+    }
+  });
 
-    fs.writeFileSync(filepath, content);
+  fs.writeFileSync(filepath, content);
+  ReactPanel.currentPanel?.sendToView({id: id, result: true});
 };

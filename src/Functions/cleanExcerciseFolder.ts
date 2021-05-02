@@ -9,9 +9,10 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
+import ReactPanel from '../ReactPanel';
 var cmd = require('node-cmd');
 
-export const cleanExcerciseFolder = (exerciseFolder: String): void => {
+export const cleanExcerciseFolder = (exerciseFolder: String, id: String): void => {
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
   let today = new Date();
   let currentTimeStamp: string =
@@ -39,4 +40,5 @@ export const cleanExcerciseFolder = (exerciseFolder: String): void => {
     '/.tutorial/tmp/' +
     currentTimeStamp;
   cmd.runSync(moveCommand);
+  ReactPanel.currentPanel?.sendToView({id: id, result: true});
 };

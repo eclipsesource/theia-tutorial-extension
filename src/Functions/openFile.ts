@@ -10,18 +10,20 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import {OpenFile} from '../../schema/tutorial';
+import ReactPanel from '../ReactPanel';
 const path = require('path');
 
-export const openFile = async (openFIleCommand: OpenFile) => {
+export const openFile = async (openFIleCommand: OpenFile, id: String) => {
 
-    const workspaceFolder: string = vscode.workspace.rootPath || '~';
-    const filepath = path.join(workspaceFolder, openFIleCommand.openFile);
+  const workspaceFolder: string = vscode.workspace.rootPath || '~';
+  const filepath = path.join(workspaceFolder, openFIleCommand.openFile);
 
-    try {
-        const uri = vscode.Uri.file(filepath);
-        await vscode.workspace.fs.stat(uri);
-        vscode.commands.executeCommand('vscode.open', uri, {viewColumn: vscode.ViewColumn.One});
-    } catch {
-        vscode.window.showInformationMessage("The given filename was not found in your workspace.");
-    }
+  try {
+    const uri = vscode.Uri.file(filepath);
+    await vscode.workspace.fs.stat(uri);
+    vscode.commands.executeCommand('vscode.open', uri, {viewColumn: vscode.ViewColumn.One});
+  } catch {
+    vscode.window.showInformationMessage("The given filename was not found in your workspace.");
+  }
+  ReactPanel.currentPanel?.sendToView({id: id, result: true});
 };
