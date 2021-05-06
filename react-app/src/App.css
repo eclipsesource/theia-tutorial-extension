@@ -4,8 +4,7 @@
   color: var(--vscode-editor-foreground);
 }
 
-.App-header {
-  background-color: var(--vscode-dropdown-background);
+.App-header { 
   padding: 20px;
   color: var(--vscode-editor-foreground);
   margin-bottom: 15px;

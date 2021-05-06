@@ -10,23 +10,12 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import ReactPanel from '../ReactPanel';
+import {DateUtils} from '../utils/dateUtils';
 var cmd = require('node-cmd');
 
 export const cleanExcerciseFolder = (exerciseFolder: String, id: String): void => {
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
-  let today = new Date();
-  let currentTimeStamp: string =
-    today.getFullYear() +
-    '_' +
-    (today.getMonth() + 1) +
-    '_' +
-    today.getDate() +
-    '_' +
-    today.getHours() +
-    '_' +
-    today.getMinutes() +
-    '_' +
-    today.getSeconds();
+  let currentTimeStamp: string = DateUtils.currentTimestamp();
   cmd.runSync(
     'mkdir -p ' + workspaceFolder + '/.tutorial/tmp/' + currentTimeStamp
   );

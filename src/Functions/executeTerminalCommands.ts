@@ -8,6 +8,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
+import {Console} from 'console';
 import * as vscode from 'vscode';
 import {TerminalCommands} from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';

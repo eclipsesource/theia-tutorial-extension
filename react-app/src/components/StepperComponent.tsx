@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepButton from '@material-ui/core/StepButton';
@@ -86,6 +86,21 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiStepIcon: {
+      root: {
+        '&$completed': {
+          color: vsTheme.Button.backgroundColor,
+        },
+        '&$active': {
+          color: vsTheme.Button.backgroundColor,
+        },
+      }
+    }
+  }
+});
 
 const getSteps = (tutorialExercises: Exercise[] | undefined) => {
   return (
@@ -326,40 +341,45 @@ const StepperComponent = (props: StepperComponentProps) => {
 
   return (
     <div className={classes.root}>
-      <Stepper
-        activeStep={activeStep}
-        alternativeLabel={true}
-        nonLinear={true}
-        className={classes.stepper}
-      >
-        {steps &&
-          steps.map((label, index) => (
-            <Step key={label}>
-              <StepButton
-                onClick={() => handleStep(index)}
-                completed={activeStep > index}
-              >
-                <Typography className={classes.textSmall}>{label}</Typography>
-              </StepButton>
-            </Step>
-          ))}
-      </Stepper>
-      {props.tutorial.exercises !== undefined &&
-        props.tutorial.exercises[activeStep] !== undefined && (
-          <IconButton
-            ref={anchorRef}
-            aria-controls={isDropdownActive ? 'menu-list-grow' : undefined}
-            aria-haspopup='true'
-            onClick={handleToggle}
-            className={classes.iconButton}
-          >
-            <SettingsIcon
-              style={{
-                color: vsTheme.text.color,
-              }}
-            />
-          </IconButton>
-        )}
+      <MuiThemeProvider theme={theme}>
+        <Stepper
+          activeStep={activeStep}
+          alternativeLabel={true}
+          nonLinear={true}
+          className={classes.stepper}
+        >
+          {steps &&
+            steps.map((label, index) => (
+              <Step key={label}>
+                <StepButton
+                  onClick={() => handleStep(index)}
+                  completed={(activeStep > index)}
+                >
+                  <Typography className={classes.textSmall}>{label}</Typography>
+                </StepButton>
+              </Step>
+            ))}
+        </Stepper>
+      </MuiThemeProvider>
+
+      {(
+        (props.tutorial.exercises !== undefined &&
+          props.tutorial.exercises[activeStep] !== undefined) &&
+        <IconButton
+          ref={anchorRef}
+          aria-controls={isDropdownActive ? 'menu-list-grow' : undefined}
+          aria-haspopup='true'
+          onClick={handleToggle}
+          className={classes.iconButton}
+          data-testid='menu-btn'
+        >
+          <SettingsIcon
+            style={{
+              color: vsTheme.text.color,
+            }}
+          />
+        </IconButton>
+      )}
       <Popper
         style={{
           backgroundColor: vsTheme.dropDown.background,
@@ -437,15 +457,13 @@ const StepperComponent = (props: StepperComponentProps) => {
           </Grow>
         )}
       </Popper>
-      <div style={{ marginBottom: 20 }}>
-        <Typography className={classes.instructions}>
-          {props.tutorial.exercises !== undefined && (
-            <ExercisePage
-              exercise={props.tutorial.exercises[activeStep]}
-              exerciseFolder={props.tutorial.tutorialFolder}
-            />
-          )}
-        </Typography>
+      <div style={{ marginBottom: 20 }} className={classes.instructions}>
+        {props.tutorial.exercises !== undefined && (
+          <ExercisePage
+            exercise={props.tutorial.exercises[activeStep]}
+            exerciseFolder={props.tutorial.tutorialFolder}
+          />
+        )}
         <div>
           <Grid
             container={true}

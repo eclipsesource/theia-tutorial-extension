@@ -31,6 +31,7 @@ export const Command = (props: CommandProps) => {
         }}
         variant='contained'
         className='Button'
+        data-testid='button'
       >
         {props.button.button.text}
       </Button>
