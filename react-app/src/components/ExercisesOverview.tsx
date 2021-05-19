@@ -12,11 +12,27 @@ import React from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import { Grid, IconButton, StepContent } from '@material-ui/core';
+import { Grid, IconButton, StepButton, StepContent } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { Tutorial } from '../../../schema/tutorial';
 import { vsTheme } from '../VsTheme';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiStepIcon: {
+      root: {
+        '&$completed': {
+          color: vsTheme.Button.backgroundColor,
+        },
+        '&$active': {
+          color: vsTheme.Button.backgroundColor,
+        },
+      }
+    }
+  }
+});
 
 interface ExercisesOverviewProps {
   tutorial: Tutorial;
@@ -29,46 +45,48 @@ const ExercisesOverview = ({
 }: ExercisesOverviewProps) => {
   return (
     <div className='root'>
-      <Stepper
-        orientation='vertical'
-        style={{ backgroundColor: 'transparent' }}
-      >
-        {tutorial &&
-          tutorial.exercises &&
-          tutorial.exercises.map((ex) => (
-            <Step key={ex.title} active={true}>
-              <StepLabel>
-                <Typography className='text'>{ex.title}</Typography>
-              </StepLabel>
-              <StepContent>
-                <p className='text'>{ex.description}</p>
-                <Grid
-                  container={true}
-                  direction='row'
-                  justify='flex-end'
-                  alignItems='center'
-                >
-                  <IconButton
-                    size='small'
-                    onClick={() => {
-                      if (tutorial.exercises) {
-                        setActiveStep(tutorial.exercises.indexOf(ex));
-                      }
-                    }}
+      <MuiThemeProvider theme={theme}>
+        <Stepper
+          orientation='vertical'
+          style={{ backgroundColor: 'transparent' }}
+        >
+          {tutorial &&
+            tutorial.exercises &&
+            tutorial.exercises.map((ex) => (
+              <Step key={ex.title} active={true} data-testid="ov-step">
+                <StepLabel>
+                  <Typography className='text'>{ex.title}</Typography>
+                </StepLabel>
+                <StepContent>
+                  <p className='text'>{ex.description}</p>
+                  <Grid
+                    container={true}
+                    direction='row'
+                    justify='flex-end'
+                    alignItems='center'
                   >
-                    <ArrowForwardIosIcon
-                      fontSize='small'
-                      style={{
-                        fill: vsTheme.Button.color,
-                        backgroundColor: vsTheme.Button.backgroundColor,
+                    <IconButton
+                      size='small'
+                      onClick={() => {
+                        if (tutorial.exercises) {
+                          setActiveStep(tutorial.exercises.indexOf(ex));
+                        }
                       }}
-                    />
-                  </IconButton>
-                </Grid>
-              </StepContent>
-            </Step>
-          ))}
-      </Stepper>
+                    >
+                      <ArrowForwardIosIcon
+                        fontSize='small'
+                        style={{
+                          fill: vsTheme.Button.color,
+                          backgroundColor: vsTheme.Button.backgroundColor,
+                        }}
+                      />
+                    </IconButton>
+                  </Grid>
+                </StepContent>
+              </Step>
+            ))}
+        </Stepper>
+      </MuiThemeProvider>
     </div>
   );
 };

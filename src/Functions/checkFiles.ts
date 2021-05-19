@@ -38,7 +38,7 @@ export const checkFiles = (checkIfFilesExist: CheckIfFilesExist, id: String) => 
     }
     else {
         vscode.window.showInformationMessage(`You don't have theia-extension folder. You should execute Init Exercise 0.`);
-        ReactPanel.currentPanel?.sendToView({command: 'checkFilesResult', result: false});
+        ReactPanel.currentPanel?.sendToView({id: id, result: false});
     }
     ReactPanel.currentPanel?.sendToView({id: id, result: false});
 };

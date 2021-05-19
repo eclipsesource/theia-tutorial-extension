@@ -35,18 +35,18 @@ export const ExercisePage = (props: ExerciseProps) => {
 };
 
 const createContent = (content: Instruction[], exerciseFolder: string) => {
-  return content.map((instruction: Instruction) => {
+  return content.map((instruction: Instruction, index) => {
     switch (Object.keys(instruction)[0]) {
       case 'html':
         const html = instruction as Html;
-        return <div>{ReactHtmlParser(html.html)}</div>;
+        return <div key={index}>{ReactHtmlParser(html.html)}</div>;
       case 'image':
         const img = instruction as Image;
-        return <img src={img.image.src} width={img.image.width} />;
+        return <img key={index} src={img.image.src} width={img.image.width} />;
       case 'hint':
         const hint = instruction as Hint;
         return (
-          <HintComponent
+          <HintComponent key={index}
             hint={hint}
             exerciseFolder={exerciseFolder}
           />
@@ -54,7 +54,7 @@ const createContent = (content: Instruction[], exerciseFolder: string) => {
       case 'button':
         const button = instruction as CommandButton;
         return (
-          <Command button={button} exerciseFolder={exerciseFolder} />
+          <Command key={index} button={button} exerciseFolder={exerciseFolder} />
         );
     }
   });
