@@ -8,53 +8,36 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import {execShellCommand} from '../utils/commandUtil';
+
 import * as vscode from 'vscode';
 import {Assistance} from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
 const fs = require('fs');
+const path = require('path');
 
 export const startAssistance = async (assistance: Assistance, id: String) => {
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
+  const tutorialFolder = path.normalize(path.join(workspaceFolder, ".tutorial"));
+  fs.mkdirSync(tutorialFolder);
+  let assistancePath
   if (
     assistance.assistance.workspace === '' ||
     assistance.assistance.workspace === undefined
   ) {
-    await execShellCommand(`cd ` + workspaceFolder + '&& mkdir .tutorial');
-    let path = workspaceFolder + '/.tutorial/assistance.json';
-    fs.writeFile(
-      path,
-      JSON.stringify(assistance.assistance.elements),
-      (err: any) => {
-        if (err) {
-          console.log(err);
-          return vscode.window.showErrorMessage('Failed' + path);
-        }
-      }
-    );
+    assistancePath = path.normalize(path.join(workspaceFolder, '.tutorial/assistance.json'));
+
   } else {
-    await execShellCommand(
-      `cd ` +
-      workspaceFolder +
-      '/' +
-      assistance.assistance.workspace +
-      '&& mkdir .tutorial'
-    );
-    let path =
-      workspaceFolder +
-      '/' +
-      assistance.assistance.workspace +
-      '/.tutorial/assistance.json';
-    fs.writeFile(
-      path,
-      JSON.stringify(assistance.assistance.elements),
-      (err: any) => {
-        if (err) {
-          console.log(err);
-          return vscode.window.showErrorMessage('Failed' + path);
-        }
-      }
-    );
+    assistancePath = path.normalize(path.join(workspaceFolder, assistance.assistance.workspace, '.tutorial/assistance.json'));
   }
+  fs.writeFile(
+    assistancePath,
+    JSON.stringify(assistance.assistance.elements),
+    (err: any) => {
+      if (err) {
+        console.log(err);
+        return vscode.window.showErrorMessage('Failed' + path);
+      }
+    }
+  );
   ReactPanel.currentPanel?.sendToView({id: id, result: true});
 };

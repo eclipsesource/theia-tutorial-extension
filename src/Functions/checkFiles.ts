@@ -20,9 +20,11 @@ export const checkFiles = (checkIfFilesExist: CheckIfFilesExist, id: String) => 
 
 
     if (checkExerciseFile(workspaceFolder)) {
-        const files = getAllFiles(workspaceFolder + '/');
+        let files = getAllFiles(workspaceFolder);
 
-        const correctFilesFromConfig = getCorrectFilePathsFromConfig(workspaceFolder + '/', checkIfFilesExist.checkIfFilesExist!);
+        files = files.map((filePath: string) => path.normalize(filePath));
+
+        const correctFilesFromConfig = getCorrectFilePathsFromConfig(workspaceFolder, checkIfFilesExist.checkIfFilesExist!);
         const isFileListCorrect = compareFileLists(correctFilesFromConfig, files);
 
         if (isFileListCorrect) {
@@ -40,7 +42,6 @@ export const checkFiles = (checkIfFilesExist: CheckIfFilesExist, id: String) => 
         vscode.window.showInformationMessage(`You don't have theia-extension folder. You should execute Init Exercise 0.`);
         ReactPanel.currentPanel?.sendToView({id: id, result: false});
     }
-    ReactPanel.currentPanel?.sendToView({id: id, result: false});
 };
 
 const compareFileLists = (correctFileList: string[], fileList: string[]) => {
@@ -71,5 +72,5 @@ const getAllFiles = (dir: string) => (
 );
 
 const getCorrectFilePathsFromConfig = (exerciseFilePath: string, fileList: string[]) => {
-    return fileList.map((name) => (exerciseFilePath + name));
+    return fileList.map((name) => (path.normalize(path.join(exerciseFilePath, name))));
 };
