@@ -11,23 +11,24 @@
 import * as vscode from 'vscode';
 import ReactPanel from '../ReactPanel';
 import {DateUtils} from '../utils/dateUtils';
-var cmd = require('node-cmd');
+const fse = require('fs-extra');
+const path = require('path');
+const fs = require('fs');
 
 export const cleanExcerciseFolder = (exerciseFolder: String, id: String): void => {
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
   let currentTimeStamp: string = DateUtils.currentTimestamp();
-  cmd.runSync(
-    'mkdir -p ' + workspaceFolder + '/.tutorial/tmp/' + currentTimeStamp
-  );
-  let moveCommand =
-    'mv ' +
-    workspaceFolder +
-    '/' +
-    exerciseFolder +
-    ' ' +
-    workspaceFolder +
-    '/.tutorial/tmp/' +
-    currentTimeStamp;
-  cmd.runSync(moveCommand);
+
+  let srcDir = path.normalize(path.join(workspaceFolder, exerciseFolder));
+  let destDir = path.normalize(path.join(workspaceFolder, ".tutorial/tmp/", exerciseFolder, currentTimeStamp));
+
+  try {
+    fse.copySync(srcDir, destDir);
+  } catch (err) {
+    console.error(err);
+  }
+  fs.rmdirSync(srcDir, {recursive: true});
+  fs.mkdirSync(srcDir);
+
   ReactPanel.currentPanel?.sendToView({id: id, result: true});
 };
