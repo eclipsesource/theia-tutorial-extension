@@ -59,7 +59,7 @@ export default function App() {
           <header className='App-header'>
             <h1 className='App-title'>EduCode</h1>
           </header>
-          <h3>Let's get EduCoded</h3>
+          <h3>Let's do a tutorial!</h3>
           <p>
             Current Tutorials in the workspace:
             {createTutorialList()}

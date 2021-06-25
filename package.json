@@ -1,7 +1,7 @@
 {
-  "name": "educode",
-  "displayName": "EduCode",
-  "description": "EduCode is a VSCode-Extension to display tutorial content in a webview inside theia or VSCode",
+  "name": "tutorialmaker",
+  "displayName": "Tutorial Maker",
+  "description": "Tutorial Maker is a VSCode-Extension to display and create developer tutorials",
   "publisher": "EclipseSource",
   "version": "0.0.1",
   "engines": {
@@ -18,7 +18,7 @@
     "commands": [
       {
         "command": "theiatutorialextension.displayTutorial",
-        "title": "Educode: Show Tutorial"
+        "title": "Tutorial Maker: Show Tutorial"
       }
     ],
     "viewsContainers": {
