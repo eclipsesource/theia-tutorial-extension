@@ -9,3 +9,8 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
+helpers/**
+schema/**
+test/**
+react-app/**
+CHANGELOG.md
