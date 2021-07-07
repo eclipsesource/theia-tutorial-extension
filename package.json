@@ -49,6 +49,7 @@
     ]
   },
   "scripts": {
+    "install": "cd ./react-app && yarn",
     "vscode:prepublish": "npm run compile",
     "compile": "cd ./react-app && yarn build && cd .. && tsc -p ./ && recursive-copy --overwrite react-app/build out",
     "watch": "tsc -watch -p ./",
