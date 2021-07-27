@@ -64,9 +64,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(1),
     },
     stepper: {
-      width: 'calc(100% - 200px)',
-      height: 35,
-      padding: '5px 0 20px',
+      width: 'calc(100% - 150px)',
+      paddingBottom: '0',
       backgroundColor: 'transparent',
       margin: 'auto',
     },
@@ -79,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: vsTheme.text.color,
       textAlign: 'center',
       marginTop: '5',
-      fontSize: 'x-small',
+      fontSize: 'small',
     },
     text: {
       color: vsTheme.text.color,
@@ -240,7 +239,7 @@ const StepperComponent = (props: StepperComponentProps) => {
           open={true}
           maxWidth={false}
         >
-          <CircularProgress 
+          <CircularProgress
             style={{ color: vsTheme.Button.backgroundColor }}
             size={50}
           />
@@ -422,7 +421,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                   {props.tutorial.exercises !== undefined &&
                     props.tutorial.exercises[activeStep] !== undefined &&
                     props.tutorial.exercises[activeStep].buildExercise !==
-                      undefined && (
+                    undefined && (
                       <MenuItem
                         style={{
                           backgroundColor: vsTheme.dropDown.background,
@@ -437,7 +436,7 @@ const StepperComponent = (props: StepperComponentProps) => {
                     )}
                   {props.tutorial.exercises !== undefined &&
                     props.tutorial.exercises[activeStep].checkStartState !==
-                      undefined && (
+                    undefined && (
                       <MenuItem
                         style={{
                           backgroundColor: vsTheme.dropDown.background,
