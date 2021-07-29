@@ -55,7 +55,7 @@ const ExercisesOverview = ({
             tutorial.exercises.map((ex) => (
               <Step key={ex.title} active={true} data-testid="ov-step">
                 <StepLabel>
-                  <Typography className='text'>{ex.title}</Typography>
+                  <Typography className='text' variant='h5'>{ex.title}</Typography>
                 </StepLabel>
                 <StepContent>
                   <p className='text'>{ex.description}</p>

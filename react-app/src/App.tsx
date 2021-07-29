@@ -57,7 +57,7 @@ export default function App() {
         selectedTutorial >= tutorials.length ? (
         <>
           <header className='App-header'>
-            <h1 className='App-title'>EduCode</h1>
+            <h1 className='App-title'>Tutorial Maker</h1>
           </header>
           <h3>Let's do a tutorial!</h3>
           <p>

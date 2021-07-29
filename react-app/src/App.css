@@ -1,10 +1,14 @@
+body {
+  font-size: 18px;
+}
+
 .App {
   text-align: center;
   background-color: var(--vscode-editor-background);
   color: var(--vscode-editor-foreground);
 }
 
-.App-header { 
+.App-header {
   padding: 20px;
   color: var(--vscode-editor-foreground);
   margin-bottom: 15px;
