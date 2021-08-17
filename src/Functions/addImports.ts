@@ -11,16 +11,16 @@
 import * as vscode from 'vscode';
 import {AutomaticImport} from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
 
-export const addImports = (autoImportData: AutomaticImport, id: String) => {
+export const addImports = (autoImportData: AutomaticImport, id: string): void => {
 
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
   const filepath = path.join(workspaceFolder, autoImportData.automaticImport.path);
 
-  let content = fs.readFileSync(filepath);
+  let content: Buffer|string = fs.readFileSync(filepath);
 
   autoImportData.automaticImport.imports.forEach((element) => {
     if (!content.includes(element)) {

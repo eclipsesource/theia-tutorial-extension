@@ -12,12 +12,14 @@ import React, { useState } from 'react';
 import StepperComponent from './StepperComponent';
 import { Tutorial } from '../../../schema/tutorial';
 import ExercisesOverview from './ExercisesOverview';
+import Button from '@material-ui/core/Button';
 
 interface TutorialOverviewProps {
   tutorial: Tutorial;
+  goBack: () => void;
 }
 
-const TutorialOverview = ({ tutorial }: TutorialOverviewProps) => {
+const TutorialOverview = ({ tutorial, goBack }: TutorialOverviewProps) => {
   const [activeStep, setActiveStep] = useState(-1);
   if (
     !tutorial ||
@@ -28,13 +30,27 @@ const TutorialOverview = ({ tutorial }: TutorialOverviewProps) => {
       setActiveStep(-1);
     }
   }
-  return activeStep < 0 ? (
-    <ExercisesOverview
-      tutorial={tutorial}
-      setActiveStep={setActiveStep}
-    />
-  ) : (
-    <StepperComponent tutorial={tutorial} startStep={activeStep} backToOverview={setActiveStep} />
+  return (
+    <div>
+      <h2>{tutorial.title}</h2>
+      {activeStep < 0 ? (
+        <div>
+          <ExercisesOverview
+            tutorial={tutorial}
+            setActiveStep={setActiveStep}
+          />
+          <Button onClick={goBack} variant='contained' color='primary'>
+            To Overview
+          </Button>
+        </div>
+      ) : (
+        <StepperComponent
+          tutorial={tutorial}
+          startStep={activeStep}
+          backToOverview={setActiveStep}
+        />
+      )}
+    </div>
   );
 };
 

@@ -11,13 +11,10 @@
 import * as vscode from 'vscode';
 import ReactPanel from './ReactPanel';
 
-import {loadConfig} from './Functions/loadConfig';
+import { loadConfig } from './Functions/loadConfig';
 import initCommands from './Commands/initCommands';
 
-const fs = require('fs');
-const path = require('path');
-
-export const activate = (context: vscode.ExtensionContext) => {
+export const activate = (context: vscode.ExtensionContext): void => {
   ReactPanel.createOrShow(context.extensionPath);
 
   initCommands(context);
@@ -25,7 +22,7 @@ export const activate = (context: vscode.ExtensionContext) => {
   setConfig();
 
   //watch for changes in tutorial Files
-  let watcher = vscode.workspace.createFileSystemWatcher('**/*.tut.json');
+  const watcher = vscode.workspace.createFileSystemWatcher('**/*.tut.json');
   watcher.onDidChange(() => {
     setConfig();
   });
@@ -46,4 +43,4 @@ const setConfig = () => {
   });
 };
 
-export const deactivate = () => { };
+export const deactivate = (): void => { /* do nothing */ };

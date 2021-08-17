@@ -9,12 +9,12 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
+import createTutorialCommand from './CreateTutorialCommand';
 import displayTutorialCommand from './DisplayTutorialCommand';
 
-const initCommands = (context: vscode.ExtensionContext) => {
-    const commands = [
-        displayTutorialCommand
-    ];
+const initCommands = (context: vscode.ExtensionContext): void => {
+    context.subscriptions.push(displayTutorialCommand);
+    context.subscriptions.push(createTutorialCommand);
 };
 
 export default initCommands;

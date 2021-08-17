@@ -5,14 +5,14 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Command =
-  | CheckIfFilesExist
-  | TerminalCommands
-  | OpenFile
-  | AutomaticImport
-  | FileDiff
-  | CleanExerciseFolder
-  | Assistance;
+export type Test = {
+  fileName?: string;
+  solution?: string;
+  tests: {
+    testName: string;
+    command: CheckIfFilesExist | TerminalCommands;
+  }[];
+}[];
 export type Instruction = Html | Image | Hint | CommandButton;
 
 export interface Tutorial {
@@ -24,27 +24,11 @@ export interface Tutorial {
 export interface Exercise {
   title: string;
   description: string;
-  checkStartState?: {
-    fileName?: string;
-    solution?: string;
-    tests: {
-      testName: string;
-      command: Command;
-      [k: string]: unknown;
-    }[];
-  }[];
-  buildExercise?: Command[];
-  cleanState?: Command[];
-  test?: {
-    fileName?: string;
-    solution?: string;
-    tests: {
-      testName: string;
-      command: Command;
-      [k: string]: unknown;
-    }[];
-  }[];
-  solve?: Command[];
+  checkStartState?: Test;
+  buildExercise?: TerminalCommands[];
+  cleanState?: (TerminalCommands | CleanExerciseFolder)[];
+  test?: Test;
+  solve?: TerminalCommands[];
   content?: Instruction[];
 }
 export interface CheckIfFilesExist {
@@ -52,6 +36,31 @@ export interface CheckIfFilesExist {
 }
 export interface TerminalCommands {
   terminalCommands: string[];
+}
+export interface CleanExerciseFolder {
+  cleanExerciseFolder: boolean;
+}
+export interface Html {
+  html: string;
+}
+export interface Image {
+  image: {
+    src: string;
+    description?: string;
+    width?: "10%" | "20%" | "30%" | "40%" | "50%" | "60%" | "70%" | "80%" | "90%" | "100%";
+  };
+}
+export interface Hint {
+  hint: {
+    text?: string;
+    content?: (Html | Image | CommandButton)[];
+  };
+}
+export interface CommandButton {
+  button: {
+    text?: string;
+    commands?: (OpenFile | AutomaticImport | FileDiff | Assistance)[];
+  };
 }
 export interface OpenFile {
   openFile: string;
@@ -67,16 +76,11 @@ export interface AutomaticImport {
 }
 export interface FileDiff {
   fileDiff: {
-    fileName?: string;
-    solution?: string;
+    fileName: string;
+    solution: string;
     [k: string]: unknown;
   };
   [k: string]: unknown;
-}
-export interface CleanExerciseFolder {
-  cleanExerciseFolder: {
-    [k: string]: unknown;
-  };
 }
 export interface Assistance {
   assistance: {
@@ -85,26 +89,4 @@ export interface Assistance {
     [k: string]: unknown;
   };
   [k: string]: unknown;
-}
-export interface Html {
-  html: string;
-}
-export interface Image {
-  image: {
-    src: string;
-    description?: string;
-    width?: string;
-  };
-}
-export interface Hint {
-  hint: {
-    text?: string;
-    content?: Instruction[];
-  };
-}
-export interface CommandButton {
-  button: {
-    text?: string;
-    commands?: Command[];
-  };
 }

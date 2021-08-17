@@ -10,16 +10,16 @@
  ********************************************************************************/
 
 import * as vscode from 'vscode';
-import {Assistance} from '../../schema/tutorial';
+import { Assistance } from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
 
-export const startAssistance = async (assistance: Assistance, id: String) => {
+export const startAssistance = async (assistance: Assistance, id: string): Promise<void> => {
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
   const tutorialFolder = path.normalize(path.join(workspaceFolder, ".tutorial"));
   fs.mkdirSync(tutorialFolder);
-  let assistancePath
+  let assistancePath;
   if (
     assistance.assistance.workspace === '' ||
     assistance.assistance.workspace === undefined
@@ -32,12 +32,12 @@ export const startAssistance = async (assistance: Assistance, id: String) => {
   fs.writeFile(
     assistancePath,
     JSON.stringify(assistance.assistance.elements),
-    (err: any) => {
+    (err) => {
       if (err) {
         console.log(err);
         return vscode.window.showErrorMessage('Failed' + path);
       }
     }
   );
-  ReactPanel.currentPanel?.sendToView({id: id, result: true});
+  ReactPanel.currentPanel?.sendToView({ id: id, result: true });
 };

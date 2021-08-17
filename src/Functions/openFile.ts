@@ -9,11 +9,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
-import {OpenFile} from '../../schema/tutorial';
+import { OpenFile } from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
-const path = require('path');
+import * as path from 'path';
 
-export const openFile = async (openFileCommand: OpenFile, id: String) => {
+export const openFile = async (openFileCommand: OpenFile, id: string): Promise<void> => {
 
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
   const filepath = path.join(workspaceFolder, openFileCommand.openFile);
@@ -21,9 +21,9 @@ export const openFile = async (openFileCommand: OpenFile, id: String) => {
   try {
     const uri = vscode.Uri.file(filepath);
     await vscode.workspace.fs.stat(uri);
-    vscode.commands.executeCommand('vscode.open', uri, {viewColumn: vscode.ViewColumn.One});
+    vscode.commands.executeCommand('vscode.open', uri, { viewColumn: vscode.ViewColumn.One });
   } catch {
     vscode.window.showInformationMessage("The given filename was not found in your workspace.");
   }
-  ReactPanel.currentPanel?.sendToView({id: id, result: true});
+  ReactPanel.currentPanel?.sendToView({ id: id, result: true });
 };

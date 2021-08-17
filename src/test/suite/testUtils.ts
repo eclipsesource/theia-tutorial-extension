@@ -1,7 +1,7 @@
-import {spy} from "ts-mockito";
+import { spy } from "ts-mockito";
 import ReactPanel from "../../ReactPanel";
 
-export function sleep(ms: number) {
+export function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 

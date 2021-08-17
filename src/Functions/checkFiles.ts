@@ -10,12 +10,12 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import ReactPanel from '../ReactPanel';
-import {CheckIfFilesExist} from '../../schema/tutorial';
+import { CheckIfFilesExist } from '../../schema/tutorial';
 
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
 
-export const checkFiles = (checkIfFilesExist: CheckIfFilesExist, id: String) => {
+export const checkFiles = (checkIfFilesExist: CheckIfFilesExist, id: string): void => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
 
@@ -24,28 +24,28 @@ export const checkFiles = (checkIfFilesExist: CheckIfFilesExist, id: String) => 
 
         files = files.map((filePath: string) => path.normalize(filePath));
 
-        const correctFilesFromConfig = getCorrectFilePathsFromConfig(workspaceFolder, checkIfFilesExist.checkIfFilesExist!);
+        const correctFilesFromConfig = getCorrectFilePathsFromConfig(workspaceFolder, checkIfFilesExist.checkIfFilesExist);
         const isFileListCorrect = compareFileLists(correctFilesFromConfig, files);
 
         if (isFileListCorrect) {
             vscode.window.showInformationMessage(`all files are checked and folder structure is correct`);
-            ReactPanel.currentPanel?.sendToView({command: 'setInfo', text: 'You are good to go! All files are in their correct place.'});
-            ReactPanel.currentPanel?.sendToView({id: id, result: true});
+            ReactPanel.currentPanel?.sendToView({ command: 'setInfo', text: 'You are good to go! All files are in their correct place.' });
+            ReactPanel.currentPanel?.sendToView({ id: id, result: true });
         }
         else {
             vscode.window.showInformationMessage(`There is a problem in your folder structure of the tutorial`);
-            ReactPanel.currentPanel?.sendToView({command: 'setInfo', text: "Oooops... your workspace doesn't reflect the desired state."});
-            ReactPanel.currentPanel?.sendToView({id: id, result: false});
+            ReactPanel.currentPanel?.sendToView({ command: 'setInfo', text: "Oooops... your workspace doesn't reflect the desired state." });
+            ReactPanel.currentPanel?.sendToView({ id: id, result: false });
         }
     }
     else {
         vscode.window.showInformationMessage(`You don't have theia-extension folder. You should execute Init Exercise 0.`);
-        ReactPanel.currentPanel?.sendToView({id: id, result: false});
+        ReactPanel.currentPanel?.sendToView({ id: id, result: false });
     }
 };
 
 const compareFileLists = (correctFileList: string[], fileList: string[]) => {
-    for (var i = 0; i < correctFileList.length; i++) {
+    for (let i = 0; i < correctFileList.length; i++) {
         if (!fileList.includes(correctFileList[i])) {
             return false;
         }
@@ -57,7 +57,7 @@ const checkExerciseFile = (workspaceFolder: string) => {
     return fs.existsSync(workspaceFolder);
 };
 
-const getAllFiles = (dir: string) => (
+const getAllFiles = (dir: string): string[] => (
     fs.readdirSync(dir).reduce((files: string[], file: string) => {
 
 
