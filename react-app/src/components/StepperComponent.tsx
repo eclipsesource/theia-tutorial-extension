@@ -123,6 +123,7 @@ const StepperComponent = (props: StepperComponentProps) => {
   const [isCheckModalOpen, setCheckModal] = React.useState(false);
   const [isBuildWarningOpen, setBuildWarning] = React.useState(false);
   const [isScreenLocked, setLockScreen] = React.useState(false);
+  const [isSolveModalOpen, setSolveModal] = React.useState(false);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -137,22 +138,6 @@ const StepperComponent = (props: StepperComponentProps) => {
   const handleStep = (step: number) => {
     setActiveStep(step);
     window.scrollTo(0, 0);
-  };
-
-  const handlesolve = () => {
-    if (props.tutorial.exercises !== undefined) {
-      let ids: Array<String> = [];
-      props.tutorial.exercises[activeStep].solve!.forEach(() => {
-        ids.push(uuidv4());
-      });
-      VSCodeAPI.postMessage({
-        commands: props.tutorial.exercises[activeStep].solve,
-
-        ids: ids,
-        exerciseFolder: props.tutorial.tutorialFolder,
-      });
-      lockScreen(ids[ids.length - 1]);
-    }
   };
 
   const handleToggle = () => {
@@ -338,6 +323,90 @@ const StepperComponent = (props: StepperComponentProps) => {
     );
   };
 
+  const createSolveModal = () => {
+    return (
+      <div>
+        <Dialog
+          PaperProps={{
+            style: {
+              backgroundColor: vsTheme.Background.backgroundColor,
+              borderWidth: '1',
+              borderRadius: '1',
+              borderColor: vsTheme.contrast.color,
+            },
+          }}
+          onClose={() => {
+            setSolveModal(false);
+          }}
+          aria-labelledby='customized-dialog-title'
+          open={true}
+          maxWidth={'sm'}
+        >
+          <MuiDialogTitle disableTypography={true}>
+            <Typography className='text' variant='h5'>
+              {'Solve Exercise'}
+            </Typography>
+            <IconButton
+              aria-label='close'
+              style={{ color: vsTheme.icons.color }}
+              className={classes.closeButton}
+              onClick={() => {
+                setSolveModal(false);
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <MuiDialogContent dividers={true}>
+            <div style={{ color: vsTheme.text.color, width: '80%' }}>
+              This will automatically run all steps as described above. If you already completed them, you do not need to execute this action. Do you want me to solve the exercise for you?
+            </div>
+            <Grid
+              container={true}
+              direction='row'
+              justify='center'
+              alignItems='center'
+            >
+              <Button
+                className={classes.buttonBigMargin}
+                onClick={() => {
+                  setSolveModal(false);
+                }}
+                variant='contained'
+                color='primary'
+              >
+                Cancel
+              </Button>
+              <Button
+                className={classes.buttonBigMargin}
+                onClick={() => {
+                  if (props.tutorial.exercises !== undefined) {
+                    let ids: Array<String> = [];
+                    props.tutorial.exercises[activeStep].solve!.forEach(() => {
+                      ids.push(uuidv4());
+                    });
+                    VSCodeAPI.postMessage({
+                      commands: props.tutorial.exercises[activeStep].solve,
+                      ids: ids,
+                      exerciseFolder: props.tutorial.tutorialFolder,
+                    });
+                    lockScreen(ids[ids.length - 1]);
+                    setSolveModal(false);
+                  }
+                  }
+                }
+                variant='contained'
+                color='primary'
+              >
+                OK
+              </Button>
+            </Grid>
+          </MuiDialogContent>
+        </Dialog>
+      </div>
+    );
+  };
+
   return (
     <div className={classes.root}>
       <MuiThemeProvider theme={theme}>
@@ -490,7 +559,9 @@ const StepperComponent = (props: StepperComponentProps) => {
                   props.tutorial.exercises === undefined ||
                   props.tutorial.exercises[activeStep].solve === undefined
                 }
-                onClick={handlesolve}
+                onClick={() => {
+                  setSolveModal(true)}
+                }
                 className={classes.button}
               >
                 Solve
@@ -519,6 +590,7 @@ const StepperComponent = (props: StepperComponentProps) => {
         </div>
       </div>
       <div>{isTestModalOpen && createTestfeedback()}</div>
+      <div>{isSolveModalOpen && createSolveModal()}</div>
       <div>{isCheckModalOpen && createCheckStarStatefeedback()}</div>
       <div>{isBuildWarningOpen && createBuildWarning()}</div>
       <div>{isScreenLocked && creatScreenLock()}</div>

@@ -24,21 +24,32 @@ export const executeTerminalCommands = async (commands: TerminalCommands, id: St
     let index = 0;
     const next = () => {
         if (index < commands.terminalCommands.length) {
-            outputChannel.appendLine(commands.terminalCommands[index]);
-            exec(`cd ` + workspaceFolder + ` && ` + commands.terminalCommands[index++], (error: Error, stdout: string, stderr: string) => {
-                if (error !== null) {
-                    outputChannel.appendLine(error.message);
-                    if (index == commands.terminalCommands.length) {
-                        ReactPanel.currentPanel?.sendToView({id: id, result: false});
-                    }
-                } else {
-                    if (index == commands.terminalCommands.length) {
-                        ReactPanel.currentPanel?.sendToView({id: id, result: true});
-                    }
+            const silently = commands.terminalCommands[index].startsWith("silently");
+            const command = silently ? commands.terminalCommands[index].substring(9) : commands.terminalCommands[index];
+            outputChannel.appendLine(command);
+            index++;
+            if (silently){
+                if (index == commands.terminalCommands.length) {
+                    ReactPanel.currentPanel?.sendToView({id: id, result: true});
                 }
-                outputChannel.appendLine(stdout);
-                next();
-            });
+                exec(`cd ` + workspaceFolder + ` && ` + command);
+                setTimeout(() => next(), 1000);
+            } else {
+                exec(`cd ` + workspaceFolder + ` && ` + command, (error: Error, stdout: string, stderr: string) => {
+                    if (error !== null) {
+                        outputChannel.appendLine(error.message);
+                        if (index == commands.terminalCommands.length) {
+                            ReactPanel.currentPanel?.sendToView({id: id, result: false});
+                        }
+                    } else {
+                        if (index == commands.terminalCommands.length) {
+                            ReactPanel.currentPanel?.sendToView({id: id, result: true});
+                        }
+                    }
+                    outputChannel.appendLine(stdout);
+                    next();
+                });
+            }
         } else {
             outputChannel.appendLine('All commands completed');
         }
