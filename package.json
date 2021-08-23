@@ -4,7 +4,7 @@
   "description": "Tutorial Maker is a VSCode-Extension to display and create developer tutorials",
   "publisher": "EclipseSource",
   "repository": "https://github.com/eclipsesource/theia-tutorial-extension",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.51.0"
   },
