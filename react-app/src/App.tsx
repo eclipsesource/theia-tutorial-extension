@@ -36,7 +36,7 @@ export default function App() {
           <Button
             onClick={() => selectTutorial(tutorials.indexOf(tutorial))}
             variant='contained'
-            color='primary'
+            className='Button'
           >
             {tutorial.title}
           </Button>
