@@ -8,11 +8,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
-import {Console} from 'console';
 import * as vscode from 'vscode';
 import {TerminalCommands} from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
-const exec = require('child_process').exec;
+import { spawn } from 'child_process';
 
 export const executeTerminalCommands = async (commands: TerminalCommands, id: String) => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
@@ -29,24 +28,29 @@ export const executeTerminalCommands = async (commands: TerminalCommands, id: St
             outputChannel.appendLine(command);
             index++;
             if (silently){
-                if (index == commands.terminalCommands.length) {
+                if (index === commands.terminalCommands.length) {
                     ReactPanel.currentPanel?.sendToView({id: id, result: true});
                 }
-                exec(`cd ` + workspaceFolder + ` && ` + command);
+                spawn(`cd ${workspaceFolder} && ${command}`, [], { shell: true });
                 setTimeout(() => next(), 1000);
             } else {
-                exec(`cd ` + workspaceFolder + ` && ` + command, (error: Error, stdout: string, stderr: string) => {
-                    if (error !== null) {
-                        outputChannel.appendLine(error.message);
-                        if (index == commands.terminalCommands.length) {
-                            ReactPanel.currentPanel?.sendToView({id: id, result: false});
-                        }
+                const proc = spawn(`cd ${workspaceFolder} && ${command}`, [], { shell: true });
+                proc.stdout.on('data', function(msg){
+                    outputChannel.append(msg.toString());
+                });
+                proc.stderr.on('data', function(msg){
+                    outputChannel.append(msg.toString());
+                });
+                proc.on('close', (code) => {
+                    if (code !== 0) {
+                        outputChannel.appendLine(`Command ${command} failed with exit-code ${code}`);
+                        ReactPanel.currentPanel?.sendToView({id: id, result: false});
                     } else {
-                        if (index == commands.terminalCommands.length) {
+                        outputChannel.appendLine(`Command executed successfully`);
+                        if (index === commands.terminalCommands.length) {
                             ReactPanel.currentPanel?.sendToView({id: id, result: true});
                         }
                     }
-                    outputChannel.appendLine(stdout);
                     next();
                 });
             }

@@ -116,6 +116,7 @@ class ReactPanel {
           startAssistance(assistance, ids[commands.indexOf(command)]);
           break;
       }
+      await new Promise(r => setTimeout(r, 500));
     }
   }
 

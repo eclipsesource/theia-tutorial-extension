@@ -13,10 +13,10 @@ import {OpenFile} from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
 const path = require('path');
 
-export const openFile = async (openFIleCommand: OpenFile, id: String) => {
+export const openFile = async (openFileCommand: OpenFile, id: String) => {
 
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
-  const filepath = path.join(workspaceFolder, openFIleCommand.openFile);
+  const filepath = path.join(workspaceFolder, openFileCommand.openFile);
 
   try {
     const uri = vscode.Uri.file(filepath);
