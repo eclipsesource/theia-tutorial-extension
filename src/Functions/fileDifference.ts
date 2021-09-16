@@ -9,11 +9,12 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
-import {FileDiff} from '../../schema/tutorial';
+import { FileDiff } from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
-const path = require('path');
+import * as path from 'path';
 
-export const fileDifference = async (command: FileDiff, id: String) => {
+
+export const fileDifference = async (command: FileDiff, id: string): Promise<void> => {
 
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
@@ -25,9 +26,9 @@ export const fileDifference = async (command: FileDiff, id: String) => {
     const solUri = vscode.Uri.file(solpath);
     await vscode.workspace.fs.stat(fileUri);
     await vscode.workspace.fs.stat(solUri);
-    vscode.commands.executeCommand('vscode.diff', fileUri, solUri, "Compare with solution", {viewColumn: vscode.ViewColumn.One});
+    vscode.commands.executeCommand('vscode.diff', fileUri, solUri, "Compare with solution", { viewColumn: vscode.ViewColumn.One });
   } catch {
     vscode.window.showInformationMessage("The given filename was not found in your workspace.");
   }
-  ReactPanel.currentPanel?.sendToView({id: id, result: true});
+  ReactPanel.currentPanel?.sendToView({ id: id, result: true });
 };

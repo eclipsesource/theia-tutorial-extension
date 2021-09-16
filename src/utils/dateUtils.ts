@@ -1,7 +1,7 @@
 export class DateUtils {
-    public static currentTimestamp = () => {
-        let today = new Date();
-        let currentTimeStamp: string =
+    public static currentTimestamp = (): string => {
+        const today = new Date();
+        const currentTimeStamp: string =
             today.getFullYear() +
             '_' +
             (today.getMonth() + 1) +

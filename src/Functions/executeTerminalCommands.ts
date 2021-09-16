@@ -9,11 +9,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
 import * as vscode from 'vscode';
-import {TerminalCommands} from '../../schema/tutorial';
+import { TerminalCommands } from '../../schema/tutorial';
 import ReactPanel from '../ReactPanel';
 import { spawn } from 'child_process';
 
-export const executeTerminalCommands = async (commands: TerminalCommands, id: String) => {
+export const executeTerminalCommands = async (commands: TerminalCommands, id: string): Promise<void> => {
     const workspaceFolder: string = vscode.workspace.rootPath || '~';
 
     const outputChannel = vscode.window.createOutputChannel('Execute Commands');
@@ -27,9 +27,9 @@ export const executeTerminalCommands = async (commands: TerminalCommands, id: St
             const command = silently ? commands.terminalCommands[index].substring(9) : commands.terminalCommands[index];
             outputChannel.appendLine(command);
             index++;
-            if (silently){
+            if (silently) {
                 if (index === commands.terminalCommands.length) {
-                    ReactPanel.currentPanel?.sendToView({id: id, result: true});
+                    ReactPanel.currentPanel?.sendToView({ id: id, result: true });
                 }
                 spawn(`cd ${workspaceFolder} && ${command}`, [], { shell: true });
                 setTimeout(() => next(), 1000);
@@ -44,11 +44,11 @@ export const executeTerminalCommands = async (commands: TerminalCommands, id: St
                 proc.on('close', (code) => {
                     if (code !== 0) {
                         outputChannel.appendLine(`Command ${command} failed with exit-code ${code}`);
-                        ReactPanel.currentPanel?.sendToView({id: id, result: false});
+                            ReactPanel.currentPanel?.sendToView({ id: id, result: false });
                     } else {
                         outputChannel.appendLine(`Command executed successfully`);
                         if (index === commands.terminalCommands.length) {
-                            ReactPanel.currentPanel?.sendToView({id: id, result: true});
+                            ReactPanel.currentPanel?.sendToView({ id: id, result: true });
                         }
                     }
                     next();

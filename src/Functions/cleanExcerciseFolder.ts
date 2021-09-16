@@ -10,25 +10,26 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import ReactPanel from '../ReactPanel';
-import {DateUtils} from '../utils/dateUtils';
-const fse = require('fs-extra');
-const path = require('path');
-const fs = require('fs');
+import { DateUtils } from '../utils/dateUtils';
 
-export const cleanExcerciseFolder = (exerciseFolder: String, id: String): void => {
+import * as fse from 'fs-extra';
+import * as fs from 'fs';
+import * as path from 'path';
+
+export const cleanExcerciseFolder = (exerciseFolder: string, id: string): void => {
   const workspaceFolder: string = vscode.workspace.rootPath || '~';
-  let currentTimeStamp: string = DateUtils.currentTimestamp();
+  const currentTimeStamp: string = DateUtils.currentTimestamp();
 
-  let srcDir = path.normalize(path.join(workspaceFolder, exerciseFolder));
-  let destDir = path.normalize(path.join(workspaceFolder, ".tutorial/tmp/", exerciseFolder, currentTimeStamp));
+  const srcDir = path.normalize(path.join(workspaceFolder, exerciseFolder));
+  const destDir = path.normalize(path.join(workspaceFolder, ".tutorial/tmp/", exerciseFolder, currentTimeStamp));
 
   try {
     fse.copySync(srcDir, destDir);
   } catch (err) {
     console.error(err);
   }
-  fs.rmdirSync(srcDir, {recursive: true});
+  fs.rmdirSync(srcDir, { recursive: true });
   fs.mkdirSync(srcDir);
 
-  ReactPanel.currentPanel?.sendToView({id: id, result: true});
+  ReactPanel.currentPanel?.sendToView({ id: id, result: true });
 };

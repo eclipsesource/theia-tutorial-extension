@@ -35,6 +35,7 @@ import { Exercise, Tutorial } from '../../../schema/tutorial';
 import { vsTheme } from '../VsTheme';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -73,6 +74,12 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'absolute',
       top: 0,
       right: 0,
+    },
+    backButton: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      color: vsTheme.text.color,
     },
     textSmall: {
       color: vsTheme.text.color,
@@ -410,6 +417,9 @@ const StepperComponent = (props: StepperComponentProps) => {
   return (
     <div className={classes.root}>
       <MuiThemeProvider theme={theme}>
+        <IconButton onClick={() => { props.backToOverview(-1); }} className={classes.backButton}>
+          <ArrowBackIosIcon/>
+        </IconButton>
         <Stepper
           activeStep={activeStep}
           alternativeLabel={true}

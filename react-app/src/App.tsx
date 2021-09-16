@@ -10,7 +10,7 @@
  ********************************************************************************/
 import { Button } from '@material-ui/core';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import './App.css';
 import TutorialOverview from './components/TutorialOverview';
 import { VSCodeAPI } from './VSCodeAPI';
@@ -36,7 +36,7 @@ export default function App() {
           <Button
             onClick={() => selectTutorial(tutorials.indexOf(tutorial))}
             variant='contained'
-            color='primary'
+            className='Button'
           >
             {tutorial.title}
           </Button>
@@ -50,11 +50,12 @@ export default function App() {
       selectTutorial(-1);
     }
   }
+  const goBack = useCallback(() => selectTutorial(-1), []);
   return (
     <div className='App'>
       {!tutorials ||
-        selectedTutorial < 0 ||
-        selectedTutorial >= tutorials.length ? (
+      selectedTutorial < 0 ||
+      selectedTutorial >= tutorials.length ? (
         <>
           <header className='App-header'>
             <h1 className='App-title'>Tutorial Maker</h1>
@@ -66,7 +67,10 @@ export default function App() {
           </p>
         </>
       ) : (
-        <TutorialOverview tutorial={tutorials[selectedTutorial]} />
+        <TutorialOverview
+          tutorial={tutorials[selectedTutorial]}
+          goBack={goBack}
+        />
       )}
     </div>
   );

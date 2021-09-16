@@ -17,7 +17,6 @@ import {
   Grid,
 } from '@material-ui/core';
 import React from 'react';
-import { Command } from '../../../schema/tutorial';
 import { Test } from './Test';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
@@ -26,6 +25,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { vsTheme } from '../VsTheme';
 import CompareIcon from '@material-ui/icons/Compare';
 import { VSCodeAPI } from '../VSCodeAPI';
+import { CheckIfFilesExist, TerminalCommands } from '../../../schema/tutorial';
 
 const styles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,7 +44,7 @@ const styles = makeStyles((theme: Theme) =>
 
 interface Test {
   testName: string;
-  command: Command;
+  command: CheckIfFilesExist | TerminalCommands;
 }
 
 interface TestParagraph {
@@ -112,8 +112,8 @@ const createTestParagraph = (
           <Typography className='text' variant='h6'>
             {testParagraph.fileName
               ? testParagraph.fileName.split('/')[
-              testParagraph.fileName.split('/').length - 1
-              ]
+                  testParagraph.fileName.split('/').length - 1
+                ]
               : 'General'}
           </Typography>
           {testParagraph.solution !== undefined &&

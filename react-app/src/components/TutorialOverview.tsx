@@ -12,12 +12,37 @@ import React, { useState } from 'react';
 import StepperComponent from './StepperComponent';
 import { Tutorial } from '../../../schema/tutorial';
 import ExercisesOverview from './ExercisesOverview';
+import Button from '@material-ui/core/Button';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { IconButton, createStyles, makeStyles, Theme } from '@material-ui/core';
+import { vsTheme } from '../VsTheme';
 
 interface TutorialOverviewProps {
   tutorial: Tutorial;
+  goBack: () => void;
 }
 
-const TutorialOverview = ({ tutorial }: TutorialOverviewProps) => {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    h1: {
+      margin: '12px'
+    },
+    button: {
+      margin: '12px',
+      backgroundColor: vsTheme.Button.backgroundColor,
+      color: vsTheme.Button.color,
+    },
+    backButton: {
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      color: vsTheme.text.color,
+    }
+  })
+);
+
+const TutorialOverview = ({ tutorial, goBack }: TutorialOverviewProps) => {
+  const classes = useStyles();
   const [activeStep, setActiveStep] = useState(-1);
   if (
     !tutorial ||
@@ -28,13 +53,27 @@ const TutorialOverview = ({ tutorial }: TutorialOverviewProps) => {
       setActiveStep(-1);
     }
   }
-  return activeStep < 0 ? (
-    <ExercisesOverview
-      tutorial={tutorial}
-      setActiveStep={setActiveStep}
-    />
-  ) : (
-    <StepperComponent tutorial={tutorial} startStep={activeStep} backToOverview={setActiveStep} />
+  return (
+    <div>
+      <h2 className={classes.h1}>{tutorial.title}</h2>
+      {activeStep < 0 ? (
+        <div>
+          <IconButton onClick={goBack} className={classes.backButton}>
+            <ArrowBackIosIcon/>
+          </IconButton>
+          <ExercisesOverview
+            tutorial={tutorial}
+            setActiveStep={setActiveStep}
+          />
+        </div>
+      ) : (
+        <StepperComponent
+          tutorial={tutorial}
+          startStep={activeStep}
+          backToOverview={setActiveStep}
+        />
+      )}
+    </div>
   );
 };
 

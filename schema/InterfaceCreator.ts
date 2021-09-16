@@ -3,7 +3,7 @@ import {
   compile,
   JSONSchema,
 } from 'json-schema-to-typescript';
-const fs = require('fs');
+import * as fs from 'fs';
 
 export const tutorialSchema: JSONSchema = {
   definitions: {
@@ -375,9 +375,9 @@ export const tutorialSchema: JSONSchema = {
   },
 };
 // compile from file
-// compileFromFile('newTutorial.json')
-//     .then(ts => fs.writeFileSync('tutorial.d.ts', ts));
+compileFromFile('tutorial.json')
+  .then(ts => fs.writeFileSync('tutorial.d.ts', ts));
 
-compile(tutorialSchema, 'mySchema').then((ts) =>
-  fs.writeFileSync('tutorial.d.ts', ts)
-);
+// compile(tutorialSchema, 'mySchema').then((ts) =>
+//   fs.writeFileSync('tutorial.d.ts', ts)
+// );

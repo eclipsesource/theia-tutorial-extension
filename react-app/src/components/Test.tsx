@@ -8,16 +8,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR MIT
  ********************************************************************************/
+import { Grid } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, TextField } from '@material-ui/core';
-import { VSCodeAPI } from '../VSCodeAPI';
-import { Command, CommandButton } from '../../../schema/tutorial';
 import { v4 as uuidv4 } from 'uuid';
+import { CheckIfFilesExist, TerminalCommands } from '../../../schema/tutorial';
+import { VSCodeAPI } from '../VSCodeAPI';
 import { vsTheme } from '../VsTheme';
 
 interface Test {
   testName: string;
-  command: Command;
+  command: CheckIfFilesExist | TerminalCommands;
 }
 
 interface TestProbs {

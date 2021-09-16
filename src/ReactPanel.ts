@@ -10,22 +10,24 @@
  ********************************************************************************/
 import * as vscode from 'vscode';
 import {
-  Command,
   CheckIfFilesExist,
   AutomaticImport,
   OpenFile,
   FileDiff,
   TerminalCommands,
   Assistance,
+  CleanExerciseFolder,
 } from '../schema/tutorial';
-import {checkFiles, } from './Functions/checkFiles';
-import {addImports} from './Functions/addImports';
-import {openFile} from './Functions/openFile';
-import {cleanExcerciseFolder} from "./Functions/cleanExcerciseFolder";
-import {startAssistance} from './Functions/startAssistance';
-import {fileDifference} from './Functions/fileDifference';
-import {executeTerminalCommands} from './Functions/executeTerminalCommands';
-const path = require('path');
+import { checkFiles, } from './Functions/checkFiles';
+import { addImports } from './Functions/addImports';
+import { openFile } from './Functions/openFile';
+import { cleanExcerciseFolder } from "./Functions/cleanExcerciseFolder";
+import { startAssistance } from './Functions/startAssistance';
+import { fileDifference } from './Functions/fileDifference';
+import { executeTerminalCommands } from './Functions/executeTerminalCommands';
+import * as path from 'path';
+
+type Command = CheckIfFilesExist | TerminalCommands | CleanExerciseFolder | AutomaticImport | OpenFile | FileDiff | Assistance;
 
 class ReactPanel {
   public static currentPanel: ReactPanel | undefined;
@@ -34,7 +36,7 @@ class ReactPanel {
   private static _extensionPath: string;
   private _disposables: vscode.Disposable[] = [];
 
-  public static createOrShow(extensionPath?: string) {
+  public static createOrShow(extensionPath?: string): void {
     const column = vscode.ViewColumn.Two;
 
     if (ReactPanel.currentPanel) {
@@ -59,15 +61,15 @@ class ReactPanel {
     );
     vscode.commands.executeCommand('vscode.setEditorLayout', {
       orientation: 0,
-      groups: [{size: 0.5}, {size: 0.5}],
+      groups: [{ size: 0.5 }, { size: 0.5 }],
     });
-    this._panel.webview.html = this._getHtmlForWebview();
+    this._getHtmlForWebview().then(r => this._panel.webview.html = r);
     this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
     this._panel.webview.onDidReceiveMessage(
       (message: {
         commands: Array<Command>;
-        ids: Array<String>;
-        exerciseFolder: String;
+        ids: Array<string>;
+        exerciseFolder: string;
       }) => {
         this.processCommands(
           message.commands,
@@ -82,49 +84,56 @@ class ReactPanel {
 
   private async processCommands(
     commands: Array<Command>,
-    ids: Array<String>,
-    exerciseFolder: String
+    ids: Array<string>,
+    exerciseFolder: string
   ) {
     for (let i = 0; i < commands.length; i++) {
-      let command = commands[i];
+      const command = commands[i];
       switch (Object.keys(command)[0]) {
-        case 'checkIfFilesExist':
-          let checkFilesCommand = command as CheckIfFilesExist;
+        case 'checkIfFilesExist': {
+          const checkFilesCommand = command as CheckIfFilesExist;
           checkFiles(checkFilesCommand, ids[commands.indexOf(command)]);
           break;
-        case 'automaticImport':
-          let automaticImport = command as AutomaticImport;
+        }
+        case 'automaticImport': {
+          const automaticImport = command as AutomaticImport;
           addImports(automaticImport, ids[commands.indexOf(command)]);
           break;
-        case 'openFile':
-          let openFileInput = command as OpenFile;
+        }
+        case 'openFile': {
+          const openFileInput = command as OpenFile;
           await openFile(openFileInput, ids[commands.indexOf(command)]);
           break;
-        case 'fileDiff':
-          let fileDiff = command as FileDiff;
+        }
+        case 'fileDiff': {
+          const fileDiff = command as FileDiff;
           await fileDifference(fileDiff, ids[commands.indexOf(command)]);
           break;
-        case 'terminalCommands':
-          let terminalCommands = command as TerminalCommands;
+        }
+        case 'terminalCommands': {
+          const terminalCommands = command as TerminalCommands;
           await executeTerminalCommands(terminalCommands, ids[commands.indexOf(command)]);
           break;
-        case 'cleanExerciseFolder':
+        }
+        case 'cleanExerciseFolder': {
           cleanExcerciseFolder(exerciseFolder, ids[commands.indexOf(command)]);
           break;
-        case 'assistance':
-          let assistance = command as Assistance;
+        }
+        case 'assistance': {
+          const assistance = command as Assistance;
           startAssistance(assistance, ids[commands.indexOf(command)]);
           break;
+        }
       }
       await new Promise(r => setTimeout(r, 500));
     }
   }
 
-  public sendToView(data: any) {
+  public sendToView(data: any): void {
     this._panel.webview.postMessage(data);
   }
 
-  public dispose() {
+  private dispose() {
     ReactPanel.currentPanel = undefined;
     this._panel.dispose();
     while (this._disposables.length) {
@@ -135,8 +144,8 @@ class ReactPanel {
     }
   }
 
-  private _getHtmlForWebview() {
-    const manifest = require(path.join(
+  private async _getHtmlForWebview() {
+    const manifest = await import(path.join(
       ReactPanel._extensionPath,
       'out',
       'asset-manifest.json'
@@ -147,11 +156,11 @@ class ReactPanel {
     const scriptPathOnDisk = vscode.Uri.file(
       path.join(ReactPanel._extensionPath, 'out', mainScript)
     );
-    const scriptUri = scriptPathOnDisk.with({scheme: 'vscode-resource'});
+    const scriptUri = scriptPathOnDisk.with({ scheme: 'vscode-resource' });
     const stylePathOnDisk = vscode.Uri.file(
       path.join(ReactPanel._extensionPath, 'out', mainStyle)
     );
-    const styleUri = stylePathOnDisk.with({scheme: 'vscode-resource'});
+    const styleUri = stylePathOnDisk.with({ scheme: 'vscode-resource' });
 
     const nonce = getNonce();
 
