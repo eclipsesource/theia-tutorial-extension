@@ -17,7 +17,7 @@ Feel free to start a discussion by opening an issue on this repo or by contactin
 
 ### Build & Testing
 
-```
+```bash
 yarn compile
 ```
 
@@ -27,7 +27,7 @@ After that press `F5` to run the application.
 
 #### Packaging
 
-```
+```bash
 npm install -g vsce
 vsce package
 ```
@@ -35,9 +35,10 @@ vsce package
 #### Publishing
 
 ##### Open VSX
+
 Under [open-vsx.org](https://open-vsx.org/) register with your GitHub account and generate an Access Token.
 
-```
+```bash
 npx ovsx create-namespace <name> -p <token>
 npx ovsx publish <file> -p <token>
 ```
@@ -54,7 +55,8 @@ On `https://dev.azure.com/{yourorganization}`, open your user settings, then sel
 Copy the Personal acces token to use it with `vsce`
 
 From the root of the repository:
-```
+
+```bash
 vsce login <publisher name>
 vsce publish
 ```
