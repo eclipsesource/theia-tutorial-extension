@@ -12,7 +12,9 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "workspaceContains:**/*.tut.json",
+    "onCommand:theiatutorialextension.displayTutorial",
+    "onCommand:theiatutorialextension.createTutorial"
   ],
   "main": "./out/extension.js",
   "contributes": {
